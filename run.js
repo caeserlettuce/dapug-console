@@ -197,12 +197,14 @@ function parseCommand(command) {
                 document.getElementById("consoleinput").style.color = colour;
                 document.getElementById("consoleinputstyle").style.color = colour;
                 document.getElementById("scrollbar-colour").innerHTML = `::-webkit-scrollbar-thumb { background: rgba(${r}, ${g}, ${b}, 0.5); }`;
+                document.getElementById("link-styles").innerHTML = `.link {color: ${r}, ${g}, ${b}, 0.5; font-family: COURIERPRIME; } .link:hover { color: ${r}, ${g}, ${b}, 0.5; font-family: COURIERPRIME; } .link:visited color: ${r}, ${g}, ${b}, 0.5; font-family: COURIERPRIME; }`;
                 newAnim(`setting text colour to ${colour}`, 15);
             } else if (iffy == false && colour.toLowerCase() == "reset") {
                 document.getElementById("body").style.color = "#7cfc00";
                 document.getElementById("consoleinput").style.color = "#7cfc00";
                 document.getElementById("consoleinputstyle").style.color = "#7cfc00";
                 document.getElementById("scrollbar-colour").innerHTML = `::-webkit-scrollbar-thumb { background: rgba(124, 252, 0, 0.5); }`;
+                document.getElementById("link-styles").innerHTML = ".link {color: #7cfc00; font-family: COURIERPRIME; } .link:hover { color: #7cfc00; font-family: COURIERPRIME; } .link:visited color: #7cfc00; font-family: COURIERPRIME; }";
                 newAnim(`resetting text colour`, 15);
             }
             else {
@@ -759,6 +761,11 @@ function parseCommand(command) {
         newLine();
         smartAnim(haha, 5);
        
+    } else if (command == "git") {
+        // git command to show the git repo
+        newLine();
+        newLinkAnim('hello', 20, 'https://dapug.lol');
+
     }
     else {
         newLine();

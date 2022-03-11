@@ -15,12 +15,11 @@ var inputlock = false;
 var mainsys = true;
 var filesys = false;
 var comments = "";
-var debug = false;
+var debug = true;
 var debugvar = false;
 var debugHide = false;
 var debugHideVar = false;
-var snakegamestart
- = false;
+var snakegamestart = false;
 var snakegame = false;
 var enterlock = false;
 var snakeinputs = false;
@@ -287,7 +286,7 @@ async function animArt(array, speed) {
 
 debubg("animArt init finished...");
 
-function smartAnim(message, speed) {
+function smartAnim(message, speed,) {
     if (typeof message == "string") { // if it's a string
         newAnim(message, speed);
     } else if (typeof message == "object") { // if it's an object (copyArr only works with arrays though, but typeof's definition says object so if it breaks, it breaks.)
@@ -299,6 +298,66 @@ function smartAnim(message, speed) {
 }
 
 debubg("smartAnim init finished...");
+
+
+// this is so i can have links show up in the console properly n stuff because i cant just use animart because its dumb
+
+
+// update from 2 seconds later i have no idea whats going on hold up i gotta re read through this
+
+
+// basically i have to get the entirety of the console text into a variable at the beginning and then push it with the <a href> tag on each side
+
+// so instead of directly appending to the console it's gonna append an already created string to the text that was there beforehand
+
+// it may break things ubt eh
+
+// what if i tried using regular anim tho
+
+// hold on
+
+function newLinkAnim(message, speed, link) {
+    return new Promise((resolve,reject)=>{
+        //here our function should be implemented 
+        animDone = false;
+        var yoy = consol.innerHTML;
+        var messagey = message.split("");
+        var messageyLength = messagey.length;
+        //debubg(`${animDone} anim??`);
+        var beforeText = `${consoltext} <a href="${link}" class="link">`
+
+        
+        for (let i = 0; i < messageyLength; i++) {
+            //debubg(i);
+            setTimeout(function timer() {
+            
+            
+            beforeText = `${beforeText}${messagey[i]}`
+            
+
+            var frame = `${beforeText}</a>`;
+
+            //debubg(frame);
+
+            setScreen(frame);
+
+
+
+
+
+            if (i == messageyLength - 1) {
+                //debubg("dum")
+                resolve();
+                animDone = true;
+            }
+            }, i * speed);
+        }
+    });
+};
+
+
+debubg("newLinkAnim init finished...");
+
 
 function removeInline(amounb) {
     consoltext = consoltext.slice(0, -1 * amounb);
