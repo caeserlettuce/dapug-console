@@ -91,6 +91,7 @@ if (debug == false) {
 if (debugvar == false) {
     document.getElementById("debubvar").style.display = "none";
 }
+
 function sleep(time) {
     setTimeout(function(){ alert("ass"); }, time);
 }
