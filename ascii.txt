@@ -464,3 +464,53 @@ BENSON ANTIALIASING PASS:
    'MMMMMMMMMMMMMMMMMMMMMMMM'
      "MMMMMMMMMMMMMMMMMMMM'
         '""MMMMMMMMM""'
+
+
+
+GITHUB INITIAL PASS:
+
+              MMMMMMMMMMM
+          MMMMMMMMMMMMMMMMMMM
+       MMMMMMMMMMMMMMMMMMMMMMMM
+     MMMMMMMMMMMMMMMMMMMMMMMMMMMM
+    MMMMM  MMMMMMMMMMMMMMMM  MMMMMM
+   MMMMMM     M        M     MMMMMMM
+  MMMMMMM                    MMMMMMMM
+ MMMMMMMM                     MMMMMMM
+ MMMMMMM                       MMMMMMM
+MMMMMMMM                       MMMMMMM
+MMMMMMMM                       MMMMMMM
+MMMMMMMM                      MMMMMMMM
+ MMMMMMMM                     MMMMMMM
+  MMMMMMMMM                 MMMMMMMMM
+  MMMM   MMMMMMM       MMMMMMMMMMMMM
+    MMMM  MMMMM         MMMMMMMMMMM
+     MMMM               MMMMMMMMMM
+       MMMMMMMM         MMMMMMMM
+          MMMMM         MMMMM
+             MM         MM
+
+
+
+GITHUB ANTIALIASING PASS & FINAL:
+
+            .MMMMMMMMMMMM.
+         .MMMMMMMMMMMMMMMMMMM.
+      .MMMMMMMMMMMMMMMMMMMMMMMM.
+    .MMMMMMMMMMMMMMMMMMMMMMMMMMMM.
+   .MMMMMM "MMMMMMMMMMMMMMM" MMMMM.
+  .MMMMMM:    '        '     :MMMMM.
+ .MMMMMMM                     MMMMMM.
+ MMMMMMMM                     MMMMMMM:
+:MMMMMMM'                     'MMMMMMM
+:MMMMMM:                       :MMMMMM
+:MMMMMM:                       :MMMMMM
+:MMMMMMM.                     .MMMMMMM
+ MMMMMMMM.                   .MMMMMMM:
+ 'MMMMMMMMM.               .MMMMMMMMM
+  'MMM. 'MMMMMMM       MMMMMMMMMMMMM'
+   'MMM% 'MMMMM'       'MMMMMMMMMMM'
+    'MMMM.              MMMMMMMMMM'
+      'MMMMMMMM         MMMMMMMM'
+        '"MMMMM         MMMMM"'
+           '"MM         MM"'

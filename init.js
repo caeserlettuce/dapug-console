@@ -324,7 +324,7 @@ function newLinkAnim(message, speed, link) {
         var messagey = message.split("");
         var messageyLength = messagey.length;
         //debubg(`${animDone} anim??`);
-        var beforeText = `${consoltext} <a href="${link}" class="link">`
+        var beforeText = `${consoltext} <a href="${link}" target="_blank" class="link">`
 
         
         for (let i = 0; i < messageyLength; i++) {
@@ -504,11 +504,20 @@ function debugHidey() {
 
 debubg("extra tool functions init finished...");
 
+async function githubPage() {
+    newLine();
+    await animArt(githubArt, 1);
+    newLine();
+    newLine();
+    await animArt(githubText, 1);
+    newLine();
+    newLine();
+    await newLinkAnim("visit the github page", 5, "https://github.com/caeserlettuce/dapug-console");
+}
 
 
 
-
-
+debubg("async command functions init finished...");
 
 
 

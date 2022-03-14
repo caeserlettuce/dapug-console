@@ -762,15 +762,13 @@ function parseCommand(command) {
         newLine();
         smartAnim(haha, 5);
        
-    } else if (command == "git") {
-        // git command to show the git repo
-        newLine();
-        newLinkAnim('hello', 20, 'https://dapug.lol');
-
     } else if (command == "benson") {
         newLine();
         animArt(benson, 5)
         coopyIf(benson);
+    } else if (command == "github" || command == "git") {
+        // shows a fancy github info page lol
+        githubPage();
     }
     else {
         newLine();

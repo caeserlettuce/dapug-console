@@ -1282,6 +1282,41 @@ var benson = [
 `       '""MMMMMMMMM""'`
 ]
 
+var githubArt = [
+"            .MMMMMMMMMMMM.",
+"         .MMMMMMMMMMMMMMMMMMM.",
+"      .MMMMMMMMMMMMMMMMMMMMMMMM.",
+"    .MMMMMMMMMMMMMMMMMMMMMMMMMMMM.",
+`   .MMMMMM "MMMMMMMMMMMMMMM" MMMMM.`,
+"  .MMMMMM:    '        '     :MMMMM.",
+" .MMMMMMM                     MMMMMM.",
+" MMMMMMMM                     MMMMMMM:",
+":MMMMMMM'                     'MMMMMMM",
+":MMMMMM:                       :MMMMMM",
+":MMMMMM:                       :MMMMMM",
+":MMMMMMM.                     .MMMMMMM",
+" MMMMMMMM.                   .MMMMMMM:",
+" 'MMMMMMMMM.               .MMMMMMMMM",
+"  'MMM. 'MMMMMMM       MMMMMMMMMMMMM'",
+"   'MMM% 'MMMMM'       'MMMMMMMMMMM'",
+"    'MMMM.              MMMMMMMMMM'",
+"      'MMMMMMMM         MMMMMMMM'",
+`        '"MMMMM         MMMMM"'`,
+`           '"MM         MM"'`,
+]
+
+var githubText = [
+".%MMMMMMM%.           MM      MM",
+"%MM%' '%MM%           MM      MM",
+"MM'     'MM           MM      MM         MM",
+"MM          MM   MM   MM......MM         MM",
+"MM             MMMMMM MMMMMMMMMM         MM",
+"MM      MM% MM   MM   MM''''''MM MM   MM MMMMMM.",
+"MM.     'MM MM   MM   MM      MM MM   MM MM' 'MM",
+"%MM%. .%MM% MM   MM   MM      MM MM. .MM MM. .MM",
+"'%MMMMMMM%' MM   MM   MM      MM 'MMMMM' 'MMMMM'",
+]
+
 var abooot = [
     "     ",
     "DAPUG.LOL CONSOLE, CODED BY CAESERLETTUCE (DA PUG) ON GITHUB. PROJECT STARTED ON 24-01-22",
@@ -1292,6 +1327,7 @@ var abooot = [
 var hlep = [
     "HELP PAGE",
     "info / about | info about this page",
+    "github / git | info about the github page for this",
     "help | shows this page",
     "man [command] | shows an in-depth help page for a specific command",
     "help -art | lists all the fun art commands",
@@ -1347,7 +1383,8 @@ var cpoylist = [
     "lovejoy",
     "cheese",
     "convert",
-    "pebblebrain"
+    "pebblebrain",
+    "benson",
 ];
 
 // GUIDE TO MAN NAMES:
@@ -1583,6 +1620,9 @@ var listy = [
     "clear -cache",
     "clear -cache -ignore",
     "comment -clear",
+    "benson",
+    "github",
+    "git",
 
     "* command is currently in-development and may break the site."
 ]; 
