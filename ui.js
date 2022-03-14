@@ -1261,6 +1261,27 @@ var pebblebrain = [
 
 ]
 
+var benson = [
+"      .,MMMMMMMM,.",
+"    .MMMMMMMMMMMMMMM.",
+"   %MMMMMMMMMMMMMMMMMM.",
+"  %MMMMMMMMMMMMMMMMMMMM.",
+" ;MMMMMMMMMMMMMMMMMMMMMM",
+" MlMMMMMMllMMMMMMMMMMMMM",
+" MMMMMMMMMMMMMMMMMMMMMMMlM.",
+"IIIIIIIIIIMMMMMMMMMMMMMMlMMM.",
+"IIIIIIIIIIMMMMMMMMMMMMMMlMMMMM",
+" MMMMMMMMMMMMMMMMMMMMMMMMMMMMM",
+" MMMMMMMMMMMMMMMMMMMMMMMMMMMMM",
+" MMMMMMMMMMMMMMMMMMMMMMMMMMMMM",
+" MMMMMMMMMMMMMMMMMMMMMMMMMMMM:",
+" MMMMMMMMMMMMMMMMMMMMMMMMMMMM",
+" 'MMMMMMMMMMMMMMMMMMMMMMMMMM'",
+"  'MMMMMMMMMMMMMMMMMMMMMMMM'",
+`    "MMMMMMMMMMMMMMMMMMMM'`,
+`       '""MMMMMMMMM""'`
+]
+
 var abooot = [
     "     ",
     "DAPUG.LOL CONSOLE, CODED BY CAESERLETTUCE (DA PUG) ON GITHUB. PROJECT STARTED ON 24-01-22",
@@ -1304,7 +1325,8 @@ var hlepart = [
     "sus / among us / amogus",
     "lovejoy",
     "cheese",
-    "pebblebrain / pebble brain"
+    "pebblebrain / pebble brain",
+    "benson",
 ];
 
 var hlepdev = [
@@ -1454,6 +1476,54 @@ var MAN_comment = [
     " ",
     "NOTE: <comment> section is only supported for the 'add' option."
 ]
+
+var MAN_ascii = [
+    "ASCII MANPAGE:",
+    "generates an ASCII text art of any sentence",
+    "if you want to copy the output of this command, check the manpage for 'copy'",
+    " ",
+    "USAGE:",
+    "'ascii [font] [sentence]'",
+    " ",
+    "OPTIONS:",
+    "font | the ascii font to use, check 'font list' to see the list of fonts",
+    "sentence | the sentence you want put into ascii art",
+    "",
+    "EXAMPLE:",
+    "'ascii default Hello, World!'",
+]
+
+var MAN_copy = [
+    "COPY MANPAGE:",
+    "copy is a command you put in front of another command to copy its output.",
+    "(not all commands are supported, so check 'copylist' for a list of supported commands.",
+    " ",
+    "USAGE:",
+    "'copy [command]'",
+    " ",
+    "EXAMPLE:",
+    "'copy ascii d Hello, World!'",
+    " ",
+    "NOTES:",
+    "to have the output automatically commented out for coding, use the command 'copycomm' (check the manpage for it)",
+]
+
+var MAN_copycomm = [
+    "COPYCOMM MANPAGE:",
+    "automatically comment out the copied output of your command",
+    " ",
+    "USAGE:",
+    "'copycomm [comment string]'",
+    " ",
+    "OPTIONS:",
+    "comment string | a string that will appear at the beginning of every line of the copied text.",
+    " ",
+    "EXAMPLE:",
+    "'copycomm //' <-- the comment character for javascript",
+    "'copycomm none' <-- this will reset the comment to nothing"
+]
+
+
 
 var listy = [
     "info",

@@ -736,6 +736,7 @@ function parseCommand(command) {
     } else if (command == "pebblebrain" || command == "pebble brain") {
         newLine();
         animArt(pebblebrain, 1);
+        coopyIf(pebblebrain);
     } else if (argCommand == "man") {
         var incommand = commandInit.slice(4);
         debubg(`[MAN] queueing command ${incommand}.`);
@@ -766,6 +767,10 @@ function parseCommand(command) {
         newLine();
         newLinkAnim('hello', 20, 'https://dapug.lol');
 
+    } else if (command == "benson") {
+        newLine();
+        animArt(benson, 5)
+        coopyIf(benson);
     }
     else {
         newLine();

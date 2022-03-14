@@ -15,7 +15,7 @@ var inputlock = false;
 var mainsys = true;
 var filesys = false;
 var comments = "";
-var debug = true;
+var debug = false;
 var debugvar = false;
 var debugHide = false;
 var debugHideVar = false;
@@ -503,6 +503,15 @@ function debugHidey() {
 
 
 debubg("extra tool functions init finished...");
+
+
+
+
+
+
+
+
+
 // EXAMPLE INLINE FNCTIONS WHERE THEY ONLY rUN ONE THING AT A TIME INSTEAD OF EVERYTHING RUNNING AT HE SAME TIME
 //function exampleInline() {
 //    return new Promise((resolve,reject)=>{
