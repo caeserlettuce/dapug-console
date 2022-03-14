@@ -17,3 +17,14 @@ so
 that's it
 
 have fun
+
+
+## TODO:
+
+- [ ] url parameters
+  - [ ] automatically set debug to true when it's set in the url
+  - [ ] automatically run commands at startup depending on the url param
+- [ ] switch the `convert` command to be ran procedurally (remove the massive block of if/else statements and replace it with something that will automatically detect what variable to use depending on in/out units so the code is cleaner and fancier) (maybe steal some code from the manpage command lol)
+- [ ] more fun ascii arts
+- [ ] finish all manpages
+- [ ] complete filesys (because that's a thing i forgot about but exists)

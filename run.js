@@ -1,6 +1,6 @@
 
 
-//
+// guys it literally says you are sus with a phone number on it
 
 
 
@@ -628,6 +628,11 @@ function parseCommand(command) {
         animArt(convertlist, 1);
         
         
+    } else if (command == "convert") {
+        
+        newLine();
+        newAnim("please check the convert manpage. ('man convert')", 5);
+        
     } else if (argCommand == "convert") {
 
         // HOW TO ADD MORE MEASURMENTS FOR FUTURE JESSE:
@@ -643,83 +648,99 @@ function parseCommand(command) {
         var fromunit = mmm[3];
         var tounit = mmm[4];
         var baseCM = 0;
+        var baseG = 0;
         var output = "something is broken and it did not output any conversion";
         var error = false;
         var OUTY = "a";
         // ALL CONVERSIONS FROM CM
-        var mm = 0.1;
-        var cm = 1;
-        var m = 100;
-        var km = 100000;
-        var inc = 2.54; // screw you javascript for not letting me keep in consistent by not letting me use var in. im not mad. just dissapointed.
-        var ft = 30.48;
-        var yd = 91.44;
-        var mi = 160934.4;
-        var hm = 10.16;
+        var cv_mm = 0.1;
+        var cv_cm = 1;
+        var cv_m = 100;
+        var cv_km = 100000;
+        var cv_in = 2.54; // screw you javascript for not letting me keep in consistent by not letting me use var in. im not mad. just dissapointed.
+        var cv_ft = 30.48;
+        var cv_yd = 91.44;
+        var cv_mi = 160934.4;
+        var cv_hm = 10.16;
+
+        // ALL CONVERSIONS FROM G
+
+        var cv_mg = 0.001
+        var cv_g = 1;
+        var cv_kg = 1000;
+        var cv_lb = 453.592;
+        var cv_oz = 28.3495;
+
+
+
+
         debubg(`converting ${unittype} ${amount} ${fromunit} to ${tounit}...`);
         amount = parseInt(amount);
         if (unittype == "-l") {
             // CONVERT INPUT UNIT TO BASEE CM SO THEN THOSE CAN BE CONVERTED TO OUTPUT UNIT TO MAKE THINGS EASIER
             if (fromunit == "mm") {
                 debubg(`from mm`);
-                baseCM = amount * mm;
+                baseCM = amount * cv_mm;
             } else if (fromunit == "cm") {
                 debubg(`from cm`);
-                baseCM = amount * cm;
+                baseCM = amount * cv_cm;
             } else if (fromunit == "m") {
                 debubg(`from m`);
-                baseCM = amount * m;
+                baseCM = amount * cv_m;
             } else if (fromunit == "km") {
                 debubg(`from km`);
-                baseCM = amount * km;
+                baseCM = amount * cv_km;
             } else if (fromunit == "in") {
                 debubg(`from inc`);
-                baseCM = amount * inc;
+                baseCM = amount * cv_in;
             } else if (fromunit == "ft") {
                 debubg(`from ft`);
-                baseCM = amount * ft;
+                baseCM = amount * cv_ft;
             } else if (fromunit == "yd") {
                 debubg(`from yd`);
-                baseCM = amount * yd;
+                baseCM = amount * cv_yd;
             } else if (fromunit == "mi") {
                 debubg(`from mi`);
-                baseCM = amount * mi;
+                baseCM = amount * cv_mi;
             } else if (fromunit == "hm") {
                 debubg(`from hm`);
-                baseCM = amount * hm;
+                baseCM = amount * cv_hm;
             } else {
                 error = true;
             }
             if (error == true) {
                 output = 'from unit does not exist in system or is the incorrect unit type. use "convert -list" to list all units."';
             } else {
+
+                debubg(`current base cm: ${baseCM}`);
+
                 if (tounit == "mm") {
                     debubg(`to mm`);
-                    OUTY = baseCM / mm;
+                    OUTY = baseCM / cv_mm;
                 } else if (tounit == "cm") {
                     debubg(`to cm`);
-                    OUTY = baseCM / cm;
+                    OUTY = baseCM / cv_cm;
                 } else if (tounit == "m") {
                     debubg(`to m`);
-                    OUTY = baseCM / m;
+                    OUTY = baseCM / cv_m;
                 } else if (tounit == "km") {
                     debubg(`to km`);
-                    OUTY = baseCM / km;
+                    OUTY = baseCM / cv_km;
                 } else if (tounit == "in") {
                     debubg(`to in`);
-                    OUTY = baseCM / inc;
+                    OUTY = baseCM / cv_in;
                 } else if (tounit == "ft") {
                     debubg(`to ft`);
-                    OUTY = baseCM / ft;
+                    OUTY = baseCM / cv_ft;
                 } else if (tounit == "yd") {
                     debubg(`to yd`);
-                    OUTY = baseCM / yd;
+                    OUTY = baseCM / cv_yd;
                 } else if (tounit == "mi") {
                     debubg(`to mi`);
-                    OUTY = baseCM / mi;
+                    OUTY = baseCM / cv_mi;
                 } else if (tounit == "hm") {
                     debubg(`to hm`);
-                    OUTY = baseCM / hm;
+                    OUTY = baseCM / cv_hm;
                 } else {
                     error = true;
                 }
@@ -729,7 +750,67 @@ function parseCommand(command) {
                     output = `${OUTY}`;
                 }
             }
+
+
+
+            
+        } else if (unittype == "-m") {
+            // CONVERT INPUT UNIT TO BASEE CM SO THEN THOSE CAN BE CONVERTED TO OUTPUT UNIT TO MAKE THINGS EASIER
+            if (fromunit == "mg") {
+                debubg(`from mg`);
+                baseG = amount * cv_mg; // change to thing
+            } else if (fromunit == "g") {
+                debubg(`from g`);
+                baseG = amount * cv_g; // change to thing
+            } else if (fromunit == "kg") {
+                debubg(`from kg`);
+                baseG = amount * cv_kg; // change to thing
+            } else if (fromunit == "lb") {
+                debubg(`from lb`);
+                baseG = amount * cv_lb; // change to thing
+            } else if (fromunit == "oz") {
+                debubg(`from oz`);
+                baseG = amount * cv_oz; // change to thing
+            } else {
+                error = true;
+            }
+            if (error == true) {
+                output = 'from unit does not exist in system or is the incorrect unit type. use "convert -list" to list all units."';
+            } else {
+
+                debubg(`current base grams: ${baseG}`);
+
+                if (tounit == "mg") {
+                    debubg(`to mg`);
+                    OUTY = baseG / cv_mg;
+                } else if (tounit == "g") {
+                    debubg(`to g`);
+                    OUTY = baseG / cv_g;       // work on all the weight conversions AND DONT FORGET TO UPDATE THE LIST IN UI.JS!!!!!!!!!!!!!
+                } else if (tounit == "kg") {
+                    debubg(`to kg`);
+                    OUTY = baseG / cv_kg;
+                } else if (tounit == "lb") {
+                    debubg(`to lb`);
+                    OUTY = baseG / cv_lb;
+                } else if (tounit == "oz") {
+                    debubg(`to oz`);
+                    debubg(`${baseG} / ${cv_oz}`);      // i am an idiot, i've been trying to figure out why it's spitting out 1 even though everything should be correct and the reason is:::: it's still reading the from unit..... yeah im dum
+                    OUTY = baseG / cv_oz;
+                }
+                else {
+                    error = true;
+                }
+                if (error == true) {
+                    output = 'to unit does not exist in system or is the incorrect unit type. use "convert -list" to list all units."';
+                } else {
+                    output = `${OUTY}`;
+                }
+            }
+
+        } else {
+            output = "invalid unit type. check 'convert -list' for a list of unit type";
         }
+
         newLine();
         newAnim(output, 5);
         coopyIf(output);
@@ -760,7 +841,7 @@ function parseCommand(command) {
         }
 
         newLine();
-        smartAnim(haha, 5);
+        smartAnim(haha, 3);
        
     } else if (command == "benson") {
         newLine();

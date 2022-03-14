@@ -1560,6 +1560,25 @@ var MAN_copycomm = [
     "'copycomm none' <-- this will reset the comment to nothing"
 ]
 
+var MAN_convert = [
+    "CONVERT MANPAGE:",
+    "convert one unit into another unit",
+    " ",
+    "USAGE:",
+    "'convert [unit type] [amount] [from unit] [to unit]",
+    " ",
+    "OPTIONS:",
+    "unit type | if the unit measures length, volume, weight, etc. (check 'convert -list' for all unit types)",
+    "   amount | the input amount you want to convert",
+    "from unit | the unit you're converting from (in, km, etc.) check 'convert -list' for all the units.",
+    "  to unit | the unit you're converting to (mi, cm, etc.) check 'convert -list' for all the units.",
+    " ",
+    "EXAMPLE:",
+    "'convert -l 100 in ft'",
+    "'convert -l 5 km m'",
+]
+
+
 
 
 var listy = [
@@ -1638,6 +1657,7 @@ var convertlist = [
     " ",
     "CONVERSION TYPES:",
     "-l | length",
+    "-m | mass (weight)",
     " ",
     "LENGTH CONVERSIONS:",
     " ",
@@ -1649,7 +1669,15 @@ var convertlist = [
     "ft | feet",
     "yd | yards",
     "mi | miles",
-    "hm | hamburgers"
+    "hm | hamburgers",
+    " ",
+    "MASS CONVERSIONS:",
+    " ",
+    "mg | milligrams",
+    " g | grams",
+    "kg | kilograms",
+    "lb | pounds",
+    "oz | ounces",
 
 ];
 
