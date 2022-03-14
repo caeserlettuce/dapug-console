@@ -501,6 +501,21 @@ function debugHidey() {
     var debubtoHide = document.getElementById()
 }
 
+function varExists(variable) {
+    var existy = false;
+    eval(`if (typeof ${variable} !== 'undefined') { existy = true;}`);
+    return existy
+}
+
+function keyExists(json, key) {
+    var yes;
+    if(json.hasOwnProperty(`${key}`)){
+        yes = true;
+    } else {
+        yes = false;
+    }
+    return yes
+}
 
 debubg("extra tool functions init finished...");
 

@@ -635,6 +635,102 @@ function parseCommand(command) {
         
     } else if (argCommand == "convert") {
 
+        // the test development command for the new convert which should hopefully do things automatically
+
+        // no longer test development lol
+
+        var mmm = argComm(commandInit);
+        // convert 10 cm in
+        var unittype = mmm[1];
+        var amount = mmm[2];
+        var fromunit = mmm[3];
+        var tounit = mmm[4];
+        var output = "something is broken and it did not output any conversion";
+        var error = false;
+        var OUTY = "a";
+        // ALL CONVERSIONS (in a fancy json lol)
+
+        var units = {
+            "l": {
+                "mm": 0.1,
+                "cm": 1,
+                "m": 100,
+                "km": 100000,
+                "in": 2.54,
+                "ft": 30.48,
+                "yd": 91.44,
+                "mi": 160934.4,
+                "hm": 10.16
+            },
+            "m": {
+                "mg": 0.001,
+                "g": 1,
+                "kg": 1000,
+                "lb": 453.592,
+                "oz": 28.3495,
+            }
+        }
+        
+        debubg(`converting ${unittype} ${amount} ${fromunit} to ${tounit}...`);
+        amount = parseInt(amount);
+
+        // removing the '-' so that way itll properly search from the json
+        var unitTypeRaw = unittype.split("")[1];
+
+        debubg(`unit type: ${unitTypeRaw}`);
+
+
+        var typeTest = keyExists(units, `${unitTypeRaw}`);
+        
+
+        if (typeTest == true){
+            debubg("unit type found. continuing.");
+
+            var fromTest = keyExists(units[unitTypeRaw], `${fromunit}`);
+            var toTest = keyExists(units[unitTypeRaw], `${tounit}`);
+
+            if (fromTest == true && toTest == true) {
+                debubg("from unit found. continuing.")
+
+                // CONVERT
+                
+                var BASE = 0;
+                var value_tm_1 = units[unitTypeRaw][fromunit];
+                var value_tm_2 = units[unitTypeRaw][tounit];
+
+                eval(`BASE = ${amount} * ${value_tm_1}`);
+                eval(`OUTY = ${BASE} / ${value_tm_2}`);
+
+                debubg(`OUT: ${OUTY}`);
+
+                output = `${OUTY}`;
+
+
+            } else {
+                if (fromTest == false && toTest == true) {
+                    output = "from unit not found. check 'convert -list' for a list of all the supported units";
+                } else if (fromTest == true && toTest == false) {
+                    output = "to unit not found. check 'convert -list' for a list of all the supported units";
+                } else {
+                    output = "from unit and to unit not found. check 'convert -list' for a list of all the supported units";
+                }
+            }
+
+        } else {
+            debubg("unit type not found lmao");
+            output = "unit type not found. check 'convert -list' for a list of all the supported units";
+        }
+        
+
+    
+        newLine();
+        newAnim(output, 5);
+        coopyIf(output);
+    
+    
+    
+    } else if (argCommand == "convert-old") {
+
         // HOW TO ADD MORE MEASURMENTS FOR FUTURE JESSE:
         // MAKE A NEW VAR AT THE END OF THE CONVERSIONS BLOCK, imma stop being in all caps
         // add a new var at the end of that, and the value has to be how many centimeters would 1 of that unit be
@@ -814,6 +910,22 @@ function parseCommand(command) {
         newLine();
         newAnim(output, 5);
         coopyIf(output);
+    
+    
+    } else if (command == "pebblebrain" || command == "pebble brain") {
+        if (existent == true) {
+            debubg("command is in man registry.");
+            eval(`haha = ${manvar}`);
+        } else {
+            debubg("command is not in man registry.")
+            haha = "there is no current man page for this command.";
+        }
+
+    
+    
+    
+    
+    
     } else if (command == "pebblebrain" || command == "pebble brain") {
         newLine();
         animArt(pebblebrain, 1);
@@ -826,7 +938,7 @@ function parseCommand(command) {
         debubg(`command name after processed: ${yee}`);
         var manvar = `MAN_${yee}`;
         debubg(`full man var is ${manvar}.`);
-
+        
         var existent = false;
         // the internet tells me to never use eval() but i don't care because this is not running on a full on web server so crime war
         eval(`if (typeof ${manvar} !== 'undefined') { existent = true;}`)
