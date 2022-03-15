@@ -3,18 +3,24 @@
 // this is a library/function thing that makes it easy to set up url parameters ( https://yoursite.com/app?debugmode=true )
 // like that
 
-
 // CHECK README.md FOR ALL INFORMATION ABOUT THIS LIBRARY
 
 // variables setup
 var urlParamsList = [];        // the actual names of the parameters in the url
 // use params.push() to append
 var THEdebug = true;
+var glob = false;   // global variable setting is false by default
 
 function yayaDEBUG(message) {
     if (THEdebug == true) {
         debubg(`[URLPARAMS]: ${message}`);
     }
+}
+
+// global variable settinng-ness is SCREWING things up in my script
+
+function globalVars(boo) {
+    glob = boo;
 }
 
 function paramsDebugMode(value) {
@@ -58,7 +64,7 @@ function addParameters(params) {
 function getParameters() {
     // will return a list of all parameters
     yayaDEBUG("getting parameters...");
-    final = [];
+    var final = [];
 
 
     for (let i = 0; i < urlParamsList.length; i++ ) {
@@ -66,7 +72,9 @@ function getParameters() {
         yayaDEBUG(`getting parameter ${urlParamsList[i]}`);
         paramOutput = urlParameters.get(urlParamsList[i]);
         yayaDEBUG(`param output: ${paramOutput}`);
-        eval(`window.${urlParamsList[i]} = '${paramOutput}'`);
+        if (glob == true) {
+            eval(`window.${urlParamsList[i]} = '${paramOutput}'`);
+        }
         final.push(paramOutput)
     }
     return final;

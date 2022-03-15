@@ -75,7 +75,59 @@ debubg("local storage init finished.");
 // ill work on that one later
 
 
+// url params
 
+
+globalVars(false);
+
+var consoleParams = ["debug", "debugvar", "suggestion", "command"];
+
+
+addParameters(consoleParams);
+
+var pams = getParameters()
+
+var pr_debug = pams[0];
+var pr_debugvar = pams[1];
+var pr_suggestion = pams[2];
+var pr_command = pams[3];
+
+debubg(`[url param init] debug: ${pr_debug}, debugvar: ${pr_debugvar}, suggestion: ${pr_suggestion}, command: ${pr_command}`);
+
+
+// toggle the debugs
+if (pr_debug == "true") {
+    debug = true;
+} else {
+    debug = false;
+}
+if (pr_debugvar == "true") {
+    debugvar = true;
+} else {
+    debugvar = false;
+}
+
+// suggest command
+
+
+
+if (pr_suggestion != null) { // if there is an entry for the url link
+    document.getElementById("consoleinput").value = `${pr_suggestion}`;
+}
+
+if (pr_command != null) { // if theres something at the url link and not just empty
+    var text = `${pr_suggestion}`;
+
+    document.getElementById("consoleinput").value = text;
+
+    window.dispatchEvent(new KeyboardEvent('keyup', {
+        keyCode: 13
+      }));
+    
+
+}
+
+debubg("url params init finished...");
 
 
 
@@ -120,7 +172,12 @@ function toggleHideDebugVar() {
         document.getElementById("debubvar").style.height = "295px";
     }
 }
+
+
+
 debubg("debug window init finished...");
+
+
 function copyclip(idiot) {
     navigator.clipboard.writeText(idiot);
 }
@@ -229,7 +286,7 @@ commandhistorylock: ${commandhistorylock}
        snakeingame: ${snakeingame}
          snaketick: ${snaketick}
 `;
-        debubg("binted.");
+        console.log("binted.");
     }
 }
 function animyOne() {
@@ -517,6 +574,29 @@ function keyExists(json, key) {
     return yes
 }
 
+// more json crap ahaa ha a ha h ha
+
+
+function jsonReplace(string, json, to) {
+    var toot = 0;
+    var foom = 1;
+    var finale = `${string}`;
+    debubg(`[url parsing] original: ${finale}`);
+    if (to == false) {
+        toot = 1;
+        foom = 0;
+    }
+    for (i in json["parse"]) {
+        var too = json["parse"][i][toot];
+        var foo = json["parse"][i][foom];
+        debubg(`[url parsing] haha: ${too} | ${foo}`);
+        finale = finale.replace(`${too}`, `${foo}`);
+        debubg(`[url parsing] ${i}: ${finale}`);
+    }
+    return finale
+}
+
+// =============================== TOOL FUNCTIONS ABOVE ==================
 debubg("extra tool functions init finished...");
 
 async function githubPage() {
@@ -582,7 +662,7 @@ debubg("async command functions init finished...");
 
 
 var elem = document.getElementById("consoleinput");
-    elem.onkeyup = function(e){
+    elem.onkeyup = function keyParse(e){
         if (inputlock == false) {
             if(e.keyCode == 13) {
                 if (elem.value != "") {
@@ -665,4 +745,6 @@ var elem = document.getElementById("consoleinput");
         
 
 console.log("key input init finished...");
+
+
 
