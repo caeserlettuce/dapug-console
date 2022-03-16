@@ -34,6 +34,8 @@ var currentCOM = "";
 var snakegamespeed = 1;
 var snakeingame = false;
 var snaketick = 0;
+var textcolour = "#7cfc00";
+var backcolour = "#000000";
 debubg("variable init finished...");
 // local storage setup
 
@@ -115,17 +117,36 @@ if (pr_suggestion != null) { // if there is an entry for the url link
     document.getElementById("consoleinput").value = `${pr_suggestion}`;
 }
 
-if (pr_command != null) { // if theres something at the url link and not just empty
-    var text = `${pr_suggestion}`;
+//if (pr_command != null) { // if theres something at the url link and not just empty
+//    var text = `${pr_command}`;
 
-    document.getElementById("consoleinput").value = text;
+//    var elem = document.getElementById("consoleinput");
 
-    window.dispatchEvent(new KeyboardEvent('keyup', {
-        keyCode: 13
-      }));
+//    elem.value = text;
+
+    //document.getElementById("consoleinput").dispatchEvent(new KeyboardEvent('keyup', {
+    //    key: "enter"
+    //}));
     
+//    var sting = elem.value;
+//    commang.push(text);
+//    userAppend(`${text}`);
 
-}
+//    if (mainsys == true) {
+//        parseCommand(text);
+//    } else if (filesys == true) {
+//        filesysParse(text);
+//    }
+
+    
+//    elem.value = "";
+//    currentHistCOm = 0;
+//    currentCOM = 0;
+//    scrolly();
+    //debubg(consoltext);
+    //debubg(commang);
+
+//}
 
 debubg("url params init finished...");
 
@@ -285,6 +306,8 @@ commandhistorylock: ${commandhistorylock}
     snakegamespeed: ${snakegamespeed}
        snakeingame: ${snakeingame}
          snaketick: ${snaketick}
+        textcolour: ${textcolour}
+        backcolour: ${backcolour}
 `;
         console.log("binted.");
     }

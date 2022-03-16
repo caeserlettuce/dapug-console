@@ -197,14 +197,14 @@ function parseCommand(command) {
                 document.getElementById("consoleinput").style.color = colour;
                 document.getElementById("consoleinputstyle").style.color = colour;
                 document.getElementById("scrollbar-colour").innerHTML = `::-webkit-scrollbar-thumb { background: rgba(${r}, ${g}, ${b}, 0.5); }`;
-                document.getElementById("link-styles").innerHTML = `.link {color: ${r}, ${g}, ${b}, 0.5; font-family: COURIERPRIME; } .link:hover { color: ${r}, ${g}, ${b}, 0.5; font-family: COURIERPRIME; } .link:visited color: ${r}, ${g}, ${b}, 0.5; font-family: COURIERPRIME; }`;
+                document.getElementById("link-styles").innerHTML = `.link {color: rgb(${r}, ${g}, ${b}); font-family: COURIERPRIME; } .link:hover { color: rgb(${r}, ${g}, ${b}); font-family: COURIERPRIME; } .link:visited { color: rgb(${r}, ${g}, ${b}); font-family: COURIERPRIME; } .link:active { color: rgb(${r}, ${g}, ${b}); font-family: COURIERPRIME; }`;
                 newAnim(`setting text colour to ${colour}`, 15);
             } else if (iffy == false && colour.toLowerCase() == "reset") {
                 document.getElementById("body").style.color = "#7cfc00";
                 document.getElementById("consoleinput").style.color = "#7cfc00";
                 document.getElementById("consoleinputstyle").style.color = "#7cfc00";
                 document.getElementById("scrollbar-colour").innerHTML = `::-webkit-scrollbar-thumb { background: rgba(124, 252, 0, 0.5); }`;
-                document.getElementById("link-styles").innerHTML = ".link {color: #7cfc00; font-family: COURIERPRIME; } .link:hover { color: #7cfc00; font-family: COURIERPRIME; } .link:visited color: #7cfc00; font-family: COURIERPRIME; }";
+                document.getElementById("link-styles").innerHTML = ".link {color: #7cfc00; font-family: COURIERPRIME; } .link:hover { color: #7cfc00; font-family: COURIERPRIME; } .link:visited { color: #7cfc00; font-family: COURIERPRIME; } .link:active { color: #7cfc00; font-family: COURIERPRIME; } ";
                 newAnim(`resetting text colour`, 15);
             }
             else {
