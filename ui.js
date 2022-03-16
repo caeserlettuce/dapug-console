@@ -1321,7 +1321,11 @@ var abooot = [
     "     ",
     "DAPUG.LOL CONSOLE, CODED BY CAESERLETTUCE (DA PUG) ON GITHUB. PROJECT STARTED ON 24-01-22",
     "        ",
-    "USE 'help' TO GET COMMAND HELP"
+    "USE 'help' TO GET COMMAND HELP",
+    "        ",
+    "USE 'github' TO VIEW THE GITHUB PAGE",
+    "                         ",
+    "HAVE FUN."
 ];
 
 var hlep = [
@@ -1580,6 +1584,26 @@ var MAN_convert = [
     "'convert -l 5 km m'",
 ]
 
+var MAN_share = [
+    "SHARE MANPAGE",
+    " ",
+    "will generate and copy a link to your clipboard with all the supported shareable options.",
+    " ",
+    "USAGE:",
+    " ",
+    "'share'",
+    " ",
+    "URL OPTIONS: (advanced)",
+    " ",
+    "| url option  | value     | description",
+    "?debug        true/false  the debug menu will automatically be open or not open",
+    "?debugvar     true/false  the variable debug menu will also automatically be either open or not",
+    "?suggestion   string      the string will show up in the command input on page load",
+    "?command      string      the string will be automatically run as a command on page load",
+    "?textcolour   hex code    will set the text colour to whatever hex code used (without the # at the beginning)",
+    "?backcolour   hex code    same as textcolour but it sets the background colour",
+]
+
 
 
 
@@ -1644,6 +1668,7 @@ var listy = [
     "benson",
     "github",
     "git",
+    "share",
 
     "* command is currently in-development and may break the site."
 ]; 
@@ -1682,5 +1707,45 @@ var convertlist = [
     "oz | ounces",
 
 ];
+
+var booty = [
+    "Booting Console...                    ",
+    "Loading Commands...             "
+];
+var booty2 = [
+    "Loading Server...     ",
+    "Loading Inputs...     ",
+    "Loading Time...     ",
+    "Loading Dogs...     ",
+    "Loading Virtual Machine...     ",
+    "Loading Technoblade...     ",
+    "Loading AI...     ",
+    "Loading ae394...     ",
+    "Loading VirtualDoe™ Technology...     ",
+    "Loading Catdoe...",
+    "Loading Tea...     "
+];
+
+var booty3 = [
+    "Loading Network Sliders...     ",
+    "Loading Network...     ",
+    "Loading Routers...     ",
+    "Loading VM With Cheese...     ",
+    "Loading What Da Dog Doin...     ",
+    "Loading Jesus...     ",
+    "Loading Startup Apache...     ",
+    "Loading Cache...     ",
+    "Loading Produce Section...     ",
+    "Loading An Entire Grocery Store...     ",
+    "Loading Apples...     ",
+    "Loading Pears...     ",
+    "Loading Botnet Computers...     ",
+    "Loading President Obama...     ",
+    "Loading Mint...     ",
+    "Loading Linux...     ",
+    "Loading Doors...     ",
+    "Loading Macrophone...                                  "
+];
+
 
 console.log("ui elements loaded.")

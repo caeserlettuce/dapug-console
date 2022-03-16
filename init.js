@@ -36,6 +36,9 @@ var snakeingame = false;
 var snaketick = 0;
 var textcolour = "#7cfc00";
 var backcolour = "#000000";
+var autocommand = false;
+var startup = false; // REMEMBER TO SET TO TRUE LATER (haha now its automatic)
+
 debubg("variable init finished...");
 // local storage setup
 
@@ -88,11 +91,35 @@ function getBackColour() {
     } else {
         debubg("creating back colour local storage...");
         localStorage.setItem("back-colour", "#000000");
-        coly = localStorage.getItem("text-colour");
+        coly = localStorage.getItem("back-colour");
     }
     return coly
 }
 
+//startup sequence only happens on a freshly cleared cache
+
+function doStart() {
+    
+   
+    var starty = localStorage.getItem("startup");
+
+    if(starty) {
+        // startup
+        
+        debubg("cache is not freshly reset, skipping startup sequence.");
+
+
+    } else {
+        // continue
+        inputlock = true;
+        debubg("cache is freshly reset, running startup sequence");
+        startup = true;
+    }
+
+
+}
+
+doStart();
 getCommentIter();
 textcolour = getTextColour();
 backcolour = getBackColour();
@@ -110,7 +137,7 @@ debubg("local storage init finished.");
 
 globalVars(false);
 
-var consoleParams = ["debug", "debugvar", "suggestion", "command"];
+var consoleParams = ["debug", "debugvar", "suggestion", "command", "textcolour", "backcolour"];
 
 
 addParameters(consoleParams);
@@ -121,6 +148,8 @@ var pr_debug = pams[0];
 var pr_debugvar = pams[1];
 var pr_suggestion = pams[2];
 var pr_command = pams[3];
+var pr_textcolour = pams[4];
+var pr_backcolour = pams[5];
 
 debubg(`[url param init] debug: ${pr_debug}, debugvar: ${pr_debugvar}, suggestion: ${pr_suggestion}, command: ${pr_command}`);
 
@@ -145,6 +174,17 @@ if (pr_suggestion != null) { // if there is an entry for the url link
     document.getElementById("consoleinput").value = `${pr_suggestion}`;
 }
 
+if (pr_command != null) {
+    autocommand = true;
+}
+
+if (pr_textcolour != null) {
+    textcolour = `#${pr_textcolour}`;
+}
+
+if (pr_backcolour != null) {
+    backcolour = `#${pr_backcolour}`;
+}
 //if (pr_command != null) { // if theres something at the url link and not just empty
 //    var text = `${pr_command}`;
 
@@ -279,11 +319,19 @@ function hardAppend(message) {
     consoltext = `${yoy}<br>${message}`;
     scrolly();
 };
-function userAppend(message) {
+function userAppend(message, userin) {
     var yoy = consol.innerHTML;
+    var userfor;
+
+    if (userin != null) {
+        userfor = `${userin}`;
+    } else {
+        userfor = `${user}`;
+    }
+
     commHistory.push(yoy);
-    consol.innerHTML = `${yoy}<br>${user}@dapug.lol> ${message}`;
-    consoltext = `${yoy}<br>${user}@dapug.lol> ${message}`;
+    consol.innerHTML = `${yoy}<br>${userfor}@dapug.lol> ${message}`;
+    consoltext = `${yoy}<br>${userfor}@dapug.lol> ${message}`;
     scrolly();
 };
 function appendInline(message) {
@@ -336,7 +384,8 @@ commandhistorylock: ${commandhistorylock}
          snaketick: ${snaketick}
         textcolour: ${textcolour}
         backcolour: ${backcolour}
-`;
+       autocommand: ${autocommand}
+`;autocommand
         console.log("binted.");
     }
 }
@@ -432,7 +481,7 @@ function newLinkAnim(message, speed, link) {
         var messagey = message.split("");
         var messageyLength = messagey.length;
         //debubg(`${animDone} anim??`);
-        var beforeText = `${consoltext} <a href="${link}" target="_blank" class="link">`
+        var beforeText = `${consoltext}<a href="${link}" style="font-family: monospace;" target="_blank" class="link">`;
 
         
         for (let i = 0; i < messageyLength; i++) {
@@ -449,9 +498,75 @@ function newLinkAnim(message, speed, link) {
 
             setScreen(frame);
 
+            if (i == messageyLength - 1) {
+                //debubg("dum")
+                resolve();
+                animDone = true;
+            }
+            }, i * speed);
+        }
+    });
+};
 
+function newColourAnim(message, speed, colour) {
+    return new Promise((resolve,reject)=>{
+        //here our function should be implemented 
+        animDone = false;
+        var yoy = consol.innerHTML;
+        var messagey = message.split("");
+        var messageyLength = messagey.length;
+        //debubg(`${animDone} anim??`);
+        var beforeText = `${consoltext} <span style="color: ${colour}; font-family: monospace;" class="link">`
 
+        
+        for (let i = 0; i < messageyLength; i++) {
+            //debubg(i);
+            setTimeout(function timer() {
+            
+            
+            beforeText = `${beforeText}${messagey[i]}`
+            
 
+            var frame = `${beforeText}</span>`;
+
+            //debubg(frame);
+
+            setScreen(frame);
+
+            if (i == messageyLength - 1) {
+                //debubg("dum")
+                resolve();
+                animDone = true;
+            }
+            }, i * speed);
+        }
+    });
+};
+
+function newColourLinkAnim(message, speed, link, colour) {
+    return new Promise((resolve,reject)=>{
+        //here our function should be implemented 
+        animDone = false;
+        var yoy = consol.innerHTML;
+        var messagey = message.split("");
+        var messageyLength = messagey.length;
+        //debubg(`${animDone} anim??`);
+        var beforeText = `${consoltext} <a href="${link}" style="color: ${colour}; font-family: monospace;" target="_blank" class="link">`
+
+        
+        for (let i = 0; i < messageyLength; i++) {
+            //debubg(i);
+            setTimeout(function timer() {
+            
+            
+            beforeText = `${beforeText}${messagey[i]}`
+            
+
+            var frame = `${beforeText}</a>`;
+
+            //debubg(frame);
+
+            setScreen(frame);
 
             if (i == messageyLength - 1) {
                 //debubg("dum")
@@ -464,7 +579,7 @@ function newLinkAnim(message, speed, link) {
 };
 
 
-debubg("newLinkAnim init finished...");
+debubg("special anim init finished...");
 
 
 function removeInline(amounb) {

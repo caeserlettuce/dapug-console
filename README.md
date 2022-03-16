@@ -23,19 +23,32 @@ have fun
 
 - [ ] url parameters
   - [x] automatically set debug to true when it's set in the url
-  - [ ] automatically run commands at startup depending on the url param
+  - [x] automatically run commands at startup depending on the url param
     - (this doesnt work)
-    - actually i thought if an idea that may work hold on
+    - actually i thought of an idea that may work hold on
+    - OH MY GOD IT WORKED
   - [ ] make a command that will generate a link based on what you add to the link thingy
-  - [ ] one that sets text colour and background colour
+  - [x] one that sets text colour and background colour
 - [x] switch the `convert` command to be ran procedurally (remove the massive block of if/else statements and replace it with something that will automatically detect what variable to use depending on in/out units so the code is cleaner and fancier) (maybe steal some code from the manpage command lol)
 - [ ] more fun ascii arts
 - [ ] finish all manpages
 - [ ] complete filesys (because that's a thing i forgot about but exists)
-- [ ] colours
+- [x] colours
   - [x] fix link colours
   - [x] save what colours are what in local storage & then have it automatically set the colour on startup
-  - [ ] make an internal function that can append a string in a specific colour other than the default console colour???? just a thought
+  - [x] make an internal function that can append a string in a specific colour other than the default console colour???? just a thought
+    - gonna steal the code from the link append command lol
+    - ok that was too easy imma make one more function thats colour AND a link COMBINED!!!!
+    - that was still easy
+    - i really dont know what i would need it for yet BUT i have it????
+    - i could try making a coloured ascii art???
   - [x] write manpage for colour
     - apparetly there's already a manpage for it so i just updated it
   - [x] make colour command a but more user friendly (have actual error messages or success messages when command is used wrongly/successfully)
+  - [ ] command remastering
+    - [ ] make login command use a json object for usernames and passwords instead of if statements
+
+
+
+
+it would have been cool if i had git versions of this site since i started it but i dont (ha) 
