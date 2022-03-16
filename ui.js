@@ -1481,18 +1481,20 @@ var MAN_color = [
     "COLOR MANPAPGE:",
     "changes the colour of different elements in the console.",
     "USAGE:",
-    "'color [text/background] [#hex]'",
+    "'color [text/background/reset] [#hex]'",
     " ",
     "OPTIONS:",
     "text/background >",
     "            text | changes the colour of the text",
     "      background | changes the colour of the background",
-    '#hex | any valid hex colour code, or "reset" to reset it',
+    "           reset | resets all the colours ack to default",
+    '            #hex | any valid hex colour code, or "reset" to reset it',
     " ",
     "EXAMPLE:",
     "'color text #ffffff'",
     "'color background #ffffff'",
     "'color text reset'",
+    "'colour reset'",
 ];
 
 var MAN_comment = [

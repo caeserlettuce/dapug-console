@@ -67,7 +67,35 @@ function getCommentIter() {
     return commentIter
 }
 
+function getTextColour() {
+    var coly = localStorage.getItem("text-colour");
+
+    if (coly) {
+        debubg("local storage text colour colour exists, skipping creation.");
+    } else {
+        debubg("creating text colour local storage...");
+        localStorage.setItem("text-colour", "#7cfc00");
+        coly = localStorage.getItem("text-colour");
+    }
+    return coly
+}
+
+function getBackColour() {
+    var coly = localStorage.getItem("back-colour");
+
+    if (coly) {
+        debubg("local storage back colur colour exists, skipping creation.");
+    } else {
+        debubg("creating back colour local storage...");
+        localStorage.setItem("back-colour", "#000000");
+        coly = localStorage.getItem("text-colour");
+    }
+    return coly
+}
+
 getCommentIter();
+textcolour = getTextColour();
+backcolour = getBackColour();
 
 debubg("local storage init finished.");
 
@@ -619,6 +647,36 @@ function jsonReplace(string, json, to) {
     return finale
 }
 
+function setBackColour(colour) {
+    // background colour
+    var r = hexToRgb(colour).r;
+    var g = hexToRgb(colour).g;
+    var b = hexToRgb(colour).b;
+    debubg(`${r}${g}${b}`);
+    // #7cfc00 GREEN
+    document.getElementById("body").style.background = colour;
+    document.getElementById("scrollbar-back").innerHTML = `::-webkit-scrollbar-track { background: ${colour}; } ::-webkit-scrollbar-corner { background: ${colour} }`;
+    localStorage.setItem("back-colour", colour);
+    backcolour = `${colour}`;
+}
+
+function setTextColour(colourcode) {
+    // text colour
+    var r = hexToRgb(colourcode).r;
+    var g = hexToRgb(colourcode).g;
+    var b = hexToRgb(colourcode).b;
+    debubg(`${r}${g}${b}`);
+    // #7cfc00 GREEN
+    document.getElementById("body").style.color = colourcode;
+    document.getElementById("consoleinput").style.color = colourcode;
+    document.getElementById("consoleinputstyle").style.color = colourcode;
+    document.getElementById("scrollbar-colour").innerHTML = `::-webkit-scrollbar-thumb { background: rgba(${r}, ${g}, ${b}, 0.5); }`;
+    document.getElementById("link-styles").innerHTML = `.link {color: ${colourcode}; font-family: COURIERPRIME; } .link:hover { color: ${colourcode}; font-family: COURIERPRIME; } .link:visited { color: ${colourcode}; font-family: COURIERPRIME; } .link:active { color: ${colourcode}; font-family: COURIERPRIME; } `;
+    localStorage.setItem("text-colour", colourcode);
+    textcolour = `${colourcode}`;
+}
+
+
 // =============================== TOOL FUNCTIONS ABOVE ==================
 debubg("extra tool functions init finished...");
 
@@ -637,6 +695,11 @@ async function githubPage() {
 
 debubg("async command functions init finished...");
 
+
+// colour setting automatically tm
+
+setTextColour(textcolour)
+setBackColour(backcolour)
 
 
 // EXAMPLE INLINE FNCTIONS WHERE THEY ONLY rUN ONE THING AT A TIME INSTEAD OF EVERYTHING RUNNING AT HE SAME TIME

@@ -123,30 +123,24 @@ function parseCommand(command) {
     } else if (command == "ls") {
         newLine();
         animArt(listy, 5);
-    } else if (command.split(" ")[0] == "color") {
+    } else if (command == "colour text" || command == "colour text " || command == "colour back" || command == "colour back ") {
+        newLine();
+        newAnim("please input a proper colour code.", 10);
+    } else if (command.split(" ")[0] == "color" || command.split(" ")[0] == "colour") {
         if (commandInit.split(" ")[1] == "text") {
             newLine();
             var colour = commandInit.split(" ")[2];
             debubg(`setting text colour to ${colour}`);
             var iffy = /^#[0-9A-F]{6}$/i.test(colour);
             if (iffy == true) {
-                // text colour
-                var r = hexToRgb(colour).r;
-                var g = hexToRgb(colour).g;
-                var b = hexToRgb(colour).b;
-                debubg(`${r}${g}${b}`);
-                // #7cfc00 GREEN
-                document.getElementById("body").style.color = colour;
-                document.getElementById("consoleinput").style.color = colour;
-                document.getElementById("consoleinputstyle").style.color = colour;
-                document.getElementById("scrollbar-colour").innerHTML = `::-webkit-scrollbar-thumb { background: rgba(${r}, ${g}, ${b}, 0.5); }`;
+                setTextColour(colour);
                 newAnim(`setting text colour to ${colour}`, 15);
             } else if (iffy == false && colour.toLowerCase() == "reset") {
-                document.getElementById("body").style.color = "#7cfc00";
-                document.getElementById("consoleinput").style.color = "#7cfc00";
-                document.getElementById("consoleinputstyle").style.color = "#7cfc00";
-                document.getElementById("scrollbar-colour").innerHTML = `::-webkit-scrollbar-thumb { background: rgba(124, 252, 0, 0.5); }`;
+                setTextColour("#7cfc00");
                 newAnim(`resetting text colour`, 15);
+            } else if (iffy == false) {
+                newLine();
+                newAnim("invalid colour code.", 10);
             }
             else {
                 newAnim("invalid colour code.", 20);
@@ -157,87 +151,29 @@ function parseCommand(command) {
             debubg(`setting text colour to ${colour}`);
             var iffy = /^#[0-9A-F]{6}$/i.test(colour);
             if (iffy == true) {
-                // background colour
-                var r = hexToRgb(colour).r;
-                var g = hexToRgb(colour).g;
-                var b = hexToRgb(colour).b;
-                debubg(`${r}${g}${b}`);
-                // #7cfc00 GREEN
-                document.getElementById("body").style.background = colour;
-                document.getElementById("scrollbar-back").innerHTML = `::-webkit-scrollbar-track { background: ${colour}; } ::-webkit-scrollbar-corner { background: ${colour} }`;
+                setBackColour(colour);
                 newAnim(`setting background colour to ${colour}`, 15);
             } else if (iffy == false && colour.toLowerCase() == "reset") {
-                document.getElementById("body").style.background = "#000000";
-                document.getElementById("scrollbar-back").innerHTML = `::-webkit-scrollbar-track { background: #000000; } ::-webkit-scrollbar-corner { background: #000000; }`;
+                setBackColour("#000000");
                 newAnim(`resetting background colour`, 15);
+            } else if (iffy == false) {
+                newLine();
+                newAnim("invalid colour code.", 5);
             }
             else {
                 newAnim("invalid colour code.", 20);
             }
-        } else if (command == "color" || command == "color "){
+        } else if (commandInit.split(" ")[1] == "reset") {
+
+            setTextColour("#7cfc00");
+            setBackColour("#000000");
+            newLine();
+            newAnim("colours have been reset", 5);
+
+        } else if (command == "color" || command == "color " || command == "colour" || command == "colour "){
             newLine();
             newAnim("invalid colour. check the help page", 20);
         }
-    
-    
-    } else if (command.split(" ")[0] == "colour") {
-        if (commandInit.split(" ")[1] == "text") {
-            newLine();
-            var colour = commandInit.split(" ")[2];
-            debubg(`setting text colour to ${colour}`);
-            var iffy = /^#[0-9A-F]{6}$/i.test(colour);
-            if (iffy == true) {
-                // text colour
-                var r = hexToRgb(colour).r;
-                var g = hexToRgb(colour).g;
-                var b = hexToRgb(colour).b;
-                debubg(`${r}${g}${b}`);
-                // #7cfc00 GREEN
-                document.getElementById("body").style.color = colour;
-                document.getElementById("consoleinput").style.color = colour;
-                document.getElementById("consoleinputstyle").style.color = colour;
-                document.getElementById("scrollbar-colour").innerHTML = `::-webkit-scrollbar-thumb { background: rgba(${r}, ${g}, ${b}, 0.5); }`;
-                document.getElementById("link-styles").innerHTML = `.link {color: rgb(${r}, ${g}, ${b}); font-family: COURIERPRIME; } .link:hover { color: rgb(${r}, ${g}, ${b}); font-family: COURIERPRIME; } .link:visited { color: rgb(${r}, ${g}, ${b}); font-family: COURIERPRIME; } .link:active { color: rgb(${r}, ${g}, ${b}); font-family: COURIERPRIME; }`;
-                newAnim(`setting text colour to ${colour}`, 15);
-            } else if (iffy == false && colour.toLowerCase() == "reset") {
-                document.getElementById("body").style.color = "#7cfc00";
-                document.getElementById("consoleinput").style.color = "#7cfc00";
-                document.getElementById("consoleinputstyle").style.color = "#7cfc00";
-                document.getElementById("scrollbar-colour").innerHTML = `::-webkit-scrollbar-thumb { background: rgba(124, 252, 0, 0.5); }`;
-                document.getElementById("link-styles").innerHTML = ".link {color: #7cfc00; font-family: COURIERPRIME; } .link:hover { color: #7cfc00; font-family: COURIERPRIME; } .link:visited { color: #7cfc00; font-family: COURIERPRIME; } .link:active { color: #7cfc00; font-family: COURIERPRIME; } ";
-                newAnim(`resetting text colour`, 15);
-            }
-            else {
-                newAnim("invalid colour code.", 20);
-            }
-        } else if (commandInit.split(" ")[1] == "background") {
-            newLine();
-            var colour = commandInit.split(" ")[2];
-            debubg(`setting text colour to ${colour}`);
-            var iffy = /^#[0-9A-F]{6}$/i.test(colour);
-            if (iffy == true) {
-                // background colour
-                var r = hexToRgb(colour).r;
-                var g = hexToRgb(colour).g;
-                var b = hexToRgb(colour).b;
-                debubg(`${r}${g}${b}`);
-                // #7cfc00 GREEN
-                document.getElementById("body").style.background = colour;
-                document.getElementById("scrollbar-back").innerHTML = `::-webkit-scrollbar-track { background: ${colour} }`;
-                newAnim(`setting background colour to ${colour}`, 15);
-            } else if (iffy == false && colour.toLowerCase() == "reset") {
-                document.getElementById("body").style.background = "#000000";
-                document.getElementById("scrollbar-back").innerHTML = `::-webkit-scrollbar-track { background: #000000; }`;
-                newAnim(`resetting background colour`, 15);
-            }
-            else {
-                newAnim("invalid colour code.", 20);
-            }
-        } else if (command == "colour" || command == "colour "){
-            newLine();
-            newAnim("invalid colour. check the help page", 20);
-        }
-    
     
     } else if (command == "filesys") {
         toggleFileSys();
@@ -910,20 +846,6 @@ function parseCommand(command) {
         newLine();
         newAnim(output, 5);
         coopyIf(output);
-    
-    
-    } else if (command == "pebblebrain" || command == "pebble brain") {
-        if (existent == true) {
-            debubg("command is in man registry.");
-            eval(`haha = ${manvar}`);
-        } else {
-            debubg("command is not in man registry.")
-            haha = "there is no current man page for this command.";
-        }
-
-    
-    
-    
     
     
     } else if (command == "pebblebrain" || command == "pebble brain") {
