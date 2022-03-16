@@ -53,17 +53,20 @@ function parseCommand(command) {
     } else if (argCommand == "login") {
 
         var mmm = argComm(commandInit);
+        var ooo = argComm(commandInit);
 
-        var rawaccountregistry = localStorage.getItem("accounts");        
+        var rawaccountregistry = `{${localStorage.getItem("accounts")}}`;
+
+        //debubg(rawaccountregistry);
 
         var inusername = mmm[1];
-        var inpassword = mmm[2];
+        ooo.splice(0,2);
 
         var accountregistry = JSON.parse(rawaccountregistry);
 
-        debubg(accountregistry);
+        //debubg(accountregistry);
 
-        debubg(`attempting to log in using username '${inusername}' and password '${inpassword}'.`);
+        debubg(`attempting to log in using username '${inusername}' and password '${ooo}'.`);
 
         if (accountregistry[inusername] != undefined) {    // if account name exists in registry
             debubg("username found in registry. continuing.");
@@ -71,48 +74,57 @@ function parseCommand(command) {
             var realpassword = accountregistry[inusername];
             //debubg(`password to account is ${realpassword}`);
 
-            if (inpassword == realpassword) {
+            if (ooo == realpassword) {
                 // password success
                 debubg("password succesful password tm tm");
                 newLine();
                 newAnim(`logged into ${inusername}.`, 10);
-                user = inusername;
-            }
-
-        } else {
-            debubg("invalid username. use 'signup' to sign up with a new account.");
-        }
-
-
-
-
-    } else if (command.split(" ")[0] == "login-old") {
-        if (commandInit.split(" ")[1] == "admin") {
-            if (commandInit.split(" ")[2] == "password") {
-                user = "admin";
-                newLine();
-                newAnim("password accepted.", 20);
+                setUser(inusername);
             } else {
+                debubg("hah you tried but the password was incorrect lmao")
                 newLine();
-                newAnim("username / password incorrect.", 20);
+                newAnim("password incorrect.", 10);
             }
-        } else if (command == "login" || command == "login "){
-            user = "user";
-            newLine();
-            newAnim("invalid username / password", 20);
-        } else {
-            user = command.split(" ")[1];
-            newLine();
-            newAnim("password accepted.", 20);
-        }
-    } else if (command == "shutdown") {
-        if (user == "admin") {
-            window.close();
+
         } else {
             newLine();
-            newAnim("you need to be logged in as admin to use that command.", 20);
+            newAnim("invalid username. use 'signup' to sign up with a new account.", 10);
         }
-    } else if (commandInit == "oh") {
+
+
+
+
+    } else if (argCommand == "signup") {
+        // sign up
+        var mmm = argComm(commandInit);
+        var ooo = argComm(commandInit);
+
+        let rawaccountregistry = localStorage.getItem("accounts");        
+
+        var inusername = mmm[1];
+        ooo.splice(0,2);
+
+        debubg(rawaccountregistry);
+
+        var accountregistry = JSON.parse(`{${rawaccountregistry}}`);
+
+        if (accountregistry[inusername] != undefined) {    // if account name exists in registry (agaim)
+            newLine();
+            newAnim("user already exists in registry.", 10);
+        } else {
+            // yes
+            debubg("user does not exist in registry!!!! making!!!! tm!!!!");
+            let newRegistry = `${rawaccountregistry}, "${inusername}": "${ooo}"`;
+            localStorage.setItem("accounts", newRegistry);
+            setUser(inusername);
+            newLine();
+            newAnim(`created new account '${inusername}'.`);
+
+        }
+    }
+    
+    
+    else if (commandInit == "oh") {
         newLine();
         newAnim("oh...", 20);
     } else if (commandInit == "OH") {
@@ -150,7 +162,7 @@ function parseCommand(command) {
     } else if (command == "logout") {
         newLine();
         newAnim("logged out to generic user.", 20);
-        user = "user";
+        setUser("user");
     } else if (command == "what is the meaning of life?" || command == "what is the meaning of life" || command == "the meaning of life" || command == "meaning of life?" || command == "meaning of life") {
         newLine();
         newAnim("42.", 40);

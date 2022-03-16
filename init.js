@@ -121,12 +121,11 @@ function doStart() {
 
 function accountRegistry() {
     
-
-    var accounts = localStorage.getItem("accounts");
+    var accountsregistry = localStorage.getItem("accounts");
     
     var currentaccount = localStorage.getItem("currentaccount");
 
-    if(accounts) {
+    if(accountsregistry) {
         // exists
         debubg("local storage comments does exist, skipping creation.");
     } else {
@@ -138,12 +137,13 @@ function accountRegistry() {
         }
 
         debubg("local storage accounts doesn't exist. creating one.");
-        localStorage.setItem("accounts", JSON.stringify(accounts));
+        localStorage.setItem("accounts", JSON.stringify(accounts).replace("{", "").replace("}", ""));
     }
 
     if(currentaccount) {
         // exists
         debubg("current account already is logged in.");
+        user = currentaccount;
 
     } else {
         localStorage.setItem("currentaccount", "user");
@@ -822,6 +822,11 @@ function setTextColour(colourcode) {
     document.getElementById("link-styles").innerHTML = `.link {color: ${colourcode}; font-family: COURIERPRIME; } .link:hover { color: ${colourcode}; font-family: COURIERPRIME; } .link:visited { color: ${colourcode}; font-family: COURIERPRIME; } .link:active { color: ${colourcode}; font-family: COURIERPRIME; } `;
     localStorage.setItem("text-colour", colourcode);
     textcolour = `${colourcode}`;
+}
+
+function setUser(inuser) {
+    user = inuser;
+    localStorage.setItem("currentaccount", inuser);
 }
 
 

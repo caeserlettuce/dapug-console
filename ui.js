@@ -1722,7 +1722,7 @@ var booty2 = [
     "Loading AI...     ",
     "Loading ae394...     ",
     "Loading VirtualDoe™ Technology...     ",
-    "Loading Catdoe...",
+    "Loading Catdoe...     ",
     "Loading Tea...     "
 ];
 
