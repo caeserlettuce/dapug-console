@@ -50,7 +50,43 @@ function parseCommand(command) {
     } else if (command == "help") {
         newLine();
         animArt(hlep, 1);
-    } else if (command.split(" ")[0] == "login") {
+    } else if (argCommand == "login") {
+
+        var mmm = argComm(commandInit);
+
+        var rawaccountregistry = localStorage.getItem("accounts");        
+
+        var inusername = mmm[1];
+        var inpassword = mmm[2];
+
+        var accountregistry = JSON.parse(rawaccountregistry);
+
+        debubg(accountregistry);
+
+        debubg(`attempting to log in using username '${inusername}' and password '${inpassword}'.`);
+
+        if (accountregistry[inusername] != undefined) {    // if account name exists in registry
+            debubg("username found in registry. continuing.");
+
+            var realpassword = accountregistry[inusername];
+            //debubg(`password to account is ${realpassword}`);
+
+            if (inpassword == realpassword) {
+                // password success
+                debubg("password succesful password tm tm");
+                newLine();
+                newAnim(`logged into ${inusername}.`, 10);
+                user = inusername;
+            }
+
+        } else {
+            debubg("invalid username. use 'signup' to sign up with a new account.");
+        }
+
+
+
+
+    } else if (command.split(" ")[0] == "login-old") {
         if (commandInit.split(" ")[1] == "admin") {
             if (commandInit.split(" ")[2] == "password") {
                 user = "admin";

@@ -31,6 +31,7 @@ have fun
   - [x] one that sets text colour and background colour
 - [x] switch the `convert` command to be ran procedurally (remove the massive block of if/else statements and replace it with something that will automatically detect what variable to use depending on in/out units so the code is cleaner and fancier) (maybe steal some code from the manpage command lol)
 - [ ] more fun ascii arts
+  - [ ] add a slant font to the ascii text generator (more work but for better output)
 - [ ] finish all manpages
 - [ ] complete filesys (because that's a thing i forgot about but exists)
 - [x] colours
@@ -47,6 +48,7 @@ have fun
   - [x] make colour command a but more user friendly (have actual error messages or success messages when command is used wrongly/successfully)
   - [ ] command remastering
     - [ ] make login command use a json object for usernames and passwords instead of if statements
+    - [ ] make a command where you can sign up with a new account (using cache data)
 
 
 

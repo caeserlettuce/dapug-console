@@ -119,8 +119,41 @@ function doStart() {
 
 }
 
+function accountRegistry() {
+    
+
+    var accounts = localStorage.getItem("accounts");
+    
+    var currentaccount = localStorage.getItem("currentaccount");
+
+    if(accounts) {
+        // exists
+        debubg("local storage comments does exist, skipping creation.");
+    } else {
+        // doesnt
+
+        var accounts = {
+            "admin": "password",
+            "pugface": "laptop"
+        }
+
+        debubg("local storage accounts doesn't exist. creating one.");
+        localStorage.setItem("accounts", JSON.stringify(accounts));
+    }
+
+    if(currentaccount) {
+        // exists
+        debubg("current account already is logged in.");
+
+    } else {
+        localStorage.setItem("currentaccount", "user");
+    }
+
+}
+
 doStart();
 getCommentIter();
+accountRegistry();
 textcolour = getTextColour();
 backcolour = getBackColour();
 
