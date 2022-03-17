@@ -544,7 +544,7 @@ function parseCommand(command) {
         debubg(tata);
         newLine();
         //newAnim(`${tata}`, 20);
-        var asciifinal = asciiText(fonty, `${tata}`, 9);
+        var asciifinal = asciiText(fonty, `${tata}`);
         animArt(asciifinal, 0.1);
 
         coopyIf(asciifinal);

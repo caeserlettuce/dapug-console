@@ -703,14 +703,14 @@ function argComm(incommand) {
 // you know the text ascii art for the about page??
 // make a function that will go and print those for you without having to make the ui element every time
 // YES.
-function asciiText(font, text, height) {
+function asciiText(font, text) {
     var fontlow = font.toLowerCase()
     if (fontlow == "" || fontlow == "default" || fontlow == "def" || fontlow == "d") {
         var textArr = text.split("");
         debubg(textArr);
         debubg(text);
         textLen = textArr.length;
-        textHeight = height; // the height of the ascii font 
+        textHeight = 9; // the height of the ascii font 
         var finalText = []; // the final text variable itll return
         var currentLine = ""; // the current line it's appending to
         for (let i = 0; i < textHeight; i++) {
@@ -736,6 +736,75 @@ function asciiText(font, text, height) {
         debubg(currentLine);
         debubg(finalText);
         return finalText
+
+
+
+    } else if (fontlow == "slant" || fontlow == "s") {
+        var textArr = text.split("");
+        debubg(textArr);
+        debubg(text);
+        textLen = textArr.length;
+        textHeight = 6; // the height of the ascii font 
+        var finalText = []; // the final text variable itll return
+        var currentLine = ""; // the current line it's appending to
+
+
+        for (let i = 0; i < textHeight; i++) {
+            // repeat for every line of the character
+            debubg(`line: ${i}`);
+
+            
+            currentLine = " ".repeat(-1 * i + 5);   // make it so itll add spaces
+            for (let e = 0; e < textLen - 1; e++) {
+                // mmmmmmmm   .charCodeAt(0);
+
+
+                var letter = textArr[e];
+
+
+
+                var lettID = letter.charCodeAt(0);
+
+
+                var lala = asciifontslant[lettID][i];
+                var lalar = `${asciifontslant[lettID][i]}`.split("");
+
+
+                debubg(`${i} ${e}: ${letter} ${lettID}: ${lala}`);
+
+                var lalabeg = lalar.slice(0,1);
+                var lalaend = lala.substr(1);
+
+
+                if (lalabeg == " " || lalabeg == "_") {
+                    currentLine = `${currentLine}${lalaend}`
+                } else {
+                    currentLine = `${currentLine.slice(0, -1)}${lala}`
+                }
+
+
+                debubg(`heha: ${lalabeg} : ${lalaend}`);
+                
+                   
+            
+                
+
+
+
+            }
+            debubg(`CURRENT: ${currentLine}`);
+            //newLine();
+            finalText.push(currentLine);
+            // its appending the lines twice for some reason
+            //found it
+            // i wasnt clearing currentLine before the next line so itd just append onto the last line
+            // YES
+            // IT WORKS
+        }
+        debubg(currentLine);
+        debubg(finalText);
+        return finalText
+
     } else {
         return ['please select a font. to get a full list of fonts, run "font list"'];
     }
