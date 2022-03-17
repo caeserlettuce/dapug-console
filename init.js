@@ -38,6 +38,10 @@ var textcolour = "#7cfc00";
 var backcolour = "#000000";
 var autocommand = false;
 var startup = false; // REMEMBER TO SET TO TRUE LATER (haha now its automatic)
+var worblefinished = true;
+var worble_colourblind = false;
+var worble_word = "";
+var worble_save;
 
 debubg("variable init finished...");
 // local storage setup
@@ -96,6 +100,7 @@ function getBackColour() {
     return coly
 }
 
+
 //startup sequence only happens on a freshly cleared cache
 
 function doStart() {
@@ -152,6 +157,40 @@ function accountRegistry() {
 
 }
 
+function worbleInit() {
+
+    var game = localStorage.getItem("worble_save");
+
+    var wordy = localStorage.getItem("worble_word");
+
+    if(game) {
+        // exists
+
+
+        debubg("worble save is saved. continuing.")
+    } else {
+        // not set eixsir he hehhe hehe hehe i h he heheh  ehe e
+
+        localStorage.setItem("worble_save", "")
+    }
+
+    if(wordy) {
+        // exists
+
+
+        debubg("worble word is saved. continuing.")
+    } else {
+        // not set eixsir he hehhe hehe hehe i h he heheh  ehe e
+
+        localStorage.setItem("worble_word", "")
+    }
+
+
+
+}
+
+
+worbleInit();
 doStart();
 getCommentIter();
 accountRegistry();
@@ -419,6 +458,9 @@ commandhistorylock: ${commandhistorylock}
         textcolour: ${textcolour}
         backcolour: ${backcolour}
        autocommand: ${autocommand}
+    worblefinished: ${worblefinished}
+worble_colourblind: ${worble_colourblind}
+       worble_word: ${worble_word}
 `;autocommand
         console.log("binted.");
     }
@@ -899,6 +941,60 @@ function setUser(inuser) {
     localStorage.setItem("currentaccount", inuser);
 }
 
+
+function getRandomFromArr(inArray) {
+    // gets random element from array
+    var hehe = inArray[Math.floor(Math.random()* inArray.length)];
+    return hehe
+
+}
+
+function saveWorble() {
+    // worble structure:
+    // {
+    //  "worble": [
+    //      "word1", "word2" <-- input text
+    //  ]
+    // }
+
+    var memereview;
+
+    for (i in worble_save) {
+        if (i == 0) {
+            memereview = `"${worble_save[i]}"`;
+        } else {
+            memereview = `${memereview},"${worble_save[i]}"`;
+        }
+        //debubg(memereview);
+    }
+
+    
+    
+    
+
+
+    localStorage.setItem("worble_save", worble_save);
+}
+
+function loadWorble() {
+    var worbleload = localStorage.getItem("worble_save");
+
+    var toParse = `{"worble":[${worbleload}]}`;
+
+    var parsed = JSON.parse(toParse);
+
+    debubg(parsed);
+
+}
+
+var worble_save = [
+    "hello",
+    "bello",
+    "yello"
+]
+
+saveWorble();
+loadWorble();
 
 // =============================== TOOL FUNCTIONS ABOVE ==================
 debubg("extra tool functions init finished...");

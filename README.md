@@ -53,4 +53,10 @@ have fun
   - [ ] my own version of wordle except it uses annoyingly long words
 
 
+### random notes
+
 it would have been cool if i had git versions of this site since i started it but i dont (ha) 
+
+https://github.com/caeserlettuce/dapug-console/issues/new?title=test&body=yes
+
+this link will automatically set title and body text so i could make an in-site issue thingy maybe possibly

@@ -788,7 +788,29 @@ function parseCommand(command) {
 
 
     } else if (argCommand == "worble") {
-        
+        // lmao wordle extreme mode activated
+
+
+        if (worblefinished == true) {
+            // worble has finiedhe
+            debubg("worble shall start a new game");            
+
+            var word = getRandomFromArr(worble_words);
+            debubg(word);
+            
+
+
+
+            worblefinished = false;    
+        } else {
+            // it isnt finished and is mid game
+            debubg("thou hath not finished thy worble game")
+            
+            
+
+        }
+
+
     }
     else {
         newLine();
