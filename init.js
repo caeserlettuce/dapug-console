@@ -131,9 +131,10 @@ function accountRegistry() {
     } else {
         // doesnt
 
-        var accounts = {
+        var accounts = {            // congratulations, you found a security hole!
             "admin": "password",
-            "pugface": "laptop"
+            "pugface": "laptop",
+            "dev": "ihatejavascript"
         }
 
         debubg("local storage accounts doesn't exist. creating one.");
@@ -739,7 +740,7 @@ function asciiText(font, text) {
 
 
 
-    } else if (fontlow == "slant" || fontlow == "s") {
+    } else if (fontlow == "slant" || fontlow == "s" || fontlow == "sla") {
         var textArr = text.split("");
         debubg(textArr);
         debubg(text);
@@ -776,7 +777,7 @@ function asciiText(font, text) {
                 var lalaend = lala.substr(1);
 
 
-                if (lalabeg == " " || lalabeg == "_") {
+                if (lalabeg == " ") {
                     currentLine = `${currentLine}${lalaend}`
                 } else {
                     currentLine = `${currentLine.slice(0, -1)}${lala}`

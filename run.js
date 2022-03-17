@@ -787,7 +787,9 @@ function parseCommand(command) {
 
 
 
-    } 
+    } else if (argCommand == "worble") {
+        
+    }
     else {
         newLine();
         newAnim(`command error: ${commandInit} is not an existing command.`, 10);

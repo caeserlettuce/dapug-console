@@ -7,7 +7,7 @@
 
 // variables setup
 var urlParamsList = [];        // the actual names of the parameters in the url
-// use params.push() to append
+// use params.push() to appends
 var THEdebug = true;
 var glob = false;   // global variable setting is false by default
 
