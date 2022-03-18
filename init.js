@@ -41,7 +41,7 @@ var startup = false; // REMEMBER TO SET TO TRUE LATER (haha now its automatic)
 var worblefinished = true;
 var worble_colourblind = false;
 var worble_word = "";
-var worble_save;
+var worble_save = [];
 
 debubg("variable init finished...");
 // local storage setup
@@ -965,36 +965,61 @@ function saveWorble() {
         } else {
             memereview = `${memereview},"${worble_save[i]}"`;
         }
-        //debubg(memereview);
+        
     }
 
-    
-    
-    
+    debubg(memereview);
 
-
-    localStorage.setItem("worble_save", worble_save);
+    localStorage.setItem("worble_save", memereview);
 }
 
 function loadWorble() {
+
     var worbleload = localStorage.getItem("worble_save");
 
+    debubg(`WORBLE LOADED: ${worbleload}`)
     var toParse = `{"worble":[${worbleload}]}`;
 
     var parsed = JSON.parse(toParse);
 
     debubg(parsed);
-
+    return parsed
 }
 
-var worble_save = [
-    "hello",
-    "bello",
-    "yello"
-]
+function parseWorble(in_worble_word, in_word) {
+    debubg(`[WORBLE PARSE]: matching word '${in_word}' with worble word '${in_worble_word}'.`);
+    var final = "";
+    var worbword = in_worble_word.split("");
+    var worbd = in_word.split("");
+    var lettys = [];
 
-saveWorble();
-loadWorble();
+    for (i in worbd) {
+        var letterworbd = worbd[i];
+        var letterworbdle = worbword[i];
+        lettys.push(letterworbd);
+         if (letterworbd == letterworbdle) {
+            // green
+            final = `${final}G`;
+        } else if (worbword.indexOf(letterworbd) == true) {
+            // yellow
+            final = `${final}Y`;
+        } else {
+            // gray
+            final = `${final}A`;
+        }
+    }
+
+    debubg(final);
+    return [final, lettys]
+}
+
+
+
+
+//saveWorble();
+//loadWorble();
+
+//parseWorble("yes", "sey");
 
 // =============================== TOOL FUNCTIONS ABOVE ==================
 debubg("extra tool functions init finished...");

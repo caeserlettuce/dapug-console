@@ -790,26 +790,110 @@ function parseCommand(command) {
     } else if (argCommand == "worble") {
         // lmao wordle extreme mode activated
 
+        var mmm = argComm(commandInit);
+        var gses = argComm(commandInit);
 
+        
         if (worblefinished == true) {
             // worble has finiedhe
             debubg("worble shall start a new game");            
 
             var word = getRandomFromArr(worble_words);
             debubg(word);
+            worble_word = word;
             
-
-
 
             worblefinished = false;    
         } else {
             // it isnt finished and is mid game
             debubg("thou hath not finished thy worble game")
             
-            
 
         }
 
+
+
+
+        if (mmm[1] == "guess") {
+            // making a guess
+
+            gses.splice(0,2); // removes first two chunks of array
+            var guess = gses.join(" ");
+
+            debubg(`guess parsed as: '${guess}'`);
+
+            if (`${guess}`.length != worble_word.length) {
+                var long = "";
+                if (`${guess}`.length > worble_word.length) {
+                    long = "too long";
+                } else {
+                    long = "too short";
+                }
+                newLine();
+                newAnim(`uh oh! worble word is ${long}! the word is ${worble_word.length} characters long.`)
+            } else {
+
+
+                var parsedFull = parseWorble(worble_word, guess);
+
+                var parsed = parsedFull[0];
+                var lettys = parsedFull[1];
+
+                worble_save.push(parsed);
+
+                var zimbabwe = parsed.split("");
+
+                newLine();
+                // parse into colours                
+                for (i in zimbabwe) {
+                    var charar = zimbabwe[i];
+                    var cl_green = "#538d4e";
+                    var cl_yellow = "#b59f3b";
+                    var cl_gray = "#3a3a3c";
+                    var use_colour = "";
+
+                    if (worble_colourblind == true) {
+                        cl_green = "#f5793a";
+                        cl_yellow = "#85c0f9";
+                    }
+
+
+                    if (charar == "G") {
+                        use_colour = cl_green;
+                    } else if (charar == "A") {
+                        use_colour = cl_gray;
+                    } else if (charar == "Y") {
+                        use_colour = cl_yellow;
+                    }
+
+                    appendInline(`<span style="background-color: ${use_colour}; color: white; padding: 2px;">${lettys[i]}</span>`);
+
+                    var missouri = parsed.indexOf("A");
+                    var misery = parsed.indexOf("Y");
+
+                    if (missouri == false && misery == false) {
+                        // WIN!!!
+                        debubg("worble has been finished")
+                        worblefinished = true;
+                    } else {
+                        // not finished
+                    }
+
+                }
+
+
+                debubg(parsed);
+                newLine();
+                //newAnim(parsed, 10);
+    
+
+
+
+            }
+
+
+           
+        }
 
     }
     else {
