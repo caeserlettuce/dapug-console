@@ -822,6 +822,9 @@ function parseCommand(command) {
 
             debubg(`guess parsed as: '${guess}'`);
 
+            
+
+            
             if (`${guess}`.length != worble_word.length) {
                 var long = "";
                 if (`${guess}`.length > worble_word.length) {
@@ -834,53 +837,80 @@ function parseCommand(command) {
             } else {
 
 
+                //worble_save = localStorage.getItem("worble_save");
+                //worble_save_extra = localStorage.getItem("worble_save_extra");
+
+                loadWorble();
+
                 var parsedFull = parseWorble(worble_word, guess);
 
                 var parsed = parsedFull[0];
                 var lettys = parsedFull[1];
 
-                worble_save.push(parsed);
 
-                var zimbabwe = parsed.split("");
+                debubg(`worble_save: ${worble_save}  ${typeof worble_save}`);
+                debubg(`worble_save_extra: ${worble_save_extra}  ${typeof worble_save_extra}`);
+                debubg(`parsed: ${parsed}`);
+                debubg(`lettys: ${lettys}`);
 
-                newLine();
-                // parse into colours                
-                for (i in zimbabwe) {
-                    var charar = zimbabwe[i];
-                    var cl_green = "#538d4e";
-                    var cl_yellow = "#b59f3b";
-                    var cl_gray = "#3a3a3c";
-                    var use_colour = "";
 
-                    if (worble_colourblind == true) {
-                        cl_green = "#f5793a";
-                        cl_yellow = "#85c0f9";
+
+                //worble_save.push(`heelo`);
+                //worble_save_extra.push(`${lettys}`);
+
+
+                saveWorble();
+
+                for (i in worble_save) {
+
+                
+
+
+
+
+                    var zimbabwe = worble_save[i].split("");
+                    var wakanda = worble_save_extra[i].split("");
+
+                    debubg(`hehehaha: ${zimbabwe}`);
+
+                    newLine();
+                    // parse into colours                
+                    for (i in zimbabwe) {
+                        var charar = zimbabwe[i];
+                        var cl_green = "#538d4e";
+                        var cl_yellow = "#b59f3b";
+                        var cl_gray = "#3a3a3c";
+                        var use_colour = "";
+
+                        if (worble_colourblind == true) {
+                            cl_green = "#f5793a";
+                            cl_yellow = "#85c0f9";
+                        }
+
+
+                        if (charar == "G") {
+                            use_colour = cl_green;
+                        } else if (charar == "A") {
+                            use_colour = cl_gray;
+                        } else if (charar == "Y") {
+                            use_colour = cl_yellow;
+                        }
+
+                        appendInline(`<span style="background-color: ${use_colour}; color: white; padding: 2px;">${wakanda[i]}</span>`);
+
+                        var missouri = parsed.indexOf("A");
+                        var misery = parsed.indexOf("Y");
+
+                        if (missouri == false && misery == false) {
+                            // WIN!!!
+                            debubg("worble has been finished")
+                            worblefinished = true;
+                        } else {
+                            // not finished
+                        }
+
                     }
-
-
-                    if (charar == "G") {
-                        use_colour = cl_green;
-                    } else if (charar == "A") {
-                        use_colour = cl_gray;
-                    } else if (charar == "Y") {
-                        use_colour = cl_yellow;
-                    }
-
-                    appendInline(`<span style="background-color: ${use_colour}; color: white; padding: 2px;">${lettys[i]}</span>`);
-
-                    var missouri = parsed.indexOf("A");
-                    var misery = parsed.indexOf("Y");
-
-                    if (missouri == false && misery == false) {
-                        // WIN!!!
-                        debubg("worble has been finished")
-                        worblefinished = true;
-                    } else {
-                        // not finished
-                    }
-
                 }
-
 
                 debubg(parsed);
                 newLine();

@@ -51,6 +51,8 @@ have fun
     - [x] make a command where you can sign up with a new account (using cache data)
 
   - [ ] my own version of wordle except it uses annoyingly long words
+    - i think im gonna rewrite most of this wordle game because it is very stupid and dumb
+    - i'm going to push this repo real fast so i can revert to this one if i screw everything up
 
 
 ### random notes

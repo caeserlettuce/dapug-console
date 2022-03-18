@@ -41,7 +41,8 @@ var startup = false; // REMEMBER TO SET TO TRUE LATER (haha now its automatic)
 var worblefinished = true;
 var worble_colourblind = false;
 var worble_word = "";
-var worble_save = [];
+var worble_save = new Array();
+var worble_save_extra = new Array();
 
 debubg("variable init finished...");
 // local storage setup
@@ -161,7 +162,12 @@ function worbleInit() {
 
     var game = localStorage.getItem("worble_save");
 
+    var extragame = localStorage.getItem("worble_save_extra");
+
+
     var wordy = localStorage.getItem("worble_word");
+
+    
 
     if(game) {
         // exists
@@ -171,8 +177,20 @@ function worbleInit() {
     } else {
         // not set eixsir he hehhe hehe hehe i h he heheh  ehe e
 
-        localStorage.setItem("worble_save", "")
+        localStorage.setItem("worble_save_", '{"worble": []}')
     }
+
+    if(extragame) {
+        // exists
+
+
+        debubg("worble extra save is saved. continuing.")
+    } else {
+        // not set eixsir he hehhe hehe hehe i h he heheh  ehe e
+
+        localStorage.setItem("worble_save_extra", '{"worble": []}')
+    }
+
 
     if(wordy) {
         // exists
@@ -958,6 +976,7 @@ function saveWorble() {
     // }
 
     var memereview;
+    var mrkrabs;
 
     for (i in worble_save) {
         if (i == 0) {
@@ -968,22 +987,61 @@ function saveWorble() {
         
     }
 
-    debubg(memereview);
+    for (i in worble_save_extra) {
+        if (i == 0) {
+            mrkrabs = `"${worble_save_extra[i]}"`;
+        } else {
+            mrkrabs = `${mrkrabs},"${worble_save_extra[i]}"`;
+        }
+        
+    }
+
+    debubg(`${memereview}: ${mrkrabs}`);
 
     localStorage.setItem("worble_save", memereview);
+    localStorage.setItem("worble_save_extra", mrkrabs);
 }
 
 function loadWorble() {
 
     var worbleload = localStorage.getItem("worble_save");
+    var extraworbleload = localStorage.getItem("worble_save_extra");
 
-    debubg(`WORBLE LOADED: ${worbleload}`)
+    debubg(`WORBLE LOADED: ${extraworbleload}: ${worbleload}`)
     var toParse = `{"worble":[${worbleload}]}`;
+    var extratoParse = `{"worble":[${extraworbleload}]}`;
+    var parsed = JSON.parse('{"worble":[]}');
+    var extraparsed = JSON.parse('{"worble":[]}');
 
-    var parsed = JSON.parse(toParse);
+    if (toParse != undefined || toParse != null) {
+        parsed = JSON.parse(toParse);
+        debubg(`parsed type: ${typeof toParse}}`);
+    }
+    if (extratoParse != undefined || extratoParse != null) {
+        extraparsed = JSON.parse(extratoParse);
+        debubg(`extraparsed type: ${typeof extratoParse}}`);
+    } 
 
-    debubg(parsed);
-    return parsed
+    debubg(`${extraparsed}: ${parsed}`);
+    //return [parsed, extraparsed]
+
+
+    var arrparsed = [];
+    var extraarrparsed = [];
+
+    for (i in parsed["worble"]) {
+        // turn it into an array
+        debubg(parsed["worble"][i]);
+        arrparsed.push(parsed["worble"][i])
+    }
+    for (i in extraparsed["worble"]) {
+        // turn it into an array
+        debubg(extraparsed["worble"][i]);
+        extraarrparsed.push(extraparsed["worble"][i])
+    }
+
+    worble_save = arrparsed;
+    worble_save_extra = extraarrparsed   ;
 }
 
 function parseWorble(in_worble_word, in_word) {
@@ -991,19 +1049,22 @@ function parseWorble(in_worble_word, in_word) {
     var final = "";
     var worbword = in_worble_word.split("");
     var worbd = in_word.split("");
-    var lettys = [];
+    var lettys = "";
 
     for (i in worbd) {
         var letterworbd = worbd[i];
         var letterworbdle = worbword[i];
-        lettys.push(letterworbd);
+
+        // debubg(`comparing ${letterworbd} to ${letterworbdle} from ${worbd} and ${worbword} from ${in_word} and ${in_worble_word}`);
+
+        lettys = `${lettys}${letterworbd}`;
          if (letterworbd == letterworbdle) {
             // green
             final = `${final}G`;
-        } else if (worbword.indexOf(letterworbd) == true) {
+        } else if (worbword.indexOf(letterworbd) >= 0) {
             // yellow
             final = `${final}Y`;
-        } else {
+        } else if (worbword.indexOf(letterworbd) == -1) {
             // gray
             final = `${final}A`;
         }
@@ -1017,7 +1078,7 @@ function parseWorble(in_worble_word, in_word) {
 
 
 //saveWorble();
-//loadWorble();
+loadWorble();
 
 //parseWorble("yes", "sey");
 
