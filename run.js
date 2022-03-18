@@ -793,6 +793,26 @@ function parseCommand(command) {
         var mmm = argComm(commandInit);
         var gses = argComm(commandInit);
 
+        if (mmm[1] == "colourblind" || mmm[1] == "colorblind") {
+            if (worble_colourblind == false) {
+                worbleColourblind(true);
+                newLine();
+                newAnim("colourblind mode has been turned on.", 10);
+            } else {
+                worbleColourblind(false);
+                newLine();
+                newAnim("colourblind mode has been turned off.", 10);
+            }
+        }
+
+
+
+    } else if (argCommand == "worble-old") {
+        // lmao wordle extreme mode activated
+
+        var mmm = argComm(commandInit);
+        var gses = argComm(commandInit);
+
         
         if (worblefinished == true) {
             // worble has finiedhe

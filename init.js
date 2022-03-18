@@ -38,11 +38,17 @@ var textcolour = "#7cfc00";
 var backcolour = "#000000";
 var autocommand = false;
 var startup = false; // REMEMBER TO SET TO TRUE LATER (haha now its automatic)
-var worblefinished = true;
+var worble_status = true;
 var worble_colourblind = false;
 var worble_word = "";
 var worble_save = new Array();
-var worble_save_extra = new Array();
+var worble_gray = "#3a3a3c";
+var worble_green = "#538d4e";
+var worble_yellow = "#b59f3b";
+var worble_df_green = "#538d4e";
+var worble_df_yellow = "#b59f3b";
+var worble_blind_green = "#f5793a";
+var worble_blind_yellow = "#85c0f9";
 
 debubg("variable init finished...");
 // local storage setup
@@ -160,50 +166,57 @@ function accountRegistry() {
 
 function worbleInit() {
 
-    var game = localStorage.getItem("worble_save");
+    var game = localStorage.getItem("worble_save");         // save all the guesses in an array
 
-    var extragame = localStorage.getItem("worble_save_extra");
+    var wordy = localStorage.getItem("worble_word");        // save the current word
 
+    var finished = localStorage.getItem("worble_status");   // saves if the previous game has been finished yet
 
-    var wordy = localStorage.getItem("worble_word");
-
-    
+    var blind = localStorage.getItem("worble_colourblind"); // colourblind mode will stay on even after page reload
 
     if(game) {
         // exists
-
-
-        debubg("worble save is saved. continuing.")
+        debubg("[WORBLE] worble save is saved. continuing.");
     } else {
         // not set eixsir he hehhe hehe hehe i h he heheh  ehe e
-
-        localStorage.setItem("worble_save_", '{"worble": []}')
+        debubg("[WORBLE] worble save is not saved. creating.");
+        localStorage.setItem("worble_save", '');
     }
-
-    if(extragame) {
-        // exists
-
-
-        debubg("worble extra save is saved. continuing.")
-    } else {
-        // not set eixsir he hehhe hehe hehe i h he heheh  ehe e
-
-        localStorage.setItem("worble_save_extra", '{"worble": []}')
-    }
-
-
     if(wordy) {
         // exists
-
-
-        debubg("worble word is saved. continuing.")
+        debubg("[WORBLE] worble word is saved. continuing.");
+        worble_word = `${wordy}`;
     } else {
         // not set eixsir he hehhe hehe hehe i h he heheh  ehe e
-
-        localStorage.setItem("worble_word", "")
+        debubg("[WORBLE] worble word is not saved. creating.");
+        localStorage.setItem("worble_word", '');
     }
-
-
+    if(finished) {
+        // exists
+        debubg("[WORBLE] worble game status is saved. continuing.");
+        if (finished == "false") {
+            worble_status = false;
+        } else {
+            worble_status = true
+        }
+    } else {
+        // not set eixsir he hehhe hehe hehe i h he heheh  ehe e
+        debubg("[WORBLE] worble status is not saved. creating.");
+        localStorage.setItem("worble_status", 'true');
+    }
+    if(blind) {
+        // exists
+        debubg("[WORBLE] worble colourblind mode is saved. continuing.");
+        if (blind == "true") {
+            worble_colourblind = true;
+        } else {
+            worble_colourblind = false;
+        }
+    } else {
+        // not set eixsir he hehhe hehe hehe i h he heheh  ehe e
+        debubg("[WORBLE] worble colourblind mode is not saved. creating."); 
+        localStorage.setItem("worble_colourblind", 'false');
+    }
 
 }
 
@@ -476,9 +489,12 @@ commandhistorylock: ${commandhistorylock}
         textcolour: ${textcolour}
         backcolour: ${backcolour}
        autocommand: ${autocommand}
-    worblefinished: ${worblefinished}
+     worble_status: ${worble_status}
 worble_colourblind: ${worble_colourblind}
        worble_word: ${worble_word}
+       worble_gray: ${worble_gray}
+      worble_green: ${worble_green}
+     worble_yellow: ${worble_yellow}
 `;autocommand
         console.log("binted.");
     }
@@ -967,14 +983,70 @@ function getRandomFromArr(inArray) {
 
 }
 
-function saveWorble() {
-    // worble structure:
-    // {
-    //  "worble": [
-    //      "word1", "word2" <-- input text
-    //  ]
-    // }
+// ALL BASE WORBLE FUNCTIONS:
 
+function worbleStatus(bool) {
+    debubg(`setting worble game status to ${bool}`);
+    worble_status = bool;
+    localStorage.setItem("worble_status", `${bool}`);
+}
+
+function worbleColourUpdate() {
+    // will uodate colours via each span having a different class for the colours so it'll update automatically
+    debubg("updating worble display colours...");
+    if (worble_colourblind == true) {
+        worble_green = `${worble_blind_green}`;
+        worble_yellow = `${worble_blind_yellow}`;
+    } else {
+        worble_green = `${worble_df_green}`;
+        worble_yellow = `${worble_df_yellow}`;
+    }
+
+    document.getElementById("worble-colours").innerHTML = `.worble-green {
+        background-color: ${worble_green};
+      }
+      .worble-yellow {
+        background-color: ${worble_yellow};
+      }
+      .worble-gray {
+        background-color: ${worble_gray};
+      }`
+}
+
+function worbleColourblind(bool) {
+    debubg(`setting worble colourblind mode to ${bool}`);
+    worble_colourblind = bool;
+    localStorage.setItem("worble_colourblind", `${bool}`);
+    worbleColourUpdate();
+}
+
+function worbleWord(word) {
+    worble_word = `${word}`;
+    localStorage.setItem("worble_word", word);
+}
+
+
+function newWorble() {
+
+    worbleStatus(false);                // make it so that worble knows its not finished because the game literally just started
+    worbleColourUpdate();               // updates colours just to make sure they're all good (doesnt hurt to check)
+
+    worbleWord(getRandomFromArr(worble_words));     // gets random word from word list 
+    debubg(`[NEW WORDLE SETUP]: wordle word that has been chosen is ${worble_word}`);
+
+
+}
+
+
+// list of stuff i want:
+// - [ ] save the entire guess history and load the guess history from local data (load history from local only on page load but save every wordle guess)
+// - [ ] the colours are shown from a css class instead of directly in the span html
+// - [ ] each wordle letter is displayed like the rest of everything (steal code from colour append command lmao)
+// - [ ] more things ive forgotten to add to this list
+ 
+
+function saveWorbleOld() {
+    
     var memereview;
     var mrkrabs;
 
@@ -1002,7 +1074,7 @@ function saveWorble() {
     localStorage.setItem("worble_save_extra", mrkrabs);
 }
 
-function loadWorble() {
+function loadWorbleOld() {
 
     var worbleload = localStorage.getItem("worble_save");
     var extraworbleload = localStorage.getItem("worble_save_extra");
@@ -1078,7 +1150,7 @@ function parseWorble(in_worble_word, in_word) {
 
 
 //saveWorble();
-loadWorble();
+//loadWorble();
 
 //parseWorble("yes", "sey");
 
