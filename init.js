@@ -41,7 +41,7 @@ var startup = false; // REMEMBER TO SET TO TRUE LATER (haha now its automatic)
 var worble_status = true;
 var worble_colourblind = false;
 var worble_word = "";
-var worble_save = new Array();
+var worble_save = [];
 var worble_gray = "#3a3a3c";
 var worble_green = "#538d4e";
 var worble_yellow = "#b59f3b";
@@ -177,6 +177,7 @@ function worbleInit() {
     if(game) {
         // exists
         debubg("[WORBLE] worble save is saved. continuing.");
+        loadWorble();   // when there is an existing local save it'll automatically load it (fancy)
     } else {
         // not set eixsir he hehhe hehe hehe i h he heheh  ehe e
         debubg("[WORBLE] worble save is not saved. creating.");
@@ -336,9 +337,6 @@ if (debugvar == false) {
     document.getElementById("debubvar").style.display = "none";
 }
 
-function sleep(time) {
-    setTimeout(function(){ alert("ass"); }, time);
-}
 function toggleHideDebug() {
     if (debugHide == false) {
         debugHide = true;
@@ -941,6 +939,12 @@ function jsonReplace(string, json, to) {
     return finale
 }
 
+function howMany (in_string, string) {
+    var amount = `${in_string}`.split(`${string}`).length - 1
+    return amount
+}
+
+
 function setBackColour(colour) {
     // background colour
     var r = hexToRgb(colour).r;
@@ -1026,20 +1030,182 @@ function worbleWord(word) {
 }
 
 
-function newWorble() {
 
+
+function saveWorble() { // save worble
+
+    var finalSave = "";
+
+    for (i in worble_save) { // for every entry in the save variable
+        var currentword = worble_save[i];   // get current word itll focus on
+        debubg(`[WORBLE SAVE]: saving "${currentword}"`);
+        if (i == 0) {                                   // if it's the first entry
+            finalSave = `"${currentword}"`;             // don't put a comma since there's nothing in front of it
+        } else {                                        // if it's any other entry
+            finalSave = `${finalSave},"${currentword}"` // do put a comma because there's actually stuff in front of it
+        }
+    }
+    debubg(`[WORBLE SAVE]: final worble save: ${finalSave}`);
+
+    localStorage.setItem("worble_save", `${finalSave}`);
+}
+
+
+function loadWorble() { //load worble
+    var rawSave = localStorage.getItem("worble_save");  // get worble save
+    var saveWithJson = `{ "worble": [${rawSave}] }`;    // add the extra characters to make it work as json
+    debubg(`[WORBLE LOAD]: loaded worble save: ${saveWithJson}`);
+    var parsedJson = JSON.parse(saveWithJson);          // parse it into json
+
+    var tempSave = [];
+
+    for (i in parsedJson["worble"]) {                   // iterate through all the words
+        var currentWord = parsedJson["worble"][i];      // set the current word
+        debubg(`[WORBLE LOAD]: current word: ${currentWord}`);
+        tempSave.push(`${currentWord}`);                // add the current word to the temp array
+    }
+    debubg(`[WORBLE LOAD]: loaded worble save: ${tempSave}`);
+    worble_save = tempSave;                             // put it on js variable
+    debubg(`[WORBLE LOAD]: loading complete.`);
+
+}
+
+function parseWorble() { // parse the worble save into colours
+    debubg(`[WORBLE PARSE]: parsing worble...`);
+    var finalParse = [];
+    for (i in worble_save) {                                    // for every word in the worble save
+        var currentwordguess = `${worble_save[i]}`;             // choose the word from the save
+        debubg(`[WORBLE PARSE]: parsing word "${currentwordguess}" from worble save`);
+        // why did it have to be him [james marriott]
+        var currentguessletters = currentwordguess.split("");   // split the word guess into an array
+        var currentletters = worble_word.split("");             // same as above but for the actual word
+        var finalwordParse = "";
+        
+        var jsontm_real = new Object();                         // will hold key/value pairs for the letters and their counters n stuff
+        var jsontm_guess = new Object();
+
+        for (i in currentletters) {                             // for each actual letter in the word
+            var real_letter = currentletters[i];                // get the real letter from the word
+            var guess_letter = currentguessletters[i];          // get the letter from your guess
+            var real_many = howMany(`${worble_word}`, `${real_letter}`);
+            var guess_many = howMany(`${currentwordguess}`, `${guess_letter}`);
+
+            debubg(`[WORBLE PARSE]: there are ${real_many} of ${real_letter} in the real word.`);
+            debubg(`[WORBLE PARSE]: there are ${guess_many} of ${guess_letter} in the guessed word.`);
+
+            if (keyExists(jsontm_real, `${real_letter}`) == true) {
+                jsontm_real[`${real_letter}`] += 1;
+            } else {
+                jsontm_real[`${real_letter}`] = 1;
+            }
+
+            if (keyExists(jsontm_guess, `${guess_letter}`) == true) {
+                jsontm_guess[`${guess_letter}`] += 1;
+            } else {
+                jsontm_guess[`${guess_letter}`] = 1;
+            }
+
+            debubg(jsontm_real);
+            debubg(jsontm_guess);
+            
+            debubg(`[WORBLE PARSE]: matching letter ${guess_letter} with ${real_letter}`);
+
+            if (guess_letter == real_letter) {                      // letter exists in that exact place
+                finalwordParse = `${finalwordParse}G`;
+
+            } else if (worble_word.indexOf(guess_letter) >= 0) {    // letter exists somewhere
+                
+                if (jsontm_guess[`${guess_letter}`] > real_many) {
+                    debubg(`[WORBLE PARSE]: too many of ${guess_letter}!!!`);
+                    finalwordParse = `${finalwordParse}A`;
+                } else {
+                    finalwordParse = `${finalwordParse}Y`;
+                }
+            } else if (worble_word.indexOf(guess_letter) == -1) {    // gray
+                finalwordParse = `${finalwordParse}A`;
+            }
+
+
+
+
+            //if (guess_letter == real_letter) {                      // green letter
+            //    finalwordParse = `${finalwordParse}G`;
+            //} else if (worble_word.indexOf(guess_letter) >= 0) {    // red leather yellow leather red leather yellow leather
+            //    finalwordParse = `${finalwordParse}Y`;
+            //} else if (worble_word.indexOf(guess_letter) == -1) {    // gray
+            //    finalwordParse = `${finalwordParse}A`;
+            //}
+
+
+
+        }
+        debubg(`[WORBLE PARSE]: pushing "${finalwordParse}" to word parse.`)
+        finalParse.push(`${finalwordParse}`);
+    }
+    debubg(`[WORBLE PARSE]: final parsed worble save: ${finalParse}`);
+    return finalParse
+}
+
+
+
+
+
+function animWorble(worble_parsed) {
+    for (i in worble_save) {
+        var worble_guess = worble_save[i];
+        var worble_guess_parsed = worble_parsed[i];
+        debubg(`[WORBLE ANIM]: animating word "${worble_guess}"`);
+        
+        for (i in worble_guess) {
+            var lengthtm = `${worble_guess}`.length - 1;
+            var worble_guess_letter = worble_guess[i];
+            var worble_parsed_letter = worble_guess_parsed[i];
+            debubg(`[WORBLE ANIM]: animating letter "${worble_guess_letter}" on frame ${i} of ${lengthtm}`);
+            
+
+            var worble_colour = "";
+
+            if (worble_parsed_letter == "G") {              // parse the single colour values into full or smth idk
+                worble_colour = "worble-green";
+            } else if (worble_parsed_letter == "Y") {
+                worble_colour = "worble-yellow";
+            } else if (worble_parsed_letter == "A") {
+                worble_colour = "worble-gray";
+            }
+
+
+            var beforeText = `<span class="worble ${worble_colour}">`;
+
+            beforeText = `${beforeText}${worble_guess_letter}`;
+            
+            //debubg(beforeText);
+
+            var frame = `${beforeText}</span>`;
+
+            appendInline(frame);
+        }
+        newLine();
+        newLine();
+    }
+}
+
+
+
+
+function newWorble() {  // sets up worble
+
+    worble_save = [];
     worbleStatus(false);                // make it so that worble knows its not finished because the game literally just started
     worbleColourUpdate();               // updates colours just to make sure they're all good (doesnt hurt to check)
 
     worbleWord(getRandomFromArr(worble_words));     // gets random word from word list 
     debubg(`[NEW WORDLE SETUP]: wordle word that has been chosen is ${worble_word}`);
-
-
 }
 
 
+
 // list of stuff i want:
-// - [ ] save the entire guess history and load the guess history from local data (load history from local only on page load but save every wordle guess)
+// - [x] save the entire guess history and load the guess history from local data (load history from local only on page load but save every wordle guess)
 // - [ ] the colours are shown from a css class instead of directly in the span html
 // - [ ] each wordle letter is displayed like the rest of everything (steal code from colour append command lmao)
 // - [ ] more things ive forgotten to add to this list
@@ -1116,7 +1282,7 @@ function loadWorbleOld() {
     worble_save_extra = extraarrparsed   ;
 }
 
-function parseWorble(in_worble_word, in_word) {
+function parseWorbleOld(in_worble_word, in_word) {
     debubg(`[WORBLE PARSE]: matching word '${in_word}' with worble word '${in_worble_word}'.`);
     var final = "";
     var worbword = in_worble_word.split("");
