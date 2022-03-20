@@ -2235,7 +2235,7 @@ var MAN_help = [
     "'help -art'"
 ];
 var MAN_man = [
-    "MAN MANPAPGE:",
+    "MAN MANPAGE:",
     "shows you an in-depth help page for a specific command.",
     "USAGE:",
     "'man [command]'",
@@ -2423,6 +2423,43 @@ var MAN_share = [
     "?backcolour   hex code    same as textcolour but it sets the background colour",
 ]
 
+var MAN_ = [
+    "MAN MANPAGE:",
+    "shows you an in-depth help page for a specific command.",
+    "USAGE:",
+    "'man [command]'",
+    " ",
+    "EXAMPLE:",
+    "'man echo'"
+];
+
+var MAN_worble = [
+    "WORBLE MANPAGE",
+    "basically just like wordle but more intense",
+    " ",
+    "USAGE",
+    " ",
+    "'worble [option] <word>'",
+    " ",
+    "OPTIONS",
+    " ",
+    "            | explains more about how to play worble",
+    "      start | start a new worble game",
+    "    restart | restart the worble game",
+    "colourblind | toggles colourblind mode",
+    "       info | shows infor about your current game",
+    "      guess | guess the mystery word",
+    "      share | share your game progress",
+    " ",
+    "NOTES:",
+    "<word> is only supported for the 'guess' option.",
+    " ",
+    "EXAMPLES:",
+    "'worble'",
+    "'worble start'",
+    "'worble guess house'",
+    "'worble info'",
+]
 
 
 
@@ -2469,7 +2506,7 @@ var listy = [
     "help -art",
     "help -dev",
     "cheese",
-    "snake*",
+    "snake *",
     "ascii",
     "cinfo",
     "copy",
@@ -2480,7 +2517,7 @@ var listy = [
     "convert -list",
     "pebblebrain",
     "pebble brain",
-    "man*",
+    "man *",
     "clear -cache",
     "clear -cache -ignore",
     "comment -clear",
@@ -2489,6 +2526,7 @@ var listy = [
     "git",
     "share",
     "reset",
+    "worble *",
 
     "* command is currently in-development and may break the site."
 ]; 
@@ -2573,6 +2611,32 @@ var worble_words = [
     "yes"
 ]
 
+var worble_info_1 = [
+    "   ",
+    "Worble is exactly like the famous internet game "
+]
 
+var worble_info_2 = [
+    ", except there is no limit to how long the word could be,",
+    "and no limit to how many guesses you get. (it would be",
+    "impossible to guess a 10-character long word within 6 guesses)",
+    "     ",
+    "     ",
+    "use 'worble start' to start a worble game, ",
+    "'worble guess [word]' to guess a word,",
+    "'worble info' to get info on your game,",
+    "'worble restart' to start a new game,",
+    "'worble colourblind' to toggle colourblind mode,",
+    "and 'man worble' for any other commands."
+]
+
+var worble_error_1 = [
+    "uh oh! it seems you're already in a worble game!",
+    "to start a new game, run 'worble restart'"
+]
+
+var worble_startscreen = new Array();
+
+var worble_infoscreen = new Array();
 
 console.log("ui elements loaded.")

@@ -787,6 +787,11 @@ function parseCommand(command) {
 
 
 
+    } else if (command == "worble" || command == "worble ") {
+        // show worble main page
+        worblePage();
+        
+        
     } else if (argCommand == "worble") {
         // lmao wordle extreme mode activated
 
@@ -809,7 +814,7 @@ function parseCommand(command) {
 
             if (worble_status == false) { // not in game
                 // make a new worble
-                newWorble();
+                newWorble(false);
             }
 
             if (`${guessword}`.length != worble_word.length) {
@@ -833,153 +838,26 @@ function parseCommand(command) {
                 }
             }
 
-
-
-        }
-
-
-
-
-
-    } else if (argCommand == "worble-old") {
-        // lmao wordle extreme mode activated
-
-        var mmm = argComm(commandInit);
-        var gses = argComm(commandInit);
-
-        
-        if (worblefinished == true) {
-            // worble has finiedhe
-            debubg("worble shall start a new game");            
-
-            var word = getRandomFromArr(worble_words);
-            debubg(word);
-            worble_word = word;
-            
-
-            worblefinished = false;    
-        } else {
-            // it isnt finished and is mid game
-            debubg("thou hath not finished thy worble game")
-            
-
-        }
-
-
-
-
-        if (mmm[1] == "guess") {
-            // making a guess
-
-            gses.splice(0,2); // removes first two chunks of array
-            var guess = gses.join(" ");
-
-            debubg(`guess parsed as: '${guess}'`);
-
-            
-
-            
-            if (`${guess}`.length != worble_word.length) {
-                var long = "";
-                if (`${guess}`.length > worble_word.length) {
-                    long = "too long";
-                } else {
-                    long = "too short";
-                }
+        } else if (mmm[1] == "start") {
+            if (worble_status == true) { // in game
+                // make a new worble
                 newLine();
-                newAnim(`uh oh! worble word is ${long}! the word is ${worble_word.length} characters long.`)
+                animArt(worble_error_1, 10);
             } else {
-
-
-                //worble_save = localStorage.getItem("worble_save");
-                //worble_save_extra = localStorage.getItem("worble_save_extra");
-
-                loadWorble();
-
-                var parsedFull = parseWorble(worble_word, guess);
-
-                var parsed = parsedFull[0];
-                var lettys = parsedFull[1];
-
-
-                debubg(`worble_save: ${worble_save}  ${typeof worble_save}`);
-                debubg(`worble_save_extra: ${worble_save_extra}  ${typeof worble_save_extra}`);
-                debubg(`parsed: ${parsed}`);
-                debubg(`lettys: ${lettys}`);
-
-
-
-                //worble_save.push(`heelo`);
-                //worble_save_extra.push(`${lettys}`);
-
-
-                saveWorble();
-
-                for (i in worble_save) {
-
-                
-
-
-
-
-                    var zimbabwe = worble_save[i].split("");
-                    var wakanda = worble_save_extra[i].split("");
-
-                    debubg(`hehehaha: ${zimbabwe}`);
-
-                    newLine();
-                    // parse into colours                
-                    for (i in zimbabwe) {
-                        var charar = zimbabwe[i];
-                        var cl_green = "#538d4e";
-                        var cl_yellow = "#b59f3b";
-                        var cl_gray = "#3a3a3c";
-                        var use_colour = "";
-
-                        if (worble_colourblind == true) {
-                            cl_green = "#f5793a";
-                            cl_yellow = "#85c0f9";
-                        }
-
-
-                        if (charar == "G") {
-                            use_colour = cl_green;
-                        } else if (charar == "A") {
-                            use_colour = cl_gray;
-                        } else if (charar == "Y") {
-                            use_colour = cl_yellow;
-                        }
-
-                        appendInline(`<span style="background-color: ${use_colour}; color: white; padding: 2px;">${wakanda[i]}</span>`);
-
-                        var missouri = parsed.indexOf("A");
-                        var misery = parsed.indexOf("Y");
-
-                        if (missouri == false && misery == false) {
-                            // WIN!!!
-                            debubg("worble has been finished")
-                            worblefinished = true;
-                        } else {
-                            // not finished
-                        }
-
-                    }
-                }
-
-                debubg(parsed);
-                newLine();
-                //newAnim(parsed, 10);
-    
-
-
-
+                newWorble(false);
             }
-
-
-           
+        } else if (mmm[1] == "restart" || mmm[1] == "reset") {
+            newWorble(true);
+        } else if (mmm[1] == "info") {
+            worbleInfoPage();
+            coopyIf(worble_infoscreen.slice(6));
         }
 
-    }
+
+
+
+
+    } 
     else {
         newLine();
         newAnim(`command error: ${commandInit} is not an existing command.`, 10);

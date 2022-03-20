@@ -216,6 +216,7 @@ function worbleInit() {
         } else {
             worble_colourblind = false;
         }
+        worbleColourUpdate();
     } else {
         // not set eixsir he hehhe hehe hehe i h he heheh  ehe e
         debubg("[WORBLE] worble colourblind mode is not saved. creating."); 
@@ -1222,16 +1223,32 @@ function animWorble(worble_parsed) {
 
 
 
-function newWorble() {  // sets up worble
-    debubg(`[WORBLE SETUP]: setup has been RUN`)
+function newWorble(restart) {  // sets up worble
+    
+    debubg(`[WORBLE SETUP]: setup has been RUN`);
+    worble_guesscount = 0;              // resets guess count (quite important)
     worble_save = new Array();          // resets worble save
     saveWorble();                       // save changes
-    worbleStatus(true);                // make it so that worble knows its not finished because the game literally just started
+    worbleStatus(true);                 // make it so that worble knows its not finished because the game literally just started
     worbleColourUpdate();               // updates colours just to make sure they're all good (doesnt hurt to check)
 
     worbleWord(getRandomFromArr(worble_words));     // gets random word from word list 
-    debubg(`[WORDLE SETUP]: wordle word that has been chosen is ${worble_word}`);
-
+    debubg(`[WORBLE SETUP]: wordle word that has been chosen is ${worble_word}`);
+    if (restart == true) {
+        debubg(`[WORBLE SETUP]: restart is set to true`);
+        worble_startscreen = [
+            `Wordle game restarted!`,
+            `Word length: ${worble_word.length} character(s)`
+        ]
+    } else {
+        debubg(`[WORBLE SETUP]: restart is set to not true`);
+        worble_startscreen = [
+            `Wordle game started!`,
+            `Word length: ${worble_word.length} character(s)`
+        ]
+    }
+    newLine();
+    animArt(worble_startscreen, 10);
 }
 
 
@@ -1246,6 +1263,9 @@ function guessWorble(guess) {
 
     animWorble(parseWorble())
 }
+
+
+
 
 
 
@@ -1278,6 +1298,37 @@ async function githubPage() {
     newLine();
     await newLinkAnim("visit the github page", 5, "https://github.com/caeserlettuce/dapug-console");
 }
+
+async function worblePage() {
+    newLine();
+    var worbletext = asciiText("slant", `WORBLE!`)
+    await animArt(worbletext, 2);
+    await animArt(worble_info_1, 5);
+    await newLinkAnim("Wordle", 5, "https://www.nytimes.com/games/wordle/index.html")
+    await animArt(worble_info_2, 5);
+}
+
+async function worbleInfoPage() {
+    newLine();
+
+    worble_infoscreen = [
+        `Worble Info:`,
+        ` `,
+        `Word length:       ${worble_word.length}`,
+        `Colourblind mode:  ${worble_colourblind}`,
+        `Guess count:       ${worble_guesscount}`,
+        `Status:            ${worble_status}`,
+        ` `,
+        `Worble Save:`
+    ]
+
+
+
+    await animArt(worble_infoscreen, 5);
+    animWorble(parseWorble());
+    
+}   
+
 
 
 
