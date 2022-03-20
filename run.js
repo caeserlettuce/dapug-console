@@ -803,7 +803,41 @@ function parseCommand(command) {
                 newLine();
                 newAnim("colourblind mode has been turned off.", 10);
             }
+        } else if (mmm[1] == "guess") {
+            // guess worble
+            var guessword = mmm.slice(2);
+
+            if (worble_status == false) { // not in game
+                // make a new worble
+                newWorble();
+            }
+
+            if (`${guessword}`.length != worble_word.length) {
+                var long = "";
+                if (`${guessword}`.length > worble_word.length) {
+                    long = "too long";
+                } else {
+                    long = "too short";
+                }
+                newLine();
+                newAnim(`uh oh! worble word is ${long}! the word is ${worble_word.length} characters long.`, 10);
+            } else {
+            
+                
+                // do the guessing
+                guessWorble(guessword);
+
+                if (worble_status == false) {
+                    // you got it right
+                    newAnim(`You got the worble! use 'worble share' to share your success, or start a new game!`);
+                }
+            }
+
+
+
         }
+
+
 
 
 
