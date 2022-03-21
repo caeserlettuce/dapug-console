@@ -21,6 +21,9 @@ have fun
 
 ## TODO:
 
+- [ ] fix uparrow command history thing
+  - this involves rewriting it's code (fun)
+
 - [x] url parameters
   - [x] automatically set debug to true when it's set in the url
   - [x] automatically run commands at startup depending on the url param
@@ -50,11 +53,12 @@ have fun
     - [x] make login command use a json object for usernames and passwords instead of if statements
     - [x] make a command where you can sign up with a new account (using cache data)
 
-  - [ ] my own version of wordle except it uses annoyingly long words
+  - [x] my own version of wordle except it uses annoyingly long words
     - i think im gonna rewrite most of this wordle game because it is very stupid and dumb
     - i'm going to push this repo real fast so i can revert to this one if i screw everything up
     - i hate javascript so much
 
+  - [ ] command that rickrolls the user when used
 
 ### random notes
 

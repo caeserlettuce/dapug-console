@@ -833,8 +833,7 @@ function parseCommand(command) {
                 guessWorble(guessword);
 
                 if (worble_status == false) {
-                    // you got it right
-                    newAnim(`You got the worble! use 'worble share' to share your success, or start a new game!`);
+                    worbleDone();
                 }
             }
 
@@ -851,6 +850,10 @@ function parseCommand(command) {
         } else if (mmm[1] == "info") {
             worbleInfoPage();
             coopyIf(worble_infoscreen.slice(6));
+        } else if (mmm[1] == "share") {
+            shareWorblePage();
+        } else {
+            newAnim("invalid sub command! use 'worble' or 'man worble' to see all the options!");
         }
 
 

@@ -41,6 +41,7 @@ var startup = false; // REMEMBER TO SET TO TRUE LATER (haha now its automatic)
 var worble_status = false;
 var worble_colourblind = false;
 var worble_word = "";
+var worble_word_id = 0;
 var worble_save = [];
 var worble_guesscount = 0;
 var worble_gray = "#3a3a3c";
@@ -50,6 +51,15 @@ var worble_df_green = "#538d4e";
 var worble_df_yellow = "#b59f3b";
 var worble_blind_green = "#f5793a";
 var worble_blind_yellow = "#85c0f9";
+var worble_share_gray = "⬛";
+var worble_share_green = "🟩";
+var worble_share_yellow = "🟨";
+var worble_share_blind_green = "🟧";
+var worble_share_blind_yellow = "🟦";
+var worble_share_df_green = "🟩";
+var worble_share_df_yellow = "🟨";
+
+
 
 debubg("variable init finished...");
 // local storage setup
@@ -476,36 +486,39 @@ intervalVar = setInterval(bebu, 100);
 function bebu() {
     if (debugvar == true) {
         document.getElementById("debubtextvar").innerHTML = `              user: ${user}
-         inputlock: ${inputlock}
-           mainsys: ${mainsys}
-           filesys: ${filesys}
-             debug: ${debug}
-          debugvar: ${debugvar}
-         debugHide: ${debugHide}
-      debugHideVar: ${debugHideVar}
-    snakegamestart: ${snakegamestart}
-         snakegame: ${snakegame}
-         enterlock: ${enterlock}
-       snakeinputs: ${snakeinputs}
-          copycomm: ${copycomm}
-             coopy: ${coopy}
-         debubHide: ${debubHide}
-commandhistorylock: ${commandhistorylock}
-   currentHistCOmm: ${currentHistCOmm}
-        currentCOM: ${currentCOM}
-    snakegamespeed: ${snakegamespeed}
-       snakeingame: ${snakeingame}
-         snaketick: ${snaketick}
-        textcolour: ${textcolour}
-        backcolour: ${backcolour}
-       autocommand: ${autocommand}
-     worble_status: ${worble_status}
-worble_colourblind: ${worble_colourblind}
- worble_guesscount: ${worble_guesscount}
-       worble_word: ${worble_word}
-       worble_gray: ${worble_gray}
-      worble_green: ${worble_green}
-     worble_yellow: ${worble_yellow}
+           inputlock: ${inputlock}
+             mainsys: ${mainsys}
+             filesys: ${filesys}
+               debug: ${debug}
+            debugvar: ${debugvar}
+           debugHide: ${debugHide}
+        debugHideVar: ${debugHideVar}
+      snakegamestart: ${snakegamestart}
+           snakegame: ${snakegame}
+           enterlock: ${enterlock}
+         snakeinputs: ${snakeinputs}
+            copycomm: ${copycomm}
+               coopy: ${coopy}
+           debubHide: ${debubHide}
+  commandhistorylock: ${commandhistorylock}
+     currentHistCOmm: ${currentHistCOmm}
+          currentCOM: ${currentCOM}
+      snakegamespeed: ${snakegamespeed}
+         snakeingame: ${snakeingame}
+           snaketick: ${snaketick}
+          textcolour: ${textcolour}
+          backcolour: ${backcolour}
+         autocommand: ${autocommand}
+       worble_status: ${worble_status}
+  worble_colourblind: ${worble_colourblind}
+   worble_guesscount: ${worble_guesscount}
+         worble_word: ${worble_word}
+         worble_gray: ${worble_gray}
+        worble_green: ${worble_green}
+       worble_yellow: ${worble_yellow}
+   worble_share_gray: ${worble_share_gray}
+  worble_share_green: ${worble_share_green}
+ worble_share_yellow: ${worble_share_yellow}
 `;autocommand
         console.log("binted.");
     }
@@ -1000,6 +1013,21 @@ function getRandomFromArr(inArray) {
 
 }
 
+function getWorbleWord() {
+    // gets random element from array
+
+    var hehe = "";
+    // local words
+    var id = Math.floor(Math.random()* worble_words.length);
+    worble_word_id = id;
+    var hehe = worble_words[id];
+
+
+
+    return hehe
+
+}
+
 // ALL BASE WORBLE FUNCTIONS:
 
 function worbleStatus(bool) {
@@ -1014,9 +1042,13 @@ function worbleColourUpdate() {
     if (worble_colourblind == true) {
         worble_green = `${worble_blind_green}`;
         worble_yellow = `${worble_blind_yellow}`;
+        worble_share_green = `${worble_share_blind_green}`;
+        worble_share_yellow = `${worble_share_blind_yellow}`;
     } else {
         worble_green = `${worble_df_green}`;
         worble_yellow = `${worble_df_yellow}`;
+        worble_share_green = `${worble_share_df_green}`;
+        worble_share_yellow = `${worble_share_df_yellow}`;
     }
 
     document.getElementById("worble-colours").innerHTML = `.worble-green {
@@ -1232,7 +1264,7 @@ function newWorble(restart) {  // sets up worble
     worbleStatus(true);                 // make it so that worble knows its not finished because the game literally just started
     worbleColourUpdate();               // updates colours just to make sure they're all good (doesnt hurt to check)
 
-    worbleWord(getRandomFromArr(worble_words));     // gets random word from word list 
+    worbleWord(getWorbleWord());     // gets random word from word list 
     debubg(`[WORBLE SETUP]: wordle word that has been chosen is ${worble_word}`);
     if (restart == true) {
         debubg(`[WORBLE SETUP]: restart is set to true`);
@@ -1264,6 +1296,44 @@ function guessWorble(guess) {
     animWorble(parseWorble())
 }
 
+
+function shareWorble(parsed) { // parse the worble save into colours
+    var final = new Array();
+
+    worble_raw_info = [
+        `worble (https://dapug.lol/console?command=worble)`,
+        `word ${worble_word_id + 1}/${worble_words.length}`,
+        `${worble_guesscount}/∞ tries`
+    ]
+
+
+    for (i in parsed) {     // all the words
+        var currentword = parsed[i];
+        var currentletters = currentword.split("");
+        debubg(`[WORBLE SHARE]: parsing: ${currentword}`);
+
+        var currentLine = "";
+        for(i in currentletters) {
+            var lettertm = currentletters[i];
+            debubg(`[WORBLE SHARE]: parsing: ${lettertm}`);
+
+            if (lettertm == "G") {
+                currentLine = `${currentLine}${worble_share_green}`;
+            } else if (lettertm == "Y") {
+                currentLine = `${currentLine}${worble_share_yellow}`;
+            } else if (lettertm == "A") {
+                currentLine = `${currentLine}${worble_share_gray}`;
+            }
+
+        }
+
+        final.push(`${currentLine}`);
+    }
+
+    worble_share_finale = worble_raw_info.concat(final);
+    debubg(worble_share_finale);
+    copyArr(worble_share_finale);
+}
 
 
 
@@ -1315,8 +1385,9 @@ async function worbleInfoPage() {
         `Worble Info:`,
         ` `,
         `Word length:       ${worble_word.length}`,
+        `Word:              ${worble_word_id + 1}/${worble_words.length}`,
         `Colourblind mode:  ${worble_colourblind}`,
-        `Guess count:       ${worble_guesscount}`,
+        `Guess count:       ${worble_guesscount}/∞`,
         `Status:            ${worble_status}`,
         ` `,
         `Worble Save:`
@@ -1325,10 +1396,25 @@ async function worbleInfoPage() {
 
 
     await animArt(worble_infoscreen, 5);
-    animWorble(parseWorble());
+    await animWorble(parseWorble());
+    debubg(`[WORBLE INFO]: worble word is ${worble_word}`);
     
 }   
 
+async function shareWorblePage() {
+    shareWorble(parseWorble());
+    newLine();
+    await newAnim("worble copied to clipboard: ", 10);
+    newLine();
+    animArt(worble_share_finale, 10);
+
+}
+
+async function worbleDone() {
+    // you got it right
+    await newAnim(`You got the worble! use 'worble start' to start a new game!`, 10);
+    shareWorble(parseWorble());
+}
 
 
 
