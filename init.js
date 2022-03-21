@@ -58,7 +58,10 @@ var worble_share_blind_green = "🟧";
 var worble_share_blind_yellow = "🟦";
 var worble_share_df_green = "🟩";
 var worble_share_df_yellow = "🟨";
-
+var commandHistory = new Array();
+var commandIndex = 0;
+var currentCommand = "";
+var inHistory = false;
 
 
 debubg("variable init finished...");
@@ -1328,11 +1331,6 @@ function shareWorble(parsed) { // parse the worble save into colours
     copyArr(worble_share_finale);
 }
 
-
-
-
-
-
 // list of stuff i want:
 // - [x] save the entire guess history and load the guess history from local data (load history from local only on page load but save every wordle guess)
 // - [x] the colours are shown from a css class instead of directly in the span html
@@ -1347,6 +1345,72 @@ function shareWorble(parsed) { // parse the worble save into colours
 //loadWorble();
 
 //parseWorble("yes", "sey");
+var shell = document.getElementById("consoleinput");
+
+function historyIndex(moveamount) {
+    // scroll through history
+
+    // THE BigGER THE INDEX NUMBER, THE OLDER THE COMMAND IS!!!
+
+    var histLen = commandHistory.length;
+
+    if (commandIndex + moveamount <= 0) {
+        debubg(`[HISTORY INDEX]: reached the beginning of command history`);
+        // if you move back to the current command (or into the negatives somehow)
+        inHistory = false;
+        commandIndex = 0;
+
+    } else if (commandIndex + moveamount >= histLen ) {
+        debubg(`[HISTORY INDEX]: reached the end of command history`);
+        // if you reach the end of the command history
+        commandIndex = histLen - 1;
+
+    } else if (commandIndex == 0 && inHistory == false) {
+        debubg(`[HISTORY INDEX]: starting to go through the list`);
+        currentCommand = shell.value;
+        inHistory = true;
+
+    } else {
+        debubg(`[HISTORY INDEX]: moving throughout the list`);
+        // moving throughout the list
+
+        commandIndex += moveamount;
+        inHistory = true;   
+    }
+
+    var selected_command = commandHistory[commandIndex]
+
+    debubg(`[HISTORY INDEX]: selected command: ${selected_command}, from index ${commandIndex}, current command: ${currentCommand}`);    
+
+    return selected_command;
+
+
+}
+
+function historyPush() {
+    // add command to the index
+    debubg(`[COMMAND HISTORY PUSH]: pushing command "${shell.value}" to command history.`);
+    commandHistory.unshift(`${shell.value}`);   // adds the command to the beginning of the array
+
+}
+
+function historyReset() {
+    // reset the index to the last one in the array
+    debubg(`[COMMAND HISTORY RESET]: resetting command history back to 0.`)
+    commandIndex = 0;
+    inHistory = false;
+}
+
+commandHistory = [
+    "fifth command",
+    "fourth command",
+    "third command",
+    "second command",
+    "first command"
+]
+
+
+
 
 // =============================== TOOL FUNCTIONS ABOVE ==================
 debubg("extra tool functions init finished...");
