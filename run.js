@@ -853,6 +853,7 @@ function parseCommand(command) {
         } else if (mmm[1] == "share") {
             shareWorblePage();
         } else {
+            newLine();
             newAnim("invalid sub command! use 'worble' or 'man worble' to see all the options!");
         }
 

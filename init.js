@@ -1129,8 +1129,8 @@ function parseWorble() { // parse the worble save into colours
         var currentletters = `${worble_word}`.split("");             // same as above but for the actual word
         var finalwordParse = "";
 
-        debubg(currentguessletters);
-        debubg(currentletters);
+        //debubg(currentguessletters);
+        //debubg(currentletters);
         
         var jsontm_real = new Object();                         // will hold key/value pairs for the letters and their counters n stuff
         var jsontm_guess = new Object();
@@ -1156,8 +1156,8 @@ function parseWorble() { // parse the worble save into colours
                 jsontm_guess[`${guess_letter}`] = 1;
             }
 
-            debubg(jsontm_real);
-            debubg(jsontm_guess);
+            //debubg(jsontm_real);
+            //debubg(jsontm_guess);
             
             debubg(`[WORBLE PARSE]: matching letter ${guess_letter} with ${real_letter}`);
 
@@ -1166,11 +1166,11 @@ function parseWorble() { // parse the worble save into colours
 
             } else if (worble_word.indexOf(guess_letter) >= 0) {    // letter exists somewhere
 
-                if (jsontm_guess[`${guess_letter}`] > real_many) {
+                if (guess_many <= real_many) {
                     debubg(`[WORBLE PARSE]: too many of ${guess_letter}!!!`);
-                    finalwordParse = `${finalwordParse}A`;
-                } else {
                     finalwordParse = `${finalwordParse}Y`;
+                } else {
+                    finalwordParse = `${finalwordParse}A`;
                 }
             } else if (worble_word.indexOf(guess_letter) == -1) {    // gray
                 finalwordParse = `${finalwordParse}A`;
@@ -1214,42 +1214,35 @@ function parseWorble() { // parse the worble save into colours
 function animWorble(worble_parsed) {
     newLine();
     newLine();
+    var finalAppend = "";
+
     for (i in worble_save) {
         var worble_guess = worble_save[i];
         var worble_guess_parsed = worble_parsed[i];
         debubg(`[WORBLE ANIM]: animating word "${worble_guess}"`);
         
         for (i in worble_guess) {
-            var lengthtm = `${worble_guess}`.length - 1;
+
             var worble_guess_letter = worble_guess[i];
             var worble_parsed_letter = worble_guess_parsed[i];
-            debubg(`[WORBLE ANIM]: animating letter "${worble_guess_letter}" on frame ${i} of ${lengthtm}`);
             
-
-            var worble_colour = "";
+            debubg(`[WORBLE ANIM]: animating letter "${worble_guess_letter}"`);
 
             if (worble_parsed_letter == "G") {              // parse the single colour values into full or smth idk
-                worble_colour = "worble-green";
+                finalAppend = `${finalAppend}<span class="worble worble-green">${worble_guess_letter}</span>`;
             } else if (worble_parsed_letter == "Y") {
-                worble_colour = "worble-yellow";
+                finalAppend = `${finalAppend}<span class="worble worble-yellow">${worble_guess_letter}</span>`;
             } else if (worble_parsed_letter == "A") {
-                worble_colour = "worble-gray";
+                finalAppend = `${finalAppend}<span class="worble worble-gray">${worble_guess_letter}</span>`;
             }
 
-
-            var beforeText = `<span class="worble ${worble_colour}">`;
-
-            beforeText = `${beforeText}${worble_guess_letter}`;
-            
-            //debubg(beforeText);
-
-            var frame = `${beforeText}</span>`;
-
-            appendInline(frame);
         }
-        newLine();
-        newLine();
+        finalAppend = `${finalAppend}<br><br>`;
+        
     }
+    debubg(`[WORble ANIM]: ${finalAppend}`);
+    appendInline(finalAppend);
+    
 }
 
 

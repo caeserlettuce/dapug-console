@@ -58,6 +58,14 @@ have fun
     - i'm going to push this repo real fast so i can revert to this one if i screw everything up
     - i hate javascript so much
 
+  - [x] optimise worble code because after a bit it gets slow
+    - [x] after a bit it's slow
+      - it's not local storage that's slowing it down
+      - it's something in the printing of the worble history that is slowing everything down because when i use 'worble info' with a semi-long worble history, it's still slow
+      - im trying removing a bunch of debug commands
+      - the issue was because i had it appending to the page every single letter so what i did is that i made it append to a variable first and then append it to the site once it's done and now its so much faster
+  - [ ] fix the command history thing
+
   - [ ] command that rickrolls the user when used
 
 ### random notes
