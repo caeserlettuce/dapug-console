@@ -1364,6 +1364,7 @@ function historyIndex(moveamount) {
         debubg(`[HISTORY INDEX]: reached the end of command history`);
         // if you reach the end of the command history
         commandIndex = histLen - 1;
+        inHistory = true;
 
     } else if (commandIndex == 0 && inHistory == false) {
         debubg(`[HISTORY INDEX]: starting to go through the list`);
@@ -1401,13 +1402,7 @@ function historyReset() {
     inHistory = false;
 }
 
-commandHistory = [
-    "fifth command",
-    "fourth command",
-    "third command",
-    "second command",
-    "first command"
-]
+
 
 
 
@@ -1535,20 +1530,21 @@ var elem = document.getElementById("consoleinput");
             if(e.keyCode == 13) {
                 if (elem.value != "") {
                     if (enterlock == false) {
-                        var sting = elem.value;
-                        commang.push(sting);
-                        userAppend(`${sting}`);
+                        // stinky old code is gone!!!!
+
+                        // *crab rave*
+                        historyPush();
+                        
+
 
                         if (mainsys == true) {
-                            parseCommand(sting);
+                            parseCommand(elem.value);
                         } else if (filesys == true) {
-                            filesysParse(sting);
+                            filesysParse(elem.value);
                         }
 
-                        
+                        historyReset();
                         elem.value = "";
-                        currentHistCOm = 0;
-                        currentCOM = 0;
                         scrolly();
                         //debubg(consoltext);
                         //debubg(commang);
@@ -1562,23 +1558,12 @@ var elem = document.getElementById("consoleinput");
             } else if(e.keyCode == 38) {
                 if (snakeinputs == true) {
                     debubg("up arrow detected");
+
                 } else if (commandhistorylock == false) {
-                    debubg(`selecting previous message, histcom is ${currentHistCOmm}`);
-                    if (currentHistCOmm == 0 ) {
-                        currentCOM = elem.value;
-                        debubg(`set current command in cache to ${elem.value}`);
-                    }
-                    var historylen = commang.length;
-                    debubg(`command length is ${historylen}`);
-                    
-                    if (currentHistCOmm < historylen) {
-                        currentHistCOmm += 1;
-                        var la = historylen - currentHistCOmm;
-                        debubg(`getting command ${la} from memory`);
-                        var co = commang[la];
-                        debubg(co);
-                        elem.value = co;
-                    }
+                    // get out of here old command history code, you stinky
+                    var indexed = historyIndex(1); // index history up by 1
+                    elem.value = `${indexed}`;
+
                 }
                 
             } else if(e.keyCode == 39) {
@@ -1588,21 +1573,17 @@ var elem = document.getElementById("consoleinput");
             } else if(e.keyCode == 40) {
                 if (snakeinputs == true) {
                     debubg("down arrow detected");
-                } else if (commandhistorylock == false) {
-                    debubg(`selecting less previous message, histcom is ${currentHistCOmm}`); // i cant think of the word shut up
-                    var historylen = commang.length;
 
-                    if (currentHistCOmm > 1) {
-                        currentHistCOmm -= 1;
-                        var la = historylen - currentHistCOmm;
-                        debubg(`getting command ${la} from memory`);
-                        var co = commang[la];
-                        debubg(co);
-                        elem.value = co;
-                    } else {
-                        elem.value = currentCOM;
-                        currentHistCOmm = 0;
-                    }
+                } else if (commandhistorylock == false) {
+                    // SAME WITH YOU! get outta here you stinky old code!! make room for the new code! just kidding!
+                    // it uses up less space than you! ha!
+                    var indexed = historyIndex(-1); // index history up by 1
+                    elem.value = `${indexed}`;
+
+
+
+
+
 
                 }
             }

@@ -554,7 +554,7 @@ function parseCommand(command) {
     } else if (command == "history") {
         //debubg(commang);
         newLine();
-        var YAYA = commang.slice(0);
+        var YAYA = commandHistory.slice(0);
         YAYA.unshift("COMMAND HISTORY:");
         animArt(YAYA, 5);
         //debubg(commang);
