@@ -3126,8 +3126,10 @@ var worble_info_1 = [
 
 var worble_info_2 = [
     ", except there is no limit to how long the word could be,",
-    "and no limit to how many guesses you get. (it would be",
-    "impossible to guess a 10-character long word within 6 guesses)",
+    "and no limit to how many guesses you get.",
+    "for any word 10 characters or shorter, you must guess a word",
+    "that is the same length, but anything longer than 10 characters,",
+    "you can guess any length of word.",
     "     ",
     "     ",
     "use 'worble start' to start a worble game, ",
@@ -3141,6 +3143,11 @@ var worble_info_2 = [
 var worble_error_1 = [
     "uh oh! it seems you're already in a worble game!",
     "to start a new game, run 'worble restart'"
+]
+
+var worble_error_2 = [
+    "uh oh! it seems you're not in a worble game!",
+    "to start a new game, run 'worble start'"
 ]
 
 var worble_startscreen = new Array();

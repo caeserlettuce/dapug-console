@@ -12,11 +12,14 @@ it's probably not up to date
 
 but this repo is where i'll have the nightly versions of it because i'm getting tired of sending a zip of it through discord and downloading it on either my pc or laptop
 
-so
+<br>
 
-that's it
+____as best reviewed by tech experts from around the world____
 
-have fun
+> *"what can i say except you're welcome"* <br>
+> 
+> *-18_gallons, after inputting over 1000 characters into the command prompt and breaking the site while i watch in sadness* 
+
 
 
 ## TODO:

@@ -813,34 +813,55 @@ function parseCommand(command) {
                 newAnim("colourblind mode has been turned off.", 10);
             }
         } else if (mmm[1] == "guess") {
-            // guess worble
-            var guessword = mmm.slice(2);
 
             if (worble_status == false) { // not in game
                 // make a new worble
-                newWorble(false);
-            }
-
-            if (`${guessword}`.length != worble_word.length) {
-                var long = "";
-                if (`${guessword}`.length > worble_word.length) {
-                    long = "too long";
-                } else {
-                    long = "too short";
-                }
                 newLine();
-                newAnim(`uh oh! worble word is ${long}! the word is ${worble_word.length} characters long.`, 10);
+                animArt(worble_error_2, 10);
             } else {
-            
+                // guess worble
+                var guessword = mmm.slice(2).join(" ");
                 
-                // do the guessing
-                guessWorble(guessword);
+                if (worble_word.length < `${guessword}`.length) {
+                    newLine();
+                    newAnim(`uh oh! your guess is too long! the word is ${worble_word.length} characters long.`, 10);
+                
+                } else if (worble_word.length > 10) {  // more than 10 letters
 
-                if (worble_status == false) {
-                    worbleDone();
+                    debubg("AAAAAAAAAAAAA ITS LONGER THAN 10");
+                    // do the guessing
+                    guessWorble(guessword);
+
+                    if (worble_status == false) {
+                        worbleDone();
+                    }
+
+
+                } else {// below or equal to 10 characters
+                    if (`${guessword}`.length != worble_word.length) {
+                        var long = "";
+                        if (`${guessword}`.length > worble_word.length) {
+                            long = "too long";
+                        } else {
+                            long = "too short";
+                        }
+                        newLine();
+                        newAnim(`uh oh! your guess is ${long}! the word is ${worble_word.length} characters long.`, 10);
+                
+                    } else {
+                
+                        
+                        // do the guessing
+                        guessWorble(guessword);
+
+                        if (worble_status == false) {
+                            worbleDone();
+                        }
+                    }
                 }
             }
-
+        
+        
         } else if (mmm[1] == "start") {
             if (worble_status == true) { // in game
                 // make a new worble
@@ -850,14 +871,15 @@ function parseCommand(command) {
                 newWorble(false);
             }
         } else if (mmm[1] == "restart" || mmm[1] == "reset") {
-            newWorble(true);
+            restartWorble();
         } else if (mmm[1] == "info") {
             worbleInfoPage();
             coopyIf(worble_infoscreen.slice(6));
         } else if (mmm[1] == "share") {
             shareWorblePage();
         } else if (mmm[1] == "custom") {
-            var guessword = mmm.slice(2);
+            worble_word_id = "custom";
+            var guessword = mmm.slice(2).join(" ");
             if (worble_status == true) { // in game
                 // make a new worble
                 newWorble(true, guessword);

@@ -1167,6 +1167,8 @@ function parseWorble() { // parse the worble save into colours
             if (guess_letter == real_letter) {                      // letter exists in that exact place
                 finalwordParse = `${finalwordParse}G`;
 
+            } else if (guess_letter == undefined) {
+                finalwordParse = `${finalwordParse}S`;
             } else if (worble_word.indexOf(guess_letter) >= 0) {    // letter exists somewhere
 
                 if (guess_many <= real_many) {
@@ -1193,9 +1195,13 @@ function parseWorble() { // parse the worble save into colours
 
 
         }
+
+        
+
+
         debubg(`[WORBLE PARSE]: pushing "${finalwordParse}" to word parse.`)
         finalParse.push(`${finalwordParse}`);
-        if (finalwordParse.indexOf("Y") >= 0 || finalwordParse.indexOf("A") >= 0) {
+        if (finalwordParse.indexOf("Y") >= 0 || finalwordParse.indexOf("A") >= 0 || finalwordParse.indexOf("S") >= 0) {
             debubg(`[WORBLE PARSE]: found incorrect characters in guess! you are not done!!!! haha!!!`); // i love bullying people on the internet /j
         } else {
             // its just geen
@@ -1224,7 +1230,7 @@ function animWorble(worble_parsed) {
         var worble_guess_parsed = worble_parsed[i];
         debubg(`[WORBLE ANIM]: animating word "${worble_guess}"`);
         
-        for (i in worble_guess) {
+        for (i in worble_guess_parsed) {
 
             var worble_guess_letter = worble_guess[i];
             var worble_parsed_letter = worble_guess_parsed[i];
@@ -1237,6 +1243,8 @@ function animWorble(worble_parsed) {
                 finalAppend = `${finalAppend}<span class="worble worble-yellow">${worble_guess_letter}</span>`;
             } else if (worble_parsed_letter == "A") {
                 finalAppend = `${finalAppend}<span class="worble worble-gray">${worble_guess_letter}</span>`;
+            } else if (worble_parsed_letter == "S") {
+                finalAppend = `${finalAppend}<span class="worble worble-gray"> </span>`;
             }
 
         }
@@ -1457,9 +1465,9 @@ async function worblePage() {
     newLine();
     var worbletext = asciiText("slant", `WORBLE!`)
     await animArt(worbletext, 2);
-    await animArt(worble_info_1, 5);
-    await newLinkAnim("Wordle", 5, "https://www.nytimes.com/games/wordle/index.html")
-    await animArt(worble_info_2, 5);
+    await animArt(worble_info_1, 2);
+    await newLinkAnim("Wordle", 2, "https://www.nytimes.com/games/wordle/index.html")
+    await animArt(worble_info_2, 2);
 }
 
 async function worbleInfoPage() {
@@ -1500,6 +1508,12 @@ async function worbleDone() {
     shareWorble(parseWorble());
 }
 
+async function restartWorble() {
+    newLine();
+    await newAnim(`The worble was "${worble_word}"!`, 5)
+    newLine();
+    newWorble(true);
+}
 
 
 debubg("async command functions init finished...");
