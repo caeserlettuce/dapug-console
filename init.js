@@ -1251,7 +1251,7 @@ function animWorble(worble_parsed) {
 
 
 
-function newWorble(restart) {  // sets up worble
+function newWorble(restart, custom_word) {  // sets up worble
     
     debubg(`[WORBLE SETUP]: setup has been RUN`);
     worble_guesscount = 0;              // resets guess count (quite important)
@@ -1260,7 +1260,15 @@ function newWorble(restart) {  // sets up worble
     worbleStatus(true);                 // make it so that worble knows its not finished because the game literally just started
     worbleColourUpdate();               // updates colours just to make sure they're all good (doesnt hurt to check)
 
-    worbleWord(getWorbleWord());     // gets random word from word list 
+    if (custom_word != null || custom_word != undefined) {
+        worbleWord(`${custom_word}`);   // sets to custom word
+    } else {
+        worbleWord(getWorbleWord());    // gets random word from word list 
+    }
+    
+    
+    
+    
     debubg(`[WORBLE SETUP]: wordle word that has been chosen is ${worble_word}`);
     if (restart == true) {
         debubg(`[WORBLE SETUP]: restart is set to true`);

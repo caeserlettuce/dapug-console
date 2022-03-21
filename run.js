@@ -856,6 +856,14 @@ function parseCommand(command) {
             coopyIf(worble_infoscreen.slice(6));
         } else if (mmm[1] == "share") {
             shareWorblePage();
+        } else if (mmm[1] == "custom") {
+            var guessword = mmm.slice(2);
+            if (worble_status == true) { // in game
+                // make a new worble
+                newWorble(true, guessword);
+            } else {
+                newWorble(false, guessword);
+            }
         } else {
             newLine();
             newAnim("invalid sub command! use 'worble' or 'man worble' to see all the options!");

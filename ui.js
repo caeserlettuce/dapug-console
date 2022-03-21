@@ -3109,6 +3109,14 @@ var worble_words = [
     "weight",
     "language",
     "among",
+    "among us",
+    "lemon demon",
+    "spirit phone",
+    "nature tapes",
+    "view monster",
+    "dinosaurchestra",
+    "neil cicierega",
+    "neil cicierega aka lemon demon"
 ]
 
 var worble_info_1 = [
