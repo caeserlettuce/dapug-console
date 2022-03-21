@@ -554,10 +554,14 @@ function parseCommand(command) {
     } else if (command == "history") {
         //debubg(commang);
         newLine();
-        var YAYA = commandHistory.slice(0);
-        YAYA.unshift("COMMAND HISTORY:");
-        animArt(YAYA, 5);
-        //debubg(commang);
+        if (commandHistory.length > 0) {
+            var YAYA = commandHistory.slice(0);
+            YAYA.unshift("COMMAND HISTORY:");
+            animArt(YAYA, 5);
+            //debubg(commang);
+        } else {
+            newAnim(`Command history is empty. type a command to make it not empty!`);
+        }
     } else if (argCommand == "cinfo") {
         var mmm = argComm(commandInit);
         mmm.shift();

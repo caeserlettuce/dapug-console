@@ -1353,33 +1353,57 @@ function historyIndex(moveamount) {
     // THE BigGER THE INDEX NUMBER, THE OLDER THE COMMAND IS!!!
 
     var histLen = commandHistory.length;
+    var selected_command = "";
+    var empty;
+    var beginning;
 
-    if (commandIndex + moveamount <= 0) {
+    if (inHistory == false) {
+        currentCommand = shell.value;
+    }
+
+    if (histLen == 0) {
+        debubg(`[HISTORY INDEX]: nothing in command history.`);
+        inHistory = false;
+        commandIndex = 0;
+        empty = true;
+        beginning = false;
+    } else if (commandIndex + moveamount < 0) {
         debubg(`[HISTORY INDEX]: reached the beginning of command history`);
         // if you move back to the current command (or into the negatives somehow)
         inHistory = false;
         commandIndex = 0;
-
+        empty = false;
+        beginning = true;
     } else if (commandIndex + moveamount >= histLen ) {
         debubg(`[HISTORY INDEX]: reached the end of command history`);
         // if you reach the end of the command history
         commandIndex = histLen - 1;
         inHistory = true;
-
+        empty = false;
+        beginning = false;
     } else if (commandIndex == 0 && inHistory == false) {
         debubg(`[HISTORY INDEX]: starting to go through the list`);
         currentCommand = shell.value;
         inHistory = true;
-
+        empty = false;
+        beginning = false;
     } else {
         debubg(`[HISTORY INDEX]: moving throughout the list`);
         // moving throughout the list
-
+        empty = false;
         commandIndex += moveamount;
-        inHistory = true;   
+        inHistory = true;
+        beginning = false;
     }
 
-    var selected_command = commandHistory[commandIndex]
+    if (beginning == true) {
+        selected_command = `${currentCommand}`;
+    } else if (empty == false) {
+        selected_command = commandHistory[commandIndex];
+    } else {
+        selected_command = "";
+    }
+
 
     debubg(`[HISTORY INDEX]: selected command: ${selected_command}, from index ${commandIndex}, current command: ${currentCommand}`);    
 
@@ -1533,6 +1557,10 @@ var elem = document.getElementById("consoleinput");
                         // stinky old code is gone!!!!
 
                         // *crab rave*
+
+                        userAppend(`${elem.value}`, `${user}`);
+
+
                         historyPush();
                         
 
