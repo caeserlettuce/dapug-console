@@ -896,7 +896,9 @@ function parseCommand(command) {
 
 
 
-    } 
+    } else if (command == "fitness" || command == "fitness gram" || command == "fitness gram pacer" || command == "fitness gram pacer test") {
+        fitnessGram();
+    }
     else {
         newLine();
         newAnim(`command error: ${commandInit} is not an existing command.`, 10);
