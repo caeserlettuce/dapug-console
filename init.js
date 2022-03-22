@@ -516,6 +516,7 @@ function bebu() {
   worble_colourblind: ${worble_colourblind}
    worble_guesscount: ${worble_guesscount}
          worble_word: ${worble_word}
+      worble_word_id: ${worble_word_id}
          worble_gray: ${worble_gray}
         worble_green: ${worble_green}
        worble_yellow: ${worble_yellow}
@@ -1019,12 +1020,24 @@ function getRandomFromArr(inArray) {
 function getWorbleWord() {
     // gets random element from array
 
-    var hehe = "";
-    // local words
-    var id = Math.floor(Math.random()* worble_words.length);
-    worble_word_id = id;
-    var hehe = worble_words[id];
+    var isAwful = Math.random()* 5;
 
+    var hehe = "";
+    if (isAwful != 1) {
+
+        // local words
+        var id = Math.floor(Math.random()* worble_words.length);
+        worble_word_id = `${id}`;
+        var hehe = worble_words[id];
+    } else {
+        // local words
+        var id = Math.floor(Math.random()* worble_awful_words.length);
+        worble_word_id = `${id}`;
+        var hehe = worble_words[id];
+
+
+
+    }
 
 
     return hehe
@@ -1314,7 +1327,7 @@ function shareWorble(parsed) { // parse the worble save into colours
 
     worble_raw_info = [
         `worble (https://dapug.lol/console?command=worble)`,
-        `word ${worble_word_id + 1}/${worble_words.length}`,
+        `word ${worble_word_id}`,
         `${worble_guesscount}/∞ tries`
     ]
 
@@ -1477,7 +1490,7 @@ async function worbleInfoPage() {
         `Worble Info:`,
         ` `,
         `Word length:       ${worble_word.length}`,
-        `Word:              ${worble_word_id + 1}/${worble_words.length}`,
+        `Word:              ${worble_word_id + 1}`,
         `Colourblind mode:  ${worble_colourblind}`,
         `Guess count:       ${worble_guesscount}/∞`,
         `Status:            ${worble_status}`,
@@ -1514,6 +1527,13 @@ async function restartWorble() {
     newLine();
     newWorble(true);
 }
+
+async function fitnessGram() {
+    newLine();
+    await animArt(fitnessgram, 2);
+    await animArt(fitnessgram_1, 1);
+}
+
 
 
 debubg("async command functions init finished...");
