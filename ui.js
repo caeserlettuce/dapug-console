@@ -2462,6 +2462,17 @@ var MAN_worble = [
 ]
 
 
+MAN_uwu = [
+    "UWU MANPAGE (simon i blame you for this)",
+    "translates any text into uwu speak",
+    " ",
+    "USAGE:",
+    "'uwu [text]'",
+    " ",
+    "EXAMPLE:",
+    "'uwu hello there!'",
+]
+
 
 var listy = [
     "info",
@@ -2527,6 +2538,7 @@ var listy = [
     "share",
     "reset",
     "worble *",
+    "uwu",
 
     "* command is currently in-development and may break the site."
 ]; 
@@ -3159,4 +3171,36 @@ var worble_share_finale = new Array();
 
 var worble_raw_info = new Array();
 
-console.log("ui elements loaded.")
+var uwu_translate = {
+    "simon": "simom",
+    "eamon":"emom",
+    "vaughan":"vgog",
+    "l": "w",
+    "r": "w",
+    "ou":"ouw",
+    "does":"dews",
+    "tion":"shun",
+    "ph":"f",
+    "thic":"fic",
+    "thi":"di",
+    "those":"dose",
+    "that":"dat",
+    "the":"de",
+    "th":"f",
+    "ce":"s",
+    "been":"bin",
+    "mission":"mishun",
+    "sion":"shun",
+    "species":"speshes",
+    "height":"hite",
+    "cause": "cauwse",
+    "name": "nayme",
+    "which": "wich",
+    "human": "huwman",
+    "stage": "stayge",
+    "system": "sistum",
+    
+    // "":"",
+}
+
+console.log("ui elements loaded.");

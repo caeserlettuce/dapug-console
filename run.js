@@ -889,14 +889,23 @@ function parseCommand(command) {
             
         } else {
             newLine();
-            newAnim("invalid sub command! use 'worble' or 'man worble' to see all the options!");
+            newAnim("invalid sub command! use 'worble' or 'man worble' to see all the options!", 10);
         }
 
-
-
-
-
-    } 
+    } else if (command == "uwu" || command == "uwu ") {
+        newLine();
+        newAnim("incorrect usage. check 'man uwu' for how to use.", 10);
+    } else if (argCommand == "uwu") {
+        var mmm = argComm(commandInit);
+        mmm.shift();
+        var inputtext = mmm.join(" ");
+        debubg(inputtext);
+        inputtext = inputtext.toLowerCase();
+        var translated = replaceFromJson(`${inputtext}`, uwu_translate);
+        newLine();
+        newAnim(translated, 10);
+        coopyIf(translated);
+    }
     else {
         newLine();
         newAnim(`command error: ${commandInit} is not an existing command.`, 10);
