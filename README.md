@@ -20,11 +20,35 @@ ____as best reviewed by tech experts from around the world____
 > 
 > *-18_gallons, after inputting over 1000 characters into the command prompt and breaking the site while i watch in sadness* 
 
+<br> also happy 2 month of working on this project! (for me)<br>
+though this project had not *started* on github, the `info` command on the site provides the date i started it on (january 24, 2022)<br>
+
+and it is currently march 29th, 2022
 
 
 ## TODO:
 
-- [ ] fix uparrow command history thing
+- [ ] complete overhaul on how text is written to the console
+  - this includes a lot of work, BUT! literally everything that writes text to the console uses the same set of functions, which is good, because that means i can just change what the functions do, instead of having to go to every instance of text writing and go and yknow, replace the code
+  - so this idea i have for the new version *should* fix the issue of when you write multiple things to the console, it writes in the same line as the other output, which outputs something like this: shfkjsdl fjszfkjesfk sf hesfhs if,  fdg,fdz gf. ,sf sfkj
+  - so the ACTUAL way that i'm gonna do that, is by using multiple `<p>` elements. so for every, say, `newAnim()` that is called, *just* that `newAnim()` will write to it's own `<p>` element
+  - it will keep track of the `<p>` elements via an id numbering system
+  - this will also completely break the fancy clear command so,,,,, im just going to remove it because it never really worked how i wanted it to in the first place
+  - so yeah
+  - tl;dr i'm going to rework the framework i wrote to display text to the console, so that way it'll fix a long-needed-to-be-fixed bug, and it will also provide more opportunities for commands in the future
+  - [ ] basic appending of `<p>` elements
+  - [ ] get it to fancy time-append the characters into the `<p>` element
+  - [ ] new command to append/edit old `<p>` elements
+  - [ ] the fancy append command returns important information, like the id number of the `<p>` element, and other info i think i need along the way
+  - [ ] rework the link append command to work with the new framework
+  - [ ] ^ same with the colour one and the worble one
+  - [ ] implement new framework and then fix all the bugs and errors it makes
+
+  <br> thank god i wrote this console to depend on functions or this patch would not be possible
+
+  <br>
+
+- [x] fix uparrow command history thing
   - this involves rewriting it's code (fun)
 
 - [x] url parameters
@@ -67,7 +91,7 @@ ____as best reviewed by tech experts from around the world____
       - it's something in the printing of the worble history that is slowing everything down because when i use 'worble info' with a semi-long worble history, it's still slow
       - im trying removing a bunch of debug commands
       - the issue was because i had it appending to the page every single letter so what i did is that i made it append to a variable first and then append it to the site once it's done and now its so much faster
-  - [ ] fix the command history thing
+  - [x] fix the command history thing
 
   - [ ] command that rickrolls the user when used
 
