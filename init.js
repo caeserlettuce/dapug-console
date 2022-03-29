@@ -1455,9 +1455,16 @@ function historyReset() {
     inHistory = false;
 }
 
-
-
-
+function replaceFromJson(string, json) {
+    // replace every key with value from json in string
+    var workingString = `${string}`;
+    for (key in json) {
+        console.log(`${key}: ${json[key]}`);
+        workingString = workingString.replaceAll(`${key}`, `${json[key]}`);
+    }
+    debubg(`translating finished, final message is "${workingString}"`);
+    return `${workingString}`
+}
 
 
 // =============================== TOOL FUNCTIONS ABOVE ==================

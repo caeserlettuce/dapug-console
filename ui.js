@@ -2462,6 +2462,17 @@ var MAN_worble = [
 ]
 
 
+MAN_uwu = [
+    "UWU MANPAGE (simon i blame you for this)",
+    "translates any text into uwu speak",
+    " ",
+    "USAGE:",
+    "'uwu [text]'",
+    " ",
+    "EXAMPLE:",
+    "'uwu hello there!'",
+]
+
 
 var listy = [
     "info",
@@ -2528,10 +2539,14 @@ var listy = [
     "signup",
     "reset",
     "worble *",
+<<<<<<< HEAD
     "fitness",
     "fitness gram",
     "fitness gram pacer",
     "fitness gram pacer test",
+=======
+    "uwu",
+>>>>>>> 893405863cabab8eb25e67e32df336b2f3b00af8
 
     "* command is currently in-development and may break the site."
 ]; 
@@ -3168,6 +3183,7 @@ var worble_share_finale = new Array();
 
 var worble_raw_info = new Array();
 
+<<<<<<< HEAD
 var fitnessgram = [
     
     "The FitnessGram™ Pacer Test is a multistage aerobic capacity test that progressively gets more difficult as it continues.",
@@ -3499,3 +3515,38 @@ var fitnessgram_1 = [
 
 
 console.log("ui elements loaded.")
+=======
+var uwu_translate = {
+    "simon": "simom",
+    "eamon":"emom",
+    "vaughan":"vgog",
+    "l": "w",
+    "r": "w",
+    "ou":"ouw",
+    "does":"dews",
+    "tion":"shun",
+    "ph":"f",
+    "thic":"fic",
+    "thi":"di",
+    "those":"dose",
+    "that":"dat",
+    "the":"de",
+    "th":"f",
+    "ce":"s",
+    "been":"bin",
+    "mission":"mishun",
+    "sion":"shun",
+    "species":"speshes",
+    "height":"hite",
+    "cause": "cauwse",
+    "name": "nayme",
+    "which": "wich",
+    "human": "huwman",
+    "stage": "stayge",
+    "system": "sistum",
+    
+    // "":"",
+}
+
+console.log("ui elements loaded.");
+>>>>>>> 893405863cabab8eb25e67e32df336b2f3b00af8
