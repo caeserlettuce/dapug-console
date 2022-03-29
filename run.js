@@ -40,10 +40,7 @@ function parseCommand(command) {
         newLine();
         newAnim("this is working", 20)
     } else if (command == "clear") {
-        setTimeout(function() {
-            cleary();
-        }, 500)
-        
+        clearScreen();
     } else if (command.split(" ")[0] == "echo") {
         newLine();
         newAnim(commandInit.slice(5), 20);

@@ -62,7 +62,8 @@ var commandHistory = new Array();
 var commandIndex = 0;
 var currentCommand = "";
 var inHistory = false;
-
+var console_history = {0: "console started."};
+var console_id = 0;
 
 debubg("variable init finished...");
 // local storage setup
@@ -267,7 +268,7 @@ debubg("local storage init finished.");
 
 globalVars(false);
 
-var consoleParams = ["debug", "debugvar", "suggestion", "command", "textcolour", "backcolour"];
+var consoleParams = ["debug", "debugvar", "suggestion", "command", "textcolour", "backcolour", "text"];
 
 
 addParameters(consoleParams);
@@ -280,6 +281,7 @@ var pr_suggestion = pams[2];
 var pr_command = pams[3];
 var pr_textcolour = pams[4];
 var pr_backcolour = pams[5];
+var pr_text = pams[6];
 
 debubg(`[url param init] debug: ${pr_debug}, debugvar: ${pr_debugvar}, suggestion: ${pr_suggestion}, command: ${pr_command}`);
 
@@ -298,6 +300,11 @@ if (pr_debugvar == "true") {
 
 // suggest command
 
+if (pr_text != undefined || pr_text != null) {
+    console_history[0] = `${pr_text}`;
+}
+
+// auto text
 
 
 if (pr_suggestion != null) { // if there is an entry for the url link
@@ -432,6 +439,69 @@ if (windowWidth > windowHeight) {
     document.getElementById("consoleinput").style.fontSize = "3vw";
 }
 debubg("text scaling init finished...");
+
+// NEW screen operations!!1!11!
+
+// console_history object set up like this:
+
+//{
+//  0: "text",
+//  1: "more text",
+//  2: "text<br>just to help<br>break it up<br>haha",
+//  3: "just a bit more text to top it off"
+//}
+
+// basically you use id numbers to sort out the things
+// and console_id is the newest id
+
+
+
+function displayAppend(message, in_id) {
+    if (console_history[in_id] != undefined || console_history[in_id] != null) {    // if the value already exists
+        console_history[in_id] = `${console_history[in_id]}${message}`;             // append to value
+    } else {                                                                        // else
+        console_history[in_id] = `${message}`;                                      // just set value
+    }
+}
+
+function displayAdd(message) {
+    var use_id = console_id + 1;        // the current id that's being used
+    displayAppend(message, use_id);     // append to a new line
+
+    console_id += 1;                    // update console id
+    return [use_id, message]            // return info
+}
+
+function displayNewline() {
+    // adds a new line (tm)
+    return displayAdd(" ");
+}
+
+function displayUpdate() {
+    // UPDATES THE CONSOLE DISPLAY TM
+    var finalUpdate = "";
+    var history = console_history;
+    for (cur_id in console_history) {
+        debubg(`[DISPLAY UPDATE]: id ${cur_id} is being checked.`);
+        var elemCheck = document.getElementById(`CON_${cur_id}`);
+        if (elemCheck) {                                                // if the element exists
+            debubg("it EXISTS");                                        // it does exist
+            if (elemCheck.innerHTML != console_history[cur_id]) {       // if the element does not match what's in memory
+                debubg("dont match");
+                elemCheck.innerHTML = `${console_history[cur_id]}`;
+            }
+
+        } else {
+            debubg("you idiot it doesnt exist");                        // it doesnt exist
+            consol.innerHTML = `${consol.innerHTML}<br><span id="CON_${cur_id}">${console_history[cur_id]}</span>`;
+        }
+    }
+}
+
+
+
+
+
 function clearScreen() {
     consol.innerHTML = "";
     consoltext = "";
@@ -523,6 +593,7 @@ function bebu() {
    worble_share_gray: ${worble_share_gray}
   worble_share_green: ${worble_share_green}
  worble_share_yellow: ${worble_share_yellow}
+          console_id: ${console_id}
 `;autocommand
         console.log("binted.");
     }
