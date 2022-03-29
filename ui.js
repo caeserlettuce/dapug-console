@@ -2539,14 +2539,11 @@ var listy = [
     "signup",
     "reset",
     "worble *",
-<<<<<<< HEAD
     "fitness",
     "fitness gram",
     "fitness gram pacer",
     "fitness gram pacer test",
-=======
     "uwu",
->>>>>>> 893405863cabab8eb25e67e32df336b2f3b00af8
 
     "* command is currently in-development and may break the site."
 ]; 
@@ -3183,7 +3180,6 @@ var worble_share_finale = new Array();
 
 var worble_raw_info = new Array();
 
-<<<<<<< HEAD
 var fitnessgram = [
     
     "The FitnessGram™ Pacer Test is a multistage aerobic capacity test that progressively gets more difficult as it continues.",
@@ -3515,7 +3511,6 @@ var fitnessgram_1 = [
 
 
 console.log("ui elements loaded.")
-=======
 var uwu_translate = {
     "simon": "simom",
     "eamon":"emom",
@@ -3546,7 +3541,6 @@ var uwu_translate = {
     "system": "sistum",
     
     // "":"",
-}
+}   // this is simon's fault
 
 console.log("ui elements loaded.");
->>>>>>> 893405863cabab8eb25e67e32df336b2f3b00af8

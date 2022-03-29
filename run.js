@@ -892,14 +892,12 @@ function parseCommand(command) {
             newAnim("invalid sub command! use 'worble' or 'man worble' to see all the options!", 10);
         }
 
-<<<<<<< HEAD
 
 
 
 
     } else if (command == "fitness" || command == "fitness gram" || command == "fitness gram pacer" || command == "fitness gram pacer test") {
         fitnessGram();
-=======
     } else if (command == "uwu" || command == "uwu ") {
         newLine();
         newAnim("incorrect usage. check 'man uwu' for how to use.", 10);
@@ -913,7 +911,6 @@ function parseCommand(command) {
         newLine();
         newAnim(translated, 10);
         coopyIf(translated);
->>>>>>> 893405863cabab8eb25e67e32df336b2f3b00af8
     }
     else {
         newLine();
