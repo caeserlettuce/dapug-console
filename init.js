@@ -507,12 +507,10 @@ function displayUpdate() {
 }
 
 function displayMultilineLine(message, speed, use_id) {
-                //console.log(`[displaymultilineanimtype1] ${message}, ${speed}, ${use_id}`);
     return new Promise((resolve,reject)=>{
-        //here our function should be implemented                             
+        //here our function should be implemented 
         var messagey = message.split("");
         var messageyLength = messagey.length;
-        //console.log(`printing ${message}`);
         for (let i = 0; i < messageyLength; i++) {
             setTimeout(function timer() {
                 displayAppend(messagey[i], use_id, false);
@@ -521,9 +519,7 @@ function displayMultilineLine(message, speed, use_id) {
                     scrolly();
                 }
             }, i * speed);
-            scrolly();
         }
-        
     });
 }
 
@@ -533,7 +529,9 @@ async function displayMultilineAnim(message, speed, type) {
     for (i in message) {
         var line = message[i];
         console.log(`${line}`);
-        await displaySingleLine(`${line}`, speed);
+        var use_id = console_id + 1;        // the current id that's being used
+        console_id += 1;                    // update console id
+        await displayMultilineLine(`${line}`, speed, use_id);
     }
 }
 
