@@ -28,7 +28,7 @@ and it is currently march 29th, 2022
 
 ## TODO:
 
-- [ ] complete overhaul on how text is written to the console
+- [x] complete overhaul on how text is written to the console
   - this includes a lot of work, BUT! literally everything that writes text to the console uses the same set of functions, which is good, because that means i can just change what the functions do, instead of having to go to every instance of text writing and go and yknow, replace the code
   - so this idea i have for the new version *should* fix the issue of when you write multiple things to the console, it writes in the same line as the other output, which outputs something like this: shfkjsdl fjszfkjesfk sf hesfhs if,  fdg,fdz gf. ,sf sfkj
   - so the ACTUAL way that i'm gonna do that, is by using multiple `<p>` elements. so for every, say, `newAnim()` that is called, *just* that `newAnim()` will write to it's own `<p>` element
@@ -40,12 +40,12 @@ and it is currently march 29th, 2022
   - [x] get it to fancy time-append the characters into the `<p>` element
   - [x] new command to append/edit old `<p>` elements
   - [x] the fancy append command returns important information, like the id number of the `<p>` element, and other info i think i need along the way
-  - [ ] rework fancy append commands to work with new framework
+  - [x] rework fancy append commands to work with new framework
     - [x] user append
-    - [ ] link append
-    - [ ] colour append
-    - [ ] worble append
-  - [ ] implement new framework and then fix all the bugs and errors it makes
+    - [x] link append
+    - [x] colour append
+    - [x] worble append
+  - [x] implement new framework and then fix all the bugs and errors it makes
 
   <br> thank god i wrote this console to depend on functions or this patch would not be possible
 
@@ -70,6 +70,13 @@ and it is currently march 29th, 2022
   - [ ] listen for when any function in init.js is called
   - [ ] call function at the end of every function that would reset its status
   - [ ] this special debug mode would only be available through page restart so that way none of the listeners are running on the default startup because it would slow everything down a bunch
+
+- [ ] MODDING CAPABILITIES????
+  - [ ] a command where you can load a mod from a link to a javascript file, and then itll execute the things from that javascript file
+
+- [ ] command that rickrolls the user when used (idea courtesy of anne)
+
+- [ ] speaking of the last entry, having a song player would be cool, even making it so that it'll paste the lyrics of the song into the console as the lyrics are being said in the song. would be pretty complicated (maybe) but would be cool
 
 - [x] fix uparrow command history thing
   - this involves rewriting it's code (fun)
@@ -99,7 +106,7 @@ and it is currently march 29th, 2022
   - [x] write manpage for colour
     - apparetly there's already a manpage for it so i just updated it
   - [x] make colour command a but more user friendly (have actual error messages or success messages when command is used wrongly/successfully)
-  - [ ] command remastering
+  - [x] command remastering
     - [x] make login command use a json object for usernames and passwords instead of if statements
     - [x] make a command where you can sign up with a new account (using cache data)
 
@@ -116,7 +123,7 @@ and it is currently march 29th, 2022
       - the issue was because i had it appending to the page every single letter so what i did is that i made it append to a variable first and then append it to the site once it's done and now its so much faster
   - [x] fix the command history thing
 
-  - [ ] command that rickrolls the user when used
+  
 
 ### random notes
 
