@@ -9,9 +9,7 @@ async function startBoot() {
     //    await clearScreen();
     //}
     await displayAnim(booty, 20);
-    newLine();
     await displayAnim(booty2, 1);
-    newLine();
     await displayAnim(booty3, 1);
     await clearScreen();
     await newAnim("Loading Complete.                  ", 20);

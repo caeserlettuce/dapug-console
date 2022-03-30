@@ -509,7 +509,7 @@ function displayUpdate() {
 function displayMultilineLine(message, speed, use_id) {
                 //console.log(`[displaymultilineanimtype1] ${message}, ${speed}, ${use_id}`);
     return new Promise((resolve,reject)=>{
-        //here our function should be implemented 
+        //here our function should be implemented                             
         var messagey = message.split("");
         var messageyLength = messagey.length;
         //console.log(`printing ${message}`);
@@ -529,65 +529,12 @@ function displayMultilineLine(message, speed, use_id) {
 
 var ihateyou = ["javascript", "is", "stupid"];
 
-async function displayMultilineAnim_type3(message, speed, use_id) {
-    //console.log(`[displaymultilineanimtype1] ${message}, ${speed}, ${use_id}`);
+async function displayMultilineAnim(message, speed, type) {
     for (i in message) {
-        //debubg(`animating line ${i}`);
-        await displayMultilineLine(message[i], speed, use_id);
-        displayAppend("<br>", use_id);
+        var line = message[i];
+        console.log(`${line}`);
+        await displaySingleLine(`${line}`, speed);
     }
-}
-
-function displayMultilineAnim_type2(message, speed) {
-    //console.log(`[displaymultilineanimtype1] ${message}, ${speed}`);
-    return new Promise((resolve,reject)=>{
-        //here our function should be implemented 
-
-
-        var messagey = message;
-        var messageyLength = messagey.length;
-        console.log(`printing ${messageyLength}`);
-        for (let i = 0; i < messageyLength; i++) {
-            setTimeout(function timer() {
-                //console.log(`${messagey[i]}`);
-                var use_id = console_id + 1;        // the current id that's being used
-                console_id += 1;                    // update console id
-                
-                displayMultilineLine(messagey[i], speed, use_id)
-                if (i == messageyLength - 1) { 
-                    resolve();
-                    scrolly();
-                }
-            }, i * speed);
-            scrolly();
-        }
-        
-    });
-}
-
-
-async function displayMultiLineAnim_type1(message, speed) {
-    var artLength = message.length;
-    for (let i = 0; i < artLength; i++) {
-        await displaySingleLine(message[i], speed);
-    }
-}
-
-
-function displayMultilineAnim(message, speed, type) {
-    //console.log(`[displaymultilineanim] ${message}, ${speed}, ${type}`);
-    if (type == 2) {
-        //console.log(`[AAAAAAAAAAAAAAAAAA] ${message}, ${speed}`);
-        displayMultilineAnim_type2(message, speed);
-
-    } else {        // type is 1
-        var use_id = console_id + 1;        // the current id that's being used
-        console_id += 1;                    // update console id
-        //displayMultilineAnim_type1(message, speed);
-        displayMultilineAnim_type1(message, speed);
-        
-    }
-
 }
 
 async function displaySingleLine(message, speed) {
@@ -614,9 +561,9 @@ async function displaySingleLine(message, speed) {
 async function displayAnim(message, speed, type) {      // fancy anim
     //console.log(`[displayanim] ${message}, ${speed}, ${type}`);
     if (typeof message == "string") {           // if it's a string
-        displaySingleLine(message, speed);
+        await displaySingleLine(message, speed);
     } else if (typeof message == "object") {    // if it's an object (copyArr only works with arrays though, but typeof's definition says object so if it breaks, it breaks.)
-        displayMultilineAnim(message, speed, 1);
+        await displayMultilineAnim(message, speed, 1);
     } else {
         var poo = typeof message;
         debubg(`variable type "${poo}" not suppored for smart anim. supported var types are "string" and "object".`);

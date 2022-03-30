@@ -33,7 +33,7 @@ function parseCommand(command) {
             "A LIME!                  ",
             "can i have it?"
         ];
-        animArt(marky, 20);
+        displayAnim(marky, 20);
 
 
     } else if (command == "test") {
@@ -46,7 +46,7 @@ function parseCommand(command) {
         newAnim(commandInit.slice(5), 20);
     } else if (command == "help") {
         newLine();
-        animArt(hlep, 1);
+        displayAnim(hlep, 1);
     } else if (argCommand == "login") {
 
         var mmm = argComm(commandInit);
@@ -136,13 +136,13 @@ function parseCommand(command) {
         newAnim("there are no secrets.", 20);
     } else if (command == "aperture") {
         newLine();
-        animArt(apertureLogo, 1);                                                                                
+        displayAnim(apertureLogo, 1);                                                                                
     } else if (command == "secrets") {
         newLine();
         newAnim("there is not a secret.js file.", 20);
     } else if (command == "cake") {
         newLine();
-        animArt(cake, 1);
+        displayAnim(cake, 1);
     } else if (command == "info" || command == "about") {
         aboutPage();
     } else if (command == "ae394") {
@@ -152,7 +152,7 @@ function parseCommand(command) {
             "none.                 ",
             "none."
         ];
-        animArt(poopy, 20);
+        displayAnim(poopy, 20);
     } else if (command == "doe" || command == "doe's world" || command == "does world") {
         newLine();
         newAnim("TWITCH.TV/DOESWORLDLIVE LETS GOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO", 20);
@@ -167,7 +167,7 @@ function parseCommand(command) {
         clearScreen();
     } else if (command == "ls") {
         newLine();
-        animArt(listy, 5);
+        displayAnim(listy, 5);
     } else if (command == "colour text" || command == "colour text " || command == "colour back" || command == "colour back ") {
         newLine();
         newAnim("please input a proper colour code.", 10);
@@ -226,7 +226,7 @@ function parseCommand(command) {
         var switchy = [
             "Switching to FILESYS."
         ];
-        animArt(switchy, 20);
+        displayAnim(switchy, 20);
 
     } else if (command == "sys") {
         newLine();
@@ -239,13 +239,13 @@ function parseCommand(command) {
     } else if (command == "syslist") {
         newLine();
         
-        animArt(syslist, 5);
+        displayAnim(syslist, 5);
     } else if (command == "sus" || command == "among us" || command == "amogus" || command == "amongus" || command == "amon gus" || command == "sussy") {
         newLine();
-        animArt(amogus, 1);
+        displayAnim(amogus, 1);
     } else if (command == "lovejoy") {
         newLine();
-        animArt(lovejoy, 1);
+        displayAnim(lovejoy, 1);
     } else if (argCommand == "arg-test") {
         newLine();
         var mmm = argComm(commandInit);
@@ -255,14 +255,14 @@ function parseCommand(command) {
             `FIRST ENTRY: ${mmm[1]}`,
             `SECOND ENTRY: ${mmm[2]}`
         ];
-        animArt(inbo, 10);
+        displayAnim(inbo, 10);
 
     } else if (command == "help -art") {
         newLine();
-        animArt(hlepart, 1);
+        displayAnim(hlepart, 1);
     } else if (command == "help -dev") {
         newLine();
-        animArt(hlepdev, 1);
+        displayAnim(hlepdev, 1);
     } else if (argCommand == "comment") {
         newLine();
         if (command == "comment" || command == "comment ") {
@@ -470,10 +470,10 @@ function parseCommand(command) {
 
                 debubg(allComments);
 
-                animArt(allComments, 5);
+                displayAnim(allComments, 5);
 
                 // list comments
-                //animArt(comments, 5);
+                //displayAnim(comments, 5);
             } else if (mmm[1].toLowerCase() == "-clear") {
 
                 if (confirm("WARNING: clearing comments will remove ALL comments. Are you sure?")) {
@@ -522,7 +522,7 @@ function parseCommand(command) {
         location.reload();
     } else if (command == "cheese") {
         newLine();
-        animArt(cheese, 1);
+        displayAnim(cheese, 1);
     } else if (command == "snake") {
         snakeGameStart();
 
@@ -542,7 +542,7 @@ function parseCommand(command) {
         newLine();
         //newAnim(`${tata}`, 20);
         var asciifinal = asciiText(fonty, `${tata}`);
-        animArt(asciifinal, 0.1);
+        displayAnim(asciifinal, 0.1);
 
         coopyIf(asciifinal);
 
@@ -554,7 +554,7 @@ function parseCommand(command) {
         if (commandHistory.length > 0) {
             var YAYA = commandHistory.slice(0);
             YAYA.unshift("COMMAND HISTORY:");
-            animArt(YAYA, 5);
+            displayAnim(YAYA, 5);
             //debubg(commang);
         } else {
             newAnim(`Command history is empty. type a command to make it not empty!`);
@@ -588,10 +588,10 @@ function parseCommand(command) {
         newAnim(`${code}`, 20);
     } else if (command == "font list") {
         newLine();
-        animArt(fomb, 5);
+        displayAnim(fomb, 5);
     } else if (command == "copylist") {
         newLine();
-        animArt(cpoylist, 1);
+        displayAnim(cpoylist, 1);
     } else if (argCommand == "copycomm") {
         var mmm = argComm(commandInit);
         var commen = mmm[1];
@@ -610,7 +610,7 @@ function parseCommand(command) {
         }
     } else if (command == "convert -list") {
         newLine();
-        animArt(convertlist, 1);
+        displayAnim(convertlist, 1);
         
         
     } else if (command == "convert") {
@@ -716,7 +716,7 @@ function parseCommand(command) {
     
     } else if (command == "pebblebrain" || command == "pebble brain") {
         newLine();
-        animArt(pebblebrain, 1);
+        displayAnim(pebblebrain, 1);
         coopyIf(pebblebrain);
     } else if (argCommand == "man") {
         var incommand = commandInit.slice(4);
@@ -745,7 +745,7 @@ function parseCommand(command) {
        
     } else if (command == "benson") {
         newLine();
-        animArt(benson, 5)
+        displayAnim(benson, 5)
         coopyIf(benson);
     } else if (command == "github" || command == "git") {
         // shows a fancy github info page lol
@@ -814,7 +814,7 @@ function parseCommand(command) {
             if (worble_status == false) { // not in game
                 // make a new worble
                 newLine();
-                animArt(worble_error_2, 10);
+                displayAnim(worble_error_2, 10);
             } else {
                 // guess worble
                 var guessword = mmm.slice(2).join(" ");
@@ -863,7 +863,7 @@ function parseCommand(command) {
             if (worble_status == true) { // in game
                 // make a new worble
                 newLine();
-                animArt(worble_error_1, 10);
+                displayAnim(worble_error_1, 10);
             } else {
                 newWorble(false);
             }

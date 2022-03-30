@@ -47,11 +47,14 @@ and it is currently march 29th, 2022
   <br> thank god i wrote this console to depend on functions or this patch would not be possible
 
   <br>
-  - update on the patch: i don't think i need to use extra elements, i just need to have a json object where every new append command makes a new key with an id number, and the value is set to the current message, and then i can have a screenUpdate() function that will update the screen, that way i can go and edit *specific* entries, which is what i want
-  - im also removing the fancy clear command
-  - byebye clear command that wasn't really that fancy
-  - no im using elements because that'll just make things faster (hopefully???)
+- update on the patch: i don't think i need to use extra elements, i just need to have a json object where every new append command makes a new key with an id number, and the value is set to the current message, and then i can have a screenUpdate() function that will update the screen, that way i can go and edit *specific* entries, which is what i want
+   - im also removing the fancy clear command
+   - byebye clear command that wasn't really that fancy
+   - no im using elements because that'll just make things faster (hopefully???)
   - because it'll only update the elements that need to be updated
+  - i am about to perform a satanic ritual on javascript
+  - this i sgoing to need a lot of lemon demon to fix
+
 
 - [x] fix uparrow command history thing
   - this involves rewriting it's code (fun)
