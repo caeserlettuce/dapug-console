@@ -526,12 +526,18 @@ function displayMultilineLine(message, speed, use_id) {
 var ihateyou = ["javascript", "is", "stupid"];
 
 async function displayMultilineAnim(message, speed, type) {
+    var length = message.length;
+    //alert(length);
+    var cur_id = console_id * 1;                // set the current id to the console id
+    console_id += length;                   // any new things use the id after this one
+
     for (i in message) {
         var line = message[i];
         console.log(`${line}`);
-        var use_id = console_id + 1;        // the current id that's being used
-        console_id += 1;                    // update console id
+        var use_id = cur_id + 1;        // the current id that's being used
+        
         await displayMultilineLine(`${line}`, speed, use_id);
+        await displayAppend("<br>", use_id, false);
     }
 }
 
