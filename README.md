@@ -36,12 +36,15 @@ and it is currently march 29th, 2022
   - this will also completely break the fancy clear command so,,,,, im just going to remove it because it never really worked how i wanted it to in the first place
   - so yeah
   - tl;dr i'm going to rework the framework i wrote to display text to the console, so that way it'll fix a long-needed-to-be-fixed bug, and it will also provide more opportunities for commands in the future
-  - [ ] basic appending of `<p>` elements
-  - [ ] get it to fancy time-append the characters into the `<p>` element
-  - [ ] new command to append/edit old `<p>` elements
-  - [ ] the fancy append command returns important information, like the id number of the `<p>` element, and other info i think i need along the way
-  - [ ] rework the link append command to work with the new framework
-  - [ ] ^ same with the colour one and the worble one
+  - [x] basic appending of `<p>` elements
+  - [x] get it to fancy time-append the characters into the `<p>` element
+  - [x] new command to append/edit old `<p>` elements
+  - [x] the fancy append command returns important information, like the id number of the `<p>` element, and other info i think i need along the way
+  - [ ] rework fancy append commands to work with new framework
+    - [x] user append
+    - [ ] link append
+    - [ ] colour append
+    - [ ] worble append
   - [ ] implement new framework and then fix all the bugs and errors it makes
 
   <br> thank god i wrote this console to depend on functions or this patch would not be possible
@@ -54,6 +57,7 @@ and it is currently march 29th, 2022
   - because it'll only update the elements that need to be updated
   - i am about to perform a satanic ritual on javascript
   - this i sgoing to need a lot of lemon demon to fix
+  - update: i do need extra elements, but i got the basic functions working, which is cool
 
 
 - [x] fix uparrow command history thing

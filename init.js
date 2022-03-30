@@ -471,8 +471,8 @@ function displayAppend(message, in_id, hide) {
 }
 
 function displayAdd(message, hide) {
-    var use_id = console_id + 1;        // the current id that's being used
-    displayAppend(message, use_id, hide);     // append to a new line
+    var use_id = console_id + 1;                // the current id that's being used
+    displayAppend(message, use_id, hide);       // append to a new line
 
     console_id += 1;                    // update console id
     return [use_id, message]            // return info
@@ -480,7 +480,9 @@ function displayAdd(message, hide) {
 
 function displayNewline() {
     // adds a new line (tm)
-    return displayAdd(" ");
+    var use_id = console_id * 1;            // the current id that's being used
+    displayAppend(" ", use_id, true);       // append to a new line
+    return [use_id, " "]                    // return info
 }
 
 function displayUpdate() {
@@ -560,9 +562,21 @@ async function displaySingleLine(message, speed) {
     });
 }
 
+async function displayUser(message, userin) {
+    var userfor;
 
+    if (userin != null) {
+        userfor = `${userin}`;
+    } else {
+        userfor = `${user}`;
+    }
 
-async function displayAnim(message, speed, type) {      // fancy anim
+    displayNewline();
+    displayAdd(`${userfor}@dapug.lol> ${message}`);
+    scrolly();
+}
+
+async function displayAnim(message, speed) {      // fancy anim
     //console.log(`[displayanim] ${message}, ${speed}, ${type}`);
     if (typeof message == "string") {           // if it's a string
         await displaySingleLine(message, speed);
@@ -1755,7 +1769,7 @@ var elem = document.getElementById("consoleinput");
 
                         // *crab rave*
 
-                        userAppend(`${elem.value}`, `${user}`);
+                        displayUser(`${elem.value}`, `${user}`);
 
 
                         historyPush();
