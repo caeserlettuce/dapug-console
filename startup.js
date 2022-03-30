@@ -8,11 +8,11 @@ async function startBoot() {
     //    await newAnim("... ", 250);
     //    await clearScreen();
     //}
-    await animArt(booty, 20);
+    await displayAnim(booty, 20);
     newLine();
-    await animArt(booty2, 1);
+    await displayAnim(booty2, 1);
     newLine();
-    await animArt(booty3, 0.25);
+    await displayAnim(booty3, 1);
     await clearScreen();
     await newAnim("Loading Complete.                  ", 20);
     inputlock = false;

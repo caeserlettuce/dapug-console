@@ -64,6 +64,7 @@ var currentCommand = "";
 var inHistory = false;
 var console_history = {0: "console started."};
 var console_id = 0;
+var console_group_id = 0;
 
 debubg("variable init finished...");
 // local storage setup
@@ -456,17 +457,22 @@ debubg("text scaling init finished...");
 
 
 
-function displayAppend(message, in_id) {
+function displayAppend(message, in_id, hide) {
     if (console_history[in_id] != undefined || console_history[in_id] != null) {    // if the value already exists
         console_history[in_id] = `${console_history[in_id]}${message}`;             // append to value
     } else {                                                                        // else
         console_history[in_id] = `${message}`;                                      // just set value
     }
+    if (hide != undefined && hide != null && hide == true) {    // if hide exists and set to true
+        //debubg("i shall hide display update");
+    } else {
+        displayUpdate();                    // update display
+    }
 }
 
-function displayAdd(message) {
+function displayAdd(message, hide) {
     var use_id = console_id + 1;        // the current id that's being used
-    displayAppend(message, use_id);     // append to a new line
+    displayAppend(message, use_id, hide);     // append to a new line
 
     console_id += 1;                    // update console id
     return [use_id, message]            // return info
@@ -482,22 +488,140 @@ function displayUpdate() {
     var finalUpdate = "";
     var history = console_history;
     for (cur_id in console_history) {
-        debubg(`[DISPLAY UPDATE]: id ${cur_id} is being checked.`);
+        //debubg(`[DISPLAY UPDATE]: id ${cur_id} is being checked.`);
         var elemCheck = document.getElementById(`CON_${cur_id}`);
         if (elemCheck) {                                                // if the element exists
-            debubg("it EXISTS");                                        // it does exist
+            //debubg("it EXISTS");                                        // it does exist
             if (elemCheck.innerHTML != console_history[cur_id]) {       // if the element does not match what's in memory
-                debubg("dont match");
+                //debubg("dont match");
                 elemCheck.innerHTML = `${console_history[cur_id]}`;
+            } else {
+                //debubg("do match");
             }
 
         } else {
-            debubg("you idiot it doesnt exist");                        // it doesnt exist
+            //debubg("you idiot it doesnt exist");                        // it doesnt exist
             consol.innerHTML = `${consol.innerHTML}<br><span id="CON_${cur_id}">${console_history[cur_id]}</span>`;
         }
     }
 }
 
+function displayMultilineLine(message, speed, use_id) {
+                //console.log(`[displaymultilineanimtype1] ${message}, ${speed}, ${use_id}`);
+    return new Promise((resolve,reject)=>{
+        //here our function should be implemented 
+        var messagey = message.split("");
+        var messageyLength = messagey.length;
+        //console.log(`printing ${message}`);
+        for (let i = 0; i < messageyLength; i++) {
+            setTimeout(function timer() {
+                displayAppend(messagey[i], use_id, false);
+                if (i == messageyLength - 1) { 
+                    resolve();
+                    scrolly();
+                }
+            }, i * speed);
+            scrolly();
+        }
+        
+    });
+}
+
+var ihateyou = ["javascript", "is", "stupid"];
+
+async function displayMultilineAnim_type3(message, speed, use_id) {
+    //console.log(`[displaymultilineanimtype1] ${message}, ${speed}, ${use_id}`);
+    for (i in message) {
+        //debubg(`animating line ${i}`);
+        await displayMultilineLine(message[i], speed, use_id);
+        displayAppend("<br>", use_id);
+    }
+}
+
+function displayMultilineAnim_type2(message, speed) {
+    //console.log(`[displaymultilineanimtype1] ${message}, ${speed}`);
+    return new Promise((resolve,reject)=>{
+        //here our function should be implemented 
+
+
+        var messagey = message;
+        var messageyLength = messagey.length;
+        console.log(`printing ${messageyLength}`);
+        for (let i = 0; i < messageyLength; i++) {
+            setTimeout(function timer() {
+                //console.log(`${messagey[i]}`);
+                var use_id = console_id + 1;        // the current id that's being used
+                console_id += 1;                    // update console id
+                
+                displayMultilineLine(messagey[i], speed, use_id)
+                if (i == messageyLength - 1) { 
+                    resolve();
+                    scrolly();
+                }
+            }, i * speed);
+            scrolly();
+        }
+        
+    });
+}
+
+
+async function displayMultiLineAnim_type1(message, speed) {
+    var artLength = message.length;
+    for (let i = 0; i < artLength; i++) {
+        await displaySingleLine(message[i], speed);
+    }
+}
+
+
+function displayMultilineAnim(message, speed, type) {
+    //console.log(`[displaymultilineanim] ${message}, ${speed}, ${type}`);
+    if (type == 2) {
+        //console.log(`[AAAAAAAAAAAAAAAAAA] ${message}, ${speed}`);
+        displayMultilineAnim_type2(message, speed);
+
+    } else {        // type is 1
+        var use_id = console_id + 1;        // the current id that's being used
+        console_id += 1;                    // update console id
+        //displayMultilineAnim_type1(message, speed);
+        displayMultilineAnim_type1(message, speed);
+        
+    }
+
+}
+
+async function displaySingleLine(message, speed) {
+    return new Promise((resolve,reject)=>{
+        //here our function should be implemented 
+        var messagey = message.split("");
+        var messageyLength = messagey.length;
+        var use_id = console_id + 1;        // the current id that's being used
+        console_id += 1;                    // update console id
+        for (let i = 0; i < messageyLength; i++) {
+            setTimeout(function timer() {
+                displayAppend(messagey[i], use_id, false);
+                if (i == messageyLength - 1) { 
+                    resolve();
+                    scrolly();
+                }
+            }, i * speed);
+        }
+    });
+}
+
+
+
+async function displayAnim(message, speed, type) {      // fancy anim
+    //console.log(`[displayanim] ${message}, ${speed}, ${type}`);
+    if (typeof message == "string") {           // if it's a string
+        displaySingleLine(message, speed);
+    } else if (typeof message == "object") {    // if it's an object (copyArr only works with arrays though, but typeof's definition says object so if it breaks, it breaks.)
+        displayMultilineAnim(message, speed, 1);
+    } else {
+        var poo = typeof message;
+        debubg(`variable type "${poo}" not suppored for smart anim. supported var types are "string" and "object".`);
+    }
+}
 
 
 
@@ -505,6 +629,8 @@ function displayUpdate() {
 function clearScreen() {
     consol.innerHTML = "";
     consoltext = "";
+    console_history = {};
+    console_id = 0;
 }
 function setScreen(message) {
     consol.innerHTML = message;
@@ -646,7 +772,7 @@ async function animArt(array, speed) {
         if (i != 0) {
             newLine();
         }
-        await newAnim(array[i], speed);
+        await displayAnim(array[i], speed);
     }
 }
 
@@ -654,9 +780,9 @@ debubg("animArt init finished...");
 
 function smartAnim(message, speed,) {
     if (typeof message == "string") { // if it's a string
-        newAnim(message, speed);
+        displayAnim(message, speed);
     } else if (typeof message == "object") { // if it's an object (copyArr only works with arrays though, but typeof's definition says object so if it breaks, it breaks.)
-        animArt(message, speed);
+        displayAnim(message, speed);
     } else {
         var poo = typeof message;
         debubg(`variable type "${poo}" not suppored for smart anim. supported var types are "string" and "object".`);
@@ -850,8 +976,8 @@ function settingridng() {
 }
 async function aboutPage() {
     await newLine();
-    await animArt(aboot, 2.5);
-    await animArt(abooot, 10);
+    await displayAnim(aboot, 2.5);
+    await displayAnim(abooot, 10);
 }
 function hexToRgb(hex) {
     var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
@@ -1376,7 +1502,7 @@ function newWorble(restart, custom_word) {  // sets up worble
         ]
     }
     newLine();
-    animArt(worble_startscreen, 10);
+    displayAnim(worble_startscreen, 10);
 }
 
 
@@ -1543,10 +1669,10 @@ debubg("extra tool functions init finished...");
 
 async function githubPage() {
     newLine();
-    await animArt(githubArt, 1);
+    await displayAnim(githubArt, 1);
     newLine();
     newLine();
-    await animArt(githubText, 1);
+    await displayAnim(githubText, 1);
     newLine();
     newLine();
     await newLinkAnim("visit the github page", 5, "https://github.com/caeserlettuce/dapug-console");
@@ -1555,10 +1681,10 @@ async function githubPage() {
 async function worblePage() {
     newLine();
     var worbletext = asciiText("slant", `WORBLE!`)
-    await animArt(worbletext, 2);
-    await animArt(worble_info_1, 2);
+    await displayAnim(worbletext, 2);
+    await displayAnim(worble_info_1, 2);
     await newLinkAnim("Wordle", 2, "https://www.nytimes.com/games/wordle/index.html")
-    await animArt(worble_info_2, 2);
+    await displayAnim(worble_info_2, 2);
 }
 
 async function worbleInfoPage() {
@@ -1578,7 +1704,7 @@ async function worbleInfoPage() {
 
 
 
-    await animArt(worble_infoscreen, 5);
+    await displayAnim(worble_infoscreen, 5);
     await animWorble(parseWorble());
     debubg(`[WORBLE INFO]: worble word is ${worble_word}`);
     
@@ -1587,29 +1713,29 @@ async function worbleInfoPage() {
 async function shareWorblePage() {
     shareWorble(parseWorble());
     newLine();
-    await newAnim("worble copied to clipboard: ", 10);
+    await displayAnim("worble copied to clipboard: ", 10);
     newLine();
-    animArt(worble_share_finale, 10);
+    displayAnim(worble_share_finale, 10);
 
 }
 
 async function worbleDone() {
     // you got it right
-    await newAnim(`You got the worble! use 'worble start' to start a new game!`, 10);
+    await displayAnim(`You got the worble! use 'worble start' to start a new game!`, 10);
     shareWorble(parseWorble());
 }
 
 async function restartWorble() {
     newLine();
-    await newAnim(`The worble was "${worble_word}"!`, 5)
+    await displayAnim(`The worble was "${worble_word}"!`, 5)
     newLine();
     newWorble(true);
 }
 
 async function fitnessGram() {
     newLine();
-    await animArt(fitnessgram, 2);
-    await animArt(fitnessgram_1, 1);
+    await displayAnim(fitnessgram, 2);
+    await displayAnim(fitnessgram_1, 1);
 }
 
 
