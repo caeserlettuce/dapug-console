@@ -63,6 +63,8 @@ var commandIndex = 0;
 var currentCommand = "";
 var inHistory = false;
 var console_history = {0: "console started."};
+var console_colour_history = {0: "inherit"};
+var console_link_history = {0: ""};
 var console_id = 0;
 var console_group_id = 0;
 
@@ -457,12 +459,39 @@ debubg("text scaling init finished...");
 
 
 
-function displayAppend(message, in_id, hide) {
+function displayAppend(message, in_id, hide, colour, link) {
+    debubg(`[displayAppend]   message: ${message}  in_id: ${in_id}   hide: ${hide}   colour: ${colour}   link: ${link}`);
     if (console_history[in_id] != undefined || console_history[in_id] != null) {    // if the value already exists
         console_history[in_id] = `${console_history[in_id]}${message}`;             // append to value
     } else {                                                                        // else
         console_history[in_id] = `${message}`;                                      // just set value
     }
+    console.log(in_id);
+
+    if (console_colour_history[in_id]) {      // if the value already exists
+        //debubg("exists!");
+        console_colour_history[in_id] = `${colour}`;        // append to value
+    } else {                                                // else
+        //debubg("NO EXIST");
+        if (colour) {
+            console_colour_history[in_id] = `${colour}`;        // append to value
+        } else {
+            console_colour_history[in_id] = `inherit`;                                                  // just set value
+        }   
+    }
+
+    if (console_link_history[in_id]) {      // if the value already exists
+        debubg("exists!");
+        console_link_history[in_id] = `${link}`;        // append to value
+    } else {                                                // else
+        debubg("NO EXIST");
+        if (colour) {
+            console_link_history[in_id] = `${link}`;        // append to value
+        } else {
+            console_link_history[in_id] = `inherit`;                                                  // just set value
+        }
+    }
+
     if (hide != undefined && hide != null && hide == true) {    // if hide exists and set to true
         //debubg("i shall hide display update");
     } else {
@@ -470,9 +499,9 @@ function displayAppend(message, in_id, hide) {
     }
 }
 
-function displayAdd(message, hide) {
+function displayAdd(message, hide, colour) {
     var use_id = console_id + 1;                // the current id that's being used
-    displayAppend(message, use_id, hide);       // append to a new line
+    displayAppend(message, use_id, hide, colour);       // append to a new line
 
     console_id += 1;                    // update console id
     return [use_id, message]            // return info
@@ -480,9 +509,9 @@ function displayAdd(message, hide) {
 
 function displayNewline() {
     // adds a new line (tm)
-    var use_id = console_id * 1;            // the current id that's being used
-    displayAppend(" ", use_id, true);       // append to a new line
-    return [use_id, " "]                    // return info
+    var use_id = console_id + 1;            // the current id that's being used
+    displayAppend("<br>", use_id, true);       // append to a new line
+    return [use_id, "<br>"]                    // return info
 }
 
 function displayUpdate() {
@@ -491,19 +520,47 @@ function displayUpdate() {
     var history = console_history;
     for (cur_id in console_history) {
         //debubg(`[DISPLAY UPDATE]: id ${cur_id} is being checked.`);
+        debubg(`[displayUpdate]   history: ${console_history[cur_id]}   colour: ${console_colour_history[cur_id]}   link: ${console_link_history[cur_id]}`)
+
         var elemCheck = document.getElementById(`CON_${cur_id}`);
         if (elemCheck) {                                                // if the element exists
-            //debubg("it EXISTS");                                        // it does exist
-            if (elemCheck.innerHTML != console_history[cur_id]) {       // if the element does not match what's in memory
-                //debubg("dont match");
+            //debubg("it EXISTS");                                      // it does exist
+            if (elemCheck.innerHTML != console_history[cur_id] || elemCheck.style.color != console_colour_history[cur_id] || elemCheck.onclick != console_link_history[cur_id]) {       // if the element does not match what's in memory
+                //debubg("they dont match");
                 elemCheck.innerHTML = `${console_history[cur_id]}`;
+                elemCheck.style.color = `${console_colour_history[cur_id]}`;
+
+                // function() { alert("hallo!") }
+                debubg(`checking ${console_link_history[cur_id]}`);
+                var check_url = `${console_link_history[cur_id]}`;
+                if (isUrl(`${check_url}`) == true) {
+                    debubg("it is a url!!! woo!!!");
+                    debubg(`checking ${console_link_history[cur_id]}`);
+                    elemCheck.onclick = function() { window.open(`${check_url}`); }
+                } else {
+                    debubg("it is not a url!!");
+                    //elemCheck.onclick = "";
+                }
+                // function() { alert("hallo!") }
+                debubg(`checking id of ${cur_id} : ${console_link_history[cur_id]}`);
+                var check_url = `${console_link_history[cur_id]}`;
+                //check_url = "https://dapug.lol"
+                if (isUrl(`${check_url}`) == true) {
+                    debubg("it is a url!!! woo!!!");
+                    debubg(`checking id of ${cur_id} : ${console_link_history[cur_id]}`);
+                    elemCheck.setAttribute( "onClick", `javascript: window.open("${check_url}");` );
+                } else {
+                    debubg("it is not a url!!");
+                    //elemCheck.onclick = "";
+                }
+
             } else {
-                //debubg("do match");
+                //debubg("they do match");
             }
 
         } else {
             //debubg("you idiot it doesnt exist");                        // it doesnt exist
-            consol.innerHTML = `${consol.innerHTML}<br><span id="CON_${cur_id}">${console_history[cur_id]}</span>`;
+            consol.innerHTML = `${consol.innerHTML}<span id="CON_${cur_id}" style="color: ${console_colour_history[cur_id]};">${console_history[cur_id]}</span>`;
         }
     }
 }
@@ -543,7 +600,8 @@ async function displayMultilineAnim(message, speed, type) {
     }
 }
 
-async function displaySingleLine(message, speed) {
+async function displaySingleLine(message, speed, colour, link) {
+    debubg(`[displaySingleLine]   message: ${message}  speed: ${speed}   colour: ${colour}   link: ${link}`);
     return new Promise((resolve,reject)=>{
         //here our function should be implemented 
         var messagey = message.split("");
@@ -552,7 +610,7 @@ async function displaySingleLine(message, speed) {
         console_id += 1;                    // update console id
         for (let i = 0; i < messageyLength; i++) {
             setTimeout(function timer() {
-                displayAppend(messagey[i], use_id, false);
+                displayAppend(messagey[i], use_id, false, colour, link);
                 if (i == messageyLength - 1) { 
                     resolve();
                     scrolly();
@@ -576,10 +634,11 @@ async function displayUser(message, userin) {
     scrolly();
 }
 
-async function displayAnim(message, speed) {      // fancy anim
+async function displayAnim(message, speed, colour, link) {      // fancy anim
     //console.log(`[displayanim] ${message}, ${speed}, ${type}`);
+    debubg(`[displayAnim]   message: ${message}  speed: ${speed}   colour: ${colour}   link: ${link}`);
     if (typeof message == "string") {           // if it's a string
-        await displaySingleLine(message, speed);
+        await displaySingleLine(message, speed, colour, link);
     } else if (typeof message == "object") {    // if it's an object (copyArr only works with arrays though, but typeof's definition says object so if it breaks, it breaks.)
         await displayMultilineAnim(message, speed, 1);
     } else {
@@ -588,6 +647,12 @@ async function displayAnim(message, speed) {      // fancy anim
     }
 }
 
+
+
+
+
+
+debubg("new display framework init finished.");
 
 
 
@@ -1627,6 +1692,17 @@ function replaceFromJson(string, json) {
     debubg(`translating finished, final message is "${workingString}"`);
     return `${workingString}`
 }
+
+function isUrl(string) {
+    var parser = document.getElementById("url-check");
+    parser.href = `${string}`;
+    var return_value = false;
+    if (parser.protocol == "http:" || parser.protocol == "https:") {
+        return_value = true;
+    }
+    return return_value
+}
+
 
 
 // =============================== TOOL FUNCTIONS ABOVE ==================

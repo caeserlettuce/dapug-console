@@ -60,6 +60,17 @@ and it is currently march 29th, 2022
   - update: i do need extra elements, but i got the basic functions working, which is cool
 
 
+- [ ] add statistics to worble, like your average guesses per game, how many games you've played in total, biggest streak, etc.
+  - [ ] and a way to download all your worble data
+
+- [ ] add a way to append text with gradient colours (waaaaaay in the future or whenever i need it because that would be extremely complicated)
+
+- [ ] have status window for every single function where it uses variables shaped like `STATUS_function_name` that would have a true or false and so then i could have a listener that would set the statuses for every function in init.js and it would have to somehow procedurally go and set them and it may be possible or it may not???
+  - [ ] get a list of every function inside of init.js
+  - [ ] listen for when any function in init.js is called
+  - [ ] call function at the end of every function that would reset its status
+  - [ ] this special debug mode would only be available through page restart so that way none of the listeners are running on the default startup because it would slow everything down a bunch
+
 - [x] fix uparrow command history thing
   - this involves rewriting it's code (fun)
 

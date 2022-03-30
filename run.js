@@ -27,7 +27,7 @@ function parseCommand(command) {
     //debubg(command);
     //debubg(command);
     if (command == "eef") {
-        newLine();
+        displayNewline();
         var marky = [
             "MARK!                  ",
             "A LIME!                  ",
@@ -37,15 +37,15 @@ function parseCommand(command) {
 
 
     } else if (command == "test") {
-        newLine();
+        displayNewline();
         newAnim("this is working", 20)
     } else if (command == "clear") {
         clearScreen();
     } else if (command.split(" ")[0] == "echo") {
-        newLine();
+        displayNewline();
         newAnim(commandInit.slice(5), 20);
     } else if (command == "help") {
-        newLine();
+        displayNewline();
         displayAnim(hlep, 1);
     } else if (argCommand == "login") {
 
@@ -74,17 +74,17 @@ function parseCommand(command) {
             if (ooo == realpassword) {
                 // password success
                 debubg("password succesful password tm tm");
-                newLine();
+                displayNewline();
                 newAnim(`logged into ${inusername}.`, 10);
                 setUser(inusername);
             } else {
                 debubg("hah you tried but the password was incorrect lmao")
-                newLine();
+                displayNewline();
                 newAnim("password incorrect.", 10);
             }
 
         } else {
-            newLine();
+            displayNewline();
             newAnim("invalid username. use 'signup' to sign up with a new account.", 10);
         }
 
@@ -106,7 +106,7 @@ function parseCommand(command) {
         var accountregistry = JSON.parse(`{${rawaccountregistry}}`);
 
         if (accountregistry[inusername] != undefined) {    // if account name exists in registry (agaim)
-            newLine();
+            displayNewline();
             newAnim("user already exists in registry.", 10);
         } else {
             // yes
@@ -114,7 +114,7 @@ function parseCommand(command) {
             let newRegistry = `${rawaccountregistry}, "${inusername}": "${ooo}"`;
             localStorage.setItem("accounts", newRegistry);
             setUser(inusername);
-            newLine();
+            displayNewline();
             newAnim(`created new account '${inusername}'.`);
 
         }
@@ -122,31 +122,31 @@ function parseCommand(command) {
     
     
     else if (commandInit == "oh") {
-        newLine();
+        displayNewline();
         newAnim("oh...", 20);
     } else if (commandInit == "OH") {
-        newLine();
+        displayNewline();
         newAnim("oH.............................................................................................................................................................................................................................................................", 20);
     } else if (command == "hack") {
-        newLine();
+        displayNewline();
         newAnim("hack hack beep boop 011010101010011000001101010010101", 20);
         user = "hacker"
     } else if (command == "secret") {
-        newLine();
+        displayNewline();
         newAnim("there are no secrets.", 20);
     } else if (command == "aperture") {
-        newLine();
+        displayNewline();
         displayAnim(apertureLogo, 1);                                                                                
     } else if (command == "secrets") {
-        newLine();
+        displayNewline();
         newAnim("there is not a secret.js file.", 20);
     } else if (command == "cake") {
-        newLine();
+        displayNewline();
         displayAnim(cake, 1);
     } else if (command == "info" || command == "about") {
         aboutPage();
     } else if (command == "ae394") {
-        newLine(); 
+        displayNewline(); 
         var poopy = [
             "there are no secrets in this console.                 ",
             "none.                 ",
@@ -154,26 +154,26 @@ function parseCommand(command) {
         ];
         displayAnim(poopy, 20);
     } else if (command == "doe" || command == "doe's world" || command == "does world") {
-        newLine();
+        displayNewline();
         newAnim("TWITCH.TV/DOESWORLDLIVE LETS GOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO", 20);
     } else if (command == "logout") {
-        newLine();
+        displayNewline();
         newAnim("logged out to generic user.", 20);
         setUser("user");
     } else if (command == "what is the meaning of life?" || command == "what is the meaning of life" || command == "the meaning of life" || command == "meaning of life?" || command == "meaning of life") {
-        newLine();
+        displayNewline();
         newAnim("42.", 40);
     } else if (command == "fast-clear") {
         clearScreen();
     } else if (command == "ls") {
-        newLine();
+        displayNewline();
         displayAnim(listy, 5);
     } else if (command == "colour text" || command == "colour text " || command == "colour back" || command == "colour back ") {
-        newLine();
+        displayNewline();
         newAnim("please input a proper colour code.", 10);
     } else if (command.split(" ")[0] == "color" || command.split(" ")[0] == "colour") {
         if (commandInit.split(" ")[1] == "text") {
-            newLine();
+            displayNewline();
             var colour = commandInit.split(" ")[2];
             debubg(`setting text colour to ${colour}`);
             var iffy = /^#[0-9A-F]{6}$/i.test(colour);
@@ -184,14 +184,14 @@ function parseCommand(command) {
                 setTextColour("#7cfc00");
                 newAnim(`resetting text colour`, 15);
             } else if (iffy == false) {
-                newLine();
+                displayNewline();
                 newAnim("invalid colour code.", 10);
             }
             else {
                 newAnim("invalid colour code.", 20);
             }
         } else if (commandInit.split(" ")[1] == "background") {
-            newLine();
+            displayNewline();
             var colour = commandInit.split(" ")[2];
             debubg(`setting text colour to ${colour}`);
             var iffy = /^#[0-9A-F]{6}$/i.test(colour);
@@ -202,7 +202,7 @@ function parseCommand(command) {
                 setBackColour("#000000");
                 newAnim(`resetting background colour`, 15);
             } else if (iffy == false) {
-                newLine();
+                displayNewline();
                 newAnim("invalid colour code.", 5);
             }
             else {
@@ -212,42 +212,42 @@ function parseCommand(command) {
 
             setTextColour("#7cfc00");
             setBackColour("#000000");
-            newLine();
+            displayNewline();
             newAnim("colours have been reset", 5);
 
         } else if (command == "color" || command == "color " || command == "colour" || command == "colour "){
-            newLine();
+            displayNewline();
             newAnim("invalid colour. check the help page", 20);
         }
     
     } else if (command == "filesys") {
         toggleFileSys();
-        newLine();
+        displayNewline();
         var switchy = [
             "Switching to FILESYS."
         ];
         displayAnim(switchy, 20);
 
     } else if (command == "sys") {
-        newLine();
+        displayNewline();
         newAnim("you are currently in MAINSYS.", 20);
     } else if (command == "charmount") {
         var mmm = consoltext.split("");
         var long = mmm.length;
-        newLine();
+        displayNewline();
         newAnim(`${long}`, 20);
     } else if (command == "syslist") {
-        newLine();
+        displayNewline();
         
         displayAnim(syslist, 5);
     } else if (command == "sus" || command == "among us" || command == "amogus" || command == "amongus" || command == "amon gus" || command == "sussy") {
-        newLine();
+        displayNewline();
         displayAnim(amogus, 1);
     } else if (command == "lovejoy") {
-        newLine();
+        displayNewline();
         displayAnim(lovejoy, 1);
     } else if (argCommand == "arg-test") {
-        newLine();
+        displayNewline();
         var mmm = argComm(commandInit);
         var inbo = [
             `FULL COMMAND: ${commandInit}`,
@@ -258,13 +258,13 @@ function parseCommand(command) {
         displayAnim(inbo, 10);
 
     } else if (command == "help -art") {
-        newLine();
+        displayNewline();
         displayAnim(hlepart, 1);
     } else if (command == "help -dev") {
-        newLine();
+        displayNewline();
         displayAnim(hlepdev, 1);
     } else if (argCommand == "comment") {
-        newLine();
+        displayNewline();
         if (command == "comment" || command == "comment ") {
             newAnim("please enter a valid argument.", 20);
         } else {
@@ -481,7 +481,7 @@ function parseCommand(command) {
                     debubg("comments cleared");
                     newAnim("comments cleared.", 20);
                 } else {
-                    newLine();
+                    displayNewline();
                     newAnim("comments have not been cleared.", 20);
                     debubg("user thought about their decisions and did not clear the comments"); // i know i just copy pasted this from clear cache shoosh
                 }
@@ -501,7 +501,7 @@ function parseCommand(command) {
             debubg("cache cleared");
             location.reload();
         } else {
-            newLine();
+            displayNewline();
             newAnim("cache has not been cleared.");
             debubg("user thought about their decisions and did not clear the cache")
         }
@@ -521,7 +521,7 @@ function parseCommand(command) {
     } else if (command == "reboot") {
         location.reload();
     } else if (command == "cheese") {
-        newLine();
+        displayNewline();
         displayAnim(cheese, 1);
     } else if (command == "snake") {
         snakeGameStart();
@@ -539,7 +539,7 @@ function parseCommand(command) {
             tata = `${tata}${mmm[i]} `;
         }
         debubg(tata);
-        newLine();
+        displayNewline();
         //newAnim(`${tata}`, 20);
         var asciifinal = asciiText(fonty, `${tata}`);
         displayAnim(asciifinal, 0.1);
@@ -550,7 +550,7 @@ function parseCommand(command) {
         
     } else if (command == "history") {
         //debubg(commang);
-        newLine();
+        displayNewline();
         if (commandHistory.length > 0) {
             var YAYA = commandHistory.slice(0);
             YAYA.unshift("COMMAND HISTORY:");
@@ -584,19 +584,19 @@ function parseCommand(command) {
         }
 
         
-        newLine();
+        displayNewline();
         newAnim(`${code}`, 20);
     } else if (command == "font list") {
-        newLine();
+        displayNewline();
         displayAnim(fomb, 5);
     } else if (command == "copylist") {
-        newLine();
+        displayNewline();
         displayAnim(cpoylist, 1);
     } else if (argCommand == "copycomm") {
         var mmm = argComm(commandInit);
         var commen = mmm[1];
         copycomm = commen;
-        newLine();
+        displayNewline();
         debubg(`set copy comment to ${copycomm}`);
         newAnim(`set copy comment to ${copycomm}`);
         
@@ -609,13 +609,13 @@ function parseCommand(command) {
             document.getElementById("debubvar").style.display = "none";
         }
     } else if (command == "convert -list") {
-        newLine();
+        displayNewline();
         displayAnim(convertlist, 1);
         
         
     } else if (command == "convert") {
         
-        newLine();
+        displayNewline();
         newAnim("please check the convert manpage. ('man convert')", 5);
         
     } else if (argCommand == "convert") {
@@ -708,14 +708,14 @@ function parseCommand(command) {
         
 
     
-        newLine();
+        displayNewline();
         newAnim(output, 5);
         coopyIf(output);
     
     
     
     } else if (command == "pebblebrain" || command == "pebble brain") {
-        newLine();
+        displayNewline();
         displayAnim(pebblebrain, 1);
         coopyIf(pebblebrain);
     } else if (argCommand == "man") {
@@ -740,11 +740,11 @@ function parseCommand(command) {
             haha = "there is no current man page for this command.";
         }
 
-        newLine();
+        displayNewline();
         smartAnim(haha, 3);
        
     } else if (command == "benson") {
-        newLine();
+        displayNewline();
         displayAnim(benson, 5)
         coopyIf(benson);
     } else if (command == "github" || command == "git") {
@@ -764,7 +764,7 @@ function parseCommand(command) {
         copyclip(shareLink);
 
         async function eyes(){
-            newLine();
+            displayNewline();
             await newLinkAnim("generated link", 10, shareLink);
             newAnim(" copied to clipboard.", 10);
         }
@@ -781,7 +781,7 @@ function parseCommand(command) {
             debubg(path);
             window.location.replace(path);
         } else {
-            newLine();
+            displayNewline();
             newAnim("cache has not been cleared.");
             debubg("user thought about their decisions and did not reset literally everything");
         }
@@ -802,25 +802,25 @@ function parseCommand(command) {
         if (mmm[1] == "colourblind" || mmm[1] == "colorblind") {
             if (worble_colourblind == false) {
                 worbleColourblind(true);
-                newLine();
+                displayNewline();
                 newAnim("colourblind mode has been turned on.", 10);
             } else {
                 worbleColourblind(false);
-                newLine();
+                displayNewline();
                 newAnim("colourblind mode has been turned off.", 10);
             }
         } else if (mmm[1] == "guess") {
 
             if (worble_status == false) { // not in game
                 // make a new worble
-                newLine();
+                displayNewline();
                 displayAnim(worble_error_2, 10);
             } else {
                 // guess worble
                 var guessword = mmm.slice(2).join(" ");
                 
                 if (worble_word.length < `${guessword}`.length) {
-                    newLine();
+                    displayNewline();
                     newAnim(`uh oh! your guess is too long! the word is ${worble_word.length} characters long.`, 10);
                 
                 } else if (worble_word.length > 10) {  // more than 10 letters
@@ -842,7 +842,7 @@ function parseCommand(command) {
                         } else {
                             long = "too short";
                         }
-                        newLine();
+                        displayNewline();
                         newAnim(`uh oh! your guess is ${long}! the word is ${worble_word.length} characters long.`, 10);
                 
                     } else {
@@ -862,7 +862,7 @@ function parseCommand(command) {
         } else if (mmm[1] == "start") {
             if (worble_status == true) { // in game
                 // make a new worble
-                newLine();
+                displayNewline();
                 displayAnim(worble_error_1, 10);
             } else {
                 newWorble(false);
@@ -885,7 +885,7 @@ function parseCommand(command) {
             }
             
         } else {
-            newLine();
+            displayNewline();
             newAnim("invalid sub command! use 'worble' or 'man worble' to see all the options!", 10);
         }
 
@@ -896,7 +896,7 @@ function parseCommand(command) {
     } else if (command == "fitness" || command == "fitness gram" || command == "fitness gram pacer" || command == "fitness gram pacer test") {
         fitnessGram();
     } else if (command == "uwu" || command == "uwu ") {
-        newLine();
+        displayNewline();
         newAnim("incorrect usage. check 'man uwu' for how to use.", 10);
     } else if (argCommand == "uwu") {
         var mmm = argComm(commandInit);
@@ -905,12 +905,12 @@ function parseCommand(command) {
         debubg(inputtext);
         inputtext = inputtext.toLowerCase();
         var translated = replaceFromJson(`${inputtext}`, uwu_translate);
-        newLine();
+        displayNewline();
         newAnim(translated, 10);
         coopyIf(translated);
     }
     else {
-        newLine();
+        displayNewline();
         newAnim(`command error: ${commandInit} is not an existing command.`, 10);
     }
     coopy = false;
