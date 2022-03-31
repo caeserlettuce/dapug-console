@@ -574,7 +574,7 @@ function displayAdd(message, hide, colour) {
     return [use_id, message]            // return info
 }
 
-function displaydisplayNewline() {
+function displayNewline() {
     // adds a new line (tm)
     var use_id = console_id + 1;            // the current id that's being used
     displayAppend("<br>", use_id, true);       // append to a new line
@@ -693,6 +693,56 @@ async function displaySingleLine(message, speed, colour, link) {
     });
 }
 
+async function displaySingleGradientLine(message, speed, colours) {
+    debubg(`[sisplaySingleGradientLine]     ${message}   ${speed}   from ${colours[0]}  to ${colours[1]}`);
+    
+    var messagey = message.split("");
+    var messageyLength = messagey.length;
+
+    // how much of each value changes in total
+    var R_diff = parseInt(colours[1][0]) - parseInt(colours[0][0]);
+    var G_diff = parseInt(colours[1][1]) - parseInt(colours[0][1]);
+    var B_diff = parseInt(colours[1][2]) - parseInt(colours[0][2]);
+
+    // how much the value actually changes per character
+    var R_displace = (R_diff / (messageyLength - 1));
+    var G_displace = (G_diff / (messageyLength - 1));
+    var B_displace = (B_diff / (messageyLength - 1));
+
+    var R_curr = parseInt(colours[0][0]);
+    var G_curr = parseInt(colours[0][1]);
+    var B_curr = parseInt(colours[0][2]);
+
+
+    //debubg(`[displaySingleLine]   message: ${message}  speed: ${speed}   colour: ${colour}   link: ${link}`);
+    return new Promise((resolve,reject)=>{
+        //here our function should be implemented 
+        
+        for (let i = 0; i < messageyLength; i++) {
+            setTimeout(function timer() {
+                var use_id = console_id + 1;        // the current id that's being used
+                console_id += 1;                    // update console id
+
+                var useColour = `rgb(${R_curr}, ${G_curr}, ${B_curr})`;
+
+                debubg(`[RGB VALUE]: ${useColour} id: ${use_id}`);
+
+                R_curr += R_displace;
+                G_curr += G_displace;
+                B_curr += B_displace;
+
+                displayAppend(messagey[i], use_id, false, useColour);
+                if (i == messageyLength - 1) { 
+                    resolve();
+                    scrolly();
+                }
+            }, i * speed);
+        }
+    });
+}
+
+//displaySingleGradientLine("abcdefghijklmnopqrstuvwxyz", 200, [[94, 252, 3], [252, 3, 3]])
+
 async function displayUser(message, userin) {
     var userfor;
 
@@ -702,7 +752,7 @@ async function displayUser(message, userin) {
         userfor = `${user}`;
     }
 
-    displaydisplayNewline();
+    displayNewline();
     displayAdd(`${userfor}@dapug.lol> ${message}`);
     scrolly();
 }
@@ -1875,7 +1925,7 @@ async function shareWorblePage() {
     shareWorble(parseWorble());
     displayNewline();
     await displayAnim("worble copied to clipboard: ", 10);
-    displaydisplayNewline();
+    displayNewline();
     displayAnim(worble_share_finale, 10);
 
 }

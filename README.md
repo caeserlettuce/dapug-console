@@ -64,6 +64,7 @@ and it is currently march 29th, 2022
   - [ ] and a way to download all your worble data
 
 - [ ] add a way to append text with gradient colours (waaaaaay in the future or whenever i need it because that would be extremely complicated)
+  - [ ] make it so it appends the spans with the different colours inside the id span
 
 - [ ] have status window for every single function where it uses variables shaped like `STATUS_function_name` that would have a true or false and so then i could have a listener that would set the statuses for every function in init.js and it would have to somehow procedurally go and set them and it may be possible or it may not???
   - [ ] get a list of every function inside of init.js
