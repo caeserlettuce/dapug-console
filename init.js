@@ -616,7 +616,7 @@ function displayUpdate() {
             //debubg(`checking id of ${cur_id} : ${console_link_history[cur_id]}`);
             var check_url = `${console_link_history[cur_id]}`;
             //check_url = "https://dapug.lol"
-            if (isUrl(`${check_url}`) == true) {
+            if (isUrl(`${check_url}`) == true && check_url != "") {
                 //debubg("it is a url!!! woo!!!");
                 //debubg(`checking id of ${cur_id} : ${console_link_history[cur_id]}`);
                 elemCheck.setAttribute( "onClick", `javascript: window.open("${check_url}");` );
@@ -625,7 +625,7 @@ function displayUpdate() {
             } else {
                 //debubg("it is not a url!!");
                 //elemCheck.onclick = "";
-                elemCheck.setAttribute( "onClick", `` );
+                elemCheck.removeAttribute("onClick");
                 elemCheck.style.textDecoration = "none";
                 elemCheck.style.cursor = "auto";
             }
