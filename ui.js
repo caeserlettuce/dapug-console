@@ -2135,14 +2135,13 @@ var githubText = [
 "%MM%. .%MM% MM   MM   MM      MM MM. .MM MM. .MM",
 "'%MMMMMMM%' MM   MM   MM      MM 'MMMMM' 'MMMMM'",
 ]
-
-var abooot = [
-    "     ",
-    "DAPUG.LOL CONSOLE, CODED BY CAESERLETTUCE (DA PUG) ON GITHUB. PROJECT STARTED ON 24-01-22",
+var aboot2 = [
     "        ",
     "USE 'help' TO GET COMMAND HELP",
     "        ",
     "USE 'github' TO VIEW THE GITHUB PAGE",
+    "                         ",
+    "USE 'issue' IF THERE ARE ANY ISSUES WITH THIS PAGE",
     "                         ",
     "HAVE FUN."
 ];
@@ -2151,6 +2150,7 @@ var hlep = [
     "HELP PAGE",
     "info / about | info about this page",
     "github / git | info about the github page for this",
+    "issue / error | opens the github issues page so you can submit an issue report",
     "help | shows this page",
     "man [command] | shows an in-depth help page for a specific command",
     "help -art | lists all the fun art commands",
@@ -2450,6 +2450,9 @@ var MAN_worble = [
     "       info | shows infor about your current game",
     "      guess | guess the mystery word",
     "      share | share your game progress",
+    "      stats | shows your worble statistics",
+    "   download | downloads all your worble data",
+    "      reset | resets all of your worble data",
     " ",
     "NOTES:",
     "<word> is only supported for the 'guess' option.",
@@ -2544,6 +2547,8 @@ var listy = [
     "fitness gram pacer",
     "fitness gram pacer test",
     "uwu",
+    "issue",
+    "error",
 
     "* command is currently in-development and may break the site."
 ]; 

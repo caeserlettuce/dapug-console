@@ -9,6 +9,7 @@ function debubg(message) {
 }
 debubg("debug message init finished...");
 var consol = document.getElementById("consy");
+var version = "0.3.4";
 var user = "user";
 var consoltext = "";
 var inputlock = false;
@@ -42,6 +43,7 @@ var worble_status = false;
 var worble_colourblind = false;
 var worble_word = "";
 var worble_word_id = 0;
+var worble_randomvalue = 0;
 var worble_save = [];
 var worble_guesscount = 0;
 var worble_gray = "#3a3a3c";
@@ -58,11 +60,15 @@ var worble_share_blind_green = "🟧";
 var worble_share_blind_yellow = "🟦";
 var worble_share_df_green = "🟩";
 var worble_share_df_yellow = "🟨";
+var worble_stats_guesses = new Object(); // list of how many guesses you had for each game
+var worble_stats_games = 0;
+var worble_stats_currentstreak = 0;
+var worble_stats_biggeststreak = 0;
 var commandHistory = new Array();
 var commandIndex = 0;
 var currentCommand = "";
 var inHistory = false;
-var console_history = {0: "console started."};
+var console_history = {0: "console started. use 'issue' if you find any issues/errors with this page."};
 var console_colour_history = {0: "inherit"};
 var console_link_history = {0: ""};
 var console_id = 0;
@@ -194,6 +200,12 @@ function worbleInit() {
 
     var guesses = localStorage.getItem("worble_guesscount"); // how many guesses
 
+    var stats_guesses = localStorage.getItem("worble_stats_guesses"); // how many guesses per game
+
+    var stats_currentstreak = localStorage.getItem("worble_stats_currentstreak"); // how many games youve won in a row currently
+
+    var stats_biggeststreak = localStorage.getItem("worble_stats_biggeststreak"); // 
+
     if(game) {
         // exists
         debubg("[WORBLE] worble save is saved. continuing.");
@@ -248,6 +260,35 @@ function worbleInit() {
         localStorage.setItem("worble_guesscount", 0);
     }
 
+    if(stats_guesses) {
+        // exists
+        debubg("[WORBLE] worble stats guesses is saved. continuing.");
+        worble_stats_guesses = JSON.parse(stats_guesses);
+    } else {
+        // not set eixsir he hehhe hehe hehe i h he heheh  ehe e
+        debubg("[WORBLE] worble stats guesses is not saved. creating."); 
+        localStorage.setItem("worble_stats_guesses", '');
+    }
+
+    if(stats_currentstreak) {
+        // exists
+        debubg("[WORBLE] worble stats current streak is saved. continuing.");
+        worble_stats_currentstreak = stats_currentstreak;
+    } else {
+        // not set eixsir he hehhe hehe hehe i h he heheh  ehe e
+        debubg("[WORBLE] worble stats current streak is not saved. creating."); 
+        localStorage.setItem("worble_stats_currentstreak", 0);
+    }
+
+    if(stats_biggeststreak) {
+        // exists
+        debubg("[WORBLE] worble stats biggest streak is saved. continuing.");
+        worble_stats_biggeststreak = stats_biggeststreak;
+    } else {
+        // not set eixsir he hehhe hehe hehe i h he heheh  ehe e
+        debubg("[WORBLE] worble stats biggest streak is not saved. creating."); 
+        localStorage.setItem("worble_stats_biggeststreak", 0);
+    }
 }
 
 
@@ -460,13 +501,13 @@ debubg("text scaling init finished...");
 
 
 function displayAppend(message, in_id, hide, colour, link) {
-    debubg(`[displayAppend]   message: ${message}  in_id: ${in_id}   hide: ${hide}   colour: ${colour}   link: ${link}`);
+    //debubg(`[displayAppend]   message: ${message}  in_id: ${in_id}   hide: ${hide}   colour: ${colour}   link: ${link}`);
     if (console_history[in_id] != undefined || console_history[in_id] != null) {    // if the value already exists
         console_history[in_id] = `${console_history[in_id]}${message}`;             // append to value
     } else {                                                                        // else
         console_history[in_id] = `${message}`;                                      // just set value
     }
-    console.log(in_id);
+    //console.log(in_id);
 
     if (console_colour_history[in_id]) {      // if the value already exists
         //debubg("exists!");
@@ -481,14 +522,14 @@ function displayAppend(message, in_id, hide, colour, link) {
     }
 
     if (console_link_history[in_id]) {      // if the value already exists
-        debubg("exists!");
+        //debubg("exists!");
         console_link_history[in_id] = `${link}`;        // append to value
     } else {                                                // else
-        debubg("NO EXIST");
+        //debubg("NO EXIST");
         if (colour) {
             console_link_history[in_id] = `${link}`;        // append to value
         } else {
-            console_link_history[in_id] = `inherit`;                                                  // just set value
+            console_link_history[in_id] = ``;                                                  // just set value
         }
     }
 
@@ -507,7 +548,7 @@ function displayAdd(message, hide, colour) {
     return [use_id, message]            // return info
 }
 
-function displayNewline() {
+function displaydisplayNewline() {
     // adds a new line (tm)
     var use_id = console_id + 1;            // the current id that's being used
     displayAppend("<br>", use_id, true);       // append to a new line
@@ -520,43 +561,49 @@ function displayUpdate() {
     var history = console_history;
     for (cur_id in console_history) {
         //debubg(`[DISPLAY UPDATE]: id ${cur_id} is being checked.`);
-        debubg(`[displayUpdate]   history: ${console_history[cur_id]}   colour: ${console_colour_history[cur_id]}   link: ${console_link_history[cur_id]}`)
+        //debubg(`[displayUpdate]   history: ${console_history[cur_id]}   colour: ${console_colour_history[cur_id]}   link: ${console_link_history[cur_id]}`)
 
         var elemCheck = document.getElementById(`CON_${cur_id}`);
         if (elemCheck) {                                                // if the element exists
-            //debubg("it EXISTS");                                      // it does exist
-            if (elemCheck.innerHTML != console_history[cur_id] || elemCheck.style.color != console_colour_history[cur_id] || elemCheck.onclick != console_link_history[cur_id]) {       // if the element does not match what's in memory
+            //debubg("it EXISTS"); 
+                                                 // it does exist
+            if (elemCheck.innerHTML != console_history[cur_id] || elemCheck.style.color != console_colour_history[cur_id] ) {       // if the element does not match what's in memory
                 //debubg("they dont match");
                 elemCheck.innerHTML = `${console_history[cur_id]}`;
                 elemCheck.style.color = `${console_colour_history[cur_id]}`;
 
-                // function() { alert("hallo!") }
-                debubg(`checking ${console_link_history[cur_id]}`);
-                var check_url = `${console_link_history[cur_id]}`;
-                if (isUrl(`${check_url}`) == true) {
-                    debubg("it is a url!!! woo!!!");
-                    debubg(`checking ${console_link_history[cur_id]}`);
-                    elemCheck.onclick = function() { window.open(`${check_url}`); }
-                } else {
-                    debubg("it is not a url!!");
-                    //elemCheck.onclick = "";
-                }
-                // function() { alert("hallo!") }
-                debubg(`checking id of ${cur_id} : ${console_link_history[cur_id]}`);
-                var check_url = `${console_link_history[cur_id]}`;
-                //check_url = "https://dapug.lol"
-                if (isUrl(`${check_url}`) == true) {
-                    debubg("it is a url!!! woo!!!");
-                    debubg(`checking id of ${cur_id} : ${console_link_history[cur_id]}`);
-                    elemCheck.setAttribute( "onClick", `javascript: window.open("${check_url}");` );
-                } else {
-                    debubg("it is not a url!!");
-                    //elemCheck.onclick = "";
-                }
-
             } else {
-                //debubg("they do match");
+                //debubg("they do match")
             }
+            // function() { alert("hallo!") }
+            //debubg(`checking id of ${cur_id} of ${console_link_history[cur_id]}`);
+            var check_url = `${console_link_history[cur_id]}`;
+            if (isUrl(`${check_url}`) == true) {
+                //debubg("it is a url!!! woo!!!");
+                //debubg(`checking ${console_link_history[cur_id]}`);
+                elemCheck.onclick = function() { window.open(`${check_url}`); }
+            } else {
+                //debubg("it is not a url!!");
+                //elemCheck.onclick = "";
+            }
+            // function() { alert("hallo!") }
+            //debubg(`checking id of ${cur_id} : ${console_link_history[cur_id]}`);
+            var check_url = `${console_link_history[cur_id]}`;
+            //check_url = "https://dapug.lol"
+            if (isUrl(`${check_url}`) == true) {
+                //debubg("it is a url!!! woo!!!");
+                //debubg(`checking id of ${cur_id} : ${console_link_history[cur_id]}`);
+                elemCheck.setAttribute( "onClick", `javascript: window.open("${check_url}");` );
+                elemCheck.style.textDecoration = "underline";
+                elemCheck.style.cursor = "pointer";
+            } else {
+                //debubg("it is not a url!!");
+                //elemCheck.onclick = "";
+                elemCheck.setAttribute( "onClick", `` );
+                elemCheck.style.textDecoration = "none";
+                elemCheck.style.cursor = "auto";
+            }
+
 
         } else {
             //debubg("you idiot it doesnt exist");                        // it doesnt exist
@@ -592,7 +639,7 @@ async function displayMultilineAnim(message, speed, type) {
 
     for (i in message) {
         var line = message[i];
-        console.log(`${line}`);
+        //console.log(`${line}`);
         var use_id = cur_id + 1;        // the current id that's being used
         
         await displayMultilineLine(`${line}`, speed, use_id);
@@ -601,7 +648,7 @@ async function displayMultilineAnim(message, speed, type) {
 }
 
 async function displaySingleLine(message, speed, colour, link) {
-    debubg(`[displaySingleLine]   message: ${message}  speed: ${speed}   colour: ${colour}   link: ${link}`);
+    //debubg(`[displaySingleLine]   message: ${message}  speed: ${speed}   colour: ${colour}   link: ${link}`);
     return new Promise((resolve,reject)=>{
         //here our function should be implemented 
         var messagey = message.split("");
@@ -629,14 +676,14 @@ async function displayUser(message, userin) {
         userfor = `${user}`;
     }
 
-    displayNewline();
+    displaydisplayNewline();
     displayAdd(`${userfor}@dapug.lol> ${message}`);
     scrolly();
 }
 
 async function displayAnim(message, speed, colour, link) {      // fancy anim
     //console.log(`[displayanim] ${message}, ${speed}, ${type}`);
-    debubg(`[displayAnim]   message: ${message}  speed: ${speed}   colour: ${colour}   link: ${link}`);
+    //debubg(`[displayAnim]   message: ${message}  speed: ${speed}   colour: ${colour}   link: ${link}`);
     if (typeof message == "string") {           // if it's a string
         await displaySingleLine(message, speed, colour, link);
     } else if (typeof message == "object") {    // if it's an object (copyArr only works with arrays though, but typeof's definition says object so if it breaks, it breaks.)
@@ -693,7 +740,7 @@ function appendInline(message) {
     consoltext = `${yoy}${message}`;
     scrolly();
 };
-function newLine() {
+function displayNewline() {
     var yoy = consol.innerHTML;
     consol.innerHTML = `${yoy}<br>`;
     consoltext = `${yoy}<br>`;
@@ -714,42 +761,47 @@ debubg("more variable init finished...");
 intervalVar = setInterval(bebu, 100);
 function bebu() {
     if (debugvar == true) {
-        document.getElementById("debubtextvar").innerHTML = `              user: ${user}
-           inputlock: ${inputlock}
-             mainsys: ${mainsys}
-             filesys: ${filesys}
-               debug: ${debug}
-            debugvar: ${debugvar}
-           debugHide: ${debugHide}
-        debugHideVar: ${debugHideVar}
-      snakegamestart: ${snakegamestart}
-           snakegame: ${snakegame}
-           enterlock: ${enterlock}
-         snakeinputs: ${snakeinputs}
-            copycomm: ${copycomm}
-               coopy: ${coopy}
-           debubHide: ${debubHide}
-  commandhistorylock: ${commandhistorylock}
-     currentHistCOmm: ${currentHistCOmm}
-          currentCOM: ${currentCOM}
-      snakegamespeed: ${snakegamespeed}
-         snakeingame: ${snakeingame}
-           snaketick: ${snaketick}
-          textcolour: ${textcolour}
-          backcolour: ${backcolour}
-         autocommand: ${autocommand}
-       worble_status: ${worble_status}
-  worble_colourblind: ${worble_colourblind}
-   worble_guesscount: ${worble_guesscount}
-         worble_word: ${worble_word}
-      worble_word_id: ${worble_word_id}
-         worble_gray: ${worble_gray}
-        worble_green: ${worble_green}
-       worble_yellow: ${worble_yellow}
-   worble_share_gray: ${worble_share_gray}
-  worble_share_green: ${worble_share_green}
- worble_share_yellow: ${worble_share_yellow}
-          console_id: ${console_id}
+        document.getElementById("debubtextvar").innerHTML = `
+                      user: ${user}
+                 inputlock: ${inputlock}
+                   mainsys: ${mainsys}
+                   filesys: ${filesys}
+                     debug: ${debug}
+                  debugvar: ${debugvar}
+                 debugHide: ${debugHide}
+              debugHideVar: ${debugHideVar}
+            snakegamestart: ${snakegamestart}
+                 snakegame: ${snakegame}
+                 enterlock: ${enterlock}
+               snakeinputs: ${snakeinputs}
+                  copycomm: ${copycomm}
+                     coopy: ${coopy}
+                 debubHide: ${debubHide}
+        commandhistorylock: ${commandhistorylock}
+           currentHistCOmm: ${currentHistCOmm}
+                currentCOM: ${currentCOM}
+            snakegamespeed: ${snakegamespeed}
+               snakeingame: ${snakeingame}
+                 snaketick: ${snaketick}
+                textcolour: ${textcolour}
+                backcolour: ${backcolour}
+               autocommand: ${autocommand}
+             worble_status: ${worble_status}
+        worble_colourblind: ${worble_colourblind}
+         worble_guesscount: ${worble_guesscount}
+      worble_stats_guesses: ${worble_stats_guesses}
+worble_stats_currentstreak: ${worble_stats_currentstreak}
+worble_stats_biggeststreak: ${worble_stats_biggeststreak}
+               worble_word: ${worble_word}
+            worble_word_id: ${worble_word_id}
+        worble_randomvalue: ${worble_randomvalue}
+               worble_gray: ${worble_gray}
+              worble_green: ${worble_green}
+             worble_yellow: ${worble_yellow}
+         worble_share_gray: ${worble_share_gray}
+        worble_share_green: ${worble_share_green}
+       worble_share_yellow: ${worble_share_yellow}
+                console_id: ${console_id}
 `;autocommand
         console.log("binted.");
     }
@@ -770,7 +822,7 @@ function simpleAnimAppend(message) {
     end1 = false;
     animSentence1 = message.split("");
     //hardAppend(animSentence1);
-    newLine();
+    displayNewline();
     animchar1 = 0;
 }
 debubg("old text anim init finished...");
@@ -800,7 +852,7 @@ async function animArt(array, speed) {
     var artLength = array.length;
     for (let i = 0; i < artLength; i++) {
         if (i != 0) {
-            newLine();
+            displayNewline();
         }
         await displayAnim(array[i], speed);
     }
@@ -1004,11 +1056,6 @@ function settingridng() {
     setTimeout(function() {
     }, 500)
 }
-async function aboutPage() {
-    await newLine();
-    await displayAnim(aboot, 2.5);
-    await displayAnim(abooot, 10);
-}
 function hexToRgb(hex) {
     var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
     return result ? {
@@ -1057,7 +1104,7 @@ function asciiText(font, text) {
                 currentLine = `${currentLine}${lala} `
             }
             debubg(`CURRENT: ${currentLine}`);
-            //newLine();
+            //displayNewline();
             finalText.push(currentLine);
             // its appending the lines twice for some reason
             //found it
@@ -1125,7 +1172,7 @@ function asciiText(font, text) {
 
             }
             debubg(`CURRENT: ${currentLine}`);
-            //newLine();
+            //displayNewline();
             finalText.push(currentLine);
             // its appending the lines twice for some reason
             //found it
@@ -1244,24 +1291,27 @@ function getRandomFromArr(inArray) {
 
 }
 
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 function getWorbleWord() {
     // gets random element from array
 
-    var isAwful = Math.random()* 5;
-
+    worble_randomvalue = getRandomInt(0,5);
     var hehe = "";
-    if (isAwful != 1) {
-
+    if (worble_randomvalue == 1) {
+        // local words
+        var id = Math.floor(Math.random()* worble_awful_words.length);
+        worble_word_id = `${id}`;
+        var hehe = worble_awful_words[id];
+    } else {
         // local words
         var id = Math.floor(Math.random()* worble_words.length);
         worble_word_id = `${id}`;
         var hehe = worble_words[id];
-    } else {
-        // local words
-        var id = Math.floor(Math.random()* worble_awful_words.length);
-        worble_word_id = `${id}`;
-        var hehe = worble_words[id];
-
 
 
     }
@@ -1461,8 +1511,8 @@ function parseWorble() { // parse the worble save into colours
 
 
 function animWorble(worble_parsed) {
-    newLine();
-    newLine();
+    displayNewline();
+    displayNewline();
     var finalAppend = "";
 
     for (i in worble_save) {
@@ -1531,7 +1581,7 @@ function newWorble(restart, custom_word) {  // sets up worble
             `Word length: ${worble_word.length} character(s)`
         ]
     }
-    newLine();
+    displayNewline();
     displayAnim(worble_startscreen, 10);
 }
 
@@ -1709,27 +1759,27 @@ function isUrl(string) {
 debubg("extra tool functions init finished...");
 
 async function githubPage() {
-    newLine();
+    displayNewline();
     await displayAnim(githubArt, 1);
-    newLine();
-    newLine();
+    displayNewline();
+    displayNewline();
     await displayAnim(githubText, 1);
-    newLine();
-    newLine();
+    displayNewline();
+    displayNewline();
     await newLinkAnim("visit the github page", 5, "https://github.com/caeserlettuce/dapug-console");
 }
 
 async function worblePage() {
-    newLine();
+    displayNewline();
     var worbletext = asciiText("slant", `WORBLE!`)
     await displayAnim(worbletext, 2);
     await displayAnim(worble_info_1, 2);
-    await newLinkAnim("Wordle", 2, "https://www.nytimes.com/games/wordle/index.html")
+    await displayAnim("Wordle", 2, "inherit", "https://www.nytimes.com/games/wordle/index.html");
     await displayAnim(worble_info_2, 2);
 }
 
 async function worbleInfoPage() {
-    newLine();
+    displayNewline();
 
     worble_infoscreen = [
         `Worble Info:`,
@@ -1753,9 +1803,9 @@ async function worbleInfoPage() {
 
 async function shareWorblePage() {
     shareWorble(parseWorble());
-    newLine();
+    displayNewline();
     await displayAnim("worble copied to clipboard: ", 10);
-    newLine();
+    displaydisplayNewline();
     displayAnim(worble_share_finale, 10);
 
 }
@@ -1767,19 +1817,25 @@ async function worbleDone() {
 }
 
 async function restartWorble() {
-    newLine();
+    displayNewline();
     await displayAnim(`The worble was "${worble_word}"!`, 5)
-    newLine();
+    displayNewline();
     newWorble(true);
 }
 
 async function fitnessGram() {
-    newLine();
+    displayNewline();
     await displayAnim(fitnessgram, 2);
     await displayAnim(fitnessgram_1, 1);
 }
 
-
+async function aboutPage() {
+    await displayNewline();
+    await displayAnim(aboot, 2.5);
+    await displayAnim(["     ", `DAPUG.LOL CONSOLE VERSION ${version}, CODED BY CAESERLETTUCE (DA PUG) ON GITHUB. PROJECT STARTED ON 24-01-22`,])
+    await displayAnim(aboot2, 5);
+    //await displayAnim()
+}
 
 debubg("async command functions init finished...");
 

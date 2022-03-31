@@ -70,6 +70,7 @@ and it is currently march 29th, 2022
   - [ ] listen for when any function in init.js is called
   - [ ] call function at the end of every function that would reset its status
   - [ ] this special debug mode would only be available through page restart so that way none of the listeners are running on the default startup because it would slow everything down a bunch
+  - idea is courtesy of eamon
 
 - [ ] MODDING CAPABILITIES????
   - [ ] a command where you can load a mod from a link to a javascript file, and then itll execute the things from that javascript file
