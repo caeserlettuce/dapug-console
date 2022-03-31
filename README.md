@@ -60,7 +60,7 @@ and it is currently march 29th, 2022
   - update: i do need extra elements, but i got the basic functions working, which is cool
 
 
-- [ ] add statistics to worble, like your average guesses per game, how many games you've played in total, biggest streak, etc.
+- [x] add statistics to worble, like your average guesses per game, how many games you've played in total, biggest streak, etc.
   - [ ] and a way to download all your worble data
 
 - [ ] add a way to append text with gradient colours (waaaaaay in the future or whenever i need it because that would be extremely complicated)

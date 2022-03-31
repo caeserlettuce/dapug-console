@@ -2451,7 +2451,7 @@ var MAN_worble = [
     "      guess | guess the mystery word",
     "      share | share your game progress",
     "      stats | shows your worble statistics",
-    "   download | downloads all your worble data",
+    //"   download | downloads all your worble data",
     "      reset | resets all of your worble data",
     " ",
     "NOTES:",
@@ -3159,7 +3159,7 @@ var worble_info_2 = [
     "you can guess any length of word.",
     "     ",
     "     ",
-    "use 'worble start' to start a worble game, ",
+    "type 'worble start' to start a worble game, ",
     "'worble guess [word]' to guess a word,",
     "'worble info' to get info on your game,",
     "'worble restart' to start a new game,",
@@ -3511,11 +3511,9 @@ var fitnessgram_1 = [
     "Two hundred forty-seven",
     "end of level twenty-one",
     "end of test"
-]
+];
 
 
-
-console.log("ui elements loaded.")
 var uwu_translate = {
     "simon": "simom",
     "eamon":"emom",
@@ -3547,5 +3545,8 @@ var uwu_translate = {
     
     // "":"",
 }   // this is simon's fault
+
+var infotm = new Array();
+
 
 console.log("ui elements loaded.");

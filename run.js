@@ -65,7 +65,10 @@ function parseCommand(command) {
 
         debubg(`attempting to log in using username '${inusername}' and password '${ooo}'.`);
 
-        if (accountregistry[inusername] != undefined) {    // if account name exists in registry
+        if (inusername == "dev") {
+            displayNewline();
+            displayAnim("sorry, that account cannot be logged into.", 10);
+        } else if (accountregistry[inusername] != undefined) {    // if account name exists in registry
             debubg("username found in registry. continuing.");
 
             var realpassword = accountregistry[inusername];
@@ -868,12 +871,19 @@ function parseCommand(command) {
                 newWorble(false);
             }
         } else if (mmm[1] == "restart" || mmm[1] == "reset") {
-            restartWorble();
+            if (worble_status == false) {
+                newWorble();
+            } else {
+                restartWorble();
+            }
         } else if (mmm[1] == "info") {
             worbleInfoPage();
             coopyIf(worble_infoscreen.slice(6));
         } else if (mmm[1] == "share") {
             shareWorblePage();
+        } else if (mmm[1] == "stats") {
+            worbleStats(false);
+            coopyIf(infotm);
         } else if (mmm[1] == "custom") {
             worble_word_id = "custom";
             var guessword = mmm.slice(2).join(" ");

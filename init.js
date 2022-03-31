@@ -9,7 +9,7 @@ function debubg(message) {
 }
 debubg("debug message init finished...");
 var consol = document.getElementById("consy");
-var version = "0.3.4";
+var version = "0.3.8";
 var user = "user";
 var consoltext = "";
 var inputlock = false;
@@ -46,6 +46,7 @@ var worble_word_id = 0;
 var worble_randomvalue = 0;
 var worble_save = [];
 var worble_guesscount = 0;
+var worble_wordslength = 0;
 var worble_gray = "#3a3a3c";
 var worble_green = "#538d4e";
 var worble_yellow = "#b59f3b";
@@ -60,7 +61,8 @@ var worble_share_blind_green = "🟧";
 var worble_share_blind_yellow = "🟦";
 var worble_share_df_green = "🟩";
 var worble_share_df_yellow = "🟨";
-var worble_stats_guesses = new Object(); // list of how many guesses you had for each game
+var worble_stats_guesses = [];
+var worble_stats_restarts = 0;
 var worble_stats_games = 0;
 var worble_stats_currentstreak = 0;
 var worble_stats_biggeststreak = 0;
@@ -68,7 +70,7 @@ var commandHistory = new Array();
 var commandIndex = 0;
 var currentCommand = "";
 var inHistory = false;
-var console_history = {0: "console started. use 'issue' if you find any issues/errors with this page."};
+var console_history = {0: "console started. type 'issue' if you find any issues/errors with this page."};
 var console_colour_history = {0: "inherit"};
 var console_link_history = {0: ""};
 var console_id = 0;
@@ -206,6 +208,10 @@ function worbleInit() {
 
     var stats_biggeststreak = localStorage.getItem("worble_stats_biggeststreak"); // 
 
+    var stats_restarts = localStorage.getItem("worble_stats_restarts"); // 
+
+    var word_id = localStorage.getItem("worble_word_id"); // 
+
     if(game) {
         // exists
         debubg("[WORBLE] worble save is saved. continuing.");
@@ -263,17 +269,27 @@ function worbleInit() {
     if(stats_guesses) {
         // exists
         debubg("[WORBLE] worble stats guesses is saved. continuing.");
-        worble_stats_guesses = JSON.parse(stats_guesses);
+        worble_stats_guesses = JSON.parse(stats_guesses)["guesses"];
     } else {
         // not set eixsir he hehhe hehe hehe i h he heheh  ehe e
         debubg("[WORBLE] worble stats guesses is not saved. creating."); 
         localStorage.setItem("worble_stats_guesses", '');
     }
 
+    if(stats_restarts) {
+        // exists
+        debubg("[WORBLE] worble stats restarts is saved. continuing.");
+        worble_stats_restarts = parseInt(stats_restarts);
+    } else {
+        // not set eixsir he hehhe hehe hehe i h he heheh  ehe e
+        debubg("[WORBLE] worble stats restarts is not saved. creating."); 
+        localStorage.setItem("worble_stats_restarts", '');
+    }
+
     if(stats_currentstreak) {
         // exists
         debubg("[WORBLE] worble stats current streak is saved. continuing.");
-        worble_stats_currentstreak = stats_currentstreak;
+        worble_stats_currentstreak = parseInt(stats_currentstreak);
     } else {
         // not set eixsir he hehhe hehe hehe i h he heheh  ehe e
         debubg("[WORBLE] worble stats current streak is not saved. creating."); 
@@ -283,11 +299,21 @@ function worbleInit() {
     if(stats_biggeststreak) {
         // exists
         debubg("[WORBLE] worble stats biggest streak is saved. continuing.");
-        worble_stats_biggeststreak = stats_biggeststreak;
+        worble_stats_biggeststreak = parseInt(stats_biggeststreak);
     } else {
         // not set eixsir he hehhe hehe hehe i h he heheh  ehe e
         debubg("[WORBLE] worble stats biggest streak is not saved. creating."); 
         localStorage.setItem("worble_stats_biggeststreak", 0);
+    }
+
+    if(word_id) {
+        // exists
+        debubg("[WORBLE] worble stats biggest streak is saved. continuing.");
+        worble_word_id = parseInt(word_id);
+    } else {
+        // not set eixsir he hehhe hehe hehe i h he heheh  ehe e
+        debubg("[WORBLE] worble stats biggest streak is not saved. creating."); 
+        localStorage.setItem("worble_word_id", 0);
     }
 }
 
@@ -790,6 +816,7 @@ function bebu() {
         worble_colourblind: ${worble_colourblind}
          worble_guesscount: ${worble_guesscount}
       worble_stats_guesses: ${worble_stats_guesses}
+     worble_stats_restarts: ${worble_stats_restarts}
 worble_stats_currentstreak: ${worble_stats_currentstreak}
 worble_stats_biggeststreak: ${worble_stats_biggeststreak}
                worble_word: ${worble_word}
@@ -1307,11 +1334,13 @@ function getWorbleWord() {
         var id = Math.floor(Math.random()* worble_awful_words.length);
         worble_word_id = `${id}`;
         var hehe = worble_awful_words[id];
+        worble_wordslength = worble_awful_words.length;
     } else {
         // local words
         var id = Math.floor(Math.random()* worble_words.length);
         worble_word_id = `${id}`;
         var hehe = worble_words[id];
+        worble_wordslength = worble_words.length;
 
 
     }
@@ -1388,6 +1417,9 @@ function saveWorble() { // save worble
 
     localStorage.setItem("worble_save", `${finalSave}`);
     localStorage.setItem("worble_guesscount", worble_guesscount);
+    localStorage.setItem("worble_word_id", worble_word_id);
+
+
 }
 
 
@@ -1525,7 +1557,7 @@ function animWorble(worble_parsed) {
             var worble_guess_letter = worble_guess[i];
             var worble_parsed_letter = worble_guess_parsed[i];
             
-            debubg(`[WORBLE ANIM]: animating letter "${worble_guess_letter}"`);
+            //debubg(`[WORBLE ANIM]: animating letter "${worble_guess_letter}"`);
 
             if (worble_parsed_letter == "G") {              // parse the single colour values into full or smth idk
                 finalAppend = `${finalAppend}<span class="worble worble-green">${worble_guess_letter}</span>`;
@@ -1541,12 +1573,47 @@ function animWorble(worble_parsed) {
         finalAppend = `${finalAppend}<br><br>`;
         
     }
-    debubg(`[WORble ANIM]: ${finalAppend}`);
+    //debubg(`[WORble ANIM]: ${finalAppend}`);
     appendInline(finalAppend);
     
 }
 
+function saveWorbleStats(restarted) {
+    debubg(`[WORBLE STATS]: stats are being saved...`);
+    if (worble_guesscount != 0) {
+        worble_stats_games += 1;
+        worble_stats_guesses.push(worble_guesscount);
+        worble_stats_currentstreak += 1;
+        if (worble_stats_currentstreak > worble_stats_biggeststreak) {
+            worble_stats_biggeststreak = worble_stats_currentstreak * 1;
+        }
 
+    } else {
+        debubg("woob");
+        worble_stats_currentstreak = 0;
+    }
+    if (restarted == true) {
+        worble_stats_restarts += 1;
+        worble_stats_currentstreak = 0;
+    }
+
+    localStorage.setItem("worble_stats_games", worble_stats_games);
+    localStorage.setItem("worble_stats_restarts", worble_stats_restarts);
+    localStorage.setItem("worble_stats_currentstreak", worble_stats_currentstreak);localStorage.setItem("worble_stats_biggeststreak", worble_stats_biggeststreak);
+
+
+    var final = '{ "guesses": ['
+    for (i in worble_stats_guesses) {
+        if (i == 0) {
+            final = `${final}${worble_stats_guesses[i]}`;
+        } else {
+            final = `${final}, ${worble_stats_guesses[i]}`;
+        }
+    }
+    final = `${final}]}`;
+    localStorage.setItem("worble_stats_guesses", final);
+    
+}
 
 
 function newWorble(restart, custom_word) {  // sets up worble
@@ -1567,17 +1634,17 @@ function newWorble(restart, custom_word) {  // sets up worble
     
     
     
-    debubg(`[WORBLE SETUP]: wordle word that has been chosen is ${worble_word}`);
+    debubg(`[WORBLE SETUP]: worble word that has been chosen is ${worble_word}`);
     if (restart == true) {
         debubg(`[WORBLE SETUP]: restart is set to true`);
         worble_startscreen = [
-            `Wordle game restarted!`,
+            `Worble game restarted!`,
             `Word length: ${worble_word.length} character(s)`
         ]
     } else {
         debubg(`[WORBLE SETUP]: restart is set to not true`);
         worble_startscreen = [
-            `Wordle game started!`,
+            `Worble game started!`,
             `Word length: ${worble_word.length} character(s)`
         ]
     }
@@ -1604,8 +1671,11 @@ function shareWorble(parsed) { // parse the worble save into colours
 
     worble_raw_info = [
         `worble (https://dapug.lol/console?command=worble)`,
-        `word ${worble_word_id}`,
-        `${worble_guesscount}/∞ tries`
+        `word #${worble_word_id}/${worble_wordslength}`,
+        `${worble_guesscount}/∞ guesses`,
+        `current streak: ${worble_stats_currentstreak}`,
+        `longest streak: ${worble_stats_biggeststreak}`,
+        `user: ${user}`
     ]
 
 
@@ -1785,7 +1855,7 @@ async function worbleInfoPage() {
         `Worble Info:`,
         ` `,
         `Word length:       ${worble_word.length}`,
-        `Word:              ${worble_word_id + 1}`,
+        `Word:              ${worble_word_id + 1}/${worble_wordslength}`,
         `Colourblind mode:  ${worble_colourblind}`,
         `Guess count:       ${worble_guesscount}/∞`,
         `Status:            ${worble_status}`,
@@ -1812,11 +1882,14 @@ async function shareWorblePage() {
 
 async function worbleDone() {
     // you got it right
+    saveWorbleStats(false);
+    debubg("aaa");
     await displayAnim(`You got the worble! use 'worble start' to start a new game!`, 10);
     shareWorble(parseWorble());
 }
 
 async function restartWorble() {
+    saveWorbleStats(true);
     displayNewline();
     await displayAnim(`The worble was "${worble_word}"!`, 5)
     displayNewline();
@@ -1835,6 +1908,33 @@ async function aboutPage() {
     await displayAnim(["     ", `DAPUG.LOL CONSOLE VERSION ${version}, CODED BY CAESERLETTUCE (DA PUG) ON GITHUB. PROJECT STARTED ON 24-01-22`,])
     await displayAnim(aboot2, 5);
     //await displayAnim()
+}
+
+async function worbleStats(download) {
+    var amount = 0;
+    var average = 0;
+    var most = 0;
+    for (i in worble_stats_guesses) {
+        amount += 1;
+        average += parseInt(worble_stats_guesses[i]);
+        if (worble_stats_guesses[i] > most) {
+            most = worble_stats_guesses[i];
+        }
+    }
+    average = Math.floor(average / amount);
+    
+    infotm = [
+        `WORBLE PROFILE STATS FOR USER '${user}':`,
+        `average guesses per game: ${average}`,
+        `most guesses in a game: ${most}`,
+        `worble games played: ${worble_stats_games}`,
+        `worble games restarted: ${worble_stats_restarts}`,
+        `current streak: ${worble_stats_currentstreak}`,
+        `longest streak: ${worble_stats_biggeststreak}`
+    ]
+
+    await displayNewline();
+    await displayAnim(infotm, 10);
 }
 
 debubg("async command functions init finished...");
