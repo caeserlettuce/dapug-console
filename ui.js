@@ -3548,5 +3548,13 @@ var uwu_translate = {
 
 var infotm = new Array();
 
+var LYR_test = [
+    {"text": "hello!", "time": 1000},
+    {"text": "<br>", "time": 5500},
+    {"text": " word", "time": 7500},
+]
+
+
+
 
 console.log("ui elements loaded.");
