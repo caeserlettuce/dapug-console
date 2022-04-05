@@ -542,6 +542,9 @@ debubg("text scaling init finished...");
 
 function displayAppend(message, in_id, hide, colour, link) {
     //debubg(`[displayAppend]   message: ${message}  in_id: ${in_id}   hide: ${hide}   colour: ${colour}   link: ${link}`);
+    if (message == "\n") {
+        message = "<br>";
+    }
     if (console_history[in_id] != undefined || console_history[in_id] != null) {    // if the value already exists
         console_history[in_id] = `${console_history[in_id]}${message}`;             // append to value
     } else {                                                                        // else
@@ -784,82 +787,41 @@ async function displayAnim(message, speed, colour, link) {      // fancy anim
     }
 }
 
-function displayTimeAnim(message, duration) {    // duration in ms
-    var speed = duration / message.length;
-    displayAnim(message, speed);
+function displayTimeAnim(message, durat) {    // duration in ms
+    var speedy = durat / message.length;
+    debubg(`duration: ${durat}, speed: ${speedy}`);
+    displaySingleLine(message, speedy);
 }
-
-async function displayLyrics(lyrics) {
-    var cur_lyr = new Object();
-    var pre_lyr = new Object();
-    for (i in lyrics) {
-        pre_lyr = {...cur_lyr};
-        cur_lyr = lyrics[i];
-
-        var time = 500;
-        if (i == 0) {
-            time = cur_lyr["time"];
-        } else {
-            time = cur_lyr["time"] - pre_lyr["time"];
-        }
-        debubg(`animating for ${time} milliseconds..`);
-        var lyric = cur_lyr["text"];
-        var speed = time / lyric.length;
-        if (lyric == "<br>") {
-            debubg("he");
-            //await setTimeout(() => {displayNewline()}, speed)
-            await displayAppend("<br>", console_id, false);
-        
-        } else {
-            await displayAnim(lyric, speed);
-        }
-        debubg("dum");
-    }
-}
-
 
 async function displayLyricsNew(lyrics) {
-    var lyr_num = 0;
     var lyr_len = lyrics.length;
-    var sng_dur = music.duration;
-    var lyr_status = new Array();
-    for (var i = 0; i < Infinity; i++) {    // for infinity
-        if (music.ended == true) {
-            break;
-        }
-        var cur_time = music.currentTime;
-        var cur_lyr = lyrics[lyr_num];
-        var check_now = lyrics[lyr_num]["dur"][0]
-        var check_next = sng_dur;
-        var cur_lyr_text = cur_lyr["text"];
-
-        debubg("a");
 
 
-        if (lyr_num + 1 <= lyr_len) {   // if its before the end lyric
-            check_next = lyrics[lyr_num + 1]["dur"][0]  // the next lyric's start duration
-        }
-
-        if (lyr_status[lyr_num]) {                  // it has happened
-            if (cur_time >= check_next) {   // if it's within the current lyric's timeframe
-                debubg(`upping lyricnum!`);
-
-                lyr_num += 1;                
-            }
-            
-        } else {
-            if (cur_time >= check_now && cur_time < check_next) {   // if it's within the current lyric's timeframe
-                debubg(`pushing lyric: ${cur_lyr_text}`);
-
-                lyr_status[lyr_num] = true;
-
-            }
-        }
+    return new Promise((resolve,reject)=>{
+        //here our function should be implemented 
         
-    
+        for (let i = 0; i < lyr_len; i++) {
+            var startdur = lyrics[i]["dur"][0];
+            var enddur = lyrics[i]["dur"][1];
+            var fulldur = enddur - startdur;
 
-    }
+            debubg(`i: ${i}, startdur: ${startdur}, enddur: ${enddur}, fulldur: ${fulldur}`);
+
+            setTimeout(function timer() {
+                
+                displayTimeAnim(lyrics[i]["text"], (lyrics[i]["dur"][1] - lyrics[i]["dur"][0]));
+
+                if (i == lyr_len - 1) { 
+                    resolve();
+                    scrolly();
+                }
+            }, startdur);
+        }
+    });
+
 }
+
+
 
 //async function hate() {
 //    for (var i = 0; i < Infinity; i++) {
@@ -1244,7 +1206,7 @@ function hexToRgb(hex) {
 }
 var syslist = [
     "MAINSYS",
-    "FILESYS"
+    "FILESYS"       // im too lazy to remove filesys fully so... :shrug:
 ];
 // lets make an easy command argument function because WHY NOT
 // and then not remake old commands that use inputs because im lazy and sue me
@@ -2189,8 +2151,6 @@ var elem = document.getElementById("consoleinput");
 
                         if (mainsys == true) {
                             parseCommand(elem.value);
-                        } else if (filesys == true) {
-                            filesysParse(elem.value);
                         }
 
                         historyReset();

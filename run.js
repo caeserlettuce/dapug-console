@@ -223,17 +223,6 @@ function parseCommand(command) {
             displayAnim("invalid colour. check the help page", 20);
         }
     
-    } else if (command == "filesys") {
-        toggleFileSys();
-        displayNewline();
-        var switchy = [
-            "Switching to FILESYS."
-        ];
-        displayAnim(switchy, 20);
-
-    } else if (command == "sys") {
-        displayNewline();
-        displayAnim("you are currently in MAINSYS.", 20);
     } else if (command == "charmount") {
         var mmm = consoltext.split("");
         var long = mmm.length;
@@ -927,7 +916,7 @@ function parseCommand(command) {
     } else if (argCommand == "lyrics") {
         var songname = commandInit.slice(7);
         songname = songname.toLowerCase();
-        
+        var ogSongname = `${songname}`.replaceAll('"', "");
         
         debubg(`[MAN] queueing song ${songname}.`);
         songname = songname.replace(" ", "_");
@@ -936,6 +925,7 @@ function parseCommand(command) {
         songname = songname.replace("'", "");
         songname = songname.replace("(", "");
         songname = songname.replace(")", "");
+        songname = songname.replace('"', "");
         debubg(`song name after processed: ${songname}`);
         
         debubg(songname);
@@ -946,15 +936,30 @@ function parseCommand(command) {
         if (existent == true) {     // song is in the system!!! yay!!!!11!1!11!
             displayNewline();
             var song_lyry = eval(`LYR_${songname}`);
-            setSongInfo(`${songname}`);
+            setSongInfo(`${ogSongname}`);
             document.getElementById("songinfo").style.display = "";
-            playMusic(songname);
-            displayLyrics(song_lyry);
+            playMusic(ogSongname);
+            displayLyricsNew(song_lyry);
 
         } else {                    // hello mario
             displayNewline();
             displayAnim(`song is not in registry. please use 'songlist' to get the list of songs supported.`);
         }
+
+    } else if (command == "songlist") {
+        var songlist = new Array();
+        var keystm = Object.keys(songs);
+        for (i in keystm) {                 // for all the keys in song (for all the songs in registry);
+            songlist.push(keystm[i]);       // add the name to the list
+        }
+        songlist.sort();                    // sort by alphabet
+        songlist.unshift(" ");
+        songlist.unshift("Here's all the songs currently available for playback:");
+        songlist.push(" ");
+        songlist.push("use 'lyrics [song name] to play a song!");
+        //console.log(songlist);
+
+        displayAnim(songlist, 5);
 
     }
     else {

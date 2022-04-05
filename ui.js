@@ -2505,7 +2505,6 @@ var listy = [
     "ls",
     "color",
     "colour",
-    "filesys",
     "sys",
     "syslist",
     "sus",
@@ -2549,6 +2548,8 @@ var listy = [
     "uwu",
     "issue",
     "error",
+    "lyrics *",
+    "songlist",
 
     "* command is currently in-development and may break the site."
 ]; 
@@ -3560,19 +3561,10 @@ var songs = {
 }
 
 
-var LYR_test_old = [
-    {"text": " ", "time": 0},
-    {"text": "HAH!", "time": 226},
-    {"text": "you're dead!", "time": 610},
-    {"text": "*laughs*", "time": 2150}
-
-]
-
 var LYR_test = [
-    {"text": "HAH!", "dur": [208, 628]},
-    {"text": "you're dead!", "dur": [ 628, 2123]},
+    {"text": "HAH!\n", "dur": [208, 628]},
+    {"text": "you're dead!\n", "dur": [ 628, 2123]},
     {"text": "*laughs*", "dur": [ 2123, 3664]}
-
 ]
 
 
