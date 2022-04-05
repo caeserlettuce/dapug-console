@@ -20,6 +20,7 @@ var debug = false;
 var debugvar = false;
 var debugHide = false;
 var debugHideVar = false;
+var debugHideSonginfo = false;
 var snakegamestart = false;
 var snakegame = false;
 var enterlock = false;
@@ -438,6 +439,7 @@ if (debug == false) {
 if (debugvar == false) {
     document.getElementById("debubvar").style.display = "none";
 }
+document.getElementById("songinfo").style.display = "none";
 
 function toggleHideDebug() {
     if (debugHide == false) {
@@ -465,7 +467,19 @@ function toggleHideDebugVar() {
         document.getElementById("debubvar").style.height = "295px";
     }
 }
-
+function toggleHideSongInfo() {
+    if (debugHideSonginfo == false) {
+        debugHideSonginfo = true;
+        debubg("debugHideSonginfo is soooo true now");
+        document.getElementById("songpeepvar").style.display = "none";
+        document.getElementById("songinfo").style.height = "30px";
+    } else {
+        debugHideSonginfo = false;
+        debubg("debugHideSonginfo is false now");
+        document.getElementById("songpeepvar").style.display = "";
+        document.getElementById("songinfo").style.height = "130px";
+    }
+}
 
 
 debubg("debug window init finished...");
@@ -801,6 +815,7 @@ async function displayLyrics(lyrics) {
         }
         debubg("dum");
     }
+    document.getElementById("songinfo").style.display = "none";
 }
 
 
@@ -1906,6 +1921,35 @@ function isUrl(string) {
     return return_value
 }
 
+function setSongInfo(internal_name) {
+    var songArt = document.getElementById("song-art");
+    var songName = document.getElementById("song-name");
+    var songArtist = document.getElementById("song-artist");
+    var songAlbum = document.getElementById("song-album");
+    var song_art = "none.png";
+    var song_name = "[unknown]";
+    var song_artist = "[unknown]";
+    var song_album = "[unknown]";
+    if (songs[internal_name]) {    
+        if (songs[internal_name]["name"]) {     // it exists!!
+            song_name = songs[internal_name]["name"];
+        }
+        if (songs[internal_name]["artist"]) {     // it exists!!
+            song_artist = songs[internal_name]["artist"];
+        }
+        if (songs[internal_name]["album"]) {     // it exists!!
+            song_album = songs[internal_name]["album"];
+        }
+        if (songs[internal_name]["art"]) {     // it exists!!
+            song_art = songs[internal_name]["art"];
+        }
+    }
+    songArt.src = song_art;
+    songArtist.innerHTML = song_artist;
+    songName.innerHTML = song_name;
+    songAlbum.innerHTML = song_album;
+}
+
 
 
 // =============================== TOOL FUNCTIONS ABOVE ==================
@@ -2025,8 +2069,8 @@ debubg("async command functions init finished...");
 
 // colour setting automatically tm
 
-setTextColour(textcolour)
-setBackColour(backcolour)
+setTextColour(textcolour);
+setBackColour(backcolour);
 
 
 // EXAMPLE INLINE FNCTIONS WHERE THEY ONLY rUN ONE THING AT A TIME INSTEAD OF EVERYTHING RUNNING AT HE SAME TIME

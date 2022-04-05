@@ -3548,10 +3548,16 @@ var uwu_translate = {
 
 var infotm = new Array();
 
+var songs = {
+    "test": {"name": "test", "artist": "testing studios", "album": "tests (tm)", "art": "https://media.discordapp.net/attachments/960729059829096580/960745721835962408/unknown.png"}
+}
+
+
 var LYR_test = [
     {"text": "hello!", "time": 1000},
     {"text": "<br>", "time": 5500},
-    {"text": " word", "time": 7500},
+    {"text": " world", "time": 7500},
+
 ]
 
 

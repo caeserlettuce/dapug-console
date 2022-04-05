@@ -5,154 +5,8 @@
     <title>CONSOLE</title>
   </head>
 
-  <style>
-    @font-face {
-        font-family: COURIERPRIME;
-        src: url(CourierPrime-Regular.ttf);
-      }
-    @font-face {
-      font-family: COURIERPRIMEBOLD;
-      src: url(CourierPrime-Bold.ttf);
-    }
-    strong {
-      font-family: COURIERPRIMEBOLD;
-    }
-
-    .body {
-      background-color: black;
-      color: #7cfc00;
-      font-family: COURIERPRIME;
-      font-size: 1vw;
-      /*overflow-x: hidden;*/
-      overflow-x: scroll;
-      /*overflow-wrap: break-word;*/
-      white-space: normal;
-
-      
-
-    }
-
-    ::-webkit-scrollbar {
-        width: 10px;
-        height: 10px;
-    }
-  
-    .consoleinput {
-      background-color: rgba(0,0,0,0);
-      color: #7cfc00;
-      font-family: COURIERPRIME;
-      border: none;
-      outline: none;
-      position: fixed;
-      bottom: 10px;
-      width: 100vw;
-      z-index: 15;
-    }
-    .consoleinputbox {
-      background-color: rgba(0,0,0,0);
-      color: #7cfc00;
-      font-family: COURIERPRIME;
-      border: none;
-      outline: none;
-      position: fixed;
-      margin-left: 10px;
-      width: 96vw;
-      z-index: 15;
-    }
-
-    
-    
-
-    .consy {
-      /*width: 98vw;*/
-      /*overflow-wrap: break-word;*/
-      margin-left: 10px;
-      margin-right: 10px;
-      margin-bottom: 5vh;
-      /*word-break: break-all;*/
-      padding-bottom: 5vh;
-      z-index: 10;
-     
-    }
-
-    /*pre {
-      white-space: pre-wrap;
-      white-space: -moz-pre-wrap;
-      white-space: -pre-wrap;
-      white-space: -o-pre-wrap;
-      word-wrap: break-word;
-    }
-    */
-    
-    .debugwindow {
-      background-color: rgb(0, 0, 0);
-      font-family: COURIERPRIME;
-      font-size: 1vw;
-      overflow-x: scroll;
-      /*overflow-wrap: break-word;*/
-      overflow-wrap: scroll;
-      white-space: normal;
-      width: 450px;
-      height: 275px;
-      position: fixed;
-      right: 2px;
-      top: 2px;
-      border: 2px #1e1e1e solid;
-    }
-
-    
-
-    .debugvarwindow {
-      background-color: rgb(0, 0, 0);
-      font-family: COURIERPRIME;
-      font-size: 1vw;
-      overflow-x: scroll;
-      /*overflow-wrap: break-word;*/
-      overflow-wrap: scroll;
-      white-space: normal;
-      width: 450px;
-      height: 325px;
-      position: fixed;
-      left: 2px;
-      top: 2px;
-      border: 2px #1e1e1e solid; 
-    }
-
-    .topbar {
-      background-color: #1e1e1e;
-      width: 450px;
-      height: 30px;
-      cursor: move;
-      color: white;
-      position: fixed;
-      font-family: COURIERPRIME;
-    }
-
-    .debubtext {
-      padding-left: 5px;
-      margin-top: 30px;
-      font-family: COURIERPRIME;
-    }
-    .debubtextvar {
-      padding-left: 5px;
-      margin-top: 30px;
-      font-family: COURIERPRIME;
-    }
-    
-    .clickymouse:hover {
-      cursor: pointer;
-    }
-
-    .worble {
-      color: white;
-      padding: 10px;
-    }
-
-    .hide {
-      display: none;
-    }    
-    
-  </style>
+  <link rel="stylesheet" href="main.css">
+ 
   <body class="body" id="body">
 
     <style id="worble-colours">
@@ -208,14 +62,21 @@
     <div class="input">
       <p class="consoleinput" id="consoleinputstyle">>  <input type="text" class="consoleinputbox" id="consoleinput" spellcheck="false" onblur="this.focus()" autofocus ></p>
     </div>
-    <div class="debugwindow" id="debub">
+    <div class="debugwindow window" id="debub">
       <div class="topbar" id="debubmouse"><strong style="margin-left: 10px; font-size: 15px;">debug<span style="margin-right: 375px;"></span><span onclick="toggleHideDebug()" style="padding: 5px;" class="clickymouse">_</span></strong></div>
       <pre id="depeep"><p class="debubtext" id="debubtext"></p></pre>
     </div>
 
-    <div class="debugvarwindow" id="debubvar">
+    <div class="debugvarwindow window" id="debubvar">
       <div class="topbar" id="debubvarmouse"><strong style="margin-left: 10px; font-size: 15px;">debug var<span style="margin-right: 340px;"></span><span onclick="toggleHideDebugVar()" style="padding: 5px;" class="clickymouse">_</span></strong></div>
       <pre id="depeepvar"><p class="debubtextvar" id="debubtextvar"></p></pre>
+    </div>
+
+    <div class="songinfowindow window" id="songinfo">  <!-- for the song player (tm) -->
+      <div class="topbar" id="songinfomouse"><strong style="margin-left: 10px; font-size: 15px;">song info<span style="margin-right: 340px;"></span><span onclick="toggleHideSongInfo()" style="padding: 5px;" class="clickymouse">_</span></strong></div>
+      <pre id="songpeepvar"><p class="songinfotextvar" id="songinfotextvar">
+<img src="none.png" style="width: 90px; margin-top: -2px; padding: 2px; position: absolute;" id="song-art">           <span class="bold under" id="song-name">[unknown]</span><br>           <span class="italy">By</span> <span class="italy bold" id="song-artist">[unknown]</span><br>           on <span id="song-album">[unknown]</span>
+      </p></pre>
     </div>
 
     

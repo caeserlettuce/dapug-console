@@ -1,0 +1,178 @@
+@font-face {
+    font-family: COURIERPRIME;
+    src: url(CourierPrime-Regular.ttf);
+  }
+@font-face {
+  font-family: COURIERPRIMEBOLD;
+  src: url(CourierPrime-Bold.ttf);
+}
+strong {
+  font-family: COURIERPRIMEBOLD;
+}
+
+.body {
+  background-color: black;
+  color: #7cfc00;
+  font-family: COURIERPRIME;
+  font-size: 1vw;
+  /*overflow-x: hidden;*/
+  overflow-x: scroll;
+  /*overflow-wrap: break-word;*/
+  white-space: normal;
+
+  
+
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+.consoleinput {
+  background-color: rgba(0,0,0,0);
+  color: #7cfc00;
+  font-family: COURIERPRIME;
+  border: none;
+  outline: none;
+  position: fixed;
+  bottom: 10px;
+  width: 100vw;
+  z-index: 15;
+}
+.consoleinputbox {
+  background-color: rgba(0,0,0,0);
+  color: #7cfc00;
+  font-family: COURIERPRIME;
+  border: none;
+  outline: none;
+  position: fixed;
+  margin-left: 10px;
+  width: 96vw;
+  z-index: 15;
+}
+
+
+
+
+.consy {
+  /*width: 98vw;*/
+  /*overflow-wrap: break-word;*/
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 5vh;
+  /*word-break: break-all;*/
+  padding-bottom: 5vh;
+  z-index: 10;
+ 
+}
+
+/*pre {
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+}
+*/
+
+.debugwindow {
+  background-color: rgb(0, 0, 0);
+  font-family: COURIERPRIME;
+  font-size: 1vw;
+  overflow-x: scroll;
+  /*overflow-wrap: break-word;*/
+  overflow-wrap: scroll;
+  white-space: normal;
+  width: 450px;
+  height: 275px;
+  position: fixed;
+  right: 2px;
+  top: 2px;
+  border: 2px #1e1e1e solid;
+}
+
+
+
+.debugvarwindow {
+    background-color: rgb(0, 0, 0);
+    font-family: COURIERPRIME;
+    font-size: 1vw;
+    overflow-x: scroll;
+    /*overflow-wrap: break-word;*/
+    overflow-wrap: scroll;
+    white-space: normal;
+    width: 450px;
+    height: 325px;
+    position: fixed;
+    left: 2px;
+    top: 2px;
+    border: 2px #1e1e1e solid; 
+}
+
+.songinfowindow {
+    background-color: rgb(0, 0, 0);
+    font-family: COURIERPRIME;
+    font-size: 1vw;
+    overflow-x: scroll;
+    /*overflow-wrap: break-word;*/
+    overflow-wrap: scroll;
+    white-space: normal;
+    width: 450px;
+    height: 130px;
+    position: fixed;
+    right: 2px;
+    bottom: 2px;
+    border: 2px #1e1e1e solid;
+    overflow-y: hidden;
+}
+
+.topbar {
+  background-color: #1e1e1e;
+  width: 450px;
+  height: 30px;
+  cursor: move;
+  color: white;
+  position: fixed;
+  font-family: COURIERPRIME;
+}
+
+.debubtext {
+  padding-left: 5px;
+  margin-top: 30px;
+  font-family: COURIERPRIME;
+}
+.debubtextvar {
+  padding-left: 5px;
+  margin-top: 30px;
+  font-family: COURIERPRIME;
+}
+
+.clickymouse:hover {
+  cursor: pointer;
+}
+
+.worble {
+  color: white;
+  padding: 10px;
+}
+
+.hide {
+  display: none;
+}    
+
+.bold {
+    font-weight: bold;
+}
+
+.italy {
+    font-style: italic;
+}
+
+.under {
+    text-decoration: underline;
+}
+
+.window {
+    font-size: 15px;
+}

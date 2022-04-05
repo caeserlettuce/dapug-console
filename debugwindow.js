@@ -1,6 +1,7 @@
 // Make the DIV element draggable:
 dragElement(document.getElementById("debub"));
 dragElement(document.getElementById("debubvar"));
+dragElement(document.getElementById("songinfo"));
 
 function dragElement(elmnt) {
   
@@ -38,6 +39,7 @@ function dragElement(elmnt) {
     elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
     document.getElementById("debub").style.zIndex = 100;
     document.getElementById("debubvar").style.zIndex = 100;
+    document.getElementById("songinfo").style.zIndex = 100;
     elmnt.style.zIndex = 150;
   }
 

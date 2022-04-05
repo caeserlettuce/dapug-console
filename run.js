@@ -924,6 +924,37 @@ function parseCommand(command) {
         window.open("https://github.com/caeserlettuce/dapug-console/issues/new");
 
 
+    } else if (argCommand == "lyrics") {
+        var songname = commandInit.slice(7);
+        songname = songname.toLowerCase();
+        
+        
+        debubg(`[MAN] queueing song ${songname}.`);
+        songname = songname.replace(" ", "_");
+        songname = songname.replace("-", "0");
+        songname = songname.replace(",", "");
+        songname = songname.replace("'", "");
+        songname = songname.replace("(", "");
+        songname = songname.replace(")", "");
+        debubg(`song name after processed: ${songname}`);
+        
+        debubg(songname);
+
+        var existent = false;
+        // the internet tells me to never use eval() but i don't care because this is not running on a full on web server so crime war
+        eval(`if (typeof LYR_${songname} !== 'undefined') { existent = true;}`);
+        if (existent == true) {     // song is in the system!!! yay!!!!11!1!11!
+            displayNewline();
+            var song_lyry = eval(`LYR_${songname}`);
+            setSongInfo(`${songname}`);
+            document.getElementById("songinfo").style.display = "";
+            displayLyrics(song_lyry);
+
+        } else {                    // hello mario
+            displayNewline();
+            displayAnim(`song is not in registry. please use 'songlist' to get the list of songs supported.`);
+        }
+
     }
     else {
         displayNewline();
