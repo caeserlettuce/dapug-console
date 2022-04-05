@@ -63,8 +63,8 @@ and it is currently march 29th, 2022
 - [x] add statistics to worble, like your average guesses per game, how many games you've played in total, biggest streak, etc.
   - [ ] and a way to download all your worble data
 
-- [ ] add a way to append text with gradient colours (waaaaaay in the future or whenever i need it because that would be extremely complicated)
-  - [ ] make it so it appends the spans with the different colours inside the id span
+- [x] add a way to append text with gradient colours (waaaaaay in the future or whenever i need it because that would be extremely complicated)
+  - [x] make it so it appends the spans with the different colours inside the id span
 
 - [ ] have status window for every single function where it uses variables shaped like `STATUS_function_name` that would have a true or false and so then i could have a listener that would set the statuses for every function in init.js and it would have to somehow procedurally go and set them and it may be possible or it may not???
   - [ ] get a list of every function inside of init.js
@@ -79,6 +79,17 @@ and it is currently march 29th, 2022
 - [ ] command that rickrolls the user when used (idea courtesy of anne)
 
 - [ ] speaking of the last entry, having a song player would be cool, even making it so that it'll paste the lyrics of the song into the console as the lyrics are being said in the song. would be pretty complicated (maybe) but would be cool
+  - [ ] I DECIDED TO DO IT
+  - [x] basic song playing
+  - [x] paste lyrics in-time with music
+  - [x] skip song feature
+  - [ ] pause song feature
+
+- [ ] redo some of the ui stoof
+  - [ ] redo how the help page works (more specific sections)
+    - [ ] include a "top picks" section of my favourite commands on the console
+  - [ ] redo manpage framework (using json instead of using eval to get variables because json would be better than that)
+
 
 - [x] fix uparrow command history thing
   - this involves rewriting it's code (fun)

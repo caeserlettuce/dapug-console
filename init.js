@@ -9,7 +9,7 @@ function debubg(message) {
 }
 debubg("debug message init finished...");
 var consol = document.getElementById("consy");
-var version = "0.4.0";
+var version = "0.4.1";
 var user = "user";
 var consoltext = "";
 var inputlock = false;
@@ -76,7 +76,8 @@ var console_colour_history = {0: "inherit"};
 var console_link_history = {0: ""};
 var console_id = 0;
 var console_group_id = 0;
-var musicTimeouts = new Array(); // list of all the timeout variable names n stuff for the stuff n things just dont worry about it i think i know what im doing???
+var musicTimeouts = 0; // number of timeouts in the current song
+var cur_lyrics = new Object();
 
 debubg("variable init finished...");
 // local storage setup
@@ -823,6 +824,53 @@ async function displayLyricsNew(lyrics) {
 }
 
 
+function lyrFunc(lyr_len, lyrics, i, resolve) {
+    displayTimeAnim(lyrics[i]["text"], (lyrics[i]["dur"][1] - lyrics[i]["dur"][0]));
+    if (i == lyr_len - 1) { 
+        scrolly();
+    }
+}
+
+
+async function displayLyrics(lyrics) {
+    var lyr_len = lyrics.length;
+    var timeouts = 0;
+    
+    // timeout var template:
+
+    // TMO_1
+    // TMO_2
+        //here our function should be implemented 
+        
+    for (let i = 0; i < lyr_len; i++) {
+        var startdur = lyrics[i]["dur"][0];
+        var enddur = lyrics[i]["dur"][1];
+        var fulldur = enddur - startdur;
+        var cur_lyrics = lyrics
+
+        debubg(`i: ${i}, startdur: ${startdur}, enddur: ${enddur}, fulldur: ${fulldur}`);
+
+        var evalStr = `TMO_${musicTimeouts} = setTimeout(function timer() { lyrFunc(${lyr_len}, cur_lyrics, ${i}); }, startdur);`;
+
+        console.log(evalStr);
+        eval(evalStr);
+        musicTimeouts += 1;
+
+    }
+
+}
+
+function skipLyrics() {
+    // skip those dum lyrics i dont want em
+    music.currentTime = music.duration - 1; // put it at the end so it ends the song (tm)
+    
+    for (let i = 0; i < musicTimeouts; i++) {   // for every music timeout
+    
+        eval(`clearTimeout(TMO_${i})`);
+    }
+}
+
+
 
 //async function hate() {
 //    for (var i = 0; i < Infinity; i++) {
@@ -942,6 +990,7 @@ worble_stats_biggeststreak: ${worble_stats_biggeststreak}
         worble_share_green: ${worble_share_green}
        worble_share_yellow: ${worble_share_yellow}
                 console_id: ${console_id}
+             music_playing: ${music_playing}
 `;autocommand
         console.log("binted.");
     }
@@ -2208,6 +2257,7 @@ console.log("key input init finished...");
 
 music.addEventListener('ended', (event) => {
     document.getElementById("songinfo").style.display = "none";
+    music_playing = false;
 });
 
 console.log("music info hide thingy init finished...");

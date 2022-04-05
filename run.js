@@ -939,7 +939,7 @@ function parseCommand(command) {
             setSongInfo(`${ogSongname}`);
             document.getElementById("songinfo").style.display = "";
             playMusic(ogSongname);
-            displayLyricsNew(song_lyry);
+            displayLyrics(song_lyry);
 
         } else {                    // hello mario
             displayNewline();
@@ -977,6 +977,12 @@ function parseCommand(command) {
             }
         } else {
             displayAnim("\nplease enter a valid volume between 0 and 100.", 7);
+        }
+    } else if (command == "skip") {
+        if (music_playing == true) {
+            skipLyrics();
+        } else {
+            displayAnim(`\nthere is no current song playing!`, 7);
         }
     }
     else {

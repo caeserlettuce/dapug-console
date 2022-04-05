@@ -1,4 +1,5 @@
 var music = new Audio();
+var music_playing = false;
 
 
 function playMusic(internal_name) {
@@ -9,5 +10,6 @@ function playMusic(internal_name) {
         music.currentTime = 0;
         music.volume = vol;
         music.play();
+        music_playing = true;
     }
 }
