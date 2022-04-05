@@ -3559,13 +3559,20 @@ var songs = {
 }
 
 
-var LYR_test = [
-    {"text": "hello!", "time": 1000},
-    {"text": "<br>", "time": 5500},
-    {"text": " world", "time": 7500},
+var LYR_test_old = [
+    {"text": " ", "time": 0},
+    {"text": "HAH!", "time": 226},
+    {"text": "you're dead!", "time": 610},
+    {"text": "*laughs*", "time": 2150}
 
 ]
 
+var LYR_test = [
+    {"text": "HAH!", "dur": [208, 628]},
+    {"text": "you're dead!", "dur": [ 628, 2123]},
+    {"text": "*laughs*", "dur": [ 2123, 3664]}
+
+]
 
 
 

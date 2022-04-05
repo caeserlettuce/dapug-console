@@ -817,6 +817,48 @@ async function displayLyrics(lyrics) {
     }
 }
 
+async function displayLyricsNew(lyrics) {
+    var cur_lyr = new Object();
+    var pre_lyr = new Object();
+    for (i in lyrics) {
+        pre_lyr = {...cur_lyr};
+        cur_lyr = lyrics[i];
+
+        var time = 500;
+        if (i == 0) {
+            time = cur_lyr["time"];
+        } else {
+            time = cur_lyr["time"] - pre_lyr["time"];
+        }
+        debubg(`animating for ${time} milliseconds..`);
+        var lyric = cur_lyr["text"];
+        var speed = time / lyric.length;
+        if (lyric == "<br>") {
+            debubg("he");
+            //await setTimeout(() => {displayNewline()}, speed)
+            await displayAppend("<br>", console_id, false);
+        
+        } else {
+            await displayAnim(lyric, speed);
+        }
+        debubg("dum");
+    }
+}
+
+
+
+async function hate() {
+    for (var i = 0; i < Infinity; i++) {
+
+        await setTimeout(function hatred() {
+            console.log(i)
+        }, 1);
+
+        if (i == 100) {
+            break;
+        }
+    }
+}
 
 
 
