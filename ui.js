@@ -3550,12 +3550,13 @@ var infotm = new Array();
 
 var songs = {
     "test": {
-        "name": "HAH YOU'RE DEAD!!!",
+        "name": "jeffGameover-2.ogg",
         "artist": "Doe's World",
         "album": "fnf week 7 death voicelines",
-        "art": "https://media.discordapp.net/attachments/960729059829096580/960745721835962408/unknown.png",
-        "audio": "https://cdn.discordapp.com/attachments/960729059829096580/960750323465584710/jeffGameover-2.ogg"
-    },
+        "art": "test.png",
+        "audio": "test.ogg",
+        "volume": 1
+    }
 }
 
 

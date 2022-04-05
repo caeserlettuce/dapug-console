@@ -817,48 +817,59 @@ async function displayLyrics(lyrics) {
     }
 }
 
+
 async function displayLyricsNew(lyrics) {
-    var cur_lyr = new Object();
-    var pre_lyr = new Object();
-    for (i in lyrics) {
-        pre_lyr = {...cur_lyr};
-        cur_lyr = lyrics[i];
-
-        var time = 500;
-        if (i == 0) {
-            time = cur_lyr["time"];
-        } else {
-            time = cur_lyr["time"] - pre_lyr["time"];
-        }
-        debubg(`animating for ${time} milliseconds..`);
-        var lyric = cur_lyr["text"];
-        var speed = time / lyric.length;
-        if (lyric == "<br>") {
-            debubg("he");
-            //await setTimeout(() => {displayNewline()}, speed)
-            await displayAppend("<br>", console_id, false);
-        
-        } else {
-            await displayAnim(lyric, speed);
-        }
-        debubg("dum");
-    }
-}
-
-
-
-async function hate() {
-    for (var i = 0; i < Infinity; i++) {
-
-        await setTimeout(function hatred() {
-            console.log(i)
-        }, 1);
-
-        if (i == 100) {
+    var lyr_num = 0;
+    var lyr_len = lyrics.length;
+    var sng_dur = music.duration;
+    var lyr_status = new Array();
+    for (var i = 0; i < Infinity; i++) {    // for infinity
+        if (music.ended == true) {
             break;
         }
+        var cur_time = music.currentTime;
+        var cur_lyr = lyrics[lyr_num];
+        var check_now = lyrics[lyr_num]["dur"][0]
+        var check_next = sng_dur;
+        var cur_lyr_text = cur_lyr["text"];
+
+        debubg("a");
+
+
+        if (lyr_num + 1 <= lyr_len) {   // if its before the end lyric
+            check_next = lyrics[lyr_num + 1]["dur"][0]  // the next lyric's start duration
+        }
+
+        if (lyr_status[lyr_num]) {                  // it has happened
+            if (cur_time >= check_next) {   // if it's within the current lyric's timeframe
+                debubg(`upping lyricnum!`);
+
+                lyr_num += 1;                
+            }
+            
+        } else {
+            if (cur_time >= check_now && cur_time < check_next) {   // if it's within the current lyric's timeframe
+                debubg(`pushing lyric: ${cur_lyr_text}`);
+
+                lyr_status[lyr_num] = true;
+
+            }
+        }
+        
+    
+
     }
 }
+
+//async function hate() {
+//    for (var i = 0; i < Infinity; i++) {
+//        var cur_time = music.currentTime;
+
+//        if (music.ended == true) {
+//            break;
+//        }
+//    }
+//}
 
 
 
@@ -2233,6 +2244,7 @@ var elem = document.getElementById("consoleinput");
         
 
 console.log("key input init finished...");
+
 music.addEventListener('ended', (event) => {
     document.getElementById("songinfo").style.display = "none";
 });
