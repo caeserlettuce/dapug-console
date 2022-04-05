@@ -3557,16 +3557,85 @@ var songs = {
         "art": "test.png",
         "audio": "test.ogg",
         "volume": 1
+    },
+    "milk": {
+        "name": "MILK",
+        "artist": "Jack Stauber",
+        "album": "Shop: A Pop Opera",
+        "art": "https://cdn.discordapp.com/attachments/960729059829096580/960813263434682368/shop_pop.png",
+        "audio": "https://cdn.discordapp.com/attachments/960729059829096580/960812517880373248/Jack_Stauber_-_MILK.mp3",
+        "volume": 1
+    },
+    "we see you opal reprise": {
+        "name": "We See You, Opal (Reprise)",
+        "artist": "Jack Stauber",
+        "album": "Jack Stauber's OPAL (Original Soundtrack)",
+        "art": "https://media.discordapp.net/attachments/960729059829096580/960822574911225877/unknown.png?width=655&height=655",
+        "audio": "https://cdn.discordapp.com/attachments/960729059829096580/960822608532746240/Jack_Stauber_-_We_See_You_Opal_Reprise.mp3",
+        "volume": 1
+    },
+    "eighth wonder": {
+        "name": "Eighth Wonder",
+        "artist": "Lemon Demon",
+        "album": "Spirit Phone",
+        "art": "https://media.discordapp.net/attachments/960729059829096580/960838302561353738/spiritphone.png?width=655&height=655",
+        "audio": "https://cdn.discordapp.com/attachments/960729059829096580/960838362569252944/Lemon_Demon_-_Eighth_Wonder.mp3",
+        "volume": 1
+    },
+    "spiral of ants": {
+        "name": "Spiral of Ants",
+        "artist": "Lemon Demon",
+        "album": "Spirit Phone",
+        "art": "https://media.discordapp.net/attachments/960729059829096580/960838302561353738/spiritphone.png?width=655&height=655",
+        "audio": "https://cdn.discordapp.com/attachments/960729059829096580/960838432941305856/Lemon_Demon_-_Spiral_of_Ants.mp3",
+        "volume": 1
     }
 }
+// 
 
+//,
+//{"text": "\n", "dur": [, ]}
 
 var LYR_test = [
-    {"text": "HAH!\n", "dur": [208, 628]},
-    {"text": "you're dead!\n", "dur": [ 628, 2123]},
-    {"text": "*laughs*", "dur": [ 2123, 3664]}
+    {"text": "HAH!", "dur": [208, 628]},
+    {"text": "\nyou're dead!", "dur": [ 628, 2123]},
+    {"text": "\n*laughs*", "dur": [ 2123, 3664]}
+]
+var LYR_milk = [
+    {"text": "What kind of milk were you?", "dur": [579, 3939]},
+    {"text": "\nWhat kind of life did you live through?", "dur": [ 7032, 11054]},
+    {"text": "\n(Oh!)", "dur": [12624, 12945]},
+    {"text": "\nDid you know love?", "dur": [12917, 14256]},
+    {"text": " Will you rest in peace?", "dur": [14474, 16208]},
+    {"text": "\nDid you have a family?", "dur": [16133, 18482]},
+    {"text": "\nHow was the view from the shelf?", "dur": [19260, 21377]},
+    {"text": "\nDid you ever believe in yourself?", "dur": [21902, 24326]},
+    {"text": "\n\nWhat kind of milk were you?", "dur": [26702, 30047]},
+    {"text": "\nWhat kind of life did you live through?", "dur": [33214, 36941]},
+    {"text": "\nDid your life drip rich with calcium?", "dur": [39027, 42059]},
+    {"text": "\nDid they laugh at you", "dur": [42136, 43546]},
+    {"text": " or did you laugh at them?", "dur": [43623, 45612]},
+    {"text": "\nDairy beloved,", "dur": [46655, 48431]},
+    {"text": " your days are gone", "dur": [48799, 50440]},
+    {"text": "\nThe grocery list goes on", "dur": [50420, 53182]}
 ]
 
+var LYR_we_see_you_opal_reprise = [
+    {"text": "We see you, ", "dur": [660, 2508]},
+    {"text": "Opal", "dur": [2589, 3664]},
+    {"text": "\nYour troubles are miles away", "dur": [3884, 6186]},
+    {"text": "\nWe see you, ", "dur": [7068, 8574]},
+    {"text": "Opal", "dur": [8900, 11473]},
+    {"text": "\n:]", "dur": [12141, 12451]},
+    {"text": "\nAnd in", "dur": [13281, 15016]},
+    {"text": " our eyes", "dur": [15586, 17841]},
+    {"text": " you'll stay", "dur": [17841, 21530]}
+]
+
+var LYR_eighth_wonder = [
+    {"text": "\n", "dur": [, ]},
+    {"text": "\n", "dur": [, ]}
+]
 
 
 console.log("ui elements loaded.");

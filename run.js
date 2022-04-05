@@ -919,20 +919,20 @@ function parseCommand(command) {
         var ogSongname = `${songname}`.replaceAll('"', "");
         
         debubg(`[MAN] queueing song ${songname}.`);
-        songname = songname.replace(" ", "_");
-        songname = songname.replace("-", "0");
-        songname = songname.replace(",", "");
-        songname = songname.replace("'", "");
-        songname = songname.replace("(", "");
-        songname = songname.replace(")", "");
-        songname = songname.replace('"', "");
+        songname = songname.replaceAll(" ", "_");
+        songname = songname.replaceAll("-", "0");
+        songname = songname.replaceAll(",", "");
+        songname = songname.replaceAll("'", "");
+        songname = songname.replaceAll("(", "");
+        songname = songname.replaceAll(")", "");
+        songname = songname.replaceAll('"', "");
         debubg(`song name after processed: ${songname}`);
         
         debubg(songname);
 
         var existent = false;
         // the internet tells me to never use eval() but i don't care because this is not running on a full on web server so crime war
-        eval(`if (typeof LYR_${songname} !== 'undefined') { existent = true;}`);
+        eval(`if (typeof LYR_${songname} !== 'undefined') { existent = true}`);
         if (existent == true) {     // song is in the system!!! yay!!!!11!1!11!
             displayNewline();
             var song_lyry = eval(`LYR_${songname}`);
@@ -943,7 +943,7 @@ function parseCommand(command) {
 
         } else {                    // hello mario
             displayNewline();
-            displayAnim(`song is not in registry. please use 'songlist' to get the list of songs supported.`);
+            displayAnim(`song is not in registry. please use 'songlist' to get the list of songs supported.`, 10);
         }
 
     } else if (command == "songlist") {
@@ -958,7 +958,7 @@ function parseCommand(command) {
         songlist.push(" ");
         songlist.push("use 'lyrics [song name] to play a song!");
         //console.log(songlist);
-
+        displayNewline();
         displayAnim(songlist, 5);
 
     }
