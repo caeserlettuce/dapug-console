@@ -78,6 +78,8 @@ var console_id = 0;
 var console_group_id = 0;
 var musicTimeouts = 0; // number of timeouts in the current song
 var cur_lyrics = new Object();
+var paused_lyrics = false;
+var lyr_status = new Array();
 
 debubg("variable init finished...");
 // local storage setup
@@ -795,33 +797,41 @@ function displayTimeAnim(message, durat) {    // duration in ms
     displaySingleLine(message, speedy);
 }
 
-async function displayLyricsNew(lyrics) {
-    var lyr_len = lyrics.length;
 
+var LyricTimer = function(callback, delay) {
+    var timerId, start, remaining = delay;
 
-    return new Promise((resolve,reject)=>{
-        //here our function should be implemented 
-        
-        for (let i = 0; i < lyr_len; i++) {
-            var startdur = lyrics[i]["dur"][0];
-            var enddur = lyrics[i]["dur"][1];
-            var fulldur = enddur - startdur;
+    this.pause = function() {
+        clearTimeout(timerId);
+        timerId = null;
+        remaining -= Date.now() - start;
+    };
 
-            debubg(`i: ${i}, startdur: ${startdur}, enddur: ${enddur}, fulldur: ${fulldur}`);
-
-            setTimeout(function timer() {
-                
-                displayTimeAnim(lyrics[i]["text"], (lyrics[i]["dur"][1] - lyrics[i]["dur"][0]));
-
-                if (i == lyr_len - 1) { 
-                    resolve();
-                    scrolly();
-                }
-            }, startdur);
+    this.resume = function() {
+        if (timerId) {
+            return;
         }
-    });
 
-}
+        start = Date.now();
+        timerId = setTimeout(callback, remaining);
+    };
+
+    this.skip = function() {
+        clearTimeout(timerId);
+    }
+
+
+    this.resume();
+};
+
+//var timer = new LyricTimer(function() {
+//    alert("Done!");
+//}, 1000);
+
+//timer.pause();
+// Do some stuff...
+//timer.resume();
+
 
 
 function lyrFunc(lyr_len, lyrics, i, resolve) {
@@ -833,7 +843,9 @@ function lyrFunc(lyr_len, lyrics, i, resolve) {
 
 
 async function displayLyrics(lyrics) {
+    lyr_status = new Array();
     var lyr_len = lyrics.length;
+    musicTimeouts = 0;
     var timeouts = 0;
     
     // timeout var template:
@@ -850,7 +862,7 @@ async function displayLyrics(lyrics) {
 
         debubg(`i: ${i}, startdur: ${startdur}, enddur: ${enddur}, fulldur: ${fulldur}`);
 
-        var evalStr = `TMO_${musicTimeouts} = setTimeout(function timer() { lyrFunc(${lyr_len}, cur_lyrics, ${i}); }, startdur);`;
+        var evalStr = `TMO_${musicTimeouts} = new LyricTimer(function() { lyrFunc(${lyr_len}, cur_lyrics, ${i}); lyr_status[${i}] = true; }, startdur);`;
 
         console.log(evalStr);
         eval(evalStr);
@@ -866,9 +878,38 @@ function skipLyrics() {
     
     for (let i = 0; i < musicTimeouts; i++) {   // for every music timeout
     
-        eval(`clearTimeout(TMO_${i})`);
+        eval(`TMO_${i}.skip();`);
     }
 }
+
+function pauseLyrics() {
+    // skip those dum lyrics i dont want em
+    music.pause();
+    
+    for (let i = 0; i < musicTimeouts; i++) {   // for every music timeout
+        if (lyr_status[i]) { // if it exists (basically means its true)
+            
+        } else {
+            eval(`TMO_${i}.pause();`);
+        }
+
+        
+    }
+}
+
+function resumeLyrics() {
+    // skip those dum lyrics i dont want em
+    music.play();
+    
+    for (let i = 0; i < musicTimeouts; i++) {   // for every music timeout
+        if (lyr_status[i]) { // if it exists (basically means its true)
+            
+        } else {
+            eval(`TMO_${i}.resume();`);
+        }
+    }
+}
+
 
 
 

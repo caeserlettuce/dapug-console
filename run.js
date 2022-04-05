@@ -984,6 +984,29 @@ function parseCommand(command) {
         } else {
             displayAnim(`\nthere is no current song playing!`, 7);
         }
+    } else if (command == "pause") {
+        if (music_playing == true) {
+            if (paused_lyrics == false) {   // go and pause the lyrics
+                pauseLyrics();
+                displayAnim(`\nmusic has been paused.`, 7);
+                paused_lyrics = true;
+            } else {
+                displayAnim(`\nmusic is already paused!`, 7);
+            }
+        } else {
+            displayAnim(`\nmusic is not playing!`, 7);
+        }
+    } else if (command == "play" || command == "resume") {
+        if (music_playing == true) {
+            if (paused_lyrics == true) {   // go and pause the lyrics
+                resumeLyrics();
+                paused_lyrics = false;
+            } else {
+                displayAnim(`\nmusic is already playing!`, 7);
+            }
+        } else {
+            displayAnim(`\nthere's no music to play! check 'music' for help!`, 7);
+        }
     }
     else {
         displayNewline();
