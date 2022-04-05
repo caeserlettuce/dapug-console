@@ -948,6 +948,7 @@ function parseCommand(command) {
             var song_lyry = eval(`LYR_${songname}`);
             setSongInfo(`${songname}`);
             document.getElementById("songinfo").style.display = "";
+            playMusic(songname);
             displayLyrics(song_lyry);
 
         } else {                    // hello mario

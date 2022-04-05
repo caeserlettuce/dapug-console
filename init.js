@@ -815,7 +815,6 @@ async function displayLyrics(lyrics) {
         }
         debubg("dum");
     }
-    document.getElementById("songinfo").style.display = "none";
 }
 
 
@@ -2192,6 +2191,8 @@ var elem = document.getElementById("consoleinput");
         
 
 console.log("key input init finished...");
+music.addEventListener('ended', (event) => {
+    document.getElementById("songinfo").style.display = "none";
+});
 
-
-
+console.log("music info hide thingy init finished...");
