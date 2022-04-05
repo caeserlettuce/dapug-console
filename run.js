@@ -961,6 +961,23 @@ function parseCommand(command) {
         displayNewline();
         displayAnim(songlist, 5);
 
+    } else if (argCommand == "volume") {
+        var volum = commandInit.slice(7);
+        volum = parseInt(volum);
+        debubg(volum);
+        if (isFinite(volum) == true) {// if its an integet
+            // set volume
+            var newVOL = volum / 100;
+
+            if (newVOL < 5 && newVOL > 0) { // inside of range
+                music.volume = newVOL;
+                displayAnim(`\nvolume set to ${volum}`, 7);
+            } else {
+                displayAnim("\nplease enter a valid volume between 0 and 100.", 7);
+            }
+        } else {
+            displayAnim("\nplease enter a valid volume between 0 and 100.", 7);
+        }
     }
     else {
         displayNewline();

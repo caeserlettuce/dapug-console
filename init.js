@@ -76,6 +76,7 @@ var console_colour_history = {0: "inherit"};
 var console_link_history = {0: ""};
 var console_id = 0;
 var console_group_id = 0;
+var musicTimeouts = new Array(); // list of all the timeout variable names n stuff for the stuff n things just dont worry about it i think i know what im doing???
 
 debubg("variable init finished...");
 // local storage setup

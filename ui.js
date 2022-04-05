@@ -3582,12 +3582,20 @@ var songs = {
         "audio": "https://cdn.discordapp.com/attachments/960729059829096580/960838362569252944/Lemon_Demon_-_Eighth_Wonder.mp3",
         "volume": 1
     },
-    "spiral of ants": {
-        "name": "Spiral of Ants",
-        "artist": "Lemon Demon",
-        "album": "Spirit Phone",
-        "art": "https://media.discordapp.net/attachments/960729059829096580/960838302561353738/spiritphone.png?width=655&height=655",
-        "audio": "https://cdn.discordapp.com/attachments/960729059829096580/960838432941305856/Lemon_Demon_-_Spiral_of_Ants.mp3",
+    //"spiral of ants": {
+    //    "name": "Spiral of Ants",
+    //    "artist": "Lemon Demon",
+    //    "album": "Spirit Phone",
+    //    "art": "https://media.discordapp.net/attachments/960729059829096580/960838302561353738/spiritphone.png?width=655&height=655",
+    //    "audio": "https://cdn.discordapp.com/attachments/960729059829096580/960838432941305856/Lemon_Demon_-_Spiral_of_Ants.mp3",
+    //    "volume": 1
+    //},
+    "god i hate jazz": {
+        "name": "god i hate jazz",
+        "artist": "anne",
+        "album": "jeSUS",
+        "art": "https://media.discordapp.net/attachments/960729059829096580/961005178297938071/Screenshot_20220405_135125.png",
+        "audio": "https://cdn.discordapp.com/attachments/960729059829096580/961004688570994738/anne_-_god_i_hate_jazz.wav",
         "volume": 1
     }
 }
