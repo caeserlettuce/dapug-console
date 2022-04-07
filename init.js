@@ -765,7 +765,7 @@ async function displayMultilineAnim(message, speed, type) {
         var line = message[i];
         //console.log(`${line}`);
         var use_id = cur_id + 1;        // the current id that's being used
-        
+        boom();
         await displayMultilineLine(`${line}`, speed, use_id);
         await displayAppend("<br>", use_id, false);
         scrolly("consy");
@@ -784,7 +784,12 @@ async function displaySingleLine(message, speed, colour, link) {
             setTimeout(function timer() {
                 var mess = messagey[i];
                 scrolly("consy");
-                
+                if (messagey[i] == " ") {
+                    boom();
+                }
+                if (messagey[i] == "\n") {
+                    boom();
+                }
                 displayAppend(messagey[i], use_id, false, colour, link);
                 if (i == messageyLength - 1) { 
                     resolve();
@@ -1360,6 +1365,12 @@ function portalCreditAnim(game, speed) {
     for (let i = 0; i < credLen; i++) {
         //debubg(i);
     setTimeout(function timer() {
+        if (cred_chunks[i] == "\n") {
+            boom();
+        }
+        if (cred_chunks[i] == " ") {
+            boom();
+        }
         elf.innerHTML = `${elf.innerHTML}${cred_chunks[i]}`;
         scrolly(cre);
     }, i * speed);
