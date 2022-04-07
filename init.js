@@ -2474,6 +2474,7 @@ music.addEventListener('ended', (event) => {
         document.getElementById("songinfomouse").style.color = "white";
         document.getElementById("songinfo").style.borderColor = "#1e1e1e";
         document.getElementById("songinfo").style.backgroundColor = og_backcolour;
+        boom();
     }
 });
 
