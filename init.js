@@ -744,6 +744,7 @@ async function displayMultilineAnim(message, speed, type) {
         
         await displayMultilineLine(`${line}`, speed, use_id);
         await displayAppend("<br>", use_id, false);
+        scrolly("consy");
     }
 }
 
@@ -757,11 +758,15 @@ async function displaySingleLine(message, speed, colour, link) {
         console_id += 1;                    // update console id
         for (let i = 0; i < messageyLength; i++) {
             setTimeout(function timer() {
+                var mess = messagey[i];
+                scrolly("consy");
+                
                 displayAppend(messagey[i], use_id, false, colour, link);
                 if (i == messageyLength - 1) { 
                     resolve();
                     scrolly("consy");
                 }
+                
             }, i * speed);
         }
     });

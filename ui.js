@@ -4075,7 +4075,7 @@ var songs = {
             {"text": "\nstill alive.", "dur": [51090, 52504]},
             {"text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nF", "dur": [52569, 53234]},
             {"text": "orms FORM-55551-5:\nPersonnel File Addendum:", "dur": [53234, 55000]},
-            {"text": "\n\n\nDear <<Subject Name Here>>,", "dur": [55669, 57937]},
+            {"text": "\n\n\nDear [Subject Name Here],", "dur": [55669, 57937]},
             {"text": "\n\nI'm not even angry.", "dur": [58551, 60312]},
             {"text": "\nI'm being so sincere right now.", "dur": [62822, 66246]},
             {"text": "\nEven though you broke my heart.", "dur": [67816, 71300]},
@@ -4090,7 +4090,7 @@ var songs = {
             {"text": "\nWe're releasing on time.", "dur": [95314, 97265]},
             {"text": "\nSo I'm GLaD. I got burned.", "dur": [97320, 99234]},
             {"text": "\nThink of all the things we learned", "dur": [99294, 101387]},
-            {"text": "\nfor the people who are", "dur": [101387, 103030},
+            {"text": "\nfor the people who are", "dur": [101387, 103030]},
             {"text": "\nstill alive.", "dur": [103030, 104526]},
             {"text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nF", "dur": [104560, 105770]},
             {"text": "orms FORM-55551-6:\nPersonnel File Addendum Addendum:", "dur": [105775, 107602]},
@@ -4103,7 +4103,7 @@ var songs = {
             {"text": "\nTHAT WAS A JOKE.", "dur": [130808, 132300]},
             {"text": " FAT CHANCE.", "dur": [133108, 134636]},
             {"text": "\nAnyway, this cake is great.", "dur": [135783, 139074]},
-            {"text": "\nIt's so delicious and moist.", "dur": [139075, 131071]},
+            {"text": "\nIt's so delicious and moist.", "dur": [139075, 141071]},
             {"text": "\nLook at me still talking", "dur": [141305, 143366]},
             {"text": "\nWhen there's Science to do.", "dur": [143375, 145294]},
             {"text": "\nWhen I look out there,", "dur": [145340, 147107]},
@@ -4130,7 +4130,7 @@ var songs = {
             {"text": "\nstill alive.", "dur": [175220, 176299]},
             {"text": "\n\n\n\nSTILL ALIVE.", "dur": [176813, 178300]},
             {"text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  THANK YOU.", "dur": [177000, 180000]}
-        
+        ]
     },
     "want you gone": {
         "name": "Want You Gone",
