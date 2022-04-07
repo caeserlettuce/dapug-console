@@ -711,26 +711,28 @@ function parseCommand(command) {
         displayAnim(pebblebrain, 1);
         coopyIf(pebblebrain);
     } else if (argCommand == "man") {
-        var incommand = commandInit.slice(4);
+        var mmm = argComm(commandInit);
+        mmm.shift();
+        var incommand = mmm.join(" ");
+
+
         debubg(`[MAN] queueing command ${incommand}.`);
-        var yee = incommand.replace(" ", "_");
-        yee = yee.replace("-", "0");
-        debubg(`command name after processed: ${yee}`);
-        var manvar = `MAN_${yee}`;
-        debubg(`full man var is ${manvar}.`);
         
-        var existent = false;
         // the internet tells me to never use eval() but i don't care because this is not running on a full on web server so crime war
-        eval(`if (typeof ${manvar} !== 'undefined') { existent = true;}`)
+        // haha im not using eval anymore get #trolled
 
         var haha;
-        if (existent == true) {
+
+        if (man[incommand]) {   // if it exists
             debubg("command is in man registry.");
-            eval(`haha = ${manvar}`);
+            haha = man[incommand];
         } else {
             debubg("command is not in man registry.")
             haha = "there is no current man page for this command.";
         }
+
+        
+    
 
         displayNewline();
         smartAnim(haha, 3);
@@ -911,80 +913,20 @@ function parseCommand(command) {
         displayNewline();
         displayAnim("opening github...", 10);
         window.open("https://github.com/caeserlettuce/dapug-console/issues/new");
-
-
-    } else if (argCommand == "lyrics") {
-        var songname = commandInit.slice(7);
-        songname = songname.toLowerCase();
-        var ogSongname = `${songname}`.replaceAll('"', "");
-        
-        debubg(`[MAN] queueing song ${songname}.`);
-        songname = songname.replaceAll(" ", "_");
-        songname = songname.replaceAll("-", "0");
-        songname = songname.replaceAll(",", "");
-        songname = songname.replaceAll("'", "");
-        songname = songname.replaceAll("(", "");
-        songname = songname.replaceAll(")", "");
-        songname = songname.replaceAll('"', "");
-        debubg(`song name after processed: ${songname}`);
-        
-        debubg(songname);
-
-        var existent = false;
-        // the internet tells me to never use eval() but i don't care because this is not running on a full on web server so crime war
-        eval(`if (typeof LYR_${songname} !== 'undefined') { existent = true}`);
-        if (existent == true) {     // song is in the system!!! yay!!!!11!1!11!
-            displayNewline();
-            var song_lyry = eval(`LYR_${songname}`);
-            setSongInfo(`${ogSongname}`);
-            document.getElementById("songinfo").style.display = "";
-            playMusic(ogSongname);
-            displayLyrics(song_lyry);
-
-        } else {                    // hello mario
-            displayNewline();
-            displayAnim(`song is not in registry. please use 'songlist' to get the list of songs supported.`, 10);
-        }
-
-    } else if (command == "songlist") {
-        var songlist = new Array();
-        var keystm = Object.keys(songs);
-        for (i in keystm) {                 // for all the keys in song (for all the songs in registry);
-            songlist.push(keystm[i]);       // add the name to the list
-        }
-        songlist.sort();                    // sort by alphabet
-        songlist.unshift(" ");
-        songlist.unshift("Here's all the songs currently available for playback:");
-        songlist.push(" ");
-        songlist.push("use 'lyrics [song name] to play a song!");
-        //console.log(songlist);
-        displayNewline();
-        displayAnim(songlist, 5);
-
-    } else if (argCommand == "volume") {
-        var volum = commandInit.slice(7);
-        volum = parseInt(volum);
-        debubg(volum);
-        if (isFinite(volum) == true) {// if its an integet
-            // set volume
-            var newVOL = volum / 100;
-
-            if (newVOL < 5 && newVOL > 0) { // inside of range
-                music.volume = newVOL;
-                displayAnim(`\nvolume set to ${volum}`, 7);
+    } else if(command == "music" || command == "music ") {                  // the main music page
+        musicPage();
+    } else if (command == "music play" || command == "music play ") {       // playing (resuming) music
+        if (music_playing == true) {
+            if (paused_lyrics == true) {   // go and pause the lyrics
+                resumeLyrics();
+                paused_lyrics = false;
             } else {
-                displayAnim("\nplease enter a valid volume between 0 and 100.", 7);
+                displayAnim(`\nmusic is already playing!`, 7);
             }
         } else {
-            displayAnim("\nplease enter a valid volume between 0 and 100.", 7);
+            displayAnim(`\nthere's no music to play! check 'music' for help!`, 7);
         }
-    } else if (command == "skip") {
-        if (music_playing == true) {
-            skipLyrics();
-        } else {
-            displayAnim(`\nthere is no current song playing!`, 7);
-        }
-    } else if (command == "pause") {
+    } else if (command == "music pause" || command == "music pause ") {     // pausing music
         if (music_playing == true) {
             if (paused_lyrics == false) {   // go and pause the lyrics
                 pauseLyrics();
@@ -996,17 +938,244 @@ function parseCommand(command) {
         } else {
             displayAnim(`\nmusic is not playing!`, 7);
         }
-    } else if (command == "play" || command == "resume") {
+    } else if (command == "music skip" || command == "music skip ") {       // skipping music
         if (music_playing == true) {
-            if (paused_lyrics == true) {   // go and pause the lyrics
-                resumeLyrics();
-                paused_lyrics = false;
+            if (paused_lyrics == false) {
+                skipLyrics();
             } else {
-                displayAnim(`\nmusic is already playing!`, 7);
+                displayAnim(`\na song must be currently playing to skip!`, 7);
             }
         } else {
-            displayAnim(`\nthere's no music to play! check 'music' for help!`, 7);
+            displayAnim(`\nthere is no current song playing!`, 7);
         }
+    } else if (argCommand == "music") {     // all the fancy music stuff
+        var mmm = argComm(commandInit);
+        var eee = [...mmm];
+        eee.shift();
+        eee.shift();
+
+        if (mmm[1] == "play") {                                             // you wanna play a song? hm? you wanna? wanna play a song???? try it??!?? bet you can't!! HM!!!
+            var songname = eee.join(' ');
+            songname = songname.toLowerCase();
+            var songname = `${songname}`.replaceAll('"', "");
+            
+            debubg(`[MAN] queueing song ${songname}.`);
+            
+            debubg(songname);
+
+            var existent = false;
+
+            if (songs[songname]) {
+                existent = true;
+            }
+            
+            if (existent == true) {     // song is in the system!!! yay!!!!11!1!11!
+                if (music_playing == true) {
+                    skipLyrics();
+                }
+
+
+                displayNewline();
+                var song_lyrics = songs[songname]["lyrics"];
+                setSongInfo(`${songname}`);
+                document.getElementById("songinfo").style.display = "";
+                playMusic(songname);
+                displayLyrics(song_lyrics);
+
+            } else {                    // hello mario
+                displayNewline();
+                displayAnim(`song is not in registry. please use 'songlist' to get the list of songs supported.`, 10);
+            }
+
+
+        } else if (mmm[1] == "volume") {
+            var volum = mmm[2];
+            volum = parseInt(volum);
+            debubg(volum);
+            if (isFinite(volum) == true) {// if its an integet
+                // set volume
+                var newVOL = volum / 100;
+                if (newVOL < 5 && newVOL >= 0) { // inside of range
+                    music.volume = newVOL;
+                    displayAnim(`\nvolume set to ${volum}`, 7);
+                } else {
+                    displayAnim("\nplease enter a valid volume between 0 and 100.", 7);
+                }
+            } else {
+                displayAnim("\nplease enter a valid volume between 0 and 100.", 7);
+            }
+        }
+    } else if (command == "songlist") {
+        var songlist = new Array();
+        var namelist = new Array();
+        var artistlist = new Array();
+        var albumlist = new Array();
+        var fulllist = new Array();
+        var songlabel = "song id";
+        var namelabel = "song name";
+        var artistlabel = "artist";
+        var albumlabel = "album";
+        var keystm = Object.keys(songs);
+        var songlen = new Array();
+        var namelen = 0;
+        var artistlen = 0;
+        var albumlen = 0;
+        for (i in keystm) {
+            var key = keystm[i];
+            var info = songs[key];
+            console.log(info);
+            var song = `${key}`;
+            var name = `${info["name"]}`;
+            var artist = `${info["artist"]}`;
+            var album = `${info["album"]}`;
+            if (song.length > songlen) {
+                songlen = song.length;
+            }
+            if (name.length > namelen) {
+                namelen = name.length;
+            }
+            if (artist.length > artistlen) {
+                artistlen = artist.length;
+            }
+            if (album.length > albumlen) {
+                albumlen = album.length;
+            }
+            if (songlabel.length > songlen) {
+                songlen = songlabel.length;
+            }
+            if (namelabel.length > namelen) {
+                namelen = namelabel.length;
+            }
+            if (artistlabel.length > artistlen) {
+                artistlen = artistlabel.length;
+            }
+            if (artistlabel.length > artistlen) {
+                artistlen = artistlabel.length;
+            }
+        }
+        for (i in keystm) {                 // for all the keys in song (for all the songs in registry);
+            var key = keystm[i];
+            var info = songs[key];
+            console.log(info);
+            var song = `${key}`;
+            var name = `${info["name"]}`;
+            var artist = `${info["artist"]}`;
+            var album = `${info["album"]}`;
+            console.log("before:");
+            console.log(`'${song}'`);
+            console.log(`'${name}'`);
+            console.log(`'${artist}'`);
+            console.log(`'${album}'`);
+            if (song.length < songlen) {
+                var diff = songlen - song.length;
+                song = `${song}${" ".repeat(diff)}`;
+            }
+            if (name.length < namelen) {
+                var diff = namelen - name.length;
+                name = `${name}${" ".repeat(diff)}`;
+            }
+            if (artist.length < artistlen) {
+                var diff = artistlen - artist.length;
+                artist = `${artist}${" ".repeat(diff)}`;
+            }
+            if (album.length < albumlen) {
+                var diff = albumlen - album.length;
+                album = `${album}${" ".repeat(diff)}`;
+            }
+            if (songlabel.length < songlen) {
+                var diff = songlen - songlabel.length;
+                songlabel = `${songlabel}${" ".repeat(diff)}`;
+            }
+            if (namelabel.length < namelen) {
+                var diff = namelen - namelabel.length;
+                namelabel = `${namelabel}${" ".repeat(diff)}`;
+            }
+            if (artistlabel.length < artistlen) {
+                var diff = artistlen - artistlabel.length;
+                artistlabel = `${artistlabel}${" ".repeat(diff)}`;
+            }
+            if (albumlabel.length < albumlen) {
+                var diff = albumlen - albumlabel.length;
+                albumlabel = `${albumlabel}${" ".repeat(diff)}`;
+            }
+            console.log("after:");
+            console.log(`'${song}'`);
+            console.log(`'${name}'`);
+            console.log(`'${artist}'`);
+            console.log(`'${album}'`);
+            songlist.push(song);       // add the song to the list
+            namelist.push(name);       // add the name to the list
+            artistlist.push(artist);       // add the artist to the list
+            albumlist.push(album);       // add the album to the list
+        }
+            //│┴┬├─┤┼┌┐└┘
+            //┃┻┳┣━┫╋┏┓┗┛
+            //║╩╦╠═╣╬╔╗╚╝
+            // ╨╤╟ ╡╪╓╖╙╜
+            // ╧╥╞ ╢╫╒╕╘╛
+            //╿┸┯┞ ┦╀┍┑┖┚
+            //╽┷┰┟ ┧╁┎┒┕┙
+            // ┵┭┠╾┥┽╭╮╯╰
+            // ┶┮┝╼┨┾
+            // ┹┱┡ ┩╇
+            // ┺┲┢ ┪╈
+            //╹   ╸ ╃
+            //╻   ╺ ╄
+            //╵   ╴ ╅
+            //╷   ╶ ╆
+            //    ╳ ╉
+            //    ╱ ╊
+            //    ╲ ┿
+            //      ╂
+            //          ↖
+            //▓▒░
+            //▗▖▝▘▟▙▜▛▚▞█
+            //▉▊▋▌▍▎▏
+            //▇▆▅▄▃▂▁
+            //
+
+        
+        for (i in songlist) {
+            fulllist.push(`│${songlist[i]} │ ${namelist[i]} │ ${artistlist[i]} │ ${albumlist[i]}│`);
+        }
+        fulllist.sort();                    // sort by alphabet
+        fulllist.unshift(`├${"─".repeat(songlen)}─┼─${"─".repeat(namelen)}─┼─${"─".repeat(artistlen)}─┼─${"─".repeat(albumlen)}┤`);
+        fulllist.unshift(`│${songlabel} │ ${namelabel} │ ${artistlabel} │ ${albumlabel}│`);
+        fulllist.unshift(`┌${"─".repeat(songlen)}─┬─${"─".repeat(namelen)}─┬─${"─".repeat(artistlen)}─┬─${"─".repeat(albumlen)}┐`);
+        fulllist.unshift(" ");
+        fulllist.unshift("Here's all the songs currently available for playback:");
+        fulllist.unshift(" ");
+        fulllist.push(`└${"─".repeat(songlen)}─┴─${"─".repeat(namelen)}─┴─${"─".repeat(artistlen)}─┴─${"─".repeat(albumlen)}┘`);
+        fulllist.push(" ");
+        fulllist.push("use 'music play [song id]' to play a song!");
+        //console.log(songlist);
+        displayNewline();
+        displayAnim(fulllist, 1);
+
+    } else if (command == "portal") {   // play portal 1 music
+        parseCommand("portal1");
+    } else if (command == "portal1") {
+        portal_playing = true;
+        clearScreen();
+        parseCommand("music play still alive");
+        setTextColour("#c6922b", false);
+        setBackColour("#010302", false);
+        inputlock = true;
+        document.getElementById("p1cred").style.display = "";
+        document.getElementById("p1ascii").style.display = "";
+
+    } else if (command == "portal2") {
+        portal_playing = true;
+        clearScreen();
+        parseCommand("music play want you gone");
+        setTextColour("#ffb44d", false);// ACTRUAL : #ffb44d
+        setBackColour("#a15606", false);// ACTUAL: #a15606
+        document.getElementById("songinfomouse").style.backgroundColor = "#f68309";
+        document.getElementById("songinfomouse").style.color = "#ffb44d";
+        document.getElementById("songinfo").style.borderColor = "#f68309";
+        document.getElementById("songinfo").style.backgroundColor = "#a15606";
+        inputlock = true;
+        document.getElementById("p2cred").style.display = "";
     }
     else {
         displayNewline();

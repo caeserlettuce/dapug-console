@@ -4,7 +4,7 @@ function debubg(message) {
         var pogchamp = document.getElementById("debubtext");
         texty = pogchamp.innerHTML;
         pogchamp.innerHTML = `${texty}<br>${message}`;
-        scrollBottom("debub");
+        scrolly("debub");
     }
 }
 debubg("debug message init finished...");
@@ -21,6 +21,9 @@ var debugvar = false;
 var debugHide = false;
 var debugHideVar = false;
 var debugHideSonginfo = false;
+var debugHideP1Cred = false;
+var debugHideP2Cred = false;
+var debugHideP1Ascii = false;
 var snakegamestart = false;
 var snakegame = false;
 var enterlock = false;
@@ -78,8 +81,13 @@ var console_id = 0;
 var console_group_id = 0;
 var musicTimeouts = 0; // number of timeouts in the current song
 var cur_lyrics = new Object();
-var paused_lyrics = false;
+var paused_lyrics = true;
 var lyr_status = new Array();
+var portal_playing = true;
+var portal_type = 1;
+var og_textcolour = textcolour;
+var og_backcolour = backcolour;
+
 
 debubg("variable init finished...");
 // local storage setup
@@ -422,7 +430,7 @@ if (pr_backcolour != null) {
 //    elem.value = "";
 //    currentHistCOm = 0;
 //    currentCOM = 0;
-//    scrolly();
+//    scrolly("consy");
     //debubg(consoltext);
     //debubg(commang);
 
@@ -444,6 +452,9 @@ if (debugvar == false) {
     document.getElementById("debubvar").style.display = "none";
 }
 document.getElementById("songinfo").style.display = "none";
+document.getElementById("p2cred").style.display = "none";
+document.getElementById("p1cred").style.display = "none";
+document.getElementById("p1ascii").style.display = "none";
 
 function toggleHideDebug() {
     if (debugHide == false) {
@@ -484,6 +495,46 @@ function toggleHideSongInfo() {
         document.getElementById("songinfo").style.height = "130px";
     }
 }
+function toggleHideP1Cred() {
+    if (debugHideP1Cred == false) {
+        debugHideP1Cred = true;
+        debubg("debugp1 is soooo true now");
+        document.getElementById("p1creed").style.display = "none";
+        document.getElementById("p1cred").style.height = "30px";
+    } else {
+        debugHideP1Cred = false;
+        debubg("debugp1 is false now");
+        document.getElementById("p1creed").style.display = "";
+        document.getElementById("p1cred").style.height = "420px";
+    }
+}
+function toggleHideP2Cred() {
+    if (debugHideP2Cred == false) {
+        debugHideP2Cred = true;
+        debubg("debugHideSonginfo is soooo true now");
+        document.getElementById("p2creed").style.display = "none";
+        document.getElementById("p2cred").style.height = "30px";
+    } else {
+        debugHideP2Cred = false;
+        debubg("debugHideSonginfo is false now");
+        document.getElementById("p2creed").style.display = "";
+        document.getElementById("p2cred").style.height = "420px";
+    }
+}
+function toggleHideP1Ascii() {
+    if (debugHideP1Ascii == false) {
+        debugHideP1Ascii = true;
+        debubg("debugHideSonginfo is soooo true now");
+        document.getElementById("p1aascii").style.display = "none";
+        document.getElementById("p1ascii").style.height = "30px";
+    } else {
+        debugHideP1Ascii = false;
+        debubg("debugHideSonginfo is false now");
+        document.getElementById("p1aascii").style.display = "";
+        document.getElementById("p1ascii").style.height = "420px";
+    }
+}
+
 
 
 debubg("debug window init finished...");
@@ -511,8 +562,10 @@ function copyArr(arr) {
 var windowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
 var windowHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
 debubg("window scale init finished...");
-function scrolly() {
-    window.scrollTo(0,document.body.scrollHeight);
+function scrolly(elf) {
+    mom = document.getElementById(elf);
+    //console.log(mom.scrollTop, mom.scrollHeight);
+    mom.scrollTop = mom.scrollHeight;
 };
 debubg("scrolly init finished...");
 if (windowWidth > windowHeight) {
@@ -669,7 +722,7 @@ function displayMultilineLine(message, speed, use_id) {
                 displayAppend(messagey[i], use_id, false);
                 if (i == messageyLength - 1) { 
                     resolve();
-                    scrolly();
+                    scrolly("consy");
                 }
             }, i * speed);
         }
@@ -707,7 +760,7 @@ async function displaySingleLine(message, speed, colour, link) {
                 displayAppend(messagey[i], use_id, false, colour, link);
                 if (i == messageyLength - 1) { 
                     resolve();
-                    scrolly();
+                    scrolly("consy");
                 }
             }, i * speed);
         }
@@ -755,7 +808,7 @@ async function displaySingleGradientLine(message, speed, colours) {
                 displayAppend(messagey[i], use_id, false, useColour);
                 if (i == messageyLength - 1) { 
                     resolve();
-                    scrolly();
+                    scrolly("consy");
                 }
             }, i * speed);
         }
@@ -775,7 +828,7 @@ async function displayUser(message, userin) {
 
     displayNewline();
     displayAdd(`${userfor}@dapug.lol> ${message}`);
-    scrolly();
+    scrolly("consy");
 }
 
 async function displayAnim(message, speed, colour, link) {      // fancy anim
@@ -835,9 +888,17 @@ var LyricTimer = function(callback, delay) {
 
 
 function lyrFunc(lyr_len, lyrics, i, resolve) {
-    displayTimeAnim(lyrics[i]["text"], (lyrics[i]["dur"][1] - lyrics[i]["dur"][0]));
+    var lyr_exec = false;
+    if (lyrics[i]["exec"]) {
+        lyr_exec = lyrics[i]["exec"];
+        eval(`${lyr_exec}`);
+    }
+    if (lyrics[i]["text"] != false) {
+        displayTimeAnim(lyrics[i]["text"], (lyrics[i]["dur"][1] - lyrics[i]["dur"][0]));
+    }
+    
     if (i == lyr_len - 1) { 
-        scrolly();
+        scrolly("consy");
     }
 }
 
@@ -858,11 +919,14 @@ async function displayLyrics(lyrics) {
         var startdur = lyrics[i]["dur"][0];
         var enddur = lyrics[i]["dur"][1];
         var fulldur = enddur - startdur;
-        var cur_lyrics = lyrics
+        var cur_lyrics = lyrics;
+        lyr_exec = false;
+        
+
 
         debubg(`i: ${i}, startdur: ${startdur}, enddur: ${enddur}, fulldur: ${fulldur}`);
 
-        var evalStr = `TMO_${musicTimeouts} = new LyricTimer(function() { lyrFunc(${lyr_len}, cur_lyrics, ${i}); lyr_status[${i}] = true; }, startdur);`;
+        var evalStr = `TMO_${musicTimeouts} = new LyricTimer(function() { lyrFunc(${lyr_len}, cur_lyrics, ${i}); lyr_status[${i}] = true; if (lyr_exec != false) { ${lyr_exec} } }, startdur);`;
 
         console.log(evalStr);
         eval(evalStr);
@@ -945,7 +1009,7 @@ function hardAppend(message) {
     var yoy = consol.innerHTML;
     consol.innerHTML = `${yoy}<br>${message}`;
     consoltext = `${yoy}<br>${message}`;
-    scrolly();
+    scrolly("consy");
 };
 function userAppend(message, userin) {
     var yoy = consol.innerHTML;
@@ -960,19 +1024,19 @@ function userAppend(message, userin) {
     commHistory.push(yoy);
     consol.innerHTML = `${yoy}<br>${userfor}@dapug.lol> ${message}`;
     consoltext = `${yoy}<br>${userfor}@dapug.lol> ${message}`;
-    scrolly();
+    scrolly("consy");
 };
 function appendInline(message) {
     var yoy = consol.innerHTML;
     consol.innerHTML = `${yoy}${message}`;
     consoltext = `${yoy}${message}`;
-    scrolly();
+    scrolly("consy");
 };
 function displayNewline() {
     var yoy = consol.innerHTML;
     consol.innerHTML = `${yoy}<br>`;
     consoltext = `${yoy}<br>`;
-    scrolly();
+    scrolly("consy");
 };
 function consoleWipe(message) {
     consol.innerHTML = message;
@@ -1032,6 +1096,11 @@ worble_stats_biggeststreak: ${worble_stats_biggeststreak}
        worble_share_yellow: ${worble_share_yellow}
                 console_id: ${console_id}
              music_playing: ${music_playing}
+             paused_lyrics: ${paused_lyrics}
+            portal_playing: ${portal_playing}
+               portal_type: ${portal_type}
+             og_textcolour: ${og_textcolour}
+             og_backcolour: ${og_backcolour}
 `;autocommand
         console.log("binted.");
     }
@@ -1044,7 +1113,7 @@ function animyOne() {
         } else {
             appendInline(animSentence1[animchar1]);
             animchar1 += 1;
-            scrolly();
+            scrolly("consy");
         }
     }
 }
@@ -1226,13 +1295,56 @@ function newColourLinkAnim(message, speed, link, colour) {
 };
 
 
+// PORTAL 2 CREDITS ANIMS:
+
+function portalCreditAnim(game, speed) {
+    var creds = "incorrect game chosen. i brokey."
+    var elf;
+    var cre = "";
+    if (game == 1) {
+        creds = p1_credits;
+        elf = document.getElementById("p1credtext");
+        cre = "p1cred";
+    } else if (game == 2) {
+        creds = p2_credits;
+        elf = document.getElementById("p2credtext");
+        cre = "p2cred";
+    }
+    
+    elf.innerHTML = "\n";
+    //here our function should be implemented 
+    creds = creds.join("\n");
+    cred_chunks = creds.split("");
+    var credLen = creds.length;
+    //debubg(`${animDone} anim??`);
+    for (let i = 0; i < credLen; i++) {
+        //debubg(i);
+    setTimeout(function timer() {
+        elf.innerHTML = `${elf.innerHTML}${cred_chunks[i]}`;
+        scrolly(cre);
+    }, i * speed);
+    }
+};
+
+function p1Ascii(art) {
+    var artist = document.getElementById("p1asciitext");
+    if (p1_art[art]) {  // it exists!
+        artist.innerHTML = `\n${p1_art[art]}`;
+        artist.scrollTo(0,document.body.scrollHeight);
+        scrolly("p1ascii");
+    } else {
+        debubg(`portal 1 ascii art "${art}" does not exist!!`);
+    }
+}
+
+
 debubg("special anim init finished...");
 
 
 function removeInline(amounb) {
     consoltext = consoltext.slice(0, -1 * amounb);
     consoleWipe(consoltext);
-    scrolly();
+    scrolly("consy");
 };
 debubg("removeInline init finished...");
 function removeAnim(speed) {
@@ -1479,20 +1591,41 @@ function howMany (in_string, string) {
 }
 
 
-function setBackColour(colour) {
+function setBackColour(colour, save) {
+    var do_save = false
+    if (save == undefined || save == null) {
+        //debubg("exists!");
+        do_save = true;
+    } else {
+        //debubg("exists NOT!");
+        do_save = save;
+    }
     // background colour
     var r = hexToRgb(colour).r;
     var g = hexToRgb(colour).g;
     var b = hexToRgb(colour).b;
     debubg(`${r}${g}${b}`);
     // #7cfc00 GREEN
+    document.getElementById("body").style.backgroundColor = colour;
     document.getElementById("body").style.background = colour;
     document.getElementById("scrollbar-back").innerHTML = `::-webkit-scrollbar-track { background: ${colour}; } ::-webkit-scrollbar-corner { background: ${colour} }`;
-    localStorage.setItem("back-colour", colour);
-    backcolour = `${colour}`;
+    if (do_save == true) {
+        localStorage.setItem("back-colour", colour);
+        backcolour = `${colour}`;
+    }
 }
 
-function setTextColour(colourcode) {
+function setTextColour(colourcode, save) {
+    var do_save = false
+    if (save == undefined || save == null) {
+        //debubg("exists!");
+        do_save = true;
+    } else {
+        //debubg("exists NOT!");
+        do_save = save;
+    }
+
+    //console.log("do_save: ", do_save);
     // text colour
     var r = hexToRgb(colourcode).r;
     var g = hexToRgb(colourcode).g;
@@ -1504,8 +1637,10 @@ function setTextColour(colourcode) {
     document.getElementById("consoleinputstyle").style.color = colourcode;
     document.getElementById("scrollbar-colour").innerHTML = `::-webkit-scrollbar-thumb { background: rgba(${r}, ${g}, ${b}, 0.5); }`;
     document.getElementById("link-styles").innerHTML = `.link {color: ${colourcode}; font-family: COURIERPRIME; } .link:hover { color: ${colourcode}; font-family: COURIERPRIME; } .link:visited { color: ${colourcode}; font-family: COURIERPRIME; } .link:active { color: ${colourcode}; font-family: COURIERPRIME; } `;
-    localStorage.setItem("text-colour", colourcode);
-    textcolour = `${colourcode}`;
+    if (do_save == true) {
+        localStorage.setItem("text-colour", colourcode);
+        textcolour = `${colourcode}`;
+    }
 }
 
 function setUser(inuser) {
@@ -2169,6 +2304,19 @@ async function worbleStats(download) {
     await displayAnim(infotm, 10);
 }
 
+
+async function musicPage() {
+    displayNewline();
+    var musictext = asciiText("slant", `MUSIC!`);
+    await displayAnim(musictext, 2);
+    await displayAnim(musicText, 4);
+}
+
+
+
+
+
+
 debubg("async command functions init finished...");
 
 
@@ -2246,7 +2394,7 @@ var elem = document.getElementById("consoleinput");
 
                         historyReset();
                         elem.value = "";
-                        scrolly();
+                        scrolly("consy");
                         //debubg(consoltext);
                         //debubg(commang);
                     }
@@ -2299,6 +2447,20 @@ console.log("key input init finished...");
 music.addEventListener('ended', (event) => {
     document.getElementById("songinfo").style.display = "none";
     music_playing = false;
+    if (portal_playing == true) {
+        portal_playing = false;
+        setTextColour(og_textcolour);
+        setBackColour(og_backcolour);
+        inputlock = false;
+        document.getElementById("p2cred").style.display = "none";
+        document.getElementById("p1cred").style.display = "none";
+        document.getElementById("p1ascii").style.display = "none";
+        document.getElementById("songinfomouse").style.backgroundColor = "#1e1e1e";
+        document.getElementById("songinfomouse").style.color = "white";
+        document.getElementById("songinfo").style.borderColor = "#1e1e1e";
+        document.getElementById("songinfo").style.backgroundColor = og_backcolour;
+    }
 });
+
 
 console.log("music info hide thingy init finished...");

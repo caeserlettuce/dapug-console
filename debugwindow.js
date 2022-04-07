@@ -2,6 +2,9 @@
 dragElement(document.getElementById("debub"));
 dragElement(document.getElementById("debubvar"));
 dragElement(document.getElementById("songinfo"));
+dragElement(document.getElementById("p1cred"));
+dragElement(document.getElementById("p2cred"));
+dragElement(document.getElementById("p1ascii"));
 
 function dragElement(elmnt) {
   
@@ -40,6 +43,9 @@ function dragElement(elmnt) {
     document.getElementById("debub").style.zIndex = 100;
     document.getElementById("debubvar").style.zIndex = 100;
     document.getElementById("songinfo").style.zIndex = 100;
+    document.getElementById("p1cred").style.zIndex = 100;
+    document.getElementById("p2cred").style.zIndex = 100;
+    document.getElementById("p1ascii").style.zIndex = 100;
     elmnt.style.zIndex = 150;
   }
 

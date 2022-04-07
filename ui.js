@@ -2210,271 +2210,304 @@ var cpoylist = [
     "benson",
 ];
 
-// GUIDE TO MAN NAMES:
-// i dont know how to easily describe this so im gonna write fake json
-// any 'key' in the command name is replaced with 'value' in its variable name here.
+var man = {
+    "help": [
+        "HELP MANPAPGE:",
+        "help will show you the general help page.",
+        "USAGE:",
+        "'help [option]'",
+        " ",
+        "OPTIONS:",
+        "having an option is optional (haha)",
+        "-art | shows you all the art commands",
+        "-dev | shows you all the commands for development",
+        " ",
+        "EXAMPLE:",
+        "'help'",
+        "'help -art'"
+    ],
+    "man":  [
+        "MAN MANPAGE:",
+        "shows you an in-depth help page for a specific command.",
+        "USAGE:",
+        "'man [command]'",
+        " ",
+        "EXAMPLE:",
+        "'man echo'"
+    ],
+    "clear": [
+        "CLEAR MANPAPGE:",
+        "clears the console",
+        "USAGE:",
+        "'clear'",
+        "'clear [option]'",
+        "OPTIONS:",
+        " -cache | clears the local page cache",
+        "-ignore | (only works after -cache) will ignore the popup and just clear cache"
+    ],
+    "echo": [
+        "ECHO MANPAPGE:",
+        "echo will repeat any text inputter",
+        "USAGE:",
+        "'echo [message]'",
+        " ",
+        "EXAMPLE:",
+        "'echo hello world!'"
+    ],
+    "ls": [
+        "LS MANPAPGE:",
+        "lists all the existing commands in the console",
+        "USAGE:",
+        "'ls'",
+    ],
+    "login": [
+        "LOGIN MANPAPGE:",
+        "logs you into another user on the system",
+        "USAGE:",
+        "'login [username] [password]'",
+        " ",
+        "EXAMPLE:",
+        "login admin password"
+    ],
+    "colour": [
+        "COLOUR MANPAPGE:",
+        "changes the colour of different elements in the console.",
+        "USAGE:",
+        "'colour [text/background] [#hex]'",
+        " ",
+        "OPTIONS:",
+        "text/background >",
+        "            text | changes the colour of the text",
+        "      background | changes the colour of the background",
+        '#hex | any valid hex colour code, or "reset" to reset it',
+        " ",
+        "EXAMPLE:",
+        "'colour text #ffffff'",
+        "'colour background #ffffff'",
+        "'colour text teset'",
+    ],
+    "color": [
+        "COLOR MANPAPGE:",
+        "changes the colour of different elements in the console.",
+        "USAGE:",
+        "'color [text/background/reset] [#hex]'",
+        " ",
+        "OPTIONS:",
+        "text/background >",
+        "            text | changes the colour of the text",
+        "      background | changes the colour of the background",
+        "           reset | resets all the colours ack to default",
+        '            #hex | any valid hex colour code, or "reset" to reset it',
+        " ",
+        "EXAMPLE:",
+        "'color text #ffffff'",
+        "'color background #ffffff'",
+        "'color text reset'",
+        "'colour reset'",
+    ],
+    "comment": [
+        "COMMENT MANPAGE:",
+        "adds a comment to a list of comments, and will store them on your local cache",
+        " ",
+        "USAGE:",
+        "'comment [option] <comment>'",
+        " ",
+        "OPTIONS:",
+        "   add | adds comment to database",
+        "-clear | clears all comments from database",
+        "  list | lists all comments",
+        " ",
+        "EXAMPLE:",
+        "'comment add hello world!'",
+        "'comment list'",
+        " ",
+        "NOTE: <comment> section is only supported for the 'add' option."
+    ],
+    "ascii": [
+        "ASCII MANPAGE:",
+        "generates an ASCII text art of any sentence",
+        "if you want to copy the output of this command, check the manpage for 'copy'",
+        " ",
+        "USAGE:",
+        "'ascii [font] [sentence]'",
+        " ",
+        "OPTIONS:",
+        "font | the ascii font to use, check 'font list' to see the list of fonts",
+        "sentence | the sentence you want put into ascii art",
+        " ",
+        "EXAMPLE:",
+        "'ascii default Hello, World!'",
+    ],
+    "copy": [
+        "COPY MANPAGE:",
+        "copy is a command you put in front of another command to copy its output.",
+        "(not all commands are supported, so check 'copylist' for a list of supported commands.",
+        " ",
+        "USAGE:",
+        "'copy [command]'",
+        " ",
+        "EXAMPLE:",
+        "'copy ascii d Hello, World!'",
+        " ",
+        "NOTES:",
+        "to have the output automatically commented out for coding, use the command 'copycomm' (check the manpage for it)",
+    ],
+    "copycomm": [
+        "COPYCOMM MANPAGE:",
+        "automatically comment out the copied output of your command",
+        " ",
+        "USAGE:",
+        "'copycomm [comment string]'",
+        " ",
+        "OPTIONS:",
+        "comment string | a string that will appear at the beginning of every line of the copied text.",
+        " ",
+        "EXAMPLE:",
+        "'copycomm //' <-- the comment character for javascript",
+        "'copycomm none' <-- this will reset the comment to nothing"
+    ],
+    "convert": [
+        "CONVERT MANPAGE:",
+        "convert one unit into another unit",
+        " ",
+        "USAGE:",
+        "'convert [unit type] [amount] [from unit] [to unit]",
+        " ",
+        "OPTIONS:",
+        "unit type | if the unit measures length, volume, weight, etc. (check 'convert -list' for all unit types)",
+        "   amount | the input amount you want to convert",
+        "from unit | the unit you're converting from (in, km, etc.) check 'convert -list' for all the units.",
+        "  to unit | the unit you're converting to (mi, cm, etc.) check 'convert -list' for all the units.",
+        " ",
+        "EXAMPLE:",
+        "'convert -l 100 in ft'",
+        "'convert -l 5 km m'",
+    ],
+    "share": [
+        "SHARE MANPAGE",
+        " ",
+        "will generate and copy a link to your clipboard with all the supported shareable options.",
+        " ",
+        "USAGE:",
+        " ",
+        "'share'",
+        " ",
+        "URL OPTIONS: (advanced)",
+        " ",
+        "| url option  | value     | description",
+        "?debug        true/false  the debug menu will automatically be open or not open",
+        "?debugvar     true/false  the variable debug menu will also automatically be either open or not",
+        "?suggestion   string      the string will show up in the command input on page load",
+        "?command      string      the string will be automatically run as a command on page load",
+        "?textcolour   hex code    will set the text colour to whatever hex code used (without the # at the beginning)",
+        "?backcolour   hex code    same as textcolour but it sets the background colour",
+    ],
+    "": [
+        "MAN MANPAGE:",
+        "shows you an in-depth help page for a specific command.",
+        "USAGE:",
+        "'man [command]'",
+        " ",
+        "EXAMPLE:",
+        "'man echo'"
+    ],
+    "worble": [
+        "WORBLE MANPAGE",
+        "basically just like wordle but more intense",
+        " ",
+        "USAGE",
+        " ",
+        "'worble [option] <word>'",
+        " ",
+        "OPTIONS",
+        " ",
+        "            | explains more about how to play worble",
+        "      start | start a new worble game",
+        "    restart | restart the worble game",
+        "colourblind | toggles colourblind mode",
+        "       info | shows infor about your current game",
+        "      guess | guess the mystery word",
+        "      share | share your game progress",
+        "      stats | shows your worble statistics",
+        //"   download | downloads all your worble data",
+        "      reset | resets all of your worble data",
+        " ",
+        "NOTES:",
+        "<word> is only supported for the 'guess' option.",
+        " ",
+        "EXAMPLES:",
+        "'worble'",
+        "'worble start'",
+        "'worble guess house'",
+        "'worble info'",
+    ],
+    "uwu": [
+        "UWU MANPAGE (simon i blame you for this)",
+        "translates any text into uwu speak",
+        " ",
+        "USAGE:",
+        "'uwu [text]'",
+        " ",
+        "EXAMPLE:",
+        "'uwu hello there!'",
+    ],
+    "music": [
+        "MUSIC MANPAGE",
+        "displays main page for the music player",
+        " ",
+        "NOTES:",
+        "use 'songlist' to get the list of supported songs!",
+        " ",
+        "USAGE:",
+        "'music'",
+        " ",
+        "OPTIONS:",
+        "play [song id] | plays any supported song",
+        "          play | plays paused music",
+        "         pause | pauses currently playing music",
+        "volume [level] | sets the music volume to a percentage of original volume (value 0-100)",
+        "   stop / skip | skips current song",
+        " ",
+        "EXAMPLES:",
+        "'music play milk'",
+        "'music pause'",
+        "'music play'",
+        "'music volume 50'"
+    ],
+    "music play": [
+        "MUSIC PLAY MANPAGE",
+        "plays any supported song, or unpauses paused music",
+        " ",
+        "USAGE:",
+        "'music play [song id]'",
+        "'music play'"
+    ],
+    "music pause": [
+        "MUSIC PAUSE MANPAGE:",
+        "pauses currently playing music",
+        " ",
+        "USAGE:",
+        "'music pause'"
+    ],
+    "music volume": [
+        "MUSIC VOLUME MANPAGE",
+        "changes the music's volume to a percentage of original volume",
+        " ",
+        "USAGE:",
+        "music volume [volume]",
+        " ",
+        "EXAMPLE:",
+        "'music volume 50'"
+    ],
+    "music skip": [
+        "MUSIC SKIP MANPAGE:",
+        "skips current song",
+        " ",
+        "USAGE:",
+        "'music skip'"
+    ]
 
-//  {
-//      " ": "_",
-//      "-": "0"
-//  }
-
-var MAN_help = [
-    "HELP MANPAPGE:",
-    "help will show you the general help page.",
-    "USAGE:",
-    "'help [option]'",
-    " ",
-    "OPTIONS:",
-    "having an option is optional (haha)",
-    "-art | shows you all the art commands",
-    "-dev | shows you all the commands for development",
-    " ",
-    "EXAMPLE:",
-    "'help'",
-    "'help -art'"
-];
-var MAN_man = [
-    "MAN MANPAGE:",
-    "shows you an in-depth help page for a specific command.",
-    "USAGE:",
-    "'man [command]'",
-    " ",
-    "EXAMPLE:",
-    "'man echo'"
-];
-
-var MAN_clear = [
-    "CLEAR MANPAPGE:",
-    "clears the console",
-    "USAGE:",
-    "'clear'",
-    "'clear [option]'",
-    "OPTIONS:",
-    " -cache | clears the local page cache",
-    "-ignore | (only works after -cache) will ignore the popup and just clear cache"
-];
-
-var MAN_echo = [
-    "ECHO MANPAPGE:",
-    "echo will repeat any text inputter",
-    "USAGE:",
-    "'echo [message]'",
-    " ",
-    "EXAMPLE:",
-    "'echo hello world!'"
-];
-
-var MAN_ls = [
-    "LS MANPAPGE:",
-    "lists all the existing commands in the console",
-    "USAGE:",
-    "'ls'",
-];
-
-var MAN_login = [
-    "LOGIN MANPAPGE:",
-    "logs you into another user on the system",
-    "USAGE:",
-    "'login [username] [password]'",
-    " ",
-    "EXAMPLE:",
-    "login admin password"
-];
-
-var MAN_colour = [
-    "COLOUR MANPAPGE:",
-    "changes the colour of different elements in the console.",
-    "USAGE:",
-    "'colour [text/background] [#hex]'",
-    " ",
-    "OPTIONS:",
-    "text/background >",
-    "            text | changes the colour of the text",
-    "      background | changes the colour of the background",
-    '#hex | any valid hex colour code, or "reset" to reset it',
-    " ",
-    "EXAMPLE:",
-    "'colour text #ffffff'",
-    "'colour background #ffffff'",
-    "'colour text teset'",
-];
-
-var MAN_color = [
-    "COLOR MANPAPGE:",
-    "changes the colour of different elements in the console.",
-    "USAGE:",
-    "'color [text/background/reset] [#hex]'",
-    " ",
-    "OPTIONS:",
-    "text/background >",
-    "            text | changes the colour of the text",
-    "      background | changes the colour of the background",
-    "           reset | resets all the colours ack to default",
-    '            #hex | any valid hex colour code, or "reset" to reset it',
-    " ",
-    "EXAMPLE:",
-    "'color text #ffffff'",
-    "'color background #ffffff'",
-    "'color text reset'",
-    "'colour reset'",
-];
-
-var MAN_comment = [
-    "COMMENT MANPAGE:",
-    "adds a comment to a list of comments, and will store them on your local cache",
-    " ",
-    "USAGE:",
-    "'comment [option] <comment>'",
-    " ",
-    "OPTIONS:",
-    "   add | adds comment to database",
-    "-clear | clears all comments from database",
-    "  list | lists all comments",
-    " ",
-    "EXAMPLE:",
-    "'comment add hello world!'",
-    "'comment list'",
-    " ",
-    "NOTE: <comment> section is only supported for the 'add' option."
-]
-
-var MAN_ascii = [
-    "ASCII MANPAGE:",
-    "generates an ASCII text art of any sentence",
-    "if you want to copy the output of this command, check the manpage for 'copy'",
-    " ",
-    "USAGE:",
-    "'ascii [font] [sentence]'",
-    " ",
-    "OPTIONS:",
-    "font | the ascii font to use, check 'font list' to see the list of fonts",
-    "sentence | the sentence you want put into ascii art",
-    " ",
-    "EXAMPLE:",
-    "'ascii default Hello, World!'",
-]
-
-var MAN_copy = [
-    "COPY MANPAGE:",
-    "copy is a command you put in front of another command to copy its output.",
-    "(not all commands are supported, so check 'copylist' for a list of supported commands.",
-    " ",
-    "USAGE:",
-    "'copy [command]'",
-    " ",
-    "EXAMPLE:",
-    "'copy ascii d Hello, World!'",
-    " ",
-    "NOTES:",
-    "to have the output automatically commented out for coding, use the command 'copycomm' (check the manpage for it)",
-]
-
-var MAN_copycomm = [
-    "COPYCOMM MANPAGE:",
-    "automatically comment out the copied output of your command",
-    " ",
-    "USAGE:",
-    "'copycomm [comment string]'",
-    " ",
-    "OPTIONS:",
-    "comment string | a string that will appear at the beginning of every line of the copied text.",
-    " ",
-    "EXAMPLE:",
-    "'copycomm //' <-- the comment character for javascript",
-    "'copycomm none' <-- this will reset the comment to nothing"
-]
-
-var MAN_convert = [
-    "CONVERT MANPAGE:",
-    "convert one unit into another unit",
-    " ",
-    "USAGE:",
-    "'convert [unit type] [amount] [from unit] [to unit]",
-    " ",
-    "OPTIONS:",
-    "unit type | if the unit measures length, volume, weight, etc. (check 'convert -list' for all unit types)",
-    "   amount | the input amount you want to convert",
-    "from unit | the unit you're converting from (in, km, etc.) check 'convert -list' for all the units.",
-    "  to unit | the unit you're converting to (mi, cm, etc.) check 'convert -list' for all the units.",
-    " ",
-    "EXAMPLE:",
-    "'convert -l 100 in ft'",
-    "'convert -l 5 km m'",
-]
-
-var MAN_share = [
-    "SHARE MANPAGE",
-    " ",
-    "will generate and copy a link to your clipboard with all the supported shareable options.",
-    " ",
-    "USAGE:",
-    " ",
-    "'share'",
-    " ",
-    "URL OPTIONS: (advanced)",
-    " ",
-    "| url option  | value     | description",
-    "?debug        true/false  the debug menu will automatically be open or not open",
-    "?debugvar     true/false  the variable debug menu will also automatically be either open or not",
-    "?suggestion   string      the string will show up in the command input on page load",
-    "?command      string      the string will be automatically run as a command on page load",
-    "?textcolour   hex code    will set the text colour to whatever hex code used (without the # at the beginning)",
-    "?backcolour   hex code    same as textcolour but it sets the background colour",
-]
-
-var MAN_ = [
-    "MAN MANPAGE:",
-    "shows you an in-depth help page for a specific command.",
-    "USAGE:",
-    "'man [command]'",
-    " ",
-    "EXAMPLE:",
-    "'man echo'"
-];
-
-var MAN_worble = [
-    "WORBLE MANPAGE",
-    "basically just like wordle but more intense",
-    " ",
-    "USAGE",
-    " ",
-    "'worble [option] <word>'",
-    " ",
-    "OPTIONS",
-    " ",
-    "            | explains more about how to play worble",
-    "      start | start a new worble game",
-    "    restart | restart the worble game",
-    "colourblind | toggles colourblind mode",
-    "       info | shows infor about your current game",
-    "      guess | guess the mystery word",
-    "      share | share your game progress",
-    "      stats | shows your worble statistics",
-    //"   download | downloads all your worble data",
-    "      reset | resets all of your worble data",
-    " ",
-    "NOTES:",
-    "<word> is only supported for the 'guess' option.",
-    " ",
-    "EXAMPLES:",
-    "'worble'",
-    "'worble start'",
-    "'worble guess house'",
-    "'worble info'",
-]
-
-
-MAN_uwu = [
-    "UWU MANPAGE (simon i blame you for this)",
-    "translates any text into uwu speak",
-    " ",
-    "USAGE:",
-    "'uwu [text]'",
-    " ",
-    "EXAMPLE:",
-    "'uwu hello there!'",
-]
+}
 
 
 var listy = [
@@ -2548,8 +2581,15 @@ var listy = [
     "uwu",
     "issue",
     "error",
-    "lyrics *",
+    "music *",
     "songlist",
+    "music play",
+    "music pause",
+    "music skip",
+    "music volume",
+    "portal",
+    "portal1",
+    "portal2",
 
     "* command is currently in-development and may break the site."
 ]; 
@@ -3556,7 +3596,12 @@ var songs = {
         "album": "fnf week 7 death voicelines",
         "art": "test.png",
         "audio": "test.ogg",
-        "volume": 1
+        "volume": 1,
+        "lyrics": [
+            {"text": "HAH!", "dur": [208, 628]},
+            {"text": "\nyou're dead!", "dur": [ 628, 2123]},
+            {"text": "\n*laughs*", "dur": [ 2123, 3664]}
+        ]
     },
     "milk": {
         "name": "MILK",
@@ -3564,7 +3609,25 @@ var songs = {
         "album": "Shop: A Pop Opera",
         "art": "https://cdn.discordapp.com/attachments/960729059829096580/960813263434682368/shop_pop.png",
         "audio": "https://cdn.discordapp.com/attachments/960729059829096580/960812517880373248/Jack_Stauber_-_MILK.mp3",
-        "volume": 1
+        "volume": 1,
+        "lyrics": [
+            {"text": "What kind of milk were you?", "dur": [579, 3939]},
+            {"text": "\nWhat kind of life did you live through?", "dur": [ 7032, 11054], "exec": "console.log('HALLO!');"},
+            {"text": "\n(Oh!)", "dur": [12624, 12945]},
+            {"text": "\nDid you know love?", "dur": [12917, 14256]},
+            {"text": " Will you rest in peace?", "dur": [14474, 16208]},
+            {"text": "\nDid you have a family?", "dur": [16133, 18482]},
+            {"text": "\nHow was the view from the shelf?", "dur": [19260, 21377]},
+            {"text": "\nDid you ever believe in yourself?", "dur": [21902, 24326]},
+            {"text": "\n\nWhat kind of milk were you?", "dur": [26702, 30047]},
+            {"text": "\nWhat kind of life did you live through?", "dur": [33214, 36941]},
+            {"text": "\nDid your life drip rich with calcium?", "dur": [39027, 42059]},
+            {"text": "\nDid they laugh at you", "dur": [42136, 43546]},
+            {"text": " or did you laugh at them?", "dur": [43623, 45612]},
+            {"text": "\nDairy beloved,", "dur": [46655, 48431]},
+            {"text": " your days are gone", "dur": [48799, 50440]},
+            {"text": "\nThe grocery list goes on", "dur": [50420, 53182]}
+        ]
     },
     "we see you opal reprise": {
         "name": "We See You, Opal (Reprise)",
@@ -3572,7 +3635,18 @@ var songs = {
         "album": "Jack Stauber's OPAL (Original Soundtrack)",
         "art": "https://media.discordapp.net/attachments/960729059829096580/960822574911225877/unknown.png?width=655&height=655",
         "audio": "https://cdn.discordapp.com/attachments/960729059829096580/960822608532746240/Jack_Stauber_-_We_See_You_Opal_Reprise.mp3",
-        "volume": 1
+        "volume": 1,
+        "lyrics": [
+            {"text": "We see you, ", "dur": [660, 2508]},
+            {"text": "Opal", "dur": [2589, 3664]},
+            {"text": "\nYour troubles are miles away", "dur": [3884, 6186]},
+            {"text": "\nWe see you, ", "dur": [7068, 8574]},
+            {"text": "Opal", "dur": [8900, 11473]},
+            {"text": "\n:]", "dur": [12141, 12451]},
+            {"text": "\nAnd in", "dur": [13281, 15016]},
+            {"text": " our eyes", "dur": [15586, 17841]},
+            {"text": " you'll stay", "dur": [17841, 21530]}
+        ]
     },
     "eighth wonder": {
         "name": "Eighth Wonder",
@@ -3580,7 +3654,73 @@ var songs = {
         "album": "Spirit Phone",
         "art": "https://media.discordapp.net/attachments/960729059829096580/960838302561353738/spiritphone.png?width=655&height=655",
         "audio": "https://cdn.discordapp.com/attachments/960729059829096580/960838362569252944/Lemon_Demon_-_Eighth_Wonder.mp3",
-        "volume": 1
+        "volume": 1,
+        "lyrics": [
+            {"text": "Extra clever", "dur": [24582, 26152]},
+            {"text": "\nEarthbound spirit", "dur": [28021, 29734]},
+            {"text": "\nGhost in the form", "dur": [31432, 33417]},
+            {"text": "\nOf a mongoose", "dur": [34851, 36778]},
+            {"text": "\n\nAnd I have hands", "dur": [38716, 40696]},
+            {"text": "\nAnd I have feet", "dur": [42170, 43877]},
+            {"text": "\nI'll never die", "dur": [45566, 47423]},
+            {"text": "\nI am a freak", "dur": [48996, 50598]},
+            {"text": "\n\nHello,", "dur": [50918, 51353]},
+            {"text": " I'm here", "dur": [51829, 52612]},
+            {"text": "\nI'm living in the wall", "dur": [52676, 54244]},
+            {"text": "\nI know", "dur": [54394, 55225]},
+            {"text": " I might be small, but", "dur": [55230, 57198]},
+            {"text": "\nI, I, I,", "dur": [57163, 59642]},
+            {"text": " am a", "dur": [59619, 61232]},
+            {"text": "\nFreak", "dur": [61882, 62329]},
+            {"text": "\n\nThou wilt never", "dur": [65725, 67536]},
+            {"text": "\nKnow what I am", "dur": [69126, 70879]},
+            {"text": "\nI am the fifth dimension", "dur": [72801, 74397]},
+            {"text": "\nAnd I'll split the atom", "dur": [76214, 77816]},
+            {"text": "\n\nAnd if you see me", "dur": [79615, 81391]},
+            {"text": "\nYou're paralyzed", "dur": [83319, 85304]},
+            {"text": "\nPillar of salt", "dur": [86720, 88978]},
+            {"text": "\nYou're mummified", "dur": [90127, 91915]},
+            {"text": "\n\nHello,", "dur": [92124, 92792]},
+            {"text": " I'm here", "dur": [92925, 93784]},
+            {"text": "\nI'm living in the wall", "dur": [93819,95514 ]},
+            {"text": "\nI know", "dur": [95508, 96385]},
+            {"text": " I might be small, but", "dur": [96390, 98370]},
+            {"text": "\nI am the Eighth Wonder", "dur": [98294, 103129]},
+            {"text": "\n\nAnd I was born", "dur": [133331, 135618]},
+            {"text": "\n1852", "dur": [136790, 138636]},
+            {"text": "\nAnd I was born", "dur": [140226, 142177]},
+            {"text": "\nIn India", "dur": [144034, 145508]},
+            {"text": "\n\nAnd I shall haunt", "dur": [147505, 149701]},
+            {"text": "\nLike the Buggane", "dur": [150895, 153147]},
+            {"text": "\nWith such weird noise", "dur": [154320, 156909]},
+            {"text": "\nAnd clinking chains", "dur": [157779, 159672]},
+            {"text": "\n\nHello,", "dur": [159706, 160612]},
+            {"text": " I'm here", "dur": [160589, 161483]},
+            {"text": "\nI'm living in the wall", "dur": [161436, 163143]},
+            {"text": "\nI know", "dur": [163144, 164013]},
+            {"text": " I might be small, but", "dur": [164028, 165862]},
+            {"text": "\nI, I, I,", "dur": [165967, 167972]},
+            {"text": " am a", "dur": [168489, 169156]},
+            {"text": "\nFreak", "dur": [172372, 172790]},
+            {"text": '\n\nI say "vanished"', "dur": [174485, 176586]},
+            {"text": "\nTo underground", "dur": [177840, 179906]},
+            {"text": "\nJim, let me go", "dur": [181276, 183168]},
+            {"text": "\nI watch like Hell", "dur": [184968, 186744]},
+            {"text": "\n\nAnd I have hands", "dur": [188590, 190517]},
+            {"text": "\nAnd I have feet", "dur": [192061, 193802]},
+            {"text": "\nI'll never die", "dur": [195474, 197761]},
+            {"text": "\nI am a freak", "dur": [198910, 200745]},
+            {"text": "\n\nHello,", "dur": [200791, 201662]},
+            {"text": " I'm here", "dur": [201697, 202532]},
+            {"text": "\nI'm living in the wall", "dur": [202532, 204181]},
+            {"text": "\nI know", "dur": [204216, 205133]},
+            {"text": " I might be small, but", "dur": [205110, 207083]},
+            {"text": "\nI am the Eighth Wonder", "dur": [207060, 211994]},
+            {"text": "\n\nEighth Wonder of the world", "dur": [213294, 215059]},
+            {"text": "\nYou'll never get to see", "dur": [216266, 218065]},
+            {"text": "\nWhat in the name of God can i", "dur": [219308 , 222848]},
+            {"text": " be?", "dur": [223046, 225646]}
+        ]
     },
     //"spiral of ants": {
     //    "name": "Spiral of Ants",
@@ -3593,119 +3733,665 @@ var songs = {
     "god i hate jazz": {
         "name": "god i hate jazz",
         "artist": "anne",
-        "album": "jeSUS",
+        "album": "[singles]",
         "art": "https://media.discordapp.net/attachments/960729059829096580/961005178297938071/Screenshot_20220405_135125.png",
         "audio": "https://cdn.discordapp.com/attachments/960729059829096580/961004688570994738/anne_-_god_i_hate_jazz.wav",
-        "volume": 1
-    }
+        "volume": 1,
+        "lyrics": [
+            {"text": " ", "dur": [10, 20]} 
+        ]
+    },
+    "old trash": {
+        "name": "Old Trash",
+        "artist": "HSM",
+        "album": "[singles]",
+        "art": "https://media.discordapp.net/attachments/960729059829096580/961051037337272360/unknown.png",
+        "audio": "https://cdn.discordapp.com/attachments/960729059829096580/961050791756582932/Hot_Step_Mom_-_Old_Trash.mp3",
+        "volume": 1,
+        "lyrics": [
+            {"text": "\nI lost the old necklace you gave me", "dur": [33355, 36212]},
+            {"text": "\nIt's probably in the pocket of old jeans", "dur": [37548, 40422]},
+            {"text": "\nIt's probably in a pocket with old trash", "dur": [41691, 44973]},
+            {"text": "\nI don't really remember so don't ask", "dur": [45829, 49489]},
+            {"text": "\n\nI said I'll give you your things and go", "dur": [49384, 52655]},
+            {"text": " if you don't want to see me", "dur": [52824, 55018]},
+            {"text": "\nI'll just go ghost and cry", "dur": [58463, 60901]},
+            {"text": " when you want to reach me", "dur": [61111, 63345]},
+            {"text": "\nCause I", "dur": [66651, 67355]},
+            {"text": " don't really care", "dur": [67681, 69514]},
+            {"text": " but you said you need me", "dur": [69747, 72232]},
+            {"text": "\nAnd you're", "dur": [74926, 75776]},
+            {"text": " still unaware", "dur": [75904, 77859]},
+            {"text": " of how I was feeling", "dur": [78086, 79995]},
+            {"text": "\n\nWhy do you think", "dur": [85628, 88224]},
+            {"text": " so highly of me?", "dur": [89062, 92327]},
+            {"text": "\nWhy do you think", "dur": [94014, 96336]},
+            {"text": " so highly of me?", "dur": [97570, 100596]},
+            {"text": "\nWhy do you think", "dur": [102313, 105013]},
+            {"text": " so highly of me?", "dur": [106008, 109256]},
+            {"text": "\nAnd why can't I be", "dur": [110396, 113405]},
+            {"text": " the per", "dur": [114586, 115505]},
+            {"text": "son", "dur": [115586, 116053]},
+            {"text": " you see?", "dur": [116449, 117287]},
+            {"text": "\n\nI'm mad about the things that I did", "dur": [125219, 127762]},
+            {"text": " but I don't regret it", "dur": [128198, 130183]},
+            {"text": "\nIt was just way too easy to quit,", "dur": [133494, 136113]},
+            {"text": " though you're still my eyelids", "dur": [136282, 138650]},
+            {"text": "\nAnd if", "dur": [141787, 142666]},
+            {"text": " I could", "dur": [142788, 143696]},
+            {"text": " follow through with what I say", "dur": [144085, 146634]},
+            {"text": "\nI'd get a lot farther with you", "dur": [150126, 152599]},
+            {"text": " and the things that", "dur": [153193, 153920]},
+            {"text": " I want", "dur": [153973, 155282]},
+            {"text": "\nI", "dur": [156056, 156644]},
+            {"text": " want", "dur": [156836, 158367]},
+            {"text": "\n\nWhy do you think", "dur": [160776, 163552]},
+            {"text": " so highly of me?", "dur": [164238, 167451]},
+            {"text": "\nWhy do you think", "dur": [169139, 171763]},
+            {"text": " so highly of me?", "dur": [172613, 175924]},
+            {"text": "\nWhy do you think", "dur": [177559, 180731]},
+            {"text": " so highly of me?", "dur": [181051, 184234]},
+            {"text": "\nAnd why can't I be", "dur": [185509, 188704]},
+            {"text": " the", "dur": [189728, 189984]},
+            {"text": " person ", "dur": [190019, 191189]},
+            {"text": "you see?", "dur": [191549, 192603]},
+            {"text": "\n\nWhy do you think", "dur": [210899, 213507]},
+            {"text": " so highly of me?", "dur": [214502, 217336]},
+            {"text": "\nWhy do you think", "dur": [219233, 221770]},
+            {"text": " so highly of me?", "dur": [222713, 225826]},
+            {"text": "\nWhy do you think", "dur": [227566, 230319]},
+            {"text": " so highly of me?", "dur": [230994, 234090]},
+            {"text": "\nAnd why can't I be", "dur": [235656, 238891]},
+            {"text": " the person", "dur": [239799, 241382]},
+            {"text": " you see?", "dur": [241667, 242476]},
+            {"text": "\n\nWhy do you think", "dur": [244286, 247033]},
+            {"text": " so highly", "dur": [247638, 249873]},
+            {"text": " of me?", "dur": [249983, 251205]},
+            {"text": "\nWhy do you think", "dur": [252555, 255215]},
+            {"text": " so highly of me?", "dur": [256041, 259143]},
+            {"text": "\nWhy do you think", "dur": [260860, 264189]},
+            {"text": " so highly of me?", "dur": [264503, 267419]},
+            {"text": "\nAnd why can't", "dur": [269223, 270992]},
+            {"text": " I be", "dur": [270992, 272127]},
+            {"text": " the", "dur": [273145, 273517]},
+            {"text": " person", "dur": [273523, 274815]},
+            {"text": " you see?", "dur": [275077, 276130]}
+        ]
+    },
+    "packet bread": {
+        "name": "packet bread",
+        "artist": "dough emergency",
+        "album": "MEMORY HOARDER",
+        "art": "https://dapug.lol/music/vis/render-cycles.png",
+        "audio": "https://dapug.lol/music/memory_hoarder/audio/01.mp3",
+        "volume": 1,
+        "lyrics": [
+            {"text": " ", "dur": [10, 20]} 
+        ]
+    },
+    "refrigerator jury": {
+        "name": "refrigerator jury",
+        "artist": "dough emergency",
+        "album": "MEMORY HOARDER",
+        "art": "https://dapug.lol/music/vis/render-cycles.png",
+        "audio": "https://dapug.lol/music/memory_hoarder/audio/02.mp3",
+        "volume": 1,
+        "lyrics": [
+            {"text": " ", "dur": [10, 20]} 
+        ]
+    },
+    "meal thyme": {
+        "name": "meal thyme",
+        "artist": "dough emergency",
+        "album": "MEMORY HOARDER",
+        "art": "https://dapug.lol/music/vis/render-cycles.png",
+        "audio": "https://dapug.lol/music/memory_hoarder/audio/03.mp3",
+        "volume": 1,
+        "lyrics": [
+            {"text": " ", "dur": [10, 20]} 
+        ]
+    },
+    "possible holiday": {
+        "name": "possible holiday",
+        "artist": "dough emergency",
+        "album": "MEMORY HOARDER",
+        "art": "https://dapug.lol/music/vis/render-cycles.png",
+        "audio": "https://dapug.lol/music/memory_hoarder/audio/04.mp3",
+        "volume": 1,
+        "lyrics": [
+            {"text": " ", "dur": [10, 20]} 
+        ]
+    },
+    "goat miracle": {
+        "name": "goat miracle",
+        "artist": "dough emergency",
+        "album": "MEMORY HOARDER",
+        "art": "https://dapug.lol/music/vis/render-cycles.png",
+        "audio": "https://dapug.lol/music/memory_hoarder/audio/05.mp3",
+        "volume": 1,
+        "lyrics": [
+            {"text": " ", "dur": [10, 20]} 
+        ]
+    },
+    "theory coffee": {
+        "name": "theory coffee",
+        "artist": "dough emergency",
+        "album": "MEMORY HOARDER",
+        "art": "https://dapug.lol/music/vis/render-cycles.png",
+        "audio": "https://dapug.lol/music/memory_hoarder/audio/06.mp3",
+        "volume": 1,
+        "lyrics": [
+            {"text": " ", "dur": [10, 20]} 
+        ]
+    },
+    "broccolli drama": {
+        "name": "broccolli drama",
+        "artist": "dough emergency",
+        "album": "MEMORY HOARDER",
+        "art": "https://dapug.lol/music/vis/render-cycles.png",
+        "audio": "https://dapug.lol/music/memory_hoarder/audio/07.mp3",
+        "volume": 1,
+        "lyrics": [
+            {"text": " ", "dur": [10, 20]} 
+        ]
+    },
+    "bed obligation": {
+        "name": "(bonus track) bed obligation",
+        "artist": "dough emergency",
+        "album": "MEMORY HOARDER",
+        "art": "https://dapug.lol/music/vis/render-cycles.png",
+        "audio": "https://dapug.lol/music/memory_hoarder/audio/08.mp3",
+        "volume": 1,
+        "lyrics": [
+            {"text": " ", "dur": [10, 20]} 
+        ]
+    },
+    "sleep button": {
+        "name": "(bonus track) sleep button",
+        "artist": "dough emergency",
+        "album": "MEMORY HOARDER",
+        "art": "https://dapug.lol/music/vis/render-cycles.png",
+        "audio": "https://dapug.lol/music/memory_hoarder/audio/09.mp3",
+        "volume": 1,
+        "lyrics": [
+            {"text": "Good morning!", "dur": [18619, 19331]},
+            {"text": " You have been in suspension for:", "dur": [19485, 21051]},
+            {"text": " [FIFTY]", "dur": [21231, 21713]},
+            {"text": " days.", "dur": [21901, 22416]},
+            {"text": "\nIn compliance with state and federal regulations-", "dur": [22489, 24524]},
+            {"text": "\n\n", "dur": [22500, 22500]},
+            {"text": "Good morning!", "dur": [33189, 33697]},
+            {"text": " You have been in suspension for:", "dur": [33945, 35511]},
+            {"text": "[NINE.", "dur": [35986, 36401]},
+            {"text": " NINE.", "dur": [36595, 36989]},
+            {"text": " NINE.", "dur": [37110, 37518]},
+            {"text": " NINE.", "dur": [37699, 38107]},
+            {"text": " NINE.]", "dur": [38254, 38669]}
+        ]
+    },
+    "oatmeal": {
+        "name": "Oatmeal",
+        "artist": "Jack Stauber",
+        "album": "Shop: A Pop Opera",
+        "art": "https://cdn.discordapp.com/attachments/960729059829096580/960813263434682368/shop_pop.png",
+        "audio": "https://cdn.discordapp.com/attachments/960729059829096580/961360773878267904/Jack_Stauber_-_Oatmeal.mp3",
+        "volume": 1,
+        "lyrics": [
+            {"text": "I could have", "dur": [1965, 2644]},
+            {"text": " oatmeal for breakfast", "dur": [2602, 3888]},
+            {"text": " and oatmeal for lunch", "dur": [3910, 5369]},
+            {"text": "\nOatmeal for dinner as well", "dur": [5327, 6950]},
+            {"text": " at the sound of a bell", "dur": [7056, 8577]},
+            {"text": "\n[ring]", "dur": [8495, 8937]},
+            {"text": "\nI could have oatmeal wake up", "dur": [8757, 10304]},
+            {"text": " and", "dur": [10480, 10840]},
+            {"text": " oatmeal", "dur": [10844, 11469]},
+            {"text": " brush my teeh", "dur": [11499, 12327]},
+            {"text": "\nGo to my oatmeal job,", "dur": [12319, 13728]},
+            {"text": " oatmeal home,", "dur": [13762, 14595]},
+            {"text": " oatmeal sleep", "dur": [14639, 15333]},
+            {"text": "\n\nEvery day,", "dur": [15715, 16714]},
+            {"text": " my oatmeal routine", "dur": [17372, 18879]},
+            {"text": "\nTime is my master,", "dur": [19482, 20923]},
+            {"text": " keep everything clean", "dur": [20985, 22217]},
+            {"text": "\nEvery day,", "dur": [22455, 23592]},
+            {"text": " my oatmeal routine", "dur": [24132, 25697]},
+            {"text": "\nLife could have rhythm", "dur": [25493, 26758]},
+            {"text": " and maybe harmony", "dur": [27320, 28887]},
+            {"text": "\n\nCircumstance,", "dur": [29574, 31099]},
+            {"text": " the unexpected!", "dur": [31067, 32897]},
+            {"text": "\nHow could I have known?", "dur": [33001, 34348]},
+            {"text": " Err", "dur": [34255, 34615]},
+            {"text": "\nRoutine?", "dur": [34540, 35255]},
+            {"text": " Is it human?", "dur": [35225, 36444]},
+            {"text": "\nMolded in my ways,", "dur": [36374, 37779]},
+            {"text": " how would I change?", "dur": [37889, 39143]},
+            {"text": "\nDisaster,", "dur": [39166, 40124]},
+            {"text": " Routineless,", "dur": [40490, 41181]},
+            {"text": " I adapt to", "dur": [41076, 42011]},
+            {"text": " chaos", "dur": [42034, 42719]},
+            {"text": " faster", "dur": [42736, 43590]},
+            {"text": "\nNo master", "dur": [43793, 44855]}
+        ]
+    },
+    "coffee": {
+        "name": "Coffee",
+        "artist": "Jack Stauber",
+        "album": "Shop: A Pop Opera",
+        "art": "https://cdn.discordapp.com/attachments/960729059829096580/960813263434682368/shop_pop.png",
+        "audio": "https://cdn.discordapp.com/attachments/960729059829096580/961401740098437140/Jack_Stauber_-_Coffee.mp3",
+        "volume": 1,
+        "lyrics": [
+            {"text": "Do I need it?", "dur": [3331, 4591]},
+            {"text": " (Mocha)", "dur": [4586, 5650]},
+            {"text": "\nAm I under control?", "dur": [5654, 7381]},
+            {"text": "\nCan I beat it?", "dur": [7455, 8693]},
+            {"text": " (Wake up)", "dur": [8693, 9730]},
+            {"text": "\nIf it swallowed me whole,", "dur": [9800, 11544]},
+            {"text": " would I see it?", "dur": [11566, 12856]},
+            {"text": "\nI can", "dur": [12887, 13349]},
+            {"text": " make you feel", "dur": [13305, 14251]},
+            {"text": " alive", "dur": [14234, 15306]},
+            {"text": "\nI know,", "dur": [15990, 16575]},
+            {"text": " but do I need you to survive?", "dur": [16740, 19208]},
+            {"text": "\n\nJust a sip!", "dur": [20027, 21030]},
+            {"text": "\nDoes it still matter which one?", "dur": [21954, 23759]},
+            {"text": "\nJust a drip!", "dur": [24199, 25237]},
+            {"text": "\nAm I", "dur": [26096, 26793]},
+            {"text": " dumbfounded", "dur": [26832, 27861]},
+            {"text": " when I slip?", "dur": [27857, 29139]},
+            {"text": "\nYou can't believe", "dur": [30054, 31244]},
+            {"text": "\nI can't believe", "dur": [31235, 32386]},
+            {"text": "\nYou can't believe", "dur": [32264, 33311]},
+            {"text": "\nI can't believe", "dur": [33284, 34444]},
+            {"text": "\nYou can't believe", "dur": [34283, 35373]},
+            {"text": "\nI can't believe this happened", "dur": [35412, 37051]},
+            {"text": "\n\nWow!", "dur": [37099, 37779]},
+            {"text": "\nFrench vanilla,", "dur": [38699, 39658]},
+            {"text": " I think I should sit this one out", "dur": [39749, 41877]},
+            {"text": "\nNo", "dur": [41825, 42199]},
+            {"text": " no", "dur": [42300, 42683]},
+            {"text": " no", "dur": [42875, 43202]},
+            {"text": "\nMaybe a", "dur": [42876, 43411]},
+            {"text": " cup of self control would", "dur": [43411, 44915]},
+            {"text": " be the route", "dur": [44950, 46092]},
+            {"text": "\nBut it's the flavour,", "dur": [45857, 46943]},
+            {"text": "\nit's the flavour you want!", "dur": [47056, 48760]},
+            {"text": "\nMaybe so,", "dur": [48821, 49698]},
+            {"text": "but it feels better to check", "dur": [49898, 51808]},
+            {"text": " than to reflect", "dur": [51812, 53329]},
+            {"text": "\nOh", "dur": [53762, 54480]}
+        ]
+    },
+    "still alive": {
+        "name": "Still Alive",
+        "artist": "Jonathan Coulton",
+        "album": "Portal OST",
+        "art": "aperture1.png",
+        "audio": "still_alive.mp3",
+        "volume": 1,
+        "lyrics": [
+            {"text": "", "dur": [, ]} 
+        ]
+    },
+    "want you gone": {
+        "name": "Want You Gone",
+        "artist": "Jonathan Coulton",
+        "album": "Portal 2 OST",
+        "art": "aperture2.png",
+        "audio": "want_you_gone.mp3",
+        "volume": 1,
+        "lyrics": [
+            {"text": "", "dur": [, ]} 
+        ]
+    },
 }
-// 
 
-//,
-//{"text": "\n", "dur": [, ]}
+// if you just want javascript to run at a specific time without any lyrics, just set "text" to false, without quotes, but still have the times and then ofcourse set "exec" to the javascript you want run
+var HJABJBGASFJHKBGSDLFBJLF = `
+,
+{"text": "\n", "dur": [, ]}
 
-var LYR_test = [
-    {"text": "HAH!", "dur": [208, 628]},
-    {"text": "\nyou're dead!", "dur": [ 628, 2123]},
-    {"text": "\n*laughs*", "dur": [ 2123, 3664]}
-]
-var LYR_milk = [
-    {"text": "What kind of milk were you?", "dur": [579, 3939]},
-    {"text": "\nWhat kind of life did you live through?", "dur": [ 7032, 11054]},
-    {"text": "\n(Oh!)", "dur": [12624, 12945]},
-    {"text": "\nDid you know love?", "dur": [12917, 14256]},
-    {"text": " Will you rest in peace?", "dur": [14474, 16208]},
-    {"text": "\nDid you have a family?", "dur": [16133, 18482]},
-    {"text": "\nHow was the view from the shelf?", "dur": [19260, 21377]},
-    {"text": "\nDid you ever believe in yourself?", "dur": [21902, 24326]},
-    {"text": "\n\nWhat kind of milk were you?", "dur": [26702, 30047]},
-    {"text": "\nWhat kind of life did you live through?", "dur": [33214, 36941]},
-    {"text": "\nDid your life drip rich with calcium?", "dur": [39027, 42059]},
-    {"text": "\nDid they laugh at you", "dur": [42136, 43546]},
-    {"text": " or did you laugh at them?", "dur": [43623, 45612]},
-    {"text": "\nDairy beloved,", "dur": [46655, 48431]},
-    {"text": " your days are gone", "dur": [48799, 50440]},
-    {"text": "\nThe grocery list goes on", "dur": [50420, 53182]}
-]
+", "dur": [, ]},
+{"text": "
 
-var LYR_we_see_you_opal_reprise = [
-    {"text": "We see you, ", "dur": [660, 2508]},
-    {"text": "Opal", "dur": [2589, 3664]},
-    {"text": "\nYour troubles are miles away", "dur": [3884, 6186]},
-    {"text": "\nWe see you, ", "dur": [7068, 8574]},
-    {"text": "Opal", "dur": [8900, 11473]},
-    {"text": "\n:]", "dur": [12141, 12451]},
-    {"text": "\nAnd in", "dur": [13281, 15016]},
-    {"text": " our eyes", "dur": [15586, 17841]},
-    {"text": " you'll stay", "dur": [17841, 21530]}
+,
+    "": {
+        "name": "",
+        "artist": "",
+        "album": "",
+        "art": "",
+        "audio": "",
+        "volume": 1,
+        "lyrics": [
+            {"text": "", "dur": [, ]} 
+        ]
+    }
+
+`                               // this is essentially just block comments so i can be able to copy paste this for lyrics (tm)
+
+var p1_credits = [
+    "credits 1!",
+    "im here!",
+    " ",
+    " ",
+    " ",
+    " ",
+    " ",
+    "HELLO!",
 ]
 
-var LYR_eighth_wonder = [
-    {"text": "Extra clever", "dur": [24582, 26152]},
-    {"text": "\nEarthbound spirit", "dur": [28021, 29734]},
-    {"text": "\nGhost in the form", "dur": [31432, 33417]},
-    {"text": "\nOf a mongoose", "dur": [34851, 36778]},
-    {"text": "\n\nAnd I have hands", "dur": [38716, 40696]},
-    {"text": "\nAnd I have feet", "dur": [42170, 43877]},
-    {"text": "\nI'll never die", "dur": [45566, 47423]},
-    {"text": "\nI am a freak", "dur": [48996, 50598]},
-    {"text": "\n\nHello,", "dur": [50918, 51353]},
-    {"text": " I'm here", "dur": [51829, 52612]},
-    {"text": "\nI'm living in the wall", "dur": [52676, 54244]},
-    {"text": "\nI know", "dur": [54394, 55225]},
-    {"text": " I might be small, but", "dur": [55230, 57198]},
-    {"text": "\nI, I, I,", "dur": [57163, 59642]},
-    {"text": " am a", "dur": [59619, 61232]},
-    {"text": "\nFreak", "dur": [61882, 62329]},
-    {"text": "\n\nThou wilt never", "dur": [65725, 67536]},
-    {"text": "\nKnow what I am", "dur": [69126, 70879]},
-    {"text": "\nI am the fifth dimension", "dur": [72801, 74397]},
-    {"text": "\nAnd I'll split the atom", "dur": [76214, 77816]},
-    {"text": "\n\nAnd if you see me", "dur": [79615, 81391]},
-    {"text": "\nYou're paralyzed", "dur": [83319, 85304]},
-    {"text": "\nPillar of salt", "dur": [86720, 88978]},
-    {"text": "\nYou're mummified", "dur": [90127, 91915]},
-    {"text": "\n\nHello,", "dur": [92124, 92792]},
-    {"text": " I'm here", "dur": [92925, 93784]},
-    {"text": "\nI'm living in the wall", "dur": [93819,95514 ]},
-    {"text": "\nI know", "dur": [95508, 96385]},
-    {"text": " I might be small, but", "dur": [96390, 98370]},
-    {"text": "\nI am the Eighth Wonder", "dur": [98294, 103129]},
-    {"text": "\n\nAnd I was born", "dur": [133331, 135618]},
-    {"text": "\n1852", "dur": [136790, 138636]},
-    {"text": "\nAnd I was born", "dur": [140226, 142177]},
-    {"text": "\nIn India", "dur": [144034, 145508]},
-    {"text": "\n\nAnd I shall haunt", "dur": [147505, 149701]},
-    {"text": "\nLike the Buggane", "dur": [150895, 153147]},
-    {"text": "\nWith such weird noise", "dur": [154320, 156909]},
-    {"text": "\nAnd clinking chains", "dur": [157779, 159672]},
-    {"text": "\n\nHello,", "dur": [159706, 160612]},
-    {"text": " I'm here", "dur": [160589, 161483]},
-    {"text": "\nI'm living in the wall", "dur": [161436, 163143]},
-    {"text": "\nI know", "dur": [163144, 164013]},
-    {"text": " I might be small, but", "dur": [164028, 165862]},
-    {"text": "\nI, I, I,", "dur": [165967, 167972]},
-    {"text": " am a", "dur": [168489, 169156]},
-    {"text": "\nFreak", "dur": [172372, 172790]},
-    {"text": '\n\nI say "vanished"', "dur": [174485, 176586]},
-    {"text": "\nTo underground", "dur": [177840, 179906]},
-    {"text": "\nJim, let me go", "dur": [181276, 183168]},
-    {"text": "\nI watch like Hell", "dur": [184968, 186744]},
-    {"text": "\n\nAnd I have hands", "dur": [188590, 190517]},
-    {"text": "\nAnd I have feet", "dur": [192061, 193802]},
-    {"text": "\nI'll never die", "dur": [195474, 197761]},
-    {"text": "\nI am a freak", "dur": [198910, 200745]},
-    {"text": "\n\nHello,", "dur": [200791, 201662]},
-    {"text": " I'm here", "dur": [201697, 202532]},
-    {"text": "\nI'm living in the wall", "dur": [202532, 204181]},
-    {"text": "\nI know", "dur": [204216, 205133]},
-    {"text": " I might be small, but", "dur": [205110, 207083]},
-    {"text": "\nI am the Eighth Wonder", "dur": [207060, 211994]},
-    {"text": "\n\nEighth Wonder of the world", "dur": [213294, 215059]},
-    {"text": "\nYou'll never get to see", "dur": [216266, 218065]},
-    {"text": "\nWhat in the name of God can i", "dur": [219308 , 222848]},
-    {"text": " be?", "dur": [223046, 225646]}
+var p2_credits = [
+    "credits 2!",
+    "im here!",
+    " ",
+    " ",
+    " ",
+    " ",
+    " ",
+    "HELLO!",
+    "credits 2!",
+    "im here!",
+    " ",
+    " ",
+    " ",
+    " ",
+    " ",
+    "HELLO!",
+    "credits 2!",
+    "im here!",
+    " ",
+    " ",
+    " ",
+    " ",
+    " ",
+    "HELLO!",
+    "credits 2!",
+    "im here!",
+    " ",
+    " ",
+    " ",
+    " ",
+    " ",
+    "HELLO!",
+    "credits 2!",
+    "im here!",
+    " ",
+    " ",
+    " ",
+    " ",
+    " ",
+    "HELLO!",
+    "credits 2!",
+    "im here!",
+    " ",
+    " ",
+    " ",
+    " ",
+    " ",
+    "HELLO!",
 ]
+
+
+var p1_art = {
+    "logo": `
+             .,-:;//;:=,
+         . :H@@@MM@M#H/.,+%;,
+      ,/X+ +M@@M@MM%=,-%HMMM@X/,
+     -+@MM; $M@@MH+-,;XMMMM@MMMM@+-
+    ;@M@@M- XM@X;. -+XXXXXHHH@M@M#@/.
+  ,%MM@@MH ,@%=            .---=-=:=,.
+  -@#@@@MX .,              -%HX$$%%%+;
+ =-./@M@M$                  .;@MMMM@MM:
+ X@/ -$MM/                    .+MM@@@M$
+,@M@H: :@:                    . -X#@@@@-
+,@@@MMX, .                    /H- ;@M@M=
+.H@@@@M@+,                    %MM+..%#$.
+ /MMMM@MMH/.                  XM@MH; -;
+  /%+%$XHH@$=              , .H@@@@MX,
+   .=--------.           -%H.,@@@@@MX,
+   .%MM@@@HHHXX$$$%+- .:$MMX -M@@MM%.
+     =XMMM@MM@MM#H;,-+HMM@M+ /MMMX=
+       =%@M@M#@$-.=$@MM@@@M; %M%=
+         ,:+$+-,/H#MMMMMMM@- -,
+               =++%%%%+/:-.`,
+    "hazard": `
+             =+$HM####@H%;,
+          /H###############M$,
+          ,@################+
+           .H##############+
+             X############/
+              $##########/
+               %########/
+                /X/;;+X/
+
+                 -XHHX-
+                ,######,
+#############X  .M####M.  X#############
+##############-   -//-   -##############
+X##############%,      ,+##############X
+-##############X        X##############-
+ %############%          %############%
+  %##########;            ;##########%
+   ;#######M=              =M#######;
+    .+M###@,                ,@###M+.
+       :XH.                  .HX:`,
+    "atom": `
+                 =/;;/-
+                +:    //
+               /;      /;
+              -X        H.
+.//;;;:;;-,   X=        :+   .-;:=;:;%;.
+M-       ,=;;;#:,      ,:#;;:=,       ,@
+:%           :%.=/++++/=.$=           %=
+ ,%;         %/:+/;,,/++:+/         ;+.
+   ,+/.    ,;@+,        ,%H;,    ,/+,
+      ;+;;/= @.  .H##X   -X :///+;
+      ;+=;;;.@,  .XM@$.  =X.//;=%/.
+   ,;:      :@%=        =$H:     .+%-
+ ,%=         %;-///==///-//         =%,
+;+           :%-;;;;;;;;-X-           +:
+@-      .-;;;;M-        =M/;;;-.      -X
+ :;;::;;-.    %-        :+    ,-;;-;:==
+              ,X        H.
+               ;/      %=
+                //    +;
+                 ,////,`,
+    "heartbreak": `
+                          .,---.
+                        ,/XM#MMMX;,
+                      -%##########M%,
+                     -@######%  $###@=
+      .,--,         -H#######$   $###M:
+   ,;$M###MMX;     .;##########$;HM###X=
+,/@###########H=      ;################+
+-+#############M/,      %##############+
+%M###############=      /##############:
+H################      .M#############;.
+@###############M      ,@###########M:.
+X################,      -$=X#######@:
+/@##################%-     +######$-
+.;##################X     .X#####+,
+ .;H################/     -X####+.
+   ,;X##############,       .MM/
+      ,:+$H@M#######M#$-    .$$=
+           .,-=;+$@###X:    ;/=.
+                  .,/X$;   .::,
+                      .,    ..`,
+    "campfire": `
+                     -$-
+                    .H##H,
+                   +######+
+                .+#########H.
+              -$############@.
+            =H###############@  -X:
+          .$##################:  @#@-
+     ,;  .M###################;  H###;
+   ;@#:  @###################@  ,#####:
+ -M###.  M#################@.  ;######H
+ M####-  +###############$   =@#######X
+ H####$   -M###########+   :#########M,
+  /####X-   =########%   :M########@/.
+    ,;%H@X;   .$###X   :##MM@%+;:-
+                 ..
+  -/;:-,.              ,,-==+M########H
+ -##################@HX%%+%%$%%%+:,,
+    .-/H%%%+%%$H@###############M@+=:/+:
+/XHX%:#####MH%=    ,---:;;;;/&&XHM,:###$
+$@#MX %+;-                           .`,
+    "checkmark": `
+                                     :X-
+                                  :X###
+                                ;@####@
+                              ;M######X
+                            -@########$
+                          .$##########@
+                         =M############-
+                        +##############$
+                      .H############$=.
+         ,/:         ,M##########M;.
+      -+@###;       =##########M;
+   =%M#######;     :#########M/
+-$M###########;   :########/
+ ,;X###########; =#######$.
+     ;H#########+######M=
+       ,+#############+
+          /M########@-
+            ;M#####%
+              +####:
+               ,$M-`,
+    "explosion": `
+            .+
+             /M;
+              H#@:              ;,
+              -###H-          -@/
+               %####$.  -;  .%#X
+                M#####+;#H :M#M.
+..          .+/;%#############-
+ -/%H%+;-,    +##############/
+    .:$M###MH$%+############X  ,--=;-
+        -/H#####################H+=.
+           .+#################X.
+         =%M####################H;.
+            /@###############+;;/%%;,
+         -%###################$
+       ;H######################M=
+    ,%#####MH$%;+#####M###-/@####%
+  :$H%+;=-      -####X.,H#   -+M##@-
+ .              ,###;    ;      =$##+
+                .#H,               :XH,
+                 +                   .;-`,
+    "black mesa": `
+           .-;+$XHHHHHHX$+;-.
+        ,;X@@X%/;=----=:/%X@@X/,
+      =$@@%=.              .=+H@X:
+    -XMX:                      =XMX=
+   /@@:                          =H@+
+  %@X,                            .$@$
+ +@X.                               $@%
+-@@,                                .@@=
+%@%                                  +@$
+H@:                                  :@H
+H@:         :HHHHHHHHHHHHHHHHHHX,    =@H
+%@%         ;@M@@@@@@@@@@@@@@@@@H-   +@$
+=@@,        :@@@@@@@@@@@@@@@@@@@@@= .@@:
+ +@X        :@@@@@@@@@@@@@@@M@@@@@@:%@%
+  $@$,      ;@@@@@@@@@@@@@@@@@M@@@@@@$.
+   +@@HHHHHHH@@@@@@@@@@@@@@@@@@@@@@@+
+    =X@@@@@@@@@@@@@@@@@@@@@@@@@@@@X=
+      :$@@@@@@@@@@@@@@@@@@@M@@@@$:
+        ,;$@@@@@@@@@@@@@@@@@@X/-
+           .-;+$XXHHHHHX$+;-.`,
+    "cake": `
+            ,:/+/-
+            /M/              .,-=;//;-
+       .:/= ;MH/,    ,=/+%$XH@MM#@:
+      -$##@+$###@H@MMM#######H:.    -/H#
+ .,H@H@ X######@ -H#####@+-     -+H###@X
+  .,@##H;      +XM##M/,     =%@###@X;-
+X%-  :M##########$.    .:%M###@%:
+M##H,   +H@@@$/-.  ,;$M###@%,          -
+M####M=,,---,.-%%H####M$:          ,+@##
+@##################@/.         :%H##@$-
+M###############H,         ;HM##M$=
+#################.    .=$M##M$=
+################H..;XM##M$=          .:+
+M###################@%=           =+@MH%
+@#################M/.         =+H#X%=
+=+M###############M,      ,/X#H+:,
+  .;XM###########H=   ,/X#H+:;
+     .=+HM#######M+/+HM@+=.
+         ,:/%XM####H/.
+              ,.:=-.`,
+    "camera": `
+           #+ @      # #              M#@
+ .    .X  X.%##@;# #   +@#######X. @H%
+   ,==.   ,######M+  -#####%M####M-    #
+  :H##M%:=##+ .M##M,;#####/+#######% ,M#
+ .M########=  =@#@.=#####M=M#######=  X#
+ :@@MMM##M.  -##M.,#######M#######. =  M
+             @##..###:.    .H####. @@ X,
+   ############: ###,/####;  /##= @#. M
+           ,M## ;##,@#M;/M#M  @# X#% X#
+.%=   ######M## ##.M#:   ./#M ,M #M ,#$
+##/         $## #+;#: #### ;#/ M M- @# :
+#+ #M@MM###M-;M #:$#-##$H# .#X @ + $#. #
+      ######/.: #%=# M#:MM./#.-#  @#: H#
++,.=   @###: /@ %#,@  ##@X #,-#@.##% .@#
+#####+;/##/ @##  @#,+       /#M    . X,
+   ;###M#@ M###H .#M-     ,##M  ;@@; ###
+   .M#M##H ;####X ,@#######M/ -M###$  -H
+    .M###%  X####H  .@@MM@;  ;@#M@
+      H#M    /@####/      ,++.  / ==-,
+               ,=/:, .+X@MMH@#H  #####$=`
+}
+
+
+
+//│┴┬├─┤┼┌┐└┘
+//┃┻┳┣━┫╋┏┓┗┛
+//║╩╦╠═╣╬╔╗╚╝
+// ╨╤╟ ╡╪╓╖╙╜
+// ╧╥╞ ╢╫╒╕╘╛
+//╿┸┯┞ ┦╀┍┑┖┚
+//╽┷┰┟ ┧╁┎┒┕┙
+// ┵┭┠╾┥┽╭╮╯╰
+// ┶┮┝╼┨┾
+// ┹┱┡ ┩╇
+// ┺┲┢ ┪╈
+//╹   ╸ ╃
+//╻   ╺ ╄
+//╵   ╴ ╅
+//╷   ╶ ╆
+//    ╳ ╉
+//    ╱ ╊
+//    ╲ ┿
+//      ╂
+//          ↖
+//▓▒░
+//▗▖▝▘▟▙▜▛▚▞█
+//▉▊▋▌▍▎▏
+//▇▆▅▄▃▂▁
+//
+
+var musicText = [
+    "welcome to the music player! This music player is able to play any supported song, and will print",
+    "the song's lyrics to the console as they are being said in a song!",
+    "[this feature is a proof-of-concept, and is not intended to have a large catalogue of music]",
+    " ",
+    "to get a list of supported songs, run 'songlist'",
+    "play a song using 'music play [song id]",
+    "pause music using 'muisc pause",
+    "resume music using 'music play",
+    "set the volume using 'music volume [value between 0-100]",
+    " ",
+    "have fun!"
+]
+
+
+
+
+
 
 
 console.log("ui elements loaded.");

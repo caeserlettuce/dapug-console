@@ -78,17 +78,17 @@ and it is currently march 29th, 2022
 
 - [ ] command that rickrolls the user when used (idea courtesy of anne)
 
-- [ ] speaking of the last entry, having a song player would be cool, even making it so that it'll paste the lyrics of the song into the console as the lyrics are being said in the song. would be pretty complicated (maybe) but would be cool
-  - [ ] I DECIDED TO DO IT
+- [x] speaking of the last entry, having a song player would be cool, even making it so that it'll paste the lyrics of the song into the console as the lyrics are being said in the song. would be pretty complicated (maybe) but would be cool
+  - [x] I DECIDED TO DO IT
   - [x] basic song playing
   - [x] paste lyrics in-time with music
   - [x] skip song feature
-  - [ ] pause song feature
+  - [x] pause song feature
 
 - [ ] redo some of the ui stoof
   - [ ] redo how the help page works (more specific sections)
     - [ ] include a "top picks" section of my favourite commands on the console
-  - [ ] redo manpage framework (using json instead of using eval to get variables because json would be better than that)
+  - [x] redo manpage framework (using json instead of using eval to get variables because json would be better than that)
 
 
 - [x] fix uparrow command history thing
