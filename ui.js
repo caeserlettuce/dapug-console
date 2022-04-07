@@ -2590,6 +2590,7 @@ var listy = [
     "portal",
     "portal1",
     "portal2",
+    "egg",
 
     "* command is currently in-development and may break the site."
 ]; 

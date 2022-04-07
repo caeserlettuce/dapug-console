@@ -13,3 +13,9 @@ function playMusic(internal_name) {
         music_playing = true;
     }
 }
+
+function boom() {
+    if (egg == true) {
+        var boom = new Audio("boom.mp3").play();;
+    }
+}

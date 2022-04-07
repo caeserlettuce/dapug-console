@@ -87,7 +87,7 @@ var portal_playing = true;
 var portal_type = 1;
 var og_textcolour = textcolour;
 var og_backcolour = backcolour;
-
+var egg = false;
 
 debubg("variable init finished...");
 // local storage setup
@@ -837,6 +837,7 @@ async function displayUser(message, userin) {
 }
 
 async function displayAnim(message, speed, colour, link) {      // fancy anim
+    boom();
     //console.log(`[displayanim] ${message}, ${speed}, ${type}`);
     //debubg(`[displayAnim]   message: ${message}  speed: ${speed}   colour: ${colour}   link: ${link}`);
     if (typeof message == "string") {           // if it's a string
@@ -931,7 +932,7 @@ async function displayLyrics(lyrics) {
 
         debubg(`i: ${i}, startdur: ${startdur}, enddur: ${enddur}, fulldur: ${fulldur}`);
 
-        var evalStr = `TMO_${musicTimeouts} = new LyricTimer(function() { lyrFunc(${lyr_len}, cur_lyrics, ${i}); lyr_status[${i}] = true; if (lyr_exec != false) { ${lyr_exec} } }, startdur);`;
+        var evalStr = `TMO_${musicTimeouts} = new LyricTimer(function() { lyrFunc(${lyr_len}, cur_lyrics, ${i}); lyr_status[${i}] = true; boom(); if (lyr_exec != false) { ${lyr_exec} } }, startdur);`;
 
         console.log(evalStr);
         eval(evalStr);
@@ -2402,9 +2403,9 @@ var elem = document.getElementById("consoleinput");
                         
 
 
-                        if (mainsys == true) {
-                            parseCommand(elem.value);
-                        }
+                        
+                        parseCommand(elem.value);
+                        
 
                         historyReset();
                         elem.value = "";
@@ -2413,7 +2414,7 @@ var elem = document.getElementById("consoleinput");
                         //debubg(commang);
                     }
                 }
-
+                boom();
             } else if(e.keyCode == 37) {
                 if (snakeinputs == true) {
                     debubg("left arrow detected");

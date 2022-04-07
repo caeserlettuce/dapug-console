@@ -555,12 +555,12 @@ function parseCommand(command) {
         var mmm = argComm(commandInit);
         mmm.shift();
         debubg(mmm);
-        var egg = mmm.join(" ");
-        debubg(egg);
-        var fried = egg.split("");
+        var eggy = mmm.join(" ");
+        debubg(eggy);
+        var fried = eggy.split("");
         debubg(fried);
         var code = "";
-        var legy = egg.length;
+        var legy = eggy.length;
         debubg(`input length: ${legy}`);
         if (legy == 1) {
             code = mmm[0].charCodeAt(0);
@@ -940,11 +940,7 @@ function parseCommand(command) {
         }
     } else if (command == "music skip" || command == "music skip ") {       // skipping music
         if (music_playing == true) {
-            if (paused_lyrics == false) {
-                skipLyrics();
-            } else {
-                displayAnim(`\na song must be currently playing to skip!`, 7);
-            }
+            skipLyrics();
         } else {
             displayAnim(`\nthere is no current song playing!`, 7);
         }
@@ -1176,6 +1172,9 @@ function parseCommand(command) {
         document.getElementById("songinfo").style.backgroundColor = "#a15606";
         inputlock = true;
         document.getElementById("p2cred").style.display = "";
+    } else if (command == "egg") {
+        egg = true;
+        displayAnim("\n>:)", 20);
     }
     else {
         displayNewline();
