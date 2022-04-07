@@ -111,6 +111,10 @@ function parseCommand(command) {
         if (accountregistry[inusername] != undefined) {    // if account name exists in registry (agaim)
             displayNewline();
             displayAnim("user already exists in registry.", 10);
+        } else if (inusername == undefined || inusername == "" || inusername == null ) {
+
+            displayAnim("\nplease select a username!");
+
         } else {
             // yes
             debubg("user does not exist in registry!!!! making!!!! tm!!!!");
@@ -193,6 +197,24 @@ function parseCommand(command) {
             else {
                 displayAnim("invalid colour code.", 20);
             }
+        } else if (commandInit.split(" ")[1] == "accent") {
+            displayNewline();
+            var colour = commandInit.split(" ")[2];
+            debubg(`setting text colour to ${colour}`);
+            var iffy = /^#[0-9A-F]{6}$/i.test(colour);
+            if (iffy == true) {
+                setAccyColour(colour);
+                displayAnim(`setting text colour to ${colour}`, 15);
+            } else if (iffy == false && colour.toLowerCase() == "reset") {
+                setAccyColour("#1e1e1e");
+                displayAnim(`resetting text colour`, 15);
+            } else if (iffy == false) {
+                displayNewline();
+                displayAnim("invalid colour code.", 10);
+            }
+            else {
+                displayAnim("invalid colour code.", 20);
+            }
         } else if (commandInit.split(" ")[1] == "background") {
             displayNewline();
             var colour = commandInit.split(" ")[2];
@@ -215,6 +237,7 @@ function parseCommand(command) {
 
             setTextColour("#7cfc00");
             setBackColour("#000000");
+            setAccyColour("#1e1e1e");
             displayNewline();
             displayAnim("colours have been reset", 5);
 
@@ -917,7 +940,7 @@ function parseCommand(command) {
         musicPage();
     } else if (command == "music play" || command == "music play ") {       // playing (resuming) music
         if (music_playing == true) {
-            if (paused_lyrics == true) {   // go and pause the lyrics
+            if (paused_lyrics == true) {   // go and unpause the lyrics
                 resumeLyrics();
                 paused_lyrics = false;
             } else {
@@ -931,7 +954,7 @@ function parseCommand(command) {
             if (paused_lyrics == false) {   // go and pause the lyrics
                 pauseLyrics();
                 displayAnim(`\nmusic has been paused.`, 7);
-                paused_lyrics = true;
+                paused_lyrics = true
             } else {
                 displayAnim(`\nmusic is already paused!`, 7);
             }
@@ -960,6 +983,7 @@ function parseCommand(command) {
             debubg(songname);
 
             var existent = false;
+            paused_lyrics = false;
 
             if (songs[songname]) {
                 existent = true;
@@ -1166,6 +1190,7 @@ function parseCommand(command) {
         parseCommand("music play want you gone");
         setTextColour("#ffb44d", false);// ACTRUAL : #ffb44d
         setBackColour("#a15606", false);// ACTUAL: #a15606
+        setAccyColour("#f68309", false);
         document.getElementById("songinfomouse").style.backgroundColor = "#f68309";
         document.getElementById("songinfomouse").style.color = "#ffb44d";
         document.getElementById("songinfo").style.borderColor = "#f68309";
@@ -1173,7 +1198,7 @@ function parseCommand(command) {
         inputlock = true;
         document.getElementById("p2cred").style.display = "";
     } else if (command == "egg") {
-        egg = true;
+        egg = !egg;
         displayAnim("\n>:)", 20);
     }
     else {

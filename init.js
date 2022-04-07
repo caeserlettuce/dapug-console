@@ -41,6 +41,7 @@ var snakeingame = false;
 var snaketick = 0;
 var textcolour = "#7cfc00";
 var backcolour = "#000000";
+var accycolour = "#1e1e1e";
 var autocommand = false;
 var startup = false; // REMEMBER TO SET TO TRUE LATER (haha now its automatic)
 var worble_status = false;
@@ -87,6 +88,7 @@ var portal_playing = true;
 var portal_type = 1;
 var og_textcolour = textcolour;
 var og_backcolour = backcolour;
+var og_accycolour = accycolour;
 var egg = false;
 
 debubg("variable init finished...");
@@ -132,6 +134,20 @@ function getTextColour() {
     }
     return coly
 }
+
+function getAccyColour() {
+    var coly = localStorage.getItem("accy-colour");
+
+    if (coly) {
+        debubg("local storage accy colour colour exists, skipping creation.");
+    } else {
+        debubg("creating accy colour local storage...");
+        localStorage.setItem("accy-colour", "#7cfc00");
+        coly = localStorage.getItem("accy-colour");
+    }
+    return coly
+}
+
 
 function getBackColour() {
     var coly = localStorage.getItem("back-colour");
@@ -337,6 +353,10 @@ getCommentIter();
 accountRegistry();
 textcolour = getTextColour();
 backcolour = getBackColour();
+accycolour = getAccyColour();
+og_textcolour = textcolour;
+og_backcolour = backcolour;
+og_accycolour = accycolour;
 
 debubg("local storage init finished.");
 
@@ -351,7 +371,7 @@ debubg("local storage init finished.");
 
 globalVars(false);
 
-var consoleParams = ["debug", "debugvar", "suggestion", "command", "textcolour", "backcolour", "text"];
+var consoleParams = ["debug", "debugvar", "suggestion", "command", "textcolour", "backcolour", "text", "accycolour"];
 
 
 addParameters(consoleParams);
@@ -365,6 +385,7 @@ var pr_command = pams[3];
 var pr_textcolour = pams[4];
 var pr_backcolour = pams[5];
 var pr_text = pams[6];
+var pr_accycolour = pams[7];
 
 debubg(`[url param init] debug: ${pr_debug}, debugvar: ${pr_debugvar}, suggestion: ${pr_suggestion}, command: ${pr_command}`);
 
@@ -404,6 +425,9 @@ if (pr_textcolour != null) {
 
 if (pr_backcolour != null) {
     backcolour = `#${pr_backcolour}`;
+}
+if (pr_accycolour != null) {
+    accycolour = `#${pr_accycolour}`;
 }
 //if (pr_command != null) { // if theres something at the url link and not just empty
 //    var text = `${pr_command}`;
@@ -1107,6 +1131,7 @@ worble_stats_biggeststreak: ${worble_stats_biggeststreak}
                portal_type: ${portal_type}
              og_textcolour: ${og_textcolour}
              og_backcolour: ${og_backcolour}
+                       egg: ${egg}
 `;autocommand
         console.log("binted.");
     }
@@ -1606,6 +1631,34 @@ function howMany (in_string, string) {
 }
 
 
+function setAccyColour(colour, save) {
+    var do_save = false
+    if (save == undefined || save == null) {
+        //debubg("exists!");
+        do_save = true;
+    } else {
+        //debubg("exists NOT!");
+        do_save = save;
+    }
+    // background colour
+    var r = hexToRgb(colour).r;
+    var g = hexToRgb(colour).g;
+    var b = hexToRgb(colour).b;
+    debubg(`${r}${g}${b}`);
+    // #7cfc00 GREEN
+    document.getElementById("debubmouse").style.backgroundColor = colour;
+    document.getElementById("debub").style.borderColor = colour;
+    document.getElementById("debubvarmouse").style.backgroundColor = colour;
+    document.getElementById("debubvar").style.borderColor = colour;
+    document.getElementById("songinfomouse").style.backgroundColor = colour;
+    document.getElementById("songinfo").style.borderColor = colour;
+    
+    if (do_save == true) {
+        localStorage.setItem("accy-colour", colour);
+        backcolour = `${colour}`;
+    }
+}
+
 function setBackColour(colour, save) {
     var do_save = false
     if (save == undefined || save == null) {
@@ -1624,6 +1677,9 @@ function setBackColour(colour, save) {
     document.getElementById("body").style.backgroundColor = colour;
     document.getElementById("body").style.background = colour;
     document.getElementById("scrollbar-back").innerHTML = `::-webkit-scrollbar-track { background: ${colour}; } ::-webkit-scrollbar-corner { background: ${colour} }`;
+    document.getElementById("debub").style.backgroundColor = colour;
+    document.getElementById("debubvar").style.backgroundColor = colour;
+    document.getElementById("songinfo").style.backgroundColor = colour;
     if (do_save == true) {
         localStorage.setItem("back-colour", colour);
         backcolour = `${colour}`;
@@ -1652,6 +1708,9 @@ function setTextColour(colourcode, save) {
     document.getElementById("consoleinputstyle").style.color = colourcode;
     document.getElementById("scrollbar-colour").innerHTML = `::-webkit-scrollbar-thumb { background: rgba(${r}, ${g}, ${b}, 0.5); }`;
     document.getElementById("link-styles").innerHTML = `.link {color: ${colourcode}; font-family: COURIERPRIME; } .link:hover { color: ${colourcode}; font-family: COURIERPRIME; } .link:visited { color: ${colourcode}; font-family: COURIERPRIME; } .link:active { color: ${colourcode}; font-family: COURIERPRIME; } `;
+    document.getElementById("debubmouse").style.color = colourcode;
+    document.getElementById("debubvarmouse").style.color = colourcode;
+    document.getElementById("songinfomouse").style.color = colourcode;
     if (do_save == true) {
         localStorage.setItem("text-colour", colourcode);
         textcolour = `${colourcode}`;
@@ -2339,6 +2398,7 @@ debubg("async command functions init finished...");
 
 setTextColour(textcolour);
 setBackColour(backcolour);
+setAccyColour(accycolour);
 
 
 // EXAMPLE INLINE FNCTIONS WHERE THEY ONLY rUN ONE THING AT A TIME INSTEAD OF EVERYTHING RUNNING AT HE SAME TIME
@@ -2466,6 +2526,7 @@ music.addEventListener('ended', (event) => {
         portal_playing = false;
         setTextColour(og_textcolour);
         setBackColour(og_backcolour);
+        setAccyColour(og_accycolour);
         inputlock = false;
         document.getElementById("p2cred").style.display = "none";
         document.getElementById("p1cred").style.display = "none";
@@ -2474,8 +2535,8 @@ music.addEventListener('ended', (event) => {
         document.getElementById("songinfomouse").style.color = "white";
         document.getElementById("songinfo").style.borderColor = "#1e1e1e";
         document.getElementById("songinfo").style.backgroundColor = og_backcolour;
-        boom();
     }
+    boom();
 });
 
 
