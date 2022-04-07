@@ -4194,7 +4194,63 @@ var songs = {
             {"text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ngone", "dur": [132750, 135300]}
         ]
     },
+    "soft fuzzy man": {
+        "name": "Soft Fuzzy Man",
+        "artist": "Lemon Demon",
+        "album": "Spirit Phone",
+        "art": "https://media.discordapp.net/attachments/960729059829096580/960838302561353738/spiritphone.png?width=655&height=655",
+        "audio": "https://cdn.discordapp.com/attachments/960729059829096580/961658854276497458/Lemon_Demon_-_Soft_Fuzzy_Man.mp3",
+        "volume": 1,
+        "lyrics": [
+            {"text": "Cold and windy", "dur": [8123, 10847]},
+            {"text": "\nDark and stormy", "dur": [11411, 13963]},
+            {"text": "\nLet me float your way", "dur": [14373, 16877]},
+            {"text": "\nPlease don't ignore me", "dur": [17679, 20800]},
+            {"text": "\n\nWhat you girls really need's a soft, fuzzy man", "dur": [20958, 24343]},
+            {"text": "\n(An ambient man)", "dur": [24286, 26199]},
+            {"text": " A trick of the light", "dur": [26146, 27618]},
+            {"text": " to love you tonight", "dur": [27592, 29452]},
+            {"text": "\nYou don't understand,", "dur": [29434,30941 ]},
+            {"text": " there's nothing quite like a soft, fuzzy man", "dur": [31127, 34670]},
+            {"text": "\n\nCan't you see me?", "dur": [61116, 63866]},
+            {"text": "\nWhy can't you see me?", "dur": [63998, 67163]},
+            {"text": "\nI'm all around", "dur": [67771, 70187]},
+            {"text": "\nAll cold and dreamy", "dur": [70619, 73757]},
+            {"text": "\n\nWhat you girls really need's a soft, fuzzy man", "dur": [73969, 77257]},
+            {"text": "\n(A wisp of smoke man)", "dur": [77259, 79064]},
+            {"text": " To waft over you", "dur": [79065, 80386]},
+            {"text": " and cloud up your view", "dur": [80545, 82369]},
+            {"text": "\nSo show me your hands", "dur": [82413, 83911]},
+            {"text": " and wave them right through a soft, fuzzy man", "dur": [84027, 87852]},
+            {"text": "\n\nAlthough I have no arms to hold you in", "dur": [100176, 103799]},
+            {"text": "\nA human passion burns within me", "dur": [103940, 106876]},
+            {"text": "\nI need to feel like I exist", "dur": [106902, 110402]},
+            {"text": "\nSo please baby, please baby, step into the mist", "dur": [110493, 113663]},
+            {"text": "\nWoo!", "dur": [113672, 114333]},
+            {"text": "\n\nDon't be nervous", "dur": [114113, 116846]},
+            {"text": "\nNo, don't be nervous", "dur": [116855, 120125]},
+            {"text": "\nI'm not like other guys", "dur": [120163, 123404]},
+            {"text": "\nWho have a surface", "dur": [123554, 126754]},
+            {"text": "\n\nWhat you girls really need's a soft, fuzzy man", "dur": [126886, 130307]},
+            {"text": "\n(An atmospheric man)", "dur": [130307, 132158]},
+            {"text": " A shimmering puff of indistinct love", "dur": [132105, 135419]},
+            {"text": "\nWhat's better than", "dur": [135472, 136479]},
+            {"text": " the vague embrace of a soft,", "dur": [136839, 139571]},
+            {"text": " fuzzy man?", "dur": [139563, 141202]},
+            {"text": "\n\nWho seeps through your thoughs?", "dur": [141819, 143875]},
+            {"text": "\nWho makes you see spots?", "dur": [145199, 147205]},
+            {"text": "\nWho blows through the air?", "dur": [148431, 150661]},
+            {"text": "\nWho plays with your hair?", "dur": [151895, 153702]},
+            {"text": "\nI know it sounds crazy", "dur": [155024, 157114]},
+            {"text": "\nBut once you go hazy,", "dur": [158313, 160225]},
+            {"text": " you'll understand", "dur": [160393, 161900]},
+            {"text": "\nI'm your soft fuzzy man", "dur": [163082, 165435]}
+        ]
+    }
 }
+
+
+// spirit phone: https://media.discordapp.net/attachments/960729059829096580/960838302561353738/spiritphone.png?width=655&height=655
 
 // if you just want javascript to run at a specific time without any lyrics, just set "text" to false, without quotes, but still have the times and then ofcourse set "exec" to the javascript you want run
 var HJABJBGASFJHKBGSDLFBJLF = `
