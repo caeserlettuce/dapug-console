@@ -4141,6 +4141,55 @@ var songs = {
         "volume": 1,
         "lyrics": [
             {"text": false, "dur": [5167, 5167], "exec": "portalCreditAnim(2, 30);"},
+            {"text": "Forms FORM-29827281-12-2:\nNotice of Dismissal\n\n", "dur": [0, 4200]},
+            {"text": "\nWell here we are again", "dur": [6598, 8311]},
+            {"text": "\nIt's always such a pleasure", "dur": [9024, 11075]},
+            {"text": "\nRemember when you tried", "dur": [11701, 13121]},
+            {"text": "\nto kill me twice?", "dur": [13185, 15120]},
+            {"text": "\nOh how we laughed and laughed", "dur": [16178, 18211]},
+            {"text": "\nExcept I wasn't laughing", "dur": [18714, 20719]},
+            {"text": "\nUnder the circumstances", "dur": [21011, 23261]},
+            {"text": "\nI've been shockingly nice", "dur": [23279, 26026]},
+            {"text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nY", "dur": [25703, 26000]},
+            {"text": "ou want your freedom?", "dur": [26674, 28808]}, // 
+            {"text": "\nTake it", "dur": [28837, 30514]},
+            {"text": "\nThat's what I'm counting on\n\n", "dur": [31461, 33851]},
+            {"text": "\nI used to want you dead", "dur": [36265, 39082]},
+            {"text": "\nbut", "dur": [39117, 39567]},
+            {"text": "\nNow I only want you gone", "dur": [39649, 43618]},
+            {"text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nS", "dur": [46636, 47435]},
+            {"text": "he was a lot like you", "dur": [47511, 49211]},
+            {"text": "\n(Maybe not quite as heavy)", "dur": [49947, 51870]},
+            {"text": "\nNow little Caroline is in here too", "dur": [52186, 55651]},
+            {"text": "\nOne day they woke me up", "dur": [56949, 58539]},
+            {"text": "\nSo I could live forever", "dur": [59304, 61404]},
+            {"text": "\nIt's such a shame the same", "dur": [61812, 63629]},
+            {"text": "\nwill never happen to you", "dur": [63635, 66662]},
+            {"text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSeverance Package Details:\n\n", "dur": [66662, 67000]},
+            {"text": "\nYou've got your", "dur": [67428, 68363]},
+            {"text": "\nshort sad", "dur": [68392, 69602]},
+            {"text": "\nlife left", "dur": [69602, 71876]},
+            {"text": "\nThat's what I'm counting on", "dur": [72297, 74646]},
+            {"text": "\nI'll let you get right to it", "dur": [77036, 80280]},
+            {"text": "\nNow I only want you gone", "dur": [80426, 83986]},
+            {"text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nG", "dur": [87468, 88736]},
+            {"text": "oodbye my only friend", "dur": [88881, 89947]},
+            {"text": "\nOh, ", "dur": [90555, 90929]},
+            {"text": "did you think I meant you?", "dur": [91151, 92524]},
+            {"text": "\nThat would be funny", "dur": [93056, 94517]},
+            {"text": "\nIf it weren't so sad", "dur": [94652, 96399]},
+            {"text": "\nWell you have been replaced", "dur": [97691, 99672]},
+            {"text": "\nI don't need anyone now", "dur": [100187, 102583]}, 
+            {"text": "\nWhen I delete you maybe", "dur": [102548, 104704]},
+            {"text": "\n[REDACTED]", "dur": [104739, 107492]},
+            {"text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nG", "dur": [107200, 108000]},
+            {"text": "o make some new disaster", "dur": [108305, 112302]},
+            {"text": "\nThat's what I'm counting on", "dur": [113091, 115961]},
+            {"text": "\nYou're someone else's problem", "dur": [117837, 121186]},
+            {"text": "\nNow I only want you gone", "dur": [121361, 124868]},
+            {"text": "\nNow I only want you gone", "dur": [126171, 129929]},
+            {"text": "\nNow I only want you", "dur": [130777, 133185]},
+            {"text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ngone", "dur": [132750, 135300]}
         ]
     },
 }
@@ -4151,7 +4200,7 @@ var HJABJBGASFJHKBGSDLFBJLF = `
 {"text": "\n", "dur": [, ]}
 
 ", "dur": [, ]},
-{"text": "
+{"text": "\n
 
 ,
     "": {
