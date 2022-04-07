@@ -167,13 +167,13 @@ strong {
 .p2credwindow {
   background-color: #a15606;
   font-family: COURIERPRIME;
-  color: /*#ffb44d*/#1e1e1e;
+  color: #ffb44d/*#1e1e1e*/;
   font-size: 1vw;
   overflow-x: scroll;
   /*overflow-wrap: break-word;*/
   overflow-wrap: scroll;
   white-space: normal;
-  width: 420px;
+  width: 390px;
   height: 80vh;
   position: fixed;
   right: 2px;
