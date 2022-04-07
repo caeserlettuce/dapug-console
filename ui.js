@@ -4031,7 +4031,7 @@ var songs = {
         "audio": "still_alive.mp3",
         "volume": 1,
         "lyrics": [
-            {"text": "", "dur": [, ]} 
+            {"text": false, "dur": [8569, 8569], "exec": "portalCreditAnim(1, 60);"},
         ]
     },
     "want you gone": {
@@ -4070,66 +4070,90 @@ var HJABJBGASFJHKBGSDLFBJLF = `
 
 `                               // this is essentially just block comments so i can be able to copy paste this for lyrics (tm)
 
+
+//
+//  project is 29.86fps
+//  0.03348961821 seconds per frame
+//  
+//  8,17 is when credits start
+//  9,16 is when the first line is finished
+//  first line is: "> LIST PERSONNEL"
+//  16 characters long
+//  29 frames for 16 characters
+//  1.8125 frames per character
+//  0.060 ms per characer
+//
+//  SO:
+//  i need to set the credits speed to 60
+//
+//  ALSO:
+//  the credits start 8569 ms into the song
+//
+//  NOW:
+//  use audacity for syncing the lyrics because god it would take so much longer to use kdenlive, i'd have to do the math every single value, it'd be a pain so just use audacity i mbeggin g  you    please e
 var p1_credits = [
-    "credits 1!",
-    "im here!",
-    " ",
-    " ",
-    " ",
-    " ",
-    " ",
-    "HELLO!",
+    "> LIST PERSONNEL\n\n",
+    "Gautam Babber",
+    "Ted Backman",
+    "Kelly Bailey",
+    "Jeff Ballinger",
+    "Aaron Barber",
+    "Jeep Barnett",
+    "Jeremy Bennett",
+    "Dan Berger",
+    "Yahn Bernier",
+    "Ken Birdwell",
+    "Derrick Birum",
+    "Mike Blaszczak",
+    "Iestyn Bleasdale-Shepherd",
+    "Chris Bokitch",
+    "Steve Bond",
+    "Matt Boone",
+    "Antoine Bourdon",
+    "Jamaal Bradley",
+    "Jason Brashill",
+    "Charlie Brown",
+    "Charlie Burgin",
+    "Andrew Burke",
+    "Augusta Butlin",
+    "Julie Caldwell",
+    "Dario Casali",
+    "Chris CHin",
+    "Jess Cliffe",
+    "Phil Co",
+    "John Cook",
+    "Christen Coomer",
+    "Greg Coomer",
+    "Scott Dalton",
+    "Kerry Davis",
+    "Jason Deakins",
+    "Joe Demers",
+    "Ariel Diaz",
+    "Quintin Doroquez",
+    "Jon Dose",
+    "Chris Douglass",
+    "Laura Dubuk",
+    "Mike Dunkle",
+    "Mike Durand",
+    "Mike Dussault",
+    "Dhabih Eng",
+    "Katie Engel",
+    "Chet Faliszek",
+    "Adrian Finol",
+    "Bill Fletcher",
+    "Moby Francke",
+    "Stephane Gaudette",
+    "Kathy Gehrig",
+    "Vitality Genkin",
+    "Paul Graham",
+    "Chris Green",
+    "Chris Grinstead",
+    "John Guthrie",
+    
 ]
 
 var p2_credits = [
-    "credits 2!",
-    "im here!",
-    " ",
-    " ",
-    " ",
-    " ",
-    " ",
-    "HELLO!",
-    "credits 2!",
-    "im here!",
-    " ",
-    " ",
-    " ",
-    " ",
-    " ",
-    "HELLO!",
-    "credits 2!",
-    "im here!",
-    " ",
-    " ",
-    " ",
-    " ",
-    " ",
-    "HELLO!",
-    "credits 2!",
-    "im here!",
-    " ",
-    " ",
-    " ",
-    " ",
-    " ",
-    "HELLO!",
-    "credits 2!",
-    "im here!",
-    " ",
-    " ",
-    " ",
-    " ",
-    " ",
-    "HELLO!",
-    "credits 2!",
-    "im here!",
-    " ",
-    " ",
-    " ",
-    " ",
-    " ",
-    "HELLO!",
+    ">LIST PERSONNEL:"
 ]
 
 

@@ -1301,17 +1301,26 @@ function portalCreditAnim(game, speed) {
     var creds = "incorrect game chosen. i brokey."
     var elf;
     var cre = "";
+    var text_height = 18;
     if (game == 1) {
         creds = p1_credits;
         elf = document.getElementById("p1credtext");
         cre = "p1cred";
+        elf.innerHTML = "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
     } else if (game == 2) {
         creds = p2_credits;
         elf = document.getElementById("p2credtext");
         cre = "p2cred";
+        var credhe = windowHeight * .80;
+        var newlineAm = credhe / text_height;
+        newlineAm = Math.floor(newlineAm);
+        newlineAm -= 2;
+
+
+        elf.innerHTML = `${"\n".repeat(newlineAm)}`;
     }
     
-    elf.innerHTML = "\n";
+    
     //here our function should be implemented 
     creds = creds.join("\n");
     cred_chunks = creds.split("");
@@ -2463,4 +2472,7 @@ music.addEventListener('ended', (event) => {
 });
 
 
+
 console.log("music info hide thingy init finished...");
+
+
