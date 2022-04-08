@@ -90,7 +90,10 @@ var og_textcolour = textcolour;
 var og_backcolour = backcolour;
 var og_accycolour = accycolour;
 var egg = false;
-var beans = true;
+var windowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+var windowHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+var aspectratio = windowWidth / windowHeight;
+debubg(aspectratio);
 
 debubg("variable init finished...");
 // local storage setup
@@ -584,8 +587,7 @@ function copyArr(arr) {
     }
     copyclip(fimb);
 }
-var windowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-var windowHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+
 debubg("window scale init finished...");
 function scrolly(elf) {
     mom = document.getElementById(elf);
@@ -594,12 +596,14 @@ function scrolly(elf) {
 };
 debubg("scrolly init finished...");
 if (windowWidth > windowHeight) {
-    // if on mobile
-    document.getElementById("body").style.fontSize = "1vw";
-    document.getElementById("consoleinputstyle").style.fontSize = "1.25vw";
-    document.getElementById("consoleinput").style.fontSize = "1.25vw";
+    // if on landscape
+    aspectratio = windowWidth / windowHeight;
+    document.getElementById("body").style.fontSize = `${aspectratio}vh`;
+    document.getElementById("consoleinputstyle").style.fontSize = "1.25vh";
+    document.getElementById("consoleinput").style.fontSize = "1.25vh";
 } else {
-    // else
+    // if on portrait
+    aspectratio = windowWidth / windowHeight;
     document.getElementById("body").style.fontSize = "3vw";
     document.getElementById("consoleinputstyle").style.fontSize = "3vw";
     document.getElementById("consoleinput").style.fontSize = "3vw";
