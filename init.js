@@ -94,7 +94,7 @@ var egg = false;
 var windowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
 var windowHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
 var aspectratio = windowWidth / windowHeight;
-debubg(aspectratio);
+var sizemod = 1
 
 debubg("variable init finished...");
 // local storage setup
@@ -603,16 +603,16 @@ function sizeCheck() {
         // if on landscape
         debubg("landscape");
         aspectratio = windowWidth / windowHeight;
-        document.getElementById("body").style.fontSize = `${aspectratio}vh`;
-        document.getElementById("consoleinputstyle").style.fontSize = `${1.25 * aspectratio}vh`;
-        document.getElementById("consoleinput").style.fontSize = `${1.25 * aspectratio}vh`;
+        document.getElementById("body").style.fontSize = `${aspectratio * sizemod}vh`;
+        document.getElementById("consoleinputstyle").style.fontSize = `${1.25 * aspectratio * sizemod}vh`;
+        document.getElementById("consoleinput").style.fontSize = `${1.25 * aspectratio * sizemod}vh`;
     } else if (windowWidth < windowHeight) {
         // if on portrait
         debubg("portrait");
         aspectratio = windowHeight / windowWidth;
-        document.getElementById("body").style.fontSize = `${2 * aspectratio}vw`;
-        document.getElementById("consoleinputstyle").style.fontSize = `${2.25 * aspectratio}vw`;
-        document.getElementById("consoleinput").style.fontSize = `${2.25 * aspectratio}vw`;
+        document.getElementById("body").style.fontSize = `${2 * aspectratio * sizemod}vw`;
+        document.getElementById("consoleinputstyle").style.fontSize = `${2.25 * aspectratio * sizemod}vw`;
+        document.getElementById("consoleinput").style.fontSize = `${2.25 * aspectratio * sizemod}vw`;
     }
 }
 sizeCheck();
