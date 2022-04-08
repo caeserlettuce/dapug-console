@@ -11,6 +11,7 @@ debubg("debug message init finished...");
 var consol = document.getElementById("consy");
 var version = "0.4.3";
 var user = "user";
+var user_permission;
 var consoltext = "";
 var inputlock = false;
 var mainsys = true;
@@ -198,7 +199,7 @@ function accountRegistry() {
 
     if(accountsregistry) {
         // exists
-        debubg("local storage comments does exist, skipping creation.");
+        debubg("local storage accounts does exist, skipping creation.");
     } else {
         // doesnt
 
@@ -1740,6 +1741,16 @@ function setTextColour(colourcode, save) {
 function setUser(inuser) {
     user = inuser;
     localStorage.setItem("currentaccount", inuser);
+    var permissions = {    // another security hole!
+        "dev": -2,
+        "admin": -1,
+        "user": 1
+    }
+    if (permissions[user]) {    // if a permission exists for the user
+        user_permission = permissions[user];
+    } else {
+        user_permission = permissions["user"];
+    }
 }
 
 

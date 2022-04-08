@@ -2633,7 +2633,7 @@ var convertlist = [
 ];
 
 var booty = [
-    "Booting Console...                    ",
+    "\nBooting Console...                    ",
     "Loading Commands...             "
 ];
 var booty2 = [
