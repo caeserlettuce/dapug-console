@@ -90,6 +90,7 @@ var og_textcolour = textcolour;
 var og_backcolour = backcolour;
 var og_accycolour = accycolour;
 var egg = false;
+var beans = true;
 
 debubg("variable init finished...");
 // local storage setup
