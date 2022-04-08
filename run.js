@@ -1209,6 +1209,21 @@ function parseCommand(command) {
     } else if (command == "egg") {
         egg = !egg;
         displayAnim("\n>:)", 20);
+
+    }  else if (argCommand == "zoom") { // this modifies the text size
+        var mmm = argComm(commandInit);
+
+        if (isNaN(mmm[1]) == false) {
+            sizemod = mmm[1];
+            sizeCheck();
+            displayAnim(`\nset font size to ${sizemod}`)
+        }
+        else {
+            displayAnim("\nplease enter a valid number or check the man page!", 7);
+        }
+
+            
+
     }
     else {
         displayNewline();
