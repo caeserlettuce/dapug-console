@@ -608,7 +608,7 @@ function parseCommand(command) {
         displayNewline();
         displayAnim(cpoylist, 1);
     } else if(command == "copycomm") {
-        parseCommand("man copycomm");   // if they just type it in, send them to the man page cause clearly they dont know what theyre doing /lh
+        displayAnim("\nplease include a command to copy!", 7) // this way it doesn't copy `undefined`
     } else if (argCommand == "copycomm") {
         var mmm = argComm(commandInit);
         var commen = mmm[1];
