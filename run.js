@@ -1219,7 +1219,7 @@ function parseCommand(command) {
                 sizeCheck();
                 displayAnim(`\nset font size to ${sizemod}`);
             } else {
-                displayAnim("\nplease enter a value greater than or equal to 0.1!");
+                displayAnim("\nplease enter a value between 0.1 and 20!");
             }
 
         } else {
