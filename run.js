@@ -1214,19 +1214,18 @@ function parseCommand(command) {
         var mmm = argComm(commandInit);
 
         if (isNaN(mmm[1]) == false) {
-            if (mmm[1] >= 0.1) {
-            sizemod = mmm[1];
-            sizeCheck();
-            displayAnim(`\nset font size to ${sizemod}`)
-        } 
-            else if (mmm[1] < 0.1) {
-            displayAnim("\nplease enter a value greater than or equal to 0.1!");
-        }
-        else {
+            if (mmm[1] >= 0.1 && mmm[1] <= 20) {
+                sizemod = mmm[1];
+                sizeCheck();
+                displayAnim(`\nset font size to ${sizemod}`);
+            } else {
+                displayAnim("\nplease enter a value greater than or equal to 0.1!");
+            }
+
+        } else {
             displayAnim("\nplease enter a valid number or check the man page!", 7);
         }
     }
-}
 
     else {
         displayNewline();
