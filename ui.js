@@ -2506,6 +2506,13 @@ var man = {
         " ",
         "USAGE:",
         "'music skip'"
+    ],
+    "zoom": [
+        "ZOOM MANPAGE",
+        "multiplies text size by the entered value",
+        " ",
+        "USAGE:",
+        "`zoom [number]`"
     ]
 
 }
@@ -2592,6 +2599,7 @@ var listy = [
     "portal1",
     "portal2",
     "egg",
+    "zoom",
 
     "* command is currently in-development and may break the site."
 ]; 
