@@ -16,6 +16,8 @@ function playMusic(internal_name) {
 
 function boom() {
     if (egg == true) {
-        var boom = new Audio("boom.mp3").play();;
+        var epic = new Audio("boom.mp3");
+        epic.volume = 0.3;
+        epic.play();
     }
 }

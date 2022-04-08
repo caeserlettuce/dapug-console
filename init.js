@@ -784,10 +784,7 @@ async function displaySingleLine(message, speed, colour, link) {
             setTimeout(function timer() {
                 var mess = messagey[i];
                 scrolly("consy");
-                if (messagey[i] == " ") {
-                    boom();
-                }
-                if (messagey[i] == "\n") {
+                if (messagey[i] == " " || messagey[i] == "\n") {
                     boom();
                 }
                 displayAppend(messagey[i], use_id, false, colour, link);

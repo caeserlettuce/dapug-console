@@ -1168,9 +1168,11 @@ function parseCommand(command) {
         fulllist.push(`└${"─".repeat(songlen)}─┴─${"─".repeat(namelen)}─┴─${"─".repeat(artistlen)}─┴─${"─".repeat(albumlen)}┘`);
         fulllist.push(" ");
         fulllist.push("use 'music play [song id]' to play a song!");
+        fulllist.push("and 'music volume [volume level]' to change the volume!");
+        fulllist.push("(check 'music' for more options)");
         //console.log(songlist);
         displayNewline();
-        displayAnim(fulllist, 1);
+        displayAnim(fulllist, 0.1);
 
     } else if (command == "portal") {   // play portal 1 music
         parseCommand("portal1");
