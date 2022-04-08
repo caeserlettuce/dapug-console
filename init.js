@@ -146,7 +146,7 @@ function getAccyColour() {
         debubg("local storage accy colour colour exists, skipping creation.");
     } else {
         debubg("creating accy colour local storage...");
-        localStorage.setItem("accy-colour", "#7cfc00");
+        localStorage.setItem("accy-colour", "#1e1e1e");
         coly = localStorage.getItem("accy-colour");
     }
     return coly
@@ -595,19 +595,26 @@ function scrolly(elf) {
     mom.scrollTop = mom.scrollHeight;
 };
 debubg("scrolly init finished...");
-if (windowWidth > windowHeight) {
-    // if on landscape
-    aspectratio = windowWidth / windowHeight;
-    document.getElementById("body").style.fontSize = `${aspectratio}vh`;
-    document.getElementById("consoleinputstyle").style.fontSize = "1.25vh";
-    document.getElementById("consoleinput").style.fontSize = "1.25vh";
-} else {
-    // if on portrait
-    aspectratio = windowWidth / windowHeight;
-    document.getElementById("body").style.fontSize = "3vw";
-    document.getElementById("consoleinputstyle").style.fontSize = "3vw";
-    document.getElementById("consoleinput").style.fontSize = "3vw";
+
+function sizeCheck() {
+    updateScreenVars();
+    if (windowWidth > windowHeight) {
+        // if on landscape
+        debubg("landscape");
+        aspectratio = windowWidth / windowHeight;
+        document.getElementById("body").style.fontSize = `${aspectratio}vh`;
+        document.getElementById("consoleinputstyle").style.fontSize = `${1.25 * aspectratio}vh`;
+        document.getElementById("consoleinput").style.fontSize = `${1.25 * aspectratio}vh`;
+    } else if (windowWidth < windowHeight) {
+        // if on portrait
+        debubg("portrait");
+        aspectratio = windowHeight / windowWidth;
+        document.getElementById("body").style.fontSize = `${2 * aspectratio}vw`;
+        document.getElementById("consoleinputstyle").style.fontSize = `${2.25 * aspectratio}vw`;
+        document.getElementById("consoleinput").style.fontSize = `${2.25 * aspectratio}vw`;
+    }
 }
+sizeCheck();
 debubg("text scaling init finished...");
 
 // NEW screen operations!!1!11!
@@ -2277,9 +2284,25 @@ function setSongInfo(internal_name) {
     songAlbum.innerHTML = song_album;
 }
 
+function updateScreenVars() {
+    windowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+    windowHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+}
 
 
-// =============================== TOOL FUNCTIONS ABOVE ==================
+
+//  .M.              %MMMMMMMM% .%MMMMMMM%. .%MMMMMMM%. +M                     +MMMMMMMMI MM       MM +MM.      M+  .%MMMMMM %MMMMMMMM% mmmmmmmmmm .%MMMMMMM%. +MM.      M+ .%MMMMMMM%.              .M.  
+// .M'M.             %MMMMMMMM% %MM%' '%MM% %MM%' '%MM% MM                     MMMMMMMMMI MM       MM MMMM.     MM .%MMMMMMM %MMMMMMMM% MMMMMMMMMM %MM%' '%MM% MMMM.     MM %MM%' '%MM%             .M'M. 
+// M' 'M                 MM     MM'     'MM MM'     'MM MM                     MM+        MM       MM MM'MM.    MM %MM%'         MM         MM     MM'     'MM MM'MM.    MM MM'                     M' 'M 
+//                       MM     MM       MM MM       MM MM                     MM........ MM       MM MM 'MM.   MM MMM'          MM         MM     MM       MM MM 'MM.   MM MM%.......                    
+//                       MM     MM       MM MM       MM MM                     MMMMMMMMMM MM       MM MM  'MM.  MM MMM           MM         MM     MM       MM MM  'MM.  MM  %MMMMMMM%.                   
+//                       MM     MM       MM MM       MM MM                     MM'''''''' MM       MM MM   'MM. MM MMM.          MM         MM     MM       MM MM   'MM. MM   ''''''%MM                   
+//                       MM     MM.     .MM MM.     .MM MM                     MM         MM       MM MM    'MM.MM %MM%.         MM         MM     MM.     .MM MM    'MM.MM         .MM                   
+//                       MM     %MM%. .%MM% %MM%. .%MM% MM........             MM         %MM%   %MM% MM     'MMMM '%MMMMMMM     MM     mmmmMMmmmm %MM%. .%MM% MM     'MMMM %MM%. .%MM%                   
+//                       MM     '%MMMMMMM%' '%MMMMMMM%' +MMMMMMMM%             MM          %MMMMMMM%  +M      'MM+  '%MMMMMM     MM     MMMMMMMMMM '%MMMMMMM%' +M      'MM+ '%MMMMMMM%'                   
+//
+//
+//
 debubg("extra tool functions init finished...");
 
 async function githubPage() {
@@ -2552,6 +2575,7 @@ music.addEventListener('ended', (event) => {
     boom();
 });
 
+window.onresize = sizeCheck;
 
 
 console.log("music info hide thingy init finished...");

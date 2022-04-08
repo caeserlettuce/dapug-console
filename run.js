@@ -607,13 +607,20 @@ function parseCommand(command) {
     } else if (command == "copylist") {
         displayNewline();
         displayAnim(cpoylist, 1);
+    } else if(command == "copycomm") {
+        parseCommand("man copycomm");   // if they just type it in, send them to the man page cause clearly they dont know what theyre doing /lh
     } else if (argCommand == "copycomm") {
         var mmm = argComm(commandInit);
         var commen = mmm[1];
         copycomm = commen;
-        displayNewline();
-        debubg(`set copy comment to ${copycomm}`);
-        displayAnim(`set copy comment to ${copycomm}`);
+        
+        if (copycomm != "" && copycomm != undefined && copycomm != null) {  // if copycomm input is not empty
+            debubg(`set copy comment to ${copycomm}`);
+            displayAnim(`\nset copy comment to ${copycomm}`, 7);
+        } else {    // else
+            displayAnim("\nplease enter valid text!!", 7);
+        }
+        
         
     } else if (command == "debug -v") {
         if (debugvar == false ) {
