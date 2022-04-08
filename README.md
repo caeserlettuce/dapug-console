@@ -106,7 +106,8 @@ and it is currently march 29th, 2022
 - [ ] more fun ascii arts
   - [x] add a slant font to the ascii text generator (more work but for better output)
 - [ ] finish all manpages
-- [ ] complete filesys (because that's a thing i forgot about but exists)
+- [x] complete filesys (because that's a thing i forgot about but exists)
+  - i ended up making that a seperate project so i just removed any ability to access the filesys framework from console
 - [x] colours
   - [x] fix link colours
   - [x] save what colours are what in local storage & then have it automatically set the colour on startup

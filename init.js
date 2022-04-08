@@ -9,7 +9,7 @@ function debubg(message) {
 }
 debubg("debug message init finished...");
 var consol = document.getElementById("consy");
-var version = "0.4.1";
+var version = "0.4.3";
 var user = "user";
 var consoltext = "";
 var inputlock = false;
