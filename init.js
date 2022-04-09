@@ -1680,6 +1680,21 @@ function setAccyColour(colour, save) {
     }
 }
 
+function setColour(text, textsave, background, backsave, accent, accysave) {
+    if (text != null && textsave == true){
+        setTextColour(text);
+    } else if (text != null && textsave == false) {
+        setTextColour(text, false);
+    } if (background != null && backsave == true) {
+        setBackColour(background);
+    } else if (background != null && backsave == false) {
+        setBackColour(background, false)
+    } if (accent != null && accysave == true) {
+        setAccyColour(accent);
+    } else if (accent != null && accysave == false) {
+        setAccyColour(accent, false)
+    }
+};
 function setBackColour(colour, save) {
     var do_save = false
     if (save == undefined || save == null) {
@@ -2443,10 +2458,10 @@ debubg("async command functions init finished...");
 
 // colour setting automatically tm
 
-setTextColour(textcolour);
-setBackColour(backcolour);
-setAccyColour(accycolour);
-
+//setTextColour(textcolour);
+//setBackColour(backcolour);
+//setAccyColour(accycolour);
+setColour(textcolour, true, backcolour, true, accycolour, true);
 
 // EXAMPLE INLINE FNCTIONS WHERE THEY ONLY rUN ONE THING AT A TIME INSTEAD OF EVERYTHING RUNNING AT HE SAME TIME
 //function exampleInline() {
@@ -2571,9 +2586,10 @@ music.addEventListener('ended', (event) => {
     music_playing = false;
     if (portal_playing == true) {
         portal_playing = false;
-        setTextColour(og_textcolour);
-        setBackColour(og_backcolour);
-        setAccyColour(og_accycolour);
+        //setTextColour(og_textcolour);
+        //setBackColour(og_backcolour);
+        //setAccyColour(og_accycolour);
+        setColour(og_textcolour, true, og_backcolour, true, og_accycolour, true);
         inputlock = false;
         document.getElementById("p2cred").style.display = "none";
         document.getElementById("p1cred").style.display = "none";

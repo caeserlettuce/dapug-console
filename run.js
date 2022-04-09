@@ -185,10 +185,10 @@ function parseCommand(command) {
             debubg(`setting text colour to ${colour}`);
             var iffy = /^#[0-9A-F]{6}$/i.test(colour);
             if (iffy == true) {
-                setTextColour(colour);
+                setColour(colour, true, null, true, null, true);
                 displayAnim(`setting text colour to ${colour}`, 15);
             } else if (iffy == false && colour.toLowerCase() == "reset") {
-                setTextColour("#7cfc00");
+                setColour("#7cfc00", true, null, true, null, true);
                 displayAnim(`resetting text colour`, 15);
             } else if (iffy == false) {
                 displayNewline();
@@ -203,10 +203,10 @@ function parseCommand(command) {
             debubg(`setting text colour to ${colour}`);
             var iffy = /^#[0-9A-F]{6}$/i.test(colour);
             if (iffy == true) {
-                setAccyColour(colour);
+                setColour(null, true, null, true, colour, true);
                 displayAnim(`setting text colour to ${colour}`, 15);
             } else if (iffy == false && colour.toLowerCase() == "reset") {
-                setAccyColour("#1e1e1e");
+                setColour(null, true, null, true, "#1e1e1e", true);
                 displayAnim(`resetting text colour`, 15);
             } else if (iffy == false) {
                 displayNewline();
@@ -221,10 +221,10 @@ function parseCommand(command) {
             debubg(`setting text colour to ${colour}`);
             var iffy = /^#[0-9A-F]{6}$/i.test(colour);
             if (iffy == true) {
-                setBackColour(colour);
+                setColour(null, true, colour, true, null, true);
                 displayAnim(`setting background colour to ${colour}`, 15);
             } else if (iffy == false && colour.toLowerCase() == "reset") {
-                setBackColour("#000000");
+                setColour(null, true, "#000000", true, null, true);
                 displayAnim(`resetting background colour`, 15);
             } else if (iffy == false) {
                 displayNewline();
@@ -235,9 +235,10 @@ function parseCommand(command) {
             }
         } else if (commandInit.split(" ")[1] == "reset") {
 
-            setTextColour("#7cfc00");
-            setBackColour("#000000");
-            setAccyColour("#1e1e1e");
+            //setTextColour("#7cfc00");
+            //setBackColour("#000000");
+            //setAccyColour("#1e1e1e");
+            setColour("#7cfc00", true, "#000000", true, "#1e1e1e", true);
             displayNewline();
             displayAnim("colours have been reset", 5);
 
@@ -1187,8 +1188,9 @@ function parseCommand(command) {
         portal_playing = true;
         clearScreen();
         parseCommand("music play still alive");
-        setTextColour("#c6922b", false);
-        setBackColour("#010302", false);
+        //setTextColour("#c6922b", false);
+        //setBackColour("#010302", false);
+        setColour("#c6922b", false, "#010302", false);
         inputlock = true;
         document.getElementById("p1cred").style.display = "";
         document.getElementById("p1ascii").style.display = "";
@@ -1197,9 +1199,10 @@ function parseCommand(command) {
         portal_playing = true;
         clearScreen();
         parseCommand("music play want you gone");
-        setTextColour("#ffb44d", false);// ACTRUAL : #ffb44d
-        setBackColour("#a15606", false);// ACTUAL: #a15606
-        setAccyColour("#f68309", false);
+        //setTextColour("#ffb44d", false);// ACTRUAL : #ffb44d
+        //setBackColour("#a15606", false);// ACTUAL: #a15606
+        //setAccyColour("#f68309", false);
+        setColour("#ffb44d", false, "#a15606", false, "#f68309", false);
         document.getElementById("songinfomouse").style.backgroundColor = "#f68309";
         document.getElementById("songinfomouse").style.color = "#ffb44d";
         document.getElementById("songinfo").style.borderColor = "#f68309";
