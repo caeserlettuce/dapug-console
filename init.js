@@ -94,7 +94,7 @@ var egg = false;
 var windowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
 var windowHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
 var aspectratio = windowWidth / windowHeight;
-var sizemod = 1
+var sizemod = 1;
 
 debubg("variable init finished...");
 // local storage setup
@@ -365,6 +365,16 @@ og_accycolour = accycolour;
 
 debubg("local storage init finished.");
 
+//  .M.              +M         .%MMMMMMM%.  .%MMMMMM     :MMMM:     +M                     .%MMMMMMM%. %MMMMMMMM% .%MMMMMMM%. +MMMMMMM%.     :MMMM:     .%MMMMMMM%. +MMMMMMMMI              .M.  
+// .M'M.             MM         %MM%' '%MM% .%MMMMMMM    :MMMMMM:    MM                     %MM%' '%MM% %MMMMMMMM% %MM%' '%MM% MM+'  '+M%    :MMMMMM:    %MM%' '%MM% MMMMMMMMMI             .M'M. 
+// M' 'M             MM         MM'     'MM %MM%'        IMM::MMI    MM                     MM'             MM     MM'     'MM MM      MM    IMM::MMI    MM'     'MM MM+                    M' 'M 
+//                   MM         MM       MM MMM'        :MM:  :MM:   MM                     MM%.......      MM     MM       MM MM+.  .+M%   :MM:  :MM:   MM          MM........                   
+//                   MM         MM       MM MMM         IMM:  :MMI   MM                      %MMMMMMM%.     MM     MM       MM MMMMMMMM%'   IMM:  :MMI   MM          MMMMMMMMMM                   
+//                   MM         MM       MM MMM.       :MMMMMMMMMM:  MM                       ''''''%MM     MM     MM       MM MM  'MM.    :MMMMMMMMMM:  MM      MM% MM''''''''                   
+//                   MM         MM.     .MM %MM%.      IMM:    :MMI  MM                             .MM     MM     MM.     .MM MM   'MM.   IMM:    :MMI  MM.     'MM MM+                          
+//                   MM........ %MM%. .%MM% '%MMMMMMM :MM%      %MM: MM........             %MM%. .%MM%     MM     %MM%. .%MM% MM    'MM. :MM%      %MM: %MM%. .%MM% MMMMMMMMMI                   
+//                   +MMMMMMMM% '%MMMMMMM%'  '%MMMMMM :MM:      :MM: +MMMMMMMM%             '%MMMMMMM%'     MM     '%MMMMMMM%' +M     'MM :MM:      :MM: '%MMMMMMM%' +MMMMMMMMI                   
+
 
 // url params using my fancy plugin NOOOO I DONT HAVE THE FANY PLUGIN YET NOOOOOO
 // for context i just got a new laptop and i have not yet copied over all my files from my old laptop except for this one so........
@@ -467,7 +477,15 @@ if (pr_accycolour != null) {
 
 debubg("url params init finished...");
 
-
+//  .M.              MM       MM +MMMMMMM%. +M                     +MMMMMMM%.     :MMMM:     +MMMMMMM%.     :MMMM:     +MM.    .MM+ .%MMMMMMM%.              .M.  
+// .M'M.             MM       MM MM+'  '+M% MM                     MM+'  '+M%    :MMMMMM:    MM+'  '+M%    :MMMMMM:    MMMM.  .MMMM %MM%' '%MM%             .M'M. 
+// M' 'M             MM       MM MM      MM MM                     MM      MM    IMM::MMI    MM      MM    IMM::MMI    MM'MM  MM'MM MM'                     M' 'M 
+//                   MM       MM MM+.  .+M% MM                     MM+.  .+M%   :MM:  :MM:   MM+.  .+M%   :MM:  :MM:   MM MM..MM MM MM%.......                    
+//                   MM       MM MMMMMMMM%' MM                     MMMMMMMM%'   IMM:  :MMI   MMMMMMMM%'   IMM:  :MMI   MM 'MMMM' MM  %MMMMMMM%.                   
+//                   MM       MM MM  'MM.   MM                     MM          :MMMMMMMMMM:  MM  'MM.    :MMMMMMMMMM:  MM  'MM'  MM   ''''''%MM                   
+//                   MM       MM MM   'MM.  MM                     MM          IMM:    :MMI  MM   'MM.   IMM:    :MMI  MM        MM         .MM                   
+//                   %MM%   %MM% MM    'MM. MM........             MM         :MM%      %MM: MM    'MM. :MM%      %MM: MM        MM %MM%. .%MM%                   
+//                    %MMMMMMM%  +M     'MM +MMMMMMMM%             +M         :MM:      :MM: +M     'MM :MM:      :MM: +M        M+ '%MMMMMMM%'                   
 
 function scrollBottom(id) {
     var div = document.getElementById(id);
@@ -2299,6 +2317,149 @@ function updateScreenVars() {
     windowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
     windowHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
 }
+
+
+var example_table = [
+    {
+        "name": "Column 1",
+        "contents": [
+            "entry 1",
+            "entry 2!!!!",
+            "entry 3",
+            "entry 4",
+            "entry 5",
+            "entry 6"
+        ]
+    },
+    {
+        "name": "Column 2",
+        "contents": [
+            "entry 7",
+            "entry 8",
+            "entry 9",
+            "entry 10",
+            "entry 11!!!!!",
+            "entry 12"
+        ]
+    },
+    {
+        "name": "Column 3",
+        "width": 5,
+        "contents": [
+            "entry 13",
+            "entry 14",
+            "entry 15",
+            "entry 16",
+            "entry 17!!!!",
+            "entry 18",
+            "en"
+        ]
+    }
+
+]
+
+function stringWidth(string, width, beginning, dots) {
+
+    //    string: the string input
+    //     width: the width the string should be
+    // beginning: if the string should be cut from the beginning or end
+    //      dots: if it should display dots
+    var wid = `${string}`.length;
+    finalString = `${string}`;
+    if (wid < width) {                                      // if input string is shorter than width
+        var diff = width - wid;
+        finalString = `${string}${" ".repeat(diff)}`;
+    } else if (wid > width) {                               // if input string is longer than width
+        var diff = wid - width;
+        var add = "";                                       // .slice(0, -1); slices 1 character from end
+        if (dots == true) {
+            diff += 3;
+            add = "...";
+        }
+        if (beginning == true) {
+            finalString = `${add}${finalString.slice(diff)}`;
+        } else {
+            diff = diff * -1;
+            finalString = `${finalString.slice(0, diff)}${add}`;
+        }
+    }
+    return finalString
+}
+
+
+
+function generateTable(table) {
+    debubg("GENERATING TABLE!!");
+    // titles is the list of titles on the top for all the columns, contents is the actual contents of the
+    var col_widths = new Array();   // will store all the max width values for all the columns
+    var raw_table = new Array();
+    var columns = 0;
+    var rows = 0;
+
+    // CALCULATION OF STUFF AND THINGS!!!
+    for (i in table) {
+        // for every column
+        var cur_col = table[i];
+        var col_con = cur_col["contents"];
+        var cur_rows = 0;
+        var curWid = 0;
+        columns += 1;
+        if (cur_col["width"]) {             // if column has a pre defined width
+            debubg(`column ${i} has a width of ${cur_col["width"]}!`);
+            curWid = cur_col["width"];
+        } else {                            // if column doesnt have a pre defined width
+            debubg("no you idiot");
+            for (i in col_con) {            // for every row in the column
+                var enty = col_con[i];
+                var widy = enty.length;
+                if (widy > curWid) {        // if the length is longer than previous length
+                    curWid = widy;          // save the width
+                }
+            }
+        }
+        for (i in col_con) {                // for every row in the column
+            cur_rows += 1;                  // add 1 to the column's rows
+        }
+        if (cur_rows > rows) {              // if this column has more rows than the previous most rows
+            rows = cur_rows;                // set it to the new value
+        }
+        col_widths.push(curWid);            // for every column
+    }
+
+    console.log("widths: ", col_widths);
+    console.log("columns: ", columns);
+    console.log("rows: ", rows);
+
+    // MAKING RAW TABLE!!!!
+
+    for (i in table) {
+        var coly = table[i];
+        raw_table[i] = [];
+        raw_table[i].push(coly["name"]);
+        if (coly["width"]) { // if it has a predefined width
+            var widdy = coly["width"];
+            // .match(/.{1,32}/g);
+            //             ^ split string every x characters
+            
+        } else {
+
+        }
+        
+    }
+    
+
+
+
+
+    debubg("FINAL:");
+    console.log("widths: ", col_widths);
+    console.log("final table: ", raw_table);
+    console.log("columns: ", columns);
+    console.log("rows: ", rows);
+}
+
+generateTable(example_table);
+
 
 
 

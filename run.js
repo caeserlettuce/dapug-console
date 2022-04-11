@@ -38,7 +38,7 @@ function parseCommand(command) {
 
     } else if (command == "test") {
         displayNewline();
-        displayAnim("this is working", 20)
+        displayAnim("this is working", 20);
     } else if (command == "clear") {
         clearScreen();
     } else if (command.split(" ")[0] == "echo") {
