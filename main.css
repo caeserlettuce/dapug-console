@@ -20,9 +20,6 @@ strong {
   overflow-y: hidden;
   /*overflow-wrap: break-word;*/
   white-space: normal;
-
-  
-
 }
 
 ::-webkit-scrollbar {

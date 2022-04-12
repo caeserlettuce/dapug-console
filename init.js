@@ -1,9 +1,13 @@
 function debubg(message) {
     console.log(message);
     if (debug == true) {
-        var pogchamp = document.getElementById("debubtext");
-        texty = pogchamp.innerHTML;
-        pogchamp.innerHTML = `${texty}<br>${message}`;
+        //var pogchamp = debug_win.body;
+        //texty = pogchamp.innerHTML;
+        //pogchamp.innerHTML = `${texty}<br>${message}`;
+        //debug_win.document.write('<pre>HEHE</pre>');
+
+        debug_win.document.getElementById("aaa").innerHTML += `${message}\n`;
+        
         scrolly("debub");
     }
 }
@@ -99,6 +103,10 @@ var modlist = [                                                                 
     "https://raw.githubusercontent.com/caeserlettuce/dapug-console/83165118e417052d21f49dedab18b381338079db/example_mod.js",
 ]
 var htmlmods = document.getElementById("mods");
+
+var debug_win;
+var debugvar_win;
+
 
 
 debubg("variable init finished...");
@@ -586,6 +594,48 @@ function toggleHideP1Ascii() {
         document.getElementById("p1ascii").style.height = "420px";
     }
 }
+
+
+// new debug stuff
+
+function debugWindow(bool) {
+    
+    if (bool == true) {     // if it open window
+        debug_win = window.open("", "Title", "directories=0,titlebar=0,toolbar=0,location=0,status=0,menubar=0,scrollbars=no,resizable=no,width=400,height=350,top="+(screen.height-400)+",left="+(screen.width-840));
+        debug_win.document.write('<style>::-webkit-scrollbar {width: 10px;height: 10px;}</style>')
+        debug_win.document.write('<style id="scroll-text-style">::-webkit-scrollbar-thumb { background: rgba(124, 252, 0, 0.5); }</style>');
+        debug_win.document.write('<pre id="aaa"></pre>');
+        debug_win.document.write(`<script>
+        var toot = false;
+        setInterval(function() {                // loop this every quarter second
+            toot = false;
+            try {
+                if (window.opener.debug != true) {      // if debug is false
+                    window.close();                     // close window
+                } else {
+                    toot = true;                        // else go and set it to true
+                }
+            } catch (err) {                             // if it returns an error (like if the main console window is closed)
+                if (toot == false) {
+                    window.close();                     // close this window
+                }
+            }
+            }, 250);
+        </script>`);
+
+
+        var debug_check = setInterval(function() { 
+            if(debug_win.closed) {
+                clearInterval(debug_check);
+                debug = false;
+                debubg("debug window closed!!");
+            }
+        }, 1000);
+    } else {
+        debug_win.close();
+    }
+}
+
 
 
 
@@ -1841,6 +1891,11 @@ function setTextColour(colourcode, save) {
     document.getElementById("debubmouse").style.color = colourcode;
     document.getElementById("debubvarmouse").style.color = colourcode;
     document.getElementById("songinfomouse").style.color = colourcode;
+    
+    if (debug == true) {
+        debug_win.document.getElementById("scroll-text-style") = `::-webkit-scrollbar-thumb { background: rgba(${r}, ${g}, ${b}, 0.5); }`;
+    }
+
     if (do_save == true) {
         localStorage.setItem("text-colour", colourcode);
         textcolour = `${colourcode}`;
@@ -2616,25 +2671,31 @@ function generateTable(table, theme) {
 //generateTable(example_table);
 
 
-var loadJS = function(url, implementationCode, location){
+//var loadJS = function(url, implementationCode, location){
     //url is URL of external file, implementationCode is the code
     //to be called from the file, location is the location to 
     //insert the <script> element
 
-    var scriptTag = document.createElement('script');
-    scriptTag.src = url;
+//    var scriptTag = document.createElement('script');
+//    scriptTag.src = url;
 
-    scriptTag.onload = implementationCode;
-    scriptTag.onreadystatechange = implementationCode;
+//    scriptTag.onload = implementationCode;
+//    scriptTag.onreadystatechange = implementationCode;
 
-    location.appendChild(scriptTag);
-};
+//    location.appendChild(scriptTag);
+//};
 
-var yourCodeToBeCalled = function(){
+//var yourCodeToBeCalled = function(){
 //your code goes here
-}
+//}
 
-loadJS('https://raw.githubusercontent.com/caeserlettuce/dapug-console/83165118e417052d21f49dedab18b381338079db/example_mod.js', yourCodeToBeCalled, document.body);
+//loadJS('https://raw.githubusercontent.com/caeserlettuce/dapug-console/83165118e417052d21f49dedab18b381338079db/example_mod.js', yourCodeToBeCalled, document.body);
+
+
+
+
+
+
 
 
 
@@ -2974,4 +3035,11 @@ window.onresize = sizeCheck;
 
 console.log("music info hide thingy init finished...");
 
+function closeDebuG() {
+    if (debug == true) {
+        debug_win.close();
+    }
+}
 
+
+window.onclose = closeDebuG;

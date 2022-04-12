@@ -526,13 +526,11 @@ function parseCommand(command) {
         debubg("cache cleared");
         location.reload();
     } else if (command == "debug") {
-        if (debug == false ) {
-            debug = true;
-            document.getElementById("debub").style.display = "";
-        } else {
-            debug = false;
-            document.getElementById("debub").style.display = "none";
-        }
+        debug = !debug;         // toggle it to be the opposite
+
+        debugWindow(debug);     // do whatever it needs to to the window
+
+
     } else if (command == "reboot") {
         location.reload();
     } else if (command == "cheese") {
