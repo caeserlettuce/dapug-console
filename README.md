@@ -28,6 +28,17 @@ and it is currently march 29th, 2022
 
 ## TODO:
 
+- [ ] more framework overhauls
+  - i'm essentially trying to reduce the amount of large blocks of if statements
+  - [ ] local storage overhaul
+  - [ ] set console colour overhaul
+  - [ ] debug window overhaul
+    - this includes making it open a seperate window thingymabob
+    - (song info shall just become a float or something)
+    - and the portal credits windows will have their css redone so that they're static and in the place they should be for the stuff lmao
+
+
+
 - [x] complete overhaul on how text is written to the console
   - this includes a lot of work, BUT! literally everything that writes text to the console uses the same set of functions, which is good, because that means i can just change what the functions do, instead of having to go to every instance of text writing and go and yknow, replace the code
   - so this idea i have for the new version *should* fix the issue of when you write multiple things to the console, it writes in the same line as the other output, which outputs something like this: shfkjsdl fjszfkjesfk sf hesfhs if,  fdg,fdz gf. ,sf sfkj

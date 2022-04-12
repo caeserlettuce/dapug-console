@@ -9,7 +9,7 @@ function debubg(message) {
 }
 debubg("debug message init finished...");
 var consol = document.getElementById("consy");
-var version = "0.4.3";
+var version = "0.4.5";
 var user = "user";
 var user_permission;
 var consoltext = "";
@@ -95,6 +95,11 @@ var windowWidth = window.innerWidth || document.documentElement.clientWidth || d
 var windowHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
 var aspectratio = windowWidth / windowHeight;
 var sizemod = 1;
+var modlist = [                                                                 // the list of URLs to mods for console (tm)
+    "https://raw.githubusercontent.com/caeserlettuce/dapug-console/83165118e417052d21f49dedab18b381338079db/example_mod.js",
+]
+var htmlmods = document.getElementById("mods");
+
 
 debubg("variable init finished...");
 // local storage setup
@@ -586,6 +591,18 @@ function toggleHideP1Ascii() {
 
 debubg("debug window init finished...");
 
+//  .M.              +MMMMMM%+   MM    MM +MM.      M+     :MMMM:     +MM.    .MM+ mmmmmmmmmm  .%MMMMMM             +M        M+ mmmmmmmmmm +MM.      M+ +MMMMMM%+   .%MMMMMMM%. +M        M+ .%MMMMMMM%.              .M.  
+// .M'M.             MMMMMMMMMI  MM.  .MM MMMM.     MM    :MMMMMM:    MMMM.  .MMMM MMMMMMMMMM .%MMMMMMM             +M        M+ MMMMMMMMMM MMMM.     MM MMMMMMMMMI  %MM%' '%MM% +M        M+ %MM%' '%MM%             .M'M. 
+// M' 'M             MM+    +MM; 'MM  MM' MM'MM.    MM    IMM::MMI    MM'MM  MM'MM     MM     %MM%'                 +M        M+     MM     MM'MM.    MM MM+    +MM; MM'     'MM +M        M+ MM'                     M' 'M 
+//                   MM      MM:  MM..MM  MM 'MM.   MM   :MM:  :MM:   MM MM..MM MM     MM     MMM'                  MM  'MM'  MM     MM     MM 'MM.   MM MM      MM: MM       MM MM  'MM'  MM MM%.......                    
+//                   MM      MM:  'MMMM'  MM  'MM.  MM   IMM:  :MMI   MM 'MMMM' MM     MM     MMM                   MM 'MMMM' MM     MM     MM  'MM.  MM MM      MM: MM       MM MM 'MMMM' MM  %MMMMMMM%.                   
+//                   MM      MM:   'MM'   MM   'MM. MM  :MMMMMMMMMM:  MM  'MM'  MM     MM     MMM.                  MM MM..MM MM     MM     MM   'MM. MM MM      MM: MM       MM MM MM..MM MM   ''''''%MM                   
+//                   MM+    +MM;    MM    MM    'MM.MM  IMM:    :MMI  MM        MM     MM     %MM%.                 MM'MM  MM'MM     MM     MM    'MM.MM MM+    +MM; MM.     .MM MM'MM  MM'MM         .MM                   
+//                   MMMMMMMMMI     MM    MM     'MMMM :MM%      %MM: MM        MM mmmmMMmmmm '%MMMMMMM             MMMM.  .MMMM mmmmMMmmmm MM     'MMMM MMMMMMMMMI  %MM%. .%MM% MMMM.  .MMMM %MM%. .%MM%                   
+//                   +MMMMMM%+      MM    +M      'MM+ :MM:      :MM: +M        M+ MMMMMMMMMM  '%MMMMMM             +MM.    .MM+ MMMMMMMMMM +M      'MM+ +MMMMMM%+   '%MMMMMMM%' +MM.    .MM+ '%MMMMMMM%'                   
+
+
+
 
 function copyclip(idiot) {
     navigator.clipboard.writeText(idiot);
@@ -635,6 +652,21 @@ function sizeCheck() {
 }
 sizeCheck();
 debubg("text scaling init finished...");
+
+
+//  .M.              .%MMMMMMM%.  .%MMMMMM     :MMMM:     +M         mmmmmmmmmm +MM.      M+ .%MMMMMMM%.              .M.  
+// .M'M.             %MM%' '%MM% .%MMMMMMM    :MMMMMM:    MM         MMMMMMMMMM MMMM.     MM %MM%' '%MM%             .M'M. 
+// M' 'M             MM'         %MM%'        IMM::MMI    MM             MM     MM'MM.    MM MM'     'MM             M' 'M 
+//                   MM%.......  MMM'        :MM:  :MM:   MM             MM     MM 'MM.   MM MM                            
+//                    %MMMMMMM%. MMM         IMM:  :MMI   MM             MM     MM  'MM.  MM MM                            
+//                     ''''''%MM MMM.       :MMMMMMMMMM:  MM             MM     MM   'MM. MM MM      MM%                   
+//                           .MM %MM%.      IMM:    :MMI  MM             MM     MM    'MM.MM MM.     'MM                   
+//                   %MM%. .%MM% '%MMMMMMM :MM%      %MM: MM........ mmmmMMmmmm MM     'MMMM %MM%. .%MM%                   
+//                   '%MMMMMMM%'  '%MMMMMM :MM:      :MM: +MMMMMMMM% MMMMMMMMMM +M      'MM+ '%MMMMMMM%'                   
+
+
+
+
 
 // NEW screen operations!!1!11!
 
@@ -914,6 +946,19 @@ function displayTimeAnim(message, durat) {    // duration in ms
 }
 
 
+
+//  .M.              +MMMMMM%+   mmmmmmmmmm .%MMMMMMM%. +MMMMMMM%. +M             :MMMM:     MM    MM              .M.  
+// .M'M.             MMMMMMMMMI  MMMMMMMMMM %MM%' '%MM% MM+'  '+M% MM            :MMMMMM:    MM.  .MM             .M'M. 
+// M' 'M             MM+    +MM;     MM     MM'         MM      MM MM            IMM::MMI    'MM  MM'             M' 'M 
+//                   MM      MM:     MM     MM%.......  MM+.  .+M% MM           :MM:  :MM:    MM..MM                    
+//                   MM      MM:     MM      %MMMMMMM%. MMMMMMMM%' MM           IMM:  :MMI    'MMMM'                    
+//                   MM      MM:     MM       ''''''%MM MM         MM          :MMMMMMMMMM:    'MM'                     
+//                   MM+    +MM;     MM             .MM MM         MM          IMM:    :MMI     MM                      
+//                   MMMMMMMMMI  mmmmMMmmmm %MM%. .%MM% MM         MM........ :MM%      %MM:    MM                      
+//                   +MMMMMM%+   MMMMMMMMMM '%MMMMMMM%' +M         +MMMMMMMM% :MM:      :MM:    MM                      
+
+
+
 var LyricTimer = function(callback, delay) {
     var timerId, start, remaining = delay;
 
@@ -1037,6 +1082,17 @@ function resumeLyrics() {
     }
 }
 
+
+
+//  .M.              +M         MM    MM +MMMMMMM%. mmmmmmmmmm  .%MMMMMM .%MMMMMMM%.              .M.  
+// .M'M.             MM         MM.  .MM MM+'  '+M% MMMMMMMMMM .%MMMMMMM %MM%' '%MM%             .M'M. 
+// M' 'M             MM         'MM  MM' MM      MM     MM     %MM%'     MM'                     M' 'M 
+//                   MM          MM..MM  MM+.  .+M%     MM     MMM'      MM%.......                    
+//                   MM          'MMMM'  MMMMMMMM%'     MM     MMM        %MMMMMMM%.                   
+//                   MM           'MM'   MM  'MM.       MM     MMM.        ''''''%MM                   
+//                   MM            MM    MM   'MM.      MM     %MM%.             .MM                   
+//                   MM........    MM    MM    'MM. mmmmMMmmmm '%MMMMMMM %MM%. .%MM%                   
+//                   +MMMMMMMM%    MM    +M     'MM MMMMMMMMMM  '%MMMMMM '%MMMMMMM%'                   
 
 
 
@@ -1359,6 +1415,18 @@ function newColourLinkAnim(message, speed, link, colour) {
 };
 
 
+//  .M.              .%MMMMMMM%. +M         +MMMMMM%+               +MMMMMM%+   mmmmmmmmmm .%MMMMMMM%. +MMMMMMM%. +M             :MMMM:     MM    MM              .M.  
+// .M'M.             %MM%' '%MM% MM         MMMMMMMMMI              MMMMMMMMMI  MMMMMMMMMM %MM%' '%MM% MM+'  '+M% MM            :MMMMMM:    MM.  .MM             .M'M. 
+// M' 'M             MM'     'MM MM         MM+    +MM;             MM+    +MM;     MM     MM'         MM      MM MM            IMM::MMI    'MM  MM'             M' 'M 
+//                   MM       MM MM         MM      MM:             MM      MM:     MM     MM%.......  MM+.  .+M% MM           :MM:  :MM:    MM..MM                    
+//                   MM       MM MM         MM      MM:             MM      MM:     MM      %MMMMMMM%. MMMMMMMM%' MM           IMM:  :MMI    'MMMM'                    
+//                   MM       MM MM         MM      MM:             MM      MM:     MM       ''''''%MM MM         MM          :MMMMMMMMMM:    'MM'                     
+//                   MM.     .MM MM         MM+    +MM;             MM+    +MM;     MM             .MM MM         MM          IMM:    :MMI     MM                      
+//                   %MM%. .%MM% MM........ MMMMMMMMMI              MMMMMMMMMI  mmmmMMmmmm %MM%. .%MM% MM         MM........ :MM%      %MM:    MM                      
+//                   '%MMMMMMM%' +MMMMMMMM% +MMMMMM%+               +MMMMMM%+   MMMMMMMMMM '%MMMMMMM%' +M         +MMMMMMMM% :MM:      :MM:    MM                      
+
+
+
 // PORTAL 2 CREDITS ANIMS:
 
 function portalCreditAnim(game, speed) {
@@ -1415,6 +1483,17 @@ function p1Ascii(art) {
         debubg(`portal 1 ascii art "${art}" does not exist!!`);
     }
 }
+
+//  .M.              +MMMMMMM%. .%MMMMMMM%. +MMMMMMM%. %MMMMMMMM%     :MMMM:     +M                      .%MMMMMM +MMMMMMM%. +MMMMMMMMI +MMMMMM%+   mmmmmmmmmm %MMMMMMMM% .%MMMMMMM%.              .M.  
+// .M'M.             MM+'  '+M% %MM%' '%MM% MM+'  '+M% %MMMMMMMM%    :MMMMMM:    MM                     .%MMMMMMM MM+'  '+M% MMMMMMMMMI MMMMMMMMMI  MMMMMMMMMM %MMMMMMMM% %MM%' '%MM%             .M'M. 
+// M' 'M             MM      MM MM'     'MM MM      MM     MM        IMM::MMI    MM                     %MM%'     MM      MM MM+        MM+    +MM;     MM         MM     MM'                     M' 'M 
+//                   MM+.  .+M% MM       MM MM+.  .+M%     MM       :MM:  :MM:   MM                     MMM'      MM+.  .+M% MM........ MM      MM:     MM         MM     MM%.......                    
+//                   MMMMMMMM%' MM       MM MMMMMMMM%'     MM       IMM:  :MMI   MM                     MMM       MMMMMMMM%' MMMMMMMMMM MM      MM:     MM         MM      %MMMMMMM%.                   
+//                   MM         MM       MM MM  'MM.       MM      :MMMMMMMMMM:  MM                     MMM.      MM  'MM.   MM'''''''' MM      MM:     MM         MM       ''''''%MM                   
+//                   MM         MM.     .MM MM   'MM.      MM      IMM:    :MMI  MM                     %MM%.     MM   'MM.  MM+        MM+    +MM;     MM         MM             .MM                   
+//                   MM         %MM%. .%MM% MM    'MM.     MM     :MM%      %MM: MM........             '%MMMMMMM MM    'MM. MMMMMMMMMI MMMMMMMMMI  mmmmMMmmmm     MM     %MM%. .%MM%                   
+//                   +M         '%MMMMMMM%' +M     'MM     MM     :MM:      :MM: +MMMMMMMM%              '%MMMMMM +M     'MM +MMMMMMMMI +MMMMMM%+   MMMMMMMMMM     MM     '%MMMMMMM%'                   
+
 
 
 debubg("special anim init finished...");
@@ -1609,6 +1688,18 @@ function asciiText(font, text) {
         return ['please select a font. to get a full list of fonts, run "font list"'];
     }
 }
+
+//  .M.                  :MMMM:     .%MMMMMMM%.  .%MMMMMM mmmmmmmmmm mmmmmmmmmm              .M.  
+// .M'M.                :MMMMMM:    %MM%' '%MM% .%MMMMMMM MMMMMMMMMM MMMMMMMMMM             .M'M. 
+// M' 'M                IMM::MMI    MM'         %MM%'         MM         MM                 M' 'M 
+//                     :MM:  :MM:   MM%.......  MMM'          MM         MM                       
+//                     IMM:  :MMI    %MMMMMMM%. MMM           MM         MM                       
+//                    :MMMMMMMMMM:    ''''''%MM MMM.          MM         MM                       
+//                    IMM:    :MMI          .MM %MM%.         MM         MM                       
+//                   :MM%      %MM: %MM%. .%MM% '%MMMMMMM mmmmMMmmmm mmmmMMmmmm                   
+//                   :MM:      :MM: '%MMMMMMM%'  '%MMMMMM MMMMMMMMMM MMMMMMMMMM                   
+
+
 function coopyIf(output) {
     if (coopy == true) {
         if (typeof output == 'string') { // if it's a string
@@ -2168,6 +2259,18 @@ function shareWorble(parsed) { // parse the worble save into colours
     copyArr(worble_share_finale);
 }
 
+//  .M.              +M        M+ .%MMMMMMM%. +MMMMMMM%. +MMMMMM%+   +M         +MMMMMMMMI              .M.  
+// .M'M.             +M        M+ %MM%' '%MM% MM+'  '+M% MMMMMMMMMM; MM         MMMMMMMMMI             .M'M. 
+// M' 'M             +M        M+ MM'     'MM MM      MM MM+    +MM; MM         MM+                    M' 'M 
+//                   MM  'MM'  MM MM       MM MM+.  .+M% MM%    %MM: MM         MM........                   
+//                   MM 'MMMM' MM MM       MM MMMMMMMM%' MMMMMMMMMX  MM         MMMMMMMMMM                   
+//                   MM MM..MM MM MM       MM MM  'MM.   MM%    %MM: MM         MM''''''''                   
+//                   MM'MM  MM'MM MM.     .MM MM   'MM.  MM+    +MM; MM         MM+                          
+//                   MMMM.  .MMMM %MM%. .%MM% MM    'MM. MMMMMMMMMI  MM........ MMMMMMMMMI                   
+//                   +MM.    .MM+ '%MMMMMMM%' +M     'MM +MMMMMM%+   +MMMMMMMM% +MMMMMMMMI                   
+
+
+
 // list of stuff i want:
 // - [x] save the entire guess history and load the guess history from local data (load history from local only on page load but save every wordle guess)
 // - [x] the colours are shown from a css class instead of directly in the span html
@@ -2510,8 +2613,28 @@ function generateTable(table, theme) {
     return final_table
 }
 
-generateTable(example_table);
+//generateTable(example_table);
 
+
+var loadJS = function(url, implementationCode, location){
+    //url is URL of external file, implementationCode is the code
+    //to be called from the file, location is the location to 
+    //insert the <script> element
+
+    var scriptTag = document.createElement('script');
+    scriptTag.src = url;
+
+    scriptTag.onload = implementationCode;
+    scriptTag.onreadystatechange = implementationCode;
+
+    location.appendChild(scriptTag);
+};
+
+var yourCodeToBeCalled = function(){
+//your code goes here
+}
+
+loadJS('https://raw.githubusercontent.com/caeserlettuce/dapug-console/83165118e417052d21f49dedab18b381338079db/example_mod.js', yourCodeToBeCalled, document.body);
 
 
 
@@ -2528,6 +2651,31 @@ generateTable(example_table);
 //
 //
 debubg("extra tool functions init finished...");
+
+
+
+
+
+
+
+
+
+
+debubg("jQuery functions init finished...");
+
+//  .M.                     MMMM .%MMMMMMM%. MM       MM +MMMMMMMMI +MMMMMMM%. MM    MM             +MMMMMMMMI MM       MM +MM.      M+  .%MMMMMM %MMMMMMMM% mmmmmmmmmm .%MMMMMMM%. +MM.      M+ .%MMMMMMM%.              .M.  
+// .M'M.                    ''MM %MM%' '%MM% MM       MM MMMMMMMMMI MM+'  '+M% MM.  .MM             MMMMMMMMMI MM       MM MMMM.     MM .%MMMMMMM %MMMMMMMM% MMMMMMMMMM %MM%' '%MM% MMMM.     MM %MM%' '%MM%             .M'M. 
+// M' 'M                      MM MM'     'MM MM       MM MM+        MM      MM 'MM  MM'             MM+        MM       MM MM'MM.    MM %MM%'         MM         MM     MM'     'MM MM'MM.    MM MM'                     M' 'M 
+//                            MM MM       MM MM       MM MM........ MM+.  .+M%  MM..MM              MM........ MM       MM MM 'MM.   MM MMM'          MM         MM     MM       MM MM 'MM.   MM MM%.......                    
+//                            MM MM       MM MM       MM MMMMMMMMMM MMMMMMMM%'  'MMMM'              MMMMMMMMMM MM       MM MM  'MM.  MM MMM           MM         MM     MM       MM MM  'MM.  MM  %MMMMMMM%.                   
+//                            MM MM       MM MM       MM MM'''''''' MM  'MM.     'MM'               MM'''''''' MM       MM MM   'MM. MM MMM.          MM         MM     MM       MM MM   'MM. MM   ''''''%MM                   
+//                            MM MM.    MMMM MM       MM MM+        MM   'MM.     MM                MM         MM       MM MM    'MM.MM %MM%.         MM         MM     MM.     .MM MM    'MM.MM         .MM                   
+//                   %MM%   %MM% %MM%.  %MM% %MM%   %MM% MMMMMMMMMI MM    'MM.    MM                MM         %MM%   %MM% MM     'MMMM '%MMMMMMM     MM     mmmmMMmmmm %MM%. .%MM% MM     'MMMM %MM%. .%MM%                   
+//                    %MMMMMMM%  '%MMMMMMM%M  %MMMMMMM%  +MMMMMMMMI +M     'MM    MM                MM          %MMMMMMM%  +M      'MM+  '%MMMMMM     MM     MMMMMMMMMM '%MMMMMMM%' +M      'MM+ '%MMMMMMM%'                   
+
+
+
+
 
 async function githubPage() {
     displayNewline();
@@ -2654,6 +2802,20 @@ async function musicPage() {
 debubg("async command functions init finished...");
 
 
+//  .M.                  :MMMM:     .%MMMMMMM%. MM    MM +MM.      M+  .%MMMMMM             +MMMMMMMMI MM       MM +MM.      M+  .%MMMMMM %MMMMMMMM% mmmmmmmmmm .%MMMMMMM%. +MM.      M+ .%MMMMMMM%.              .M.  
+// .M'M.                :MMMMMM:    %MM%' '%MM% MM.  .MM MMMM.     MM .%MMMMMMM             MMMMMMMMMI MM       MM MMMM.     MM .%MMMMMMM %MMMMMMMM% MMMMMMMMMM %MM%' '%MM% MMMM.     MM %MM%' '%MM%             .M'M. 
+// M' 'M                IMM::MMI    MM'         'MM  MM' MM'MM.    MM %MM%'                 MM+        MM       MM MM'MM.    MM %MM%'         MM         MM     MM'     'MM MM'MM.    MM MM'                     M' 'M 
+//                     :MM:  :MM:   MM%.......   MM..MM  MM 'MM.   MM MMM'                  MM........ MM       MM MM 'MM.   MM MMM'          MM         MM     MM       MM MM 'MM.   MM MM%.......                    
+//                     IMM:  :MMI    %MMMMMMM%.  'MMMM'  MM  'MM.  MM MMM                   MMMMMMMMMM MM       MM MM  'MM.  MM MMM           MM         MM     MM       MM MM  'MM.  MM  %MMMMMMM%.                   
+//                    :MMMMMMMMMM:    ''''''%MM   'MM'   MM   'MM. MM MMM.                  MM'''''''' MM       MM MM   'MM. MM MMM.          MM         MM     MM       MM MM   'MM. MM   ''''''%MM                   
+//                    IMM:    :MMI          .MM    MM    MM    'MM.MM %MM%.                 MM         MM       MM MM    'MM.MM %MM%.         MM         MM     MM.     .MM MM    'MM.MM         .MM                   
+//                   :MM%      %MM: %MM%. .%MM%    MM    MM     'MMMM '%MMMMMMM             MM         %MM%   %MM% MM     'MMMM '%MMMMMMM     MM     mmmmMMmmmm %MM%. .%MM% MM     'MMMM %MM%. .%MM%                   
+//                   :MM:      :MM: '%MMMMMMM%'    MM    +M      'MM+  '%MMMMMM             MM          %MMMMMMM%  +M      'MM+  '%MMMMMM     MM     MMMMMMMMMM '%MMMMMMM%' +M      'MM+ '%MMMMMMM%'                   
+
+
+
+
+
 // colour setting automatically tm
 
 setTextColour(textcolour);
@@ -2704,7 +2866,15 @@ setAccyColour(accycolour);
 //  where itll run a command as the window opens
 //
 //  but also right now i need to finish the comments
-
+//
+//
+//  OPEN SEPERATE WINDOW:
+//
+//  var win = window.open("", "Title", "toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=780,height=200,top="+(screen.height-400)+",left="+(screen.width-840));
+//  win.document.body.innerHTML = "HTML";
+//
+//
+//
 
 var elem = document.getElementById("consoleinput");
     elem.onkeyup = function keyParse(e){
