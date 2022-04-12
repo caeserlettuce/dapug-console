@@ -5173,6 +5173,37 @@ M###################@%=           =+@MH%
 
 
 
+
+var musicText = [
+    "welcome to the music player! This music player is able to play any supported song, and will print",
+    "the song's lyrics to the console as they are being said in a song!",
+    "[this feature is a proof-of-concept, and is not intended to have a large catalogue of music]",
+    " ",
+    "to get a list of supported songs, run 'songlist'",
+    "play a song using 'music play [song id]",
+    "pause music using 'muisc pause",
+    "resume music using 'music play",
+    "set the volume using 'music volume [value between 0-100]",
+    " ",
+    "have fun!"
+]
+
+var table_themes = {
+    "default": {
+        "tl": "┌",
+        "tr": "┐",
+        "bl": "└",
+        "br": "┘",
+        "ve": "│",
+        "ho": "─",
+        "vl": "┤",
+        "vr": "├",
+        "hb": "┬",
+        "ht": "┴",
+        "cr": "┼"
+    }
+}
+
 //│┴┬├─┤┼┌┐└┘
 //┃┻┳┣━┫╋┏┓┗┛
 //║╩╦╠═╣╬╔╗╚╝
@@ -5198,23 +5229,6 @@ M###################@%=           =+@MH%
 //▉▊▋▌▍▎▏
 //▇▆▅▄▃▂▁
 //
-
-var musicText = [
-    "welcome to the music player! This music player is able to play any supported song, and will print",
-    "the song's lyrics to the console as they are being said in a song!",
-    "[this feature is a proof-of-concept, and is not intended to have a large catalogue of music]",
-    " ",
-    "to get a list of supported songs, run 'songlist'",
-    "play a song using 'music play [song id]",
-    "pause music using 'muisc pause",
-    "resume music using 'music play",
-    "set the volume using 'music volume [value between 0-100]",
-    " ",
-    "have fun!"
-]
-
-
-
 
 
 

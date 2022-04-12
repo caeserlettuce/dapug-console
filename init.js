@@ -2338,13 +2338,12 @@ var example_table = [
             "entry 8",
             "entry 9",
             "entry 10",
-            "entry 11!!!!!",
+            "entry 11!!!!!dddddddddddddddddddddddddddddddddddddd",
             "entry 12"
         ]
     },
     {
         "name": "Column 3",
-        "width": 5,
         "contents": [
             "entry 13",
             "entry 14",
@@ -2388,14 +2387,26 @@ function stringWidth(string, width, beginning, dots) {
 
 
 
-function generateTable(table) {
+function generateTable(table, theme) {
     debubg("GENERATING TABLE!!");
+    var use = table_themes["default"];
+    var usename = "default";
+    if (theme != undefined && theme != null && theme != "") {       // if it is set
+        if (table_themes[theme]) {                                  // if it exists in themes
+            use = table_themes[theme];                              // set the theme
+            usename = theme;
+        }
+    }
+    debubg(`using theme '${usename}'`);
     // titles is the list of titles on the top for all the columns, contents is the actual contents of the
     var col_widths = new Array();   // will store all the max width values for all the columns
     var raw_table = new Array();
     var columns = 0;
     var rows = 0;
-
+    var table_top = "";
+    var table_middle = "";
+    var table_bottom = "";
+    var final_table = "";
     // CALCULATION OF STUFF AND THINGS!!!
     for (i in table) {
         // for every column
@@ -2404,17 +2415,11 @@ function generateTable(table) {
         var cur_rows = 0;
         var curWid = 0;
         columns += 1;
-        if (cur_col["width"]) {             // if column has a pre defined width
-            debubg(`column ${i} has a width of ${cur_col["width"]}!`);
-            curWid = cur_col["width"];
-        } else {                            // if column doesnt have a pre defined width
-            debubg("no you idiot");
-            for (i in col_con) {            // for every row in the column
-                var enty = col_con[i];
-                var widy = enty.length;
-                if (widy > curWid) {        // if the length is longer than previous length
-                    curWid = widy;          // save the width
-                }
+        for (i in col_con) {            // for every row in the column
+            var enty = col_con[i];
+            var widy = enty.length;
+            if (widy > curWid) {        // if the length is longer than previous length
+                curWid = widy;          // save the width
             }
         }
         for (i in col_con) {                // for every row in the column
@@ -2425,37 +2430,84 @@ function generateTable(table) {
         }
         col_widths.push(curWid);            // for every column
     }
-
-    console.log("widths: ", col_widths);
-    console.log("columns: ", columns);
-    console.log("rows: ", rows);
-
+    //console.log("widths: ", col_widths);
+    //console.log("columns: ", columns);
+    //console.log("rows: ", rows);
     // MAKING RAW TABLE!!!!
-
     for (i in table) {
         var coly = table[i];
+        var widy = col_widths[i];
         raw_table[i] = [];
-        raw_table[i].push(coly["name"]);
-        if (coly["width"]) { // if it has a predefined width
-            var widdy = coly["width"];
-            // .match(/.{1,32}/g);
-            //             ^ split string every x characters
-            
-        } else {
+        raw_table[i].push(stringWidth(coly["name"], widy, false, false));
+        // .match(/.{1,32}/g);
+        //             ^ split string every x characters
+        for (o in coly["contents"]) {
+            var entry = coly["contents"][o];
+            raw_table[i].push(stringWidth(entry, widy, false, false));
+        }
+    }
 
+    // making top and bottom bit
+    table_top = `${use["tl"]}`;
+    table_middle = `${use["vr"]}`;
+    table_bottom = `${use["bl"]}`;
+    for (i in table) {
+        var widy = col_widths[i];
+        if (i == 0) {
+            table_top += `${use["ho"].repeat(widy)}`;
+        } else {
+            table_top += `${use["hb"]}${use["ho"].repeat(widy)}`;
+        }
+        if (i == 0) {
+            table_bottom += `${use["ho"].repeat(widy)}`;
+        } else {
+            table_bottom += `${use["ht"]}${use["ho"].repeat(widy)}`;
+        }
+        if (i == 0) {
+            table_middle += `${use["ho"].repeat(widy)}`;
+        } else {
+            table_middle += `${use["cr"]}${use["ho"].repeat(widy)}`;
+        }
+    }
+    table_top += `${use["tr"]}`;
+    table_middle += `${use["vl"]}`;
+    table_bottom += `${use["br"]}`;
+    //debubg(table_top);
+    //debubg(table_middle);
+    //debubg(table_bottom);
+
+    //console.log("raw table: ", raw_table);
+
+    for (let i = 0; i < rows; i++) {
+        if (i == 0) {
+            final_table = `${table_top}\n`;
+            //debubg(table_top);
+            for (o in table) {
+                var title = raw_table[o][0];
+                final_table += `${use["ve"]}${title}`;
+            }
+            final_table += `${use["ve"]}\n`;
+            final_table += `${table_middle}\n`;
+        } else {
+            for (a in table) {
+                var enty = raw_table[a][i];
+                final_table += `${use["ve"]}${enty}`;
+            }
+            final_table += `${use["ve"]}\n`;
         }
         
+        
+        
     }
-    
+    final_table += table_bottom;
 
 
-
-
-    debubg("FINAL:");
-    console.log("widths: ", col_widths);
-    console.log("final table: ", raw_table);
-    console.log("columns: ", columns);
-    console.log("rows: ", rows);
+    //debubg("FINAL:");
+    //console.log("widths: ", col_widths);
+    //console.log(final_table);
+    //console.log("columns: ", columns);
+    //console.log("rows: ", rows);
+    return final_table
 }
 
 generateTable(example_table);
