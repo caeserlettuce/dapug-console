@@ -106,7 +106,6 @@ var debug_win;
 var debugvar_win;
 var credits_playing = false;
 var lyr_disp;
-var newline_height;
 var orientation = "what";
 var textheight = 20;
 
@@ -770,9 +769,6 @@ debubg("text scaling init finished...");
 
 function displayAppend(message, in_id, hide, colour, link) {
     //debubg(`[displayAppend]   message: ${message}  in_id: ${in_id}   hide: ${hide}   colour: ${colour}   link: ${link}`);
-    if (message == "\n") {
-        message = "<br>";
-    }
     if (console_history[in_id] != undefined || console_history[in_id] != null) {    // if the value already exists
         console_history[in_id] = `${console_history[in_id]}${message}`;             // append to value
     } else {                                                                        // else
