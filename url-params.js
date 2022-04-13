@@ -3,3 +3,6 @@ if (autocommand == true) {
     displayUser(`${pr_command}`, "auto");
     parseCommand(`${pr_command}`);
 }
+if (autodebugwin == true) {
+    debugWindow(true);
+}

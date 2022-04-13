@@ -6,11 +6,21 @@ function debubg(message) {
         //pogchamp.innerHTML = `${texty}<br>${message}`;
         //debug_win.document.write('<pre>HEHE</pre>');
 
-        debug_win.document.getElementById("aaa").innerHTML += `${message}\n`;
-        mom = debug_win.document.getElementById("aaa");
-        mom.scrollTop = mom.scrollHeight;
+        if (debugwin_status == true) {
+            try {                           // try this crap
+                debug_win.document.getElementById("aaa").innerHTML += `${message}\n`;
+                mom = debug_win.document.getElementById("aaa");
+                mom.scrollTop = mom.scrollHeight;
+            } catch (err) {                 // if it error error
+                console.log("oh crap i think the popup got blocked or smth");
+                displayAnim("\nUh oh! it seems that the debug window didn't open! Please make sure that popups are allowed on this site!", 7, "#ff0000");
+            }
+        }
+        
     }
 }
+
+
 debubg("debug message init finished...");
 var consol = document.getElementById("consy");
 var user = "user";
@@ -108,6 +118,8 @@ var credits_playing = false;
 var lyr_disp;
 var orientation = "what";
 var textheight = 20;
+var debugwin_status = false;
+var autodebugwin = false;
 
 
 
@@ -366,7 +378,42 @@ function worbleInit() {
     }
 }
 
+function themeInit() {
+    var themey = localStorage.getItem("themes");
 
+    if (themey) {   // if it exists
+        debubg('[THEME INIT] themes localstorage exists!');
+        themes = JSON.parse(themey);
+
+    } else { // if it doesnt exist
+        debubg('[THEME INIT] themes localstorage doesnt exist!');
+        localStorage.setItem("themes", JSON.stringify(customthemes));
+    }
+}
+
+function fixDevExploit() {
+    var deed = localStorage.getItem("dev-exploit");
+
+    // for context, in the github version of this site, there is a file called devtools.js, which automatically sets your user to dev (because why not)
+    // and so, i once accidentally pushed it to the official site, and so everyone who had loaded the site, had gotted the dev user
+    // i dont want to have it reset your user every single time, so i thought of this:
+    // i make a new local storage variable, where if that local storage variable is not equal to 1, it'll set your user to user, and then set that vatiable to 1
+    // so that way it'll only reset your user once!
+
+    if (deed) {
+        if (deed != 1) {                        // if the variable is not 1
+            setUser("user");                    // set user to user
+            localStorage.setItem("dev-exploit", 1);    // set it to 1
+        }
+    } else {
+        localStorage.setItem("dev-exploit", 0);
+    }
+}
+
+
+
+fixDevExploit();
+themeInit();
 worbleInit();
 doStart();
 getCommentIter();
@@ -423,6 +470,7 @@ debubg(`[url param init] debug: ${pr_debug}, debugvar: ${pr_debugvar}, suggestio
 // toggle the debugs
 if (pr_debug == "true") {
     debug = true;
+    autodebugwin = true;
 } else {
     debug = false;
 }
@@ -600,37 +648,39 @@ function toggleHideP1Ascii() {
 function debugWindow(bool) {
     
     if (bool == true) {     // if it open window
+        debugwin_status = true;
         debug_win = window.open("", "Title", "directories=0,titlebar=0,toolbar=0,location=0,status=0,menubar=0,scrollbars=no,resizable=no,width=400,height=350,top="+(screen.height-400)+",left="+(screen.width-840));
-        debug_win.document.write(`
-
-        <style>::-webkit-scrollbar {width: 10px;height: 10px;} body {overflow: hidden;} .eee {overflow: scroll; width: calc(100vw - 10px); height: calc(100vh - 10px);}</style>
-        <style id="scroll-text-style">::-webkit-scrollbar-thumb { background: ${textcolour}90; }</style>
-        <style id="scroll-back-style">::-webkit-scrollbar-track { background: ${backcolour}; } ::-webkit-scrollbar-corner { background: #000000 }</style>
-        <style id="back-style">body { background-color: ${backcolour};}</style>
-        <style id="text-style">body { color: ${textcolour};}</style>
-        <title>CONSOLE DEBUG</title>
-        <link rel="icon" href="icon.png">
-        `);
-        debug_win.document.write('<pre id="aaa" class="eee"></pre>'); 
-        debug_win.document.write(`<script>
-        var toot = false;
-        setInterval(function() {                // loop this every quarter second
-            toot = false;
-            try {
-                if (window.opener.debug != true) {      // if debug is false
-                    window.close();                     // close window
-                } else {
-                    toot = true;                        // else go and set it to true
+        try {
+            debug_win.document.write(`
+            <style>::-webkit-scrollbar {width: 10px;height: 10px;} body {overflow: hidden;} .eee {overflow: scroll; width: calc(100vw - 10px); height: calc(100vh - 10px);}</style>
+            <style id="scroll-text-style">::-webkit-scrollbar-thumb { background: ${textcolour}90; }</style>
+            <style id="scroll-back-style">::-webkit-scrollbar-track { background: ${backcolour}; } ::-webkit-scrollbar-corner { background: #000000 }</style>
+            <style id="back-style">body { background-color: ${backcolour};}</style>
+            <style id="text-style">body { color: ${textcolour};}</style>
+            <title>CONSOLE DEBUG</title>
+            <link rel="icon" href="icon.png">`);
+            debug_win.document.write('<pre id="aaa" class="eee"></pre>'); 
+            debug_win.document.write(`<script>
+            var toot = false;
+            setInterval(function() {                    // loop this every quarter second
+                toot = false;
+                try {
+                    if (window.opener.debug != true) {      // if debug is false
+                        window.close();                     // close window
+                    } else {
+                        toot = true;                        // else go and set it to true
+                    }
+                } catch (err) {                             // if it returns an error (like if the main console window is closed)
+                    if (toot == false) {
+                        window.close();                     // close this window
+                    }
                 }
-            } catch (err) {                             // if it returns an error (like if the main console window is closed)
-                if (toot == false) {
-                    window.close();                     // close this window
-                }
-            }
             }, 250);
-        </script>`);
-
-
+            </script>`);
+        } catch (err) {
+            console.log("oh crap i think the popup got blocked or smth");
+            displayAnim("\nUh oh! it seems that the debug window didn't open! Please make sure that popups are allowed on this site!", 7, "#ff0000");
+        }
         var debug_check = setInterval(function() { 
             if(debug_win.closed) {
                 clearInterval(debug_check);
@@ -639,13 +689,9 @@ function debugWindow(bool) {
             }
         }, 1000);
     } else {
-        
         //debug_win.close();
     }
 }
-
-
-
 
 debubg("debug window init finished...");
 
@@ -3104,6 +3150,7 @@ console.log("music info hide thingy init finished...");
 function closeDebuG() {
     if (debug == true) {
         debug_win.close();
+        debugwin_status = false;
     }
 }
 

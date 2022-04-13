@@ -65,7 +65,13 @@ function parseCommand(command) {
 
         debubg(`attempting to log in using username '${inusername}' and password '${ooo}'.`);
 
-        if (inusername == "dev") {
+        var locked_accounts = [
+            "dev",
+            "caeserlettuce",
+            "18gallons"
+        ]
+
+        if (locked_accounts.indexOf(inusername) > -1) {
             displayNewline();
             displayAnim("sorry, that account cannot be logged into.", 10);
         } else if (accountregistry[inusername] != undefined) {    // if account name exists in registry
@@ -188,7 +194,7 @@ function parseCommand(command) {
                 setColour(colour, true, null, true, null, true);
                 displayAnim(`setting text colour to ${colour}`, 15);
             } else if (iffy == false && colour.toLowerCase() == "reset") {
-                setColour("#7cfc00", true, null, true, null, true);
+                setColour("#7cfc00", true, "#000000", true, "#1e1e1e", true);
                 displayAnim(`resetting text colour`, 15);
             } else if (iffy == false) {
                 displayNewline();
@@ -515,7 +521,16 @@ function parseCommand(command) {
     } else if (command == "clear -cache") {
 
         if (confirm("WARNING: clearing the cache will remove ALL DATA saved from your adventures on this site. Are you sure you want to clear the cache?")) {
+            var dev_ex = true;
+            if (localStorage.getItem("dev-exploit") == 1) {
+                dev_ex = false;
+            }
             localStorage.clear();
+
+            if (dev_ex == false) {
+                localStorage.setItem("dev-exploit", 1);
+            }
+            
             debubg("cache cleared");
             location.reload();
         } else {
@@ -800,7 +815,14 @@ function parseCommand(command) {
     } else if (command == "reset" ) {
         // full hard reset on everything
         if (confirm("WARNING: clearing the cache will remove ALL DATA, and ALL SETTINGS. Are you sure you want to reset?")) {
+            var dev_ex = true
+            if (localStorage.getItem("dev-exploit") == 1) {
+                dev_ex = false;
+            }
             localStorage.clear();
+            if (dev_ex == false) {
+                localStorage.setItem("dev-exploit", 1);
+            }
             debubg("cache cleared");
             let path = window.location.href.split('?')[0];
             debubg(path);
@@ -1237,6 +1259,47 @@ function parseCommand(command) {
         debubg("playing credits!!! thank you for using this silly little website!");
         parseCommand("music play meal thyme");
         lyr_disp = site_credits;
+    } else if (command == "theme" || command == "theme ") {                 // show theme manpage
+        parseCommand("man theme");
+    } else if (command == "themes" || command == "themes " || command == "themelist" || command == "themelist ") {      // show list of themes
+
+    } else if (argCommand == "theme") { // main parsing for theme command
+        var mmm = argComm(commandInit);
+        var eee = argComm(commandInit);
+
+        var operation = mmm[1];     // if it's theme save, theme set, theme list, theme import, theme export (theme share), etc.
+
+        eee.shift();        // remove first two entries to get the rest of the stuff
+        eee.shift();
+
+        var nametm = eee.join(" ");
+
+        debubg(`theme command has been called. parsed: operation: ${operation}, name: ${nametm}`);
+
+        if (operation == "set") {
+            if (customthemes[nametm]) { // if it exists in the custom themes
+                debubg("theme exists as a customs theme!!");
+                // custom themes is first so that way if someone has a custom theme named, say, 'rose', and then we make a theme called rose, they can still access their theme
+
+
+            } else if (themes[nametm]) {   // if it exists in the default themes
+                debubg("theme exists as a default theme!!");
+
+            } else {
+                debubg("theme does not exist this is stupid");
+                displayAnim("\nthe theme that you attempted to use does not exist! you can save your current colour scheme using 'theme set [name]'");
+            }
+
+        } else if (operation == "save") {
+
+        } else if (operation == "list") {
+
+        } else if (operation == "import") {
+
+        } else if (operation == "export" || operation == "share") {
+
+        }
+
     }
 
     else {
@@ -1244,4 +1307,4 @@ function parseCommand(command) {
         displayAnim(`command error: ${commandInit} is not an existing command.`, 10);
     }
     coopy = false;
-}
+} 

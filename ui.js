@@ -2600,6 +2600,10 @@ var listy = [
     "portal2",
     "egg",
     "zoom",
+    "credits",
+    "theme",
+    "themes",
+    "themelist",
 
     "* command is currently in-development and may break the site."
 ]; 
@@ -5351,6 +5355,32 @@ var table_themes = {
         "cr": "┼"
     }
 }
+
+
+var themes = {      // console colour themes
+    "default": {
+        "name": "Default",
+        "author": "caeserlettuce",
+        "text colour": "#7cfc00",
+        "back colour": "#000000",
+        "accy colour": "#1e1e1e"
+    },
+}
+
+var customthemes = new Object();
+
+var fhsiofhghszg = ` // more easy copy pasting
+"": {
+    "name": "",
+    "author": "",
+    "text colour": "#",
+    "back colour": "#",
+    "accy colour": "#"
+},
+
+
+`
+
 
 //│┴┬├─┤┼┌┐└┘
 //┃┻┳┣━┫╋┏┓┗┛
