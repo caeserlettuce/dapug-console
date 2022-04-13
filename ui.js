@@ -5367,7 +5367,15 @@ var themes = {      // console colour themes
     },
 }
 
-var customthemes = new Object();
+var custom_themes = {
+    "custom": {
+        "name": "Custom",
+        "author": "caeserlettuce",
+        "text colour": "#ffffff",
+        "back colour": "#1e1e1e",
+        "accy colour": "#007acc"
+    },
+}
 
 var fhsiofhghszg = ` // more easy copy pasting
 "": {

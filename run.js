@@ -1267,22 +1267,25 @@ function parseCommand(command) {
         var mmm = argComm(commandInit);
         var eee = argComm(commandInit);
 
-        var operation = mmm[1];     // if it's theme save, theme set, theme list, theme import, theme export (theme share), etc.
+        var operation = mmm[1];     // if it's theme save, theme use, theme list, theme import, theme export (theme share), etc.
 
         eee.shift();        // remove first two entries to get the rest of the stuff
         eee.shift();
 
         var nametm = eee.join(" ");
+        nametm = nametm.replaceAll(";", "");    // so that when you share it it wont break     thats probably what itll look like when exported ->   rose gold;caeserlettuce;#ffffff;#000000;#1e1e1e
+
+        var lowname = nametm.toLowerCase();
 
         debubg(`theme command has been called. parsed: operation: ${operation}, name: ${nametm}`);
 
-        if (operation == "set") {
-            if (customthemes[nametm]) { // if it exists in the custom themes
+        if (operation == "use") {
+            if (custom_themes[lowname]) { // if it exists in the custom themes
                 debubg("theme exists as a customs theme!!");
                 // custom themes is first so that way if someone has a custom theme named, say, 'rose', and then we make a theme called rose, they can still access their theme
 
 
-            } else if (themes[nametm]) {   // if it exists in the default themes
+            } else if (themes[lowname]) {   // if it exists in the default themes
                 debubg("theme exists as a default theme!!");
 
             } else {
@@ -1291,6 +1294,34 @@ function parseCommand(command) {
             }
 
         } else if (operation == "save") {
+
+            if (themes[lowname]) {   // if it exists in the default themes
+                debubg("theme exists as a default theme!!");
+                displayAnim("\nthere's already a default theme with that name! (default themes cannot be changed)");
+            } else if (custom_themes[lowname]) { // if it exists in the custom themes
+                debubg("theme exists as a customs theme!!");
+                // custom themes is first so that way if someone has a custom theme named, say, 'rose', and then we make a theme called rose, they can still access their theme
+                displayAnim(`\nthe theme '${lowname}' already exists. would you like to overwrite this theme? (y/n)`);
+                askInput(() => {
+                    if (ask_return == "y") {            // yes overwrite it
+                        custom_themes[lowname] = {
+                            "name": `${nametm}`,
+                            "author": `${user}`,
+                            "text colour": `${textcolour}`,
+                            "back colour": `${backcolour}`,
+                            "accy colour": `${accycolour}`
+                        }
+                        localStorage.setItem("themes", JSON.stringify(custom_themes));
+                        displayAnim(`\nsaved theme '${nametm}' to your custom themes.`);
+                    } else if (ask_return == "n") {     // no dont overwrite it
+                        displayAnim(`\ntheme has not been saved to custom themes. input a different name and try again!`);
+                    }
+                });
+
+            } else {
+                debubg("theme does not exist this is stupid");
+                displayAnim("\nthe theme that you attempted to use does not exist! you can save your current colour scheme using 'theme set [name]'");
+            }
 
         } else if (operation == "list") {
 

@@ -5,18 +5,9 @@ function debubg(message) {
         //texty = pogchamp.innerHTML;
         //pogchamp.innerHTML = `${texty}<br>${message}`;
         //debug_win.document.write('<pre>HEHE</pre>');
-
-        if (debugwin_status == true) {
-            try {                           // try this crap
-                debug_win.document.getElementById("aaa").innerHTML += `${message}\n`;
-                mom = debug_win.document.getElementById("aaa");
-                mom.scrollTop = mom.scrollHeight;
-            } catch (err) {                 // if it error error
-                console.log("oh crap i think the popup got blocked or smth");
-                displayAnim("\nUh oh! it seems that the debug window didn't open! Please make sure that popups are allowed on this site!", 7, "#ff0000");
-            }
-        }
-        
+        debug_win.document.getElementById("aaa").innerHTML += `${message}\n`;
+        mom = debug_win.document.getElementById("aaa");
+        mom.scrollTop = mom.scrollHeight;
     }
 }
 
@@ -120,8 +111,9 @@ var orientation = "what";
 var textheight = 20;
 var debugwin_status = false;
 var autodebugwin = false;
-
-
+var listening_input = false;
+var ask_do = function() {console.log("aaaaa!! im broken i think!!")};
+var ask_return = "";
 
 debubg("variable init finished...");
 // local storage setup
@@ -383,11 +375,11 @@ function themeInit() {
 
     if (themey) {   // if it exists
         debubg('[THEME INIT] themes localstorage exists!');
-        themes = JSON.parse(themey);
+        custom_themes = JSON.parse(themey);
 
     } else { // if it doesnt exist
         debubg('[THEME INIT] themes localstorage doesnt exist!');
-        localStorage.setItem("themes", JSON.stringify(customthemes));
+        localStorage.setItem("themes", JSON.stringify(custom_themes));
     }
 }
 
@@ -469,8 +461,8 @@ debubg(`[url param init] debug: ${pr_debug}, debugvar: ${pr_debugvar}, suggestio
 
 // toggle the debugs
 if (pr_debug == "true") {
-    debug = true;
-    autodebugwin = true;
+    //debug = true;
+    //autodebugwin = true;
 } else {
     debug = false;
 }
@@ -2957,6 +2949,7 @@ async function musicPage() {
 
 
 
+
 debubg("async command functions init finished...");
 
 
@@ -2970,6 +2963,32 @@ debubg("async command functions init finished...");
 //                   :MM%      %MM: %MM%. .%MM%    MM    MM     'MMMM '%MMMMMMM             MM         %MM%   %MM% MM     'MMMM '%MMMMMMM     MM     mmmmMMmmmm %MM%. .%MM% MM     'MMMM %MM%. .%MM%                   
 //                   :MM:      :MM: '%MMMMMMM%'    MM    +M      'MM+  '%MMMMMM             MM          %MMMMMMM%  +M      'MM+  '%MMMMMM     MM     MMMMMMMMMM '%MMMMMMM%' +M      'MM+ '%MMMMMMM%'                   
 
+
+
+
+
+function askInput(scooby_doo) {   // ask for a text input from console thing
+    listening_input = true;
+    ask_do = scooby_doo;
+}
+// example!!
+
+//askInput(() => { displayAnim(`your name is ${ask_return}!!`, 7); } );
+
+
+
+
+
+
+//  .M.                  :MMMM:     .%MMMMMMM%. +M   .M%             mmmmmmmmmm +MM.      M+ +MMMMMMM%. MM       MM %MMMMMMMM%             +MMMMMMMMI MM       MM +MM.      M+  .%MMMMMM %MMMMMMMM% mmmmmmmmmm .%MMMMMMM%. +MM.      M+ .%MMMMMMM%.              .M.  
+// .M'M.                :MMMMMM:    %MM%' '%MM% MM  .M%'             MMMMMMMMMM MMMM.     MM MM+'  '+M% MM       MM %MMMMMMMM%             MMMMMMMMMI MM       MM MMMM.     MM .%MMMMMMM %MMMMMMMM% MMMMMMMMMM %MM%' '%MM% MMMM.     MM %MM%' '%MM%             .M'M. 
+// M' 'M                IMM::MMI    MM'         MM .M%'                  MM     MM'MM.    MM MM      MM MM       MM     MM                 MM+        MM       MM MM'MM.    MM %MM%'         MM         MM     MM'     'MM MM'MM.    MM MM'                     M' 'M 
+//                     :MM:  :MM:   MM%.......  MM.M%'                   MM     MM 'MM.   MM MM+.  .+M% MM       MM     MM                 MM........ MM       MM MM 'MM.   MM MMM'          MM         MM     MM       MM MM 'MM.   MM MM%.......                    
+//                     IMM:  :MMI    %MMMMMMM%. MMMX                     MM     MM  'MM.  MM MMMMMMMM%' MM       MM     MM                 MMMMMMMMMM MM       MM MM  'MM.  MM MMM           MM         MM     MM       MM MM  'MM.  MM  %MMMMMMM%.                   
+//                    :MMMMMMMMMM:    ''''''%MM MM'M%.                   MM     MM   'MM. MM MM         MM       MM     MM                 MM'''''''' MM       MM MM   'MM. MM MMM.          MM         MM     MM       MM MM   'MM. MM   ''''''%MM                   
+//                    IMM:    :MMI          .MM MM 'M%.                  MM     MM    'MM.MM MM         MM       MM     MM                 MM         MM       MM MM    'MM.MM %MM%.         MM         MM     MM.     .MM MM    'MM.MM         .MM                   
+//                   :MM%      %MM: %MM%. .%MM% MM  'M%.             mmmmMMmmmm MM     'MMMM MM         %MM%   %MM%     MM                 MM         %MM%   %MM% MM     'MMMM '%MMMMMMM     MM     mmmmMMmmmm %MM%. .%MM% MM     'MMMM %MM%. .%MM%                   
+//                   :MM:      :MM: '%MMMMMMM%' +M   'M%             MMMMMMMMMM +M      'MM+ +M          %MMMMMMM%      MM                 MM          %MMMMMMM%  +M      'MM+  '%MMMMMM     MM     MMMMMMMMMM '%MMMMMMM%' +M      'MM+ '%MMMMMMM%'                   
 
 
 
@@ -3043,21 +3062,20 @@ var elem = document.getElementById("consoleinput");
                         // stinky old code is gone!!!!
 
                         // *crab rave*
-
-                        displayUser(`${elem.value}`, `${user}`);
-
-
-                        historyPush();
-                        
-
-
-                        
-                        parseCommand(elem.value);
-                        
-
-                        historyReset();
-                        elem.value = "";
-                        scrolly("consy");
+                        if (listening_input == true) {  // if its listening for a text input
+                            ask_return = elem.value;
+                            ask_do();
+                            listening_input = false;
+                            elem.value = "";
+                        } else {
+                            displayUser(`${elem.value}`, `${user}`);
+                            historyPush();
+                            parseCommand(elem.value);
+                            historyReset();
+                            elem.value = "";
+                            scrolly("consy");
+                        }
+                            
                         //debubg(consoltext);
                         //debubg(commang);
                     }
