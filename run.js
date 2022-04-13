@@ -38,7 +38,7 @@ function parseCommand(command) {
 
     } else if (command == "test") {
         displayNewline();
-        displayAnim("this is working", 20)
+        displayAnim("this is working", 20);
     } else if (command == "clear") {
         clearScreen();
     } else if (command.split(" ")[0] == "echo") {
@@ -245,6 +245,8 @@ function parseCommand(command) {
         } else if (command == "color" || command == "color " || command == "colour" || command == "colour "){
             displayNewline();
             displayAnim("invalid colour. check the help page", 20);
+        } else {
+            displayAnim("\ninvalid place. use either 'text', 'background', 'accent', or check the manpage.", 7);
         }
     
     } else if (command == "charmount") {
@@ -527,13 +529,11 @@ function parseCommand(command) {
         debubg("cache cleared");
         location.reload();
     } else if (command == "debug") {
-        if (debug == false ) {
-            debug = true;
-            document.getElementById("debub").style.display = "";
-        } else {
-            debug = false;
-            document.getElementById("debub").style.display = "none";
-        }
+        debug = !debug;         // toggle it to be the opposite
+
+        debugWindow(debug);     // do whatever it needs to to the window
+
+
     } else if (command == "reboot") {
         location.reload();
     } else if (command == "cheese") {
