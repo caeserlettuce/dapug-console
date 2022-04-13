@@ -1228,6 +1228,14 @@ function parseCommand(command) {
         } else {
             displayAnim("\nplease enter a valid number or check the man page!", 7);
         }
+    } else if (command == "credits" || command == "credits ") {
+        // display fancy credits
+        clearScreen();
+        setColour("#0097ff", false, "#1e1e1e", false, "#313131", false);
+        inputlock = true;
+        debubg("playing credits!!! thank you for using this silly little website!");
+        parseCommand("music play meal thyme");
+        displayLyrics(site_credits);
     }
 
     else {

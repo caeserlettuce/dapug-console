@@ -13,7 +13,6 @@ function debubg(message) {
 }
 debubg("debug message init finished...");
 var consol = document.getElementById("consy");
-var version = "0.4.5";
 var user = "user";
 var user_permission;
 var consoltext = "";
@@ -103,9 +102,9 @@ var modlist = [                                                                 
     "https://raw.githubusercontent.com/caeserlettuce/dapug-console/83165118e417052d21f49dedab18b381338079db/example_mod.js",
 ]
 var htmlmods = document.getElementById("mods");
-
 var debug_win;
 var debugvar_win;
+var credits_playing = false;
 
 
 
@@ -3053,6 +3052,12 @@ music.addEventListener('ended', (event) => {
         document.getElementById("songinfomouse").style.color = "white";
         document.getElementById("songinfo").style.borderColor = "#1e1e1e";
         document.getElementById("songinfo").style.backgroundColor = og_backcolour;
+    } else if (credits_playing == true) {
+        credits_playing = false;
+
+        setColour(og_textcolour, true, og_backcolour, true, og_accycolour, true);
+        inputlock = false;
+
     }
     boom();
 });

@@ -4439,12 +4439,16 @@ var songs = {
 // spirit phone: https://media.discordapp.net/attachments/960729059829096580/960838302561353738/spiritphone.png?width=655&height=655
 
 // if you just want javascript to run at a specific time without any lyrics, just set "text" to false, without quotes, but still have the times and then ofcourse set "exec" to the javascript you want run
-var HJABJBGASFJHKBGSDLFBJLF = `
+var HJABJBGASFJHKBGSDLFBJLF = 
+    
+`
 ,
 {"text": "\n", "dur": [, ]}
 
 ", "dur": [, ]},
 {"text": "\n
+
+
 
 ,
     "": {
@@ -4459,7 +4463,103 @@ var HJABJBGASFJHKBGSDLFBJLF = `
         ]
     }
 
-`                               // this is essentially just block comments so i can be able to copy paste this for lyrics (tm)
+`
+                               // this is essentially just block comments so i can be able to copy paste this for lyrics (tm)
+
+// CONSOLE CREDITS TM!!!
+
+var site_credits = [
+    {"text": `
+  .%MMMMMM .%MMMMMMM%. +MM.      M+ .%MMMMMMM%. .%MMMMMMM%. +M         +MMMMMMMMI 
+ .%MMMMMMM %MM%' '%MM% MMMM.     MM %MM%' '%MM% %MM%' '%MM% MM         MMMMMMMMMI 
+ %MM%'     MM'     'MM MM'MM.    MM MM'         MM'     'MM MM         MM+        
+ MMM'      MM       MM MM 'MM.   MM MM%.......  MM       MM MM         MM........ 
+ MMM       MM       MM MM  'MM.  MM  %MMMMMMM%. MM       MM MM         MMMMMMMMMM 
+ MMM.      MM       MM MM   'MM. MM   ''''''%MM MM       MM MM         MM'''''''' 
+ %MM%.     MM.     .MM MM    'MM.MM         .MM MM.     .MM MM         MM+        
+ '%MMMMMMM %MM%. .%MM% MM     'MMMM %MM%. .%MM% %MM%. .%MM% MM........ MMMMMMMMMI 
+  '%MMMMMM '%MMMMMMM%' +M      'MM+ '%MMMMMMM%' '%MMMMMMM%' +MMMMMMMM% +MMMMMMMMI 
+`, "dur": [0, 3343]},
+    {"text": `\n\nCONSOLE v${version}, by da pug`, "dur": [3343, 4761]},
+    {"text": `\n\nStarted January 24, 2022`, "dur": [6610, 8251]},
+    {"text": `\n\nCoded with over 5000 lines of javascript`, "dur": [9939, 11490]},
+    {"text": `\n\nAn excuse to spend hours tapping away on my keyboard`, "dur": [13240, 14800]},
+    {"text": `\n\n:]\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n`, "dur": [16123, 16630]},
+    {"text": `
+         ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒░
+        ▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓█▒░
+       ▒█████████████████▒▒░
+      ▒█▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒░
+      ▒█▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒█▓▒▒░
+      ▒█▓░░░░░░░░░░░░░▒█▓▒▒░
+      ▒█▓░            ▒█▓▒▒░
+      ▒█▓░   ▓▓▓▓▓▓░  ▒█▓▒▒░
+      ▒█▓░   ▒█████░  ▒█▓▒▒░
+      ▒█▓░   ▒█████░  ▒█▓▒▒░
+      ▒█▓░   ░░░░░░░  ▒█▓▒▒░
+      ▒█▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒█▓▒▒░
+      ▒█▓███████████████▓▒▒░
+      ▒█▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒░▒▒
+      ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒░▒▒▓░
+      ░░░░░░░░░░░░░░░░░░░░▒▒▓▒░
+    ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓▒▒░
+   ▒███████████████████████▒▒▒░
+   ▒█▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒░
+   ▒█▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒▒▒▒▓▓▒▒▒░
+   ▒█▓▓▓▓▓▓▓▓▓▓          ▓▓▒▒▒░
+   ▒█▓▓▄▄▓▓▓▓▓▓▓▓▓▓▓▓▒▓▓▓▓▓▒▒▒░
+   ▒█▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒░
+   ▒▒▒ █▒ █▒ █▒ █▒ █▒ █▒ █ ▒▒░
+  ▒█▒ █▒ █▒ █▒ █▒ █▒ █▒ █▒▒░░
+ ▒█▒ ▒▒ ▒▒ ▒▒ ▒▒ ▒▒ ▒▒ ▒▒▒▒░
+▒███████████████████████░▒░
+▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒░
+ ░░░░░░░░░░░░░░░░░░░░░░░░`, "dur": [16630, 18157]},
+{"text": "\n\n caeserlettuce - lead developer\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "dur": [18394, 19874]},
+{"text": `
+                ░░   ░
+          ░       ░   ░
+           ░   ░░░░
+            ░░░░░   ░
+       ░ ░░▒▒▒░  ░░
+        ░▒▒▒▒░
+         ░▒▒▒▒▒▒░░
+           ░░▒▒▒▒▒▒░
+              ░▒▒▒▒▒▒
+        ░░▒▒▒▒▒▒▒▒▒▒░
+      ░▒▒▒▒▒▒▒▒▒▒░░░
+    ▓▓▒▒▒▒▒▓▓▓▓▓▓▓▓▓
+ ▓▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓▓▓
+▓▒▒▒░░░▒▒▒▒▒░░░░░░░░▒▒▒▓
+▓░░░░░░░░░░░░░░░░░░░░░░▓
+▒▓▓▓░░░░░░░░░░░░░░░░▓▓▓▓
+▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒
+▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒
+▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓   ▓▓▓
+▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓    ▓▓
+▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓    ▓▓
+▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓   ▒▓▓
+▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▓▓▓
+▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+ ▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓
+    ▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓`, "dur": [19874, 21329]},
+    {"text": "\n\n 18gallons - developer - bug tester - breaker of the site\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "dur": [21329, 23179]},
+    //{"text": "\n
+
+
+    // stackoverflow
+    // vscode
+    // github
+    // [im really thinking of every possible thing]
+    // the portal credit sequences for inspiring this in the first place
+
+    
+]
+
+
 
 
 //
