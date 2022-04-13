@@ -1,4 +1,10 @@
 function debubg(message) {
+    if (debug_time == true) {
+        var dat = new Date();
+        var tim = `${dat.getHours()}:${dat.getMinutes()}:${dat.getSeconds()}:${dat.getMilliseconds()}`;
+        message = `[${tim}]: ${message}`;
+    }
+
     console.log(message);
     if (debug == true) {
         //var pogchamp = debug_win.body;
@@ -11,7 +17,7 @@ function debubg(message) {
     }
 }
 
-
+var debug_time = true;
 debubg("debug message init finished...");
 var consol = document.getElementById("consy");
 var user = "user";
@@ -1045,6 +1051,9 @@ async function displayUser(message, userin) {
 
 async function displayAnim(message, speed, colour, link) {      // fancy anim
     boom();
+    if (speed == "" || speed == undefined || speed == null) {
+        speed = 7;
+    }
     //console.log(`[displayanim] ${message}, ${speed}, ${type}`);
     //debubg(`[displayAnim]   message: ${message}  speed: ${speed}   colour: ${colour}   link: ${link}`);
     if (typeof message == "string") {           // if it's a string
@@ -2757,6 +2766,21 @@ function generateTable(table, theme) {
     return final_table
 }
 
+function saveTheme(nametm) {
+    var lowname = nametm.toLowerCase();
+    custom_themes[lowname] = {
+        "name": `${nametm}`,
+        "author": `${user}`,
+        "text colour": `${textcolour}`,
+        "back colour": `${backcolour}`,
+        "accy colour": `${accycolour}`
+    }
+    localStorage.setItem("themes", JSON.stringify(custom_themes));
+}
+
+
+
+
 //generateTable(example_table);
 
 
@@ -3123,7 +3147,7 @@ var elem = document.getElementById("consoleinput");
     }
         
 
-console.log("key input init finished...");
+debubg("key input init finished...");
 
 music.addEventListener('ended', (event) => {
     document.getElementById("songinfo").style.display = "none";
@@ -3163,7 +3187,7 @@ music.addEventListener('play', (event) => {
 window.onresize = sizeCheck;
 
 
-console.log("music info hide thingy init finished...");
+debubg("music info hide thingy init finished...");
 
 function closeDebuG() {
     if (debug == true) {

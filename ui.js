@@ -2515,6 +2515,7 @@ var man = {
         "`zoom [number]`"
     ]
 
+
 }
 
 
@@ -5417,6 +5418,8 @@ var fhsiofhghszg = ` // more easy copy pasting
 //
 
 
-
-
-console.log("ui elements loaded.");
+if (true) {
+    var dat = new Date();
+    var tim = `${dat.getHours()}:${dat.getMinutes()}:${dat.getSeconds()}:${dat.getMilliseconds()}`;
+    console.log(`[${tim}]: ui elements loaded.`);
+}

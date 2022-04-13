@@ -1259,9 +1259,53 @@ function parseCommand(command) {
         debubg("playing credits!!! thank you for using this silly little website!");
         parseCommand("music play meal thyme");
         lyr_disp = site_credits;
-    } else if (command == "theme" || command == "theme ") {                 // show theme manpage
+    } else if (command == "theme" || command == "theme " || command == "theme import" || command == "theme import " || command == "theme install" || command == "theme install " || command == "theme export" || command == "theme export " || command == "theme share" || command == "theme share ") {                 // show theme manpage
         parseCommand("man theme");
-    } else if (command == "themes" || command == "themes " || command == "themelist" || command == "themelist ") {      // show list of themes
+    } else if (command == "themes" || command == "themes " || command == "themelist" || command == "themelist " || command == "theme list" || command == "theme list ") {      // show list of themes
+
+        // make the table object tm
+
+        var def_table = [
+            {
+                "name": "name",
+                "contents": [
+
+                ]
+            },
+            {
+                "name": "author",
+                "contents": [
+                    
+                ]
+            }
+        ]
+
+        var cus_table = [
+            {
+                "name": "name",
+                "contents": [
+
+                ]
+            },
+            {
+                "name": "author",
+                "contents": [
+                    
+                ]
+            }
+        ]
+
+        for (i in themes) {
+            var coo = themes[i];
+            var nam = coo["name"];
+            var aut = coo["author"];
+
+            def_table[0]["contents"].push(nam);
+            def_table[1]["contents"].push(aut);
+        }
+
+        console.log(def_table);
+        console.log(cus_table);
 
     } else if (argCommand == "theme") { // main parsing for theme command
         var mmm = argComm(commandInit);
@@ -1283,52 +1327,52 @@ function parseCommand(command) {
             if (custom_themes[lowname]) { // if it exists in the custom themes
                 debubg("theme exists as a customs theme!!");
                 // custom themes is first so that way if someone has a custom theme named, say, 'rose', and then we make a theme called rose, they can still access their theme
-
+                var tem = custom_themes[lowname]; // HOI IM TEMMIE!!!!!!!
+                setColour(tem["text colour"], true, tem["back colour"], true, tem["accy colour"], true);
+                displayAnim(`\nusing theme '${lowname}'!`, 7);
 
             } else if (themes[lowname]) {   // if it exists in the default themes
                 debubg("theme exists as a default theme!!");
+                var tem = themes[lowname]; // HOI IM TEMMIE!!!!!!!
+                setColour(tem["text colour"], true, tem["back colour"], true, tem["accy colour"], true);
+                displayAnim(`\nusing theme '${lowname}'!`, 7);
 
             } else {
                 debubg("theme does not exist this is stupid");
-                displayAnim("\nthe theme that you attempted to use does not exist! you can save your current colour scheme using 'theme set [name]'");
+                displayAnim("\nthe theme that you attempted to use does not exist! you can save your current colour scheme using 'theme save [name]',\nor list all available themes with 'theme list'");
             }
 
         } else if (operation == "save") {
 
-            if (themes[lowname]) {   // if it exists in the default themes
+            if (nametm == "" || nametm == undefined || nametm == null) {
+                displayAnim("\nplease enter a valid theme name!", 7)
+            } else if (themes[lowname]) {   // if it exists in the default themes
                 debubg("theme exists as a default theme!!");
-                displayAnim("\nthere's already a default theme with that name! (default themes cannot be changed)");
+                displayAnim("\nthere's already a default theme with that name! (default themes cannot be changed)", 7);
             } else if (custom_themes[lowname]) { // if it exists in the custom themes
                 debubg("theme exists as a customs theme!!");
                 // custom themes is first so that way if someone has a custom theme named, say, 'rose', and then we make a theme called rose, they can still access their theme
-                displayAnim(`\nthe theme '${lowname}' already exists. would you like to overwrite this theme? (y/n)`);
+                displayAnim(`\nthe theme '${lowname}' already exists. would you like to overwrite this theme? (y/n)`, 7);
                 askInput(() => {
                     if (ask_return == "y") {            // yes overwrite it
-                        custom_themes[lowname] = {
-                            "name": `${nametm}`,
-                            "author": `${user}`,
-                            "text colour": `${textcolour}`,
-                            "back colour": `${backcolour}`,
-                            "accy colour": `${accycolour}`
-                        }
-                        localStorage.setItem("themes", JSON.stringify(custom_themes));
-                        displayAnim(`\nsaved theme '${nametm}' to your custom themes.`);
+                        saveTheme(nametm);      // save the theme
+                        displayAnim(`\nsaved theme '${nametm}' to your custom themes.`, 7);
                     } else if (ask_return == "n") {     // no dont overwrite it
-                        displayAnim(`\ntheme has not been saved to custom themes. input a different name and try again!`);
+                        displayAnim(`\ntheme has not been saved to custom themes. input a different name and try again!`, 7);
                     }
                 });
-
             } else {
-                debubg("theme does not exist this is stupid");
-                displayAnim("\nthe theme that you attempted to use does not exist! you can save your current colour scheme using 'theme set [name]'");
+                debubg("theme does not exist");
+                saveTheme(nametm);              // save the theme
+                displayAnim(`\nsaved theme '${nametm}' to your custom themes.`, 7);
             }
 
-        } else if (operation == "list") {
-
-        } else if (operation == "import") {
+        } else if (operation == "import" || operation == "install") {
 
         } else if (operation == "export" || operation == "share") {
 
+        } else {
+            displayAnim("invalid theme command! check 'man theme' for all possible theme commands", 7);
         }
 
     }
