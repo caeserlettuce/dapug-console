@@ -1485,7 +1485,7 @@ function argComm(incommand) {
 // you know the text ascii art for the about page??
 // make a function that will go and print those for you without having to make the ui element every time
 // YES.
-function asciiText(font, text) {
+function asciiText(font, text) { //eamon here, for some reason this is brokey when just inputting "ascii" and nothing else
     var fontlow = font.toLowerCase()
     if (fontlow == "" || fontlow == "default" || fontlow == "def" || fontlow == "d") {
         var textArr = text.split("");
