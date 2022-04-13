@@ -106,6 +106,9 @@ var debug_win;
 var debugvar_win;
 var credits_playing = false;
 var lyr_disp;
+var newline_height;
+var orientation = "what";
+var textheight = 20;
 
 
 
@@ -692,19 +695,44 @@ function sizeCheck() {
     updateScreenVars();
     if (windowWidth > windowHeight) {
         // if on landscape
-        debubg("landscape");
+        orientation = "landscape";
         aspectratio = windowWidth / windowHeight;
         document.getElementById("body").style.fontSize = `${aspectratio * sizemod}vh`;
         document.getElementById("consoleinputstyle").style.fontSize = `${1.25 * aspectratio * sizemod}vh`;
         document.getElementById("consoleinput").style.fontSize = `${1.25 * aspectratio * sizemod}vh`;
     } else if (windowWidth < windowHeight) {
         // if on portrait
-        debubg("portrait");
+        orientation = "portrait";
         aspectratio = windowHeight / windowWidth;
         document.getElementById("body").style.fontSize = `${2 * aspectratio * sizemod}vw`;
         document.getElementById("consoleinputstyle").style.fontSize = `${2.25 * aspectratio * sizemod}vw`;
         document.getElementById("consoleinput").style.fontSize = `${2.25 * aspectratio * sizemod}vw`;
     }
+    debubg(orientation)
+
+    // CALCULATING HOW MANY NEWLINES PER ENTIRE PAGE HEIGHT!!
+
+    // so
+    // (landscape) at 1% view height (of 907 pixels), it can display 43 lines
+    // (portrait) at 2% view width (of 734 pixels), it can display 41 lines
+
+    // actually imma just have it do a few checks, if CON_0 exists, it'll get the height of that, if that doesnt exist, it'll try getting CON_1 (when you run clear it starts on CON_1), and if none are present it'll just set it to 20
+
+    
+    if (orientation == "landscape") {
+        textheight = Math.floor( ( ( ( aspectratio * sizemod ) * 0.01 ) * windowHeight ));
+    } else if (orientation == "portrait") {
+        textheight = Math.floor( ( ( ( 2 * aspectratio * sizemod ) * 0.01 ) * windowWidth ));
+    }
+
+    newline_height = Math.floor(windowHeight / textheight);
+    
+    //console.log("height: ", textheight);
+    //console.log("newlin: ", newline_height);
+
+
+    
+
 }
 sizeCheck();
 debubg("text scaling init finished...");
@@ -1072,6 +1100,7 @@ async function displayLyrics(lyrics) {
     var lyr_len = lyrics.length;
     musicTimeouts = 0;
     var timeouts = 0;
+    updateLyrics();
     
     // timeout var template:
 
