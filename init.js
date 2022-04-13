@@ -7,8 +7,8 @@ function debubg(message) {
         //debug_win.document.write('<pre>HEHE</pre>');
 
         debug_win.document.getElementById("aaa").innerHTML += `${message}\n`;
-        
-        scrolly("debub");
+        mom = debug_win.document.getElementById("aaa");
+        mom.scrollTop = mom.scrollHeight;
     }
 }
 debubg("debug message init finished...");
@@ -505,12 +505,9 @@ function scrollBottom(id) {
     div.scrollTop = div.scrollHeight - div.clientHeight;
 }
 debubg("scrollBottom init finished...");
-if (debug == false) {
-    document.getElementById("debub").style.display = "none";
-}
-if (debugvar == false) {
-    document.getElementById("debubvar").style.display = "none";
-}
+
+debugWindow(debug);
+
 document.getElementById("songinfo").style.display = "none";
 document.getElementById("p2cred").style.display = "none";
 document.getElementById("p1cred").style.display = "none";
@@ -602,9 +599,17 @@ function debugWindow(bool) {
     
     if (bool == true) {     // if it open window
         debug_win = window.open("", "Title", "directories=0,titlebar=0,toolbar=0,location=0,status=0,menubar=0,scrollbars=no,resizable=no,width=400,height=350,top="+(screen.height-400)+",left="+(screen.width-840));
-        debug_win.document.write('<style>::-webkit-scrollbar {width: 10px;height: 10px;}</style>')
-        debug_win.document.write('<style id="scroll-text-style">::-webkit-scrollbar-thumb { background: rgba(124, 252, 0, 0.5); }</style>');
-        debug_win.document.write('<pre id="aaa"></pre>');
+        debug_win.document.write(`
+
+        <style>::-webkit-scrollbar {width: 10px;height: 10px;} body {overflow: hidden;} .eee {overflow: scroll; width: calc(100vw - 10px); height: calc(100vh - 10px);}</style>
+        <style id="scroll-text-style">::-webkit-scrollbar-thumb { background: ${textcolour}90; }</style>
+        <style id="scroll-back-style">::-webkit-scrollbar-track { background: ${backcolour}; } ::-webkit-scrollbar-corner { background: #000000 }</style>
+        <style id="back-style">body { background-color: ${backcolour};}</style>
+        <style id="text-style">body { color: ${textcolour};}</style>
+        <title>CONSOLE DEBUG</title>
+        <link rel="icon" href="icon.png">
+        `);
+        debug_win.document.write('<pre id="aaa" class="eee"></pre>'); 
         debug_win.document.write(`<script>
         var toot = false;
         setInterval(function() {                // loop this every quarter second
@@ -632,7 +637,8 @@ function debugWindow(bool) {
             }
         }, 1000);
     } else {
-        debug_win.close();
+        
+        //debug_win.close();
     }
 }
 
@@ -1812,13 +1818,13 @@ function howMany (in_string, string) {
 
 
 function setAccyColour(colour, save) {
-    var do_save = false
-    if (save == undefined || save == null) {
+    var do_save = false;
+    if (save == false || save == true) {
         //debubg("exists!");
-        do_save = true;
+        do_save = save;
     } else {
         //debubg("exists NOT!");
-        do_save = save;
+        do_save = true;
     }
     // background colour
     var r = hexToRgb(colour).r;
@@ -1835,18 +1841,18 @@ function setAccyColour(colour, save) {
     
     if (do_save == true) {
         localStorage.setItem("accy-colour", colour);
-        backcolour = `${colour}`;
+        accycolour = `${colour}`;
     }
 }
 
 function setBackColour(colour, save) {
-    var do_save = false
-    if (save == undefined || save == null) {
+    var do_save = false;
+    if (save == false || save == true) {
         //debubg("exists!");
-        do_save = true;
+        do_save = save;
     } else {
         //debubg("exists NOT!");
-        do_save = save;
+        do_save = true;
     }
     // background colour
     var r = hexToRgb(colour).r;
@@ -1860,6 +1866,10 @@ function setBackColour(colour, save) {
     document.getElementById("debub").style.backgroundColor = colour;
     document.getElementById("debubvar").style.backgroundColor = colour;
     document.getElementById("songinfo").style.backgroundColor = colour;
+    if (debug == true) {
+        debug_win.document.getElementById("scroll-back-style").innerHTML = `::-webkit-scrollbar-track { background: ${colour}; } ::-webkit-scrollbar-corner { background: ${colour} }`;
+        debug_win.document.getElementById("back-style").innerHTML = `body { background-color: ${colour};}`;
+    }
     if (do_save == true) {
         localStorage.setItem("back-colour", colour);
         backcolour = `${colour}`;
@@ -1867,13 +1877,13 @@ function setBackColour(colour, save) {
 }
 
 function setTextColour(colourcode, save) {
-    var do_save = false
-    if (save == undefined || save == null) {
+    var do_save = false;
+    if (save == false || save == true) {
         //debubg("exists!");
-        do_save = true;
+        do_save = save;
     } else {
         //debubg("exists NOT!");
-        do_save = save;
+        do_save = true;
     }
 
     //console.log("do_save: ", do_save);
@@ -1893,7 +1903,8 @@ function setTextColour(colourcode, save) {
     document.getElementById("songinfomouse").style.color = colourcode;
     
     if (debug == true) {
-        debug_win.document.getElementById("scroll-text-style") = `::-webkit-scrollbar-thumb { background: rgba(${r}, ${g}, ${b}, 0.5); }`;
+        debug_win.document.getElementById("scroll-text-style").innerHTML = `::-webkit-scrollbar-thumb { background: rgba(${r}, ${g}, ${b}, 0.5); }`;
+        debug_win.document.getElementById("text-style").innerHTML = `body { color: ${colourcode};}`;
     }
 
     if (do_save == true) {

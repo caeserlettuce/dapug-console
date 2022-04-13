@@ -189,6 +189,8 @@ function parseCommand(command) {
                 displayAnim(`setting text colour to ${colour}`, 15);
             } else if (iffy == false && colour.toLowerCase() == "reset") {
                 setTextColour("#7cfc00");
+                setBackColour("#000000");
+                setAccyColour("#1e1e1e");
                 displayAnim(`resetting text colour`, 15);
             } else if (iffy == false) {
                 displayNewline();
@@ -244,6 +246,8 @@ function parseCommand(command) {
         } else if (command == "color" || command == "color " || command == "colour" || command == "colour "){
             displayNewline();
             displayAnim("invalid colour. check the help page", 20);
+        } else {
+            displayAnim("\ninvalid place. use either 'text', 'background', 'accent', or check the manpage.", 7);
         }
     
     } else if (command == "charmount") {

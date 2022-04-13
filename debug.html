@@ -9,24 +9,59 @@
         color: #7cfc00;
       }
 
-      ::-webkit-scrollbar-thumb {
-        background: rgba(124, 252, 0, 0.7);
+      .box {
+        text-align: center;
+        border: 3px #1e1e1e solid;
+        padding: 5px;
+        width: fit-content;
       }
-      ::-webkit-scrollbar-track {
-        background: rgba(0,0,0,0);
-      }
-      ::-webkit-scrollbar-corner {
-        background: rgba(0,0,0,0);
-      }
-      ::-webkit-scrollbar {
-          width: 10px;
-          height: 10px;
+
+
+      .wrapper {
+        display: grid;
+        grid-template-columns: repeat(7, 1px);
+        gap: 1px;
       }
       
+      #container {
+        display: grid;
+        grid-template-columns: repeat(100vw, 50px) 100vw;
+        grid-gap: 5px;
+        box-sizing: border-box;
+        height: 200px;
+        width: 100%;
+        background-color: #8cffa0;
+        padding: 10px;
+      }
+
+      #container > div {
+        background-color: #8ca0ff;
+        padding: 5px;
+      }
+
     </style>
   </head>
   <body>
-    <pre><p id="debuby"></p></pre>
+  <div id="container">
+    <div class="box">hehe</div>
+    <div class="box">haha</div>
+    <div class="box">hehe</div>
+    <div class="box">haha</div>
+    <div class="box">hehe</div>
+    <div class="box">haha</div>
+    <div class="box">hehe</div>
+    <div class="box">haha</div>
+    <div class="box">hehe</div>
+    <div class="box">haha</div>
+    <div class="box">hehe</div>
+    <div class="box">haha</div>
+    <div class="box">hehe</div>
+    <div class="box">haha</div>
+    <div class="box">hehe</div>
+    <div class="box">haha</div>
+    <div class="box">hehe</div>
+    <div class="box">haha</div>
+  </div>
 
   </body>
 </html>
