@@ -1008,7 +1008,8 @@ function parseCommand(command) {
                 setSongInfo(`${songname}`);
                 document.getElementById("songinfo").style.display = "";
                 playMusic(songname);
-                displayLyrics(song_lyrics);
+
+                lyr_disp = song_lyrics; // set the current lyrics
 
             } else {                    // hello mario
                 displayNewline();
@@ -1231,11 +1232,11 @@ function parseCommand(command) {
     } else if (command == "credits" || command == "credits ") {
         // display fancy credits
         clearScreen();
-        setColour("#0097ff", false, "#1e1e1e", false, "#313131", false);
+        setColour("#7cfc00", false, "#000000", false, "#1e1e1e", false);
         inputlock = true;
         debubg("playing credits!!! thank you for using this silly little website!");
         parseCommand("music play meal thyme");
-        displayLyrics(site_credits);
+        lyr_disp = site_credits;
     }
 
     else {

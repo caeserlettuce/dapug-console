@@ -105,6 +105,7 @@ var htmlmods = document.getElementById("mods");
 var debug_win;
 var debugvar_win;
 var credits_playing = false;
+var lyr_disp;
 
 
 
@@ -3061,6 +3062,14 @@ music.addEventListener('ended', (event) => {
     }
     boom();
 });
+
+music.addEventListener('play', (event) => {
+    if (music.currentTime == 0) { // if it has just started tm
+        displayLyrics(lyr_disp);
+    }
+
+});
+
 
 window.onresize = sizeCheck;
 

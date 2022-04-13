@@ -3608,7 +3608,7 @@ var songs = {
         "audio": "test.ogg",
         "volume": 1,
         "lyrics": [
-            {"text": "HAH!", "dur": [208, 628]},
+            {"text": "\nHAH!", "dur": [208, 628]},
             {"text": "\nyou're dead!", "dur": [ 628, 2123]},
             {"text": "\n*laughs*", "dur": [ 2123, 3664]}
         ]
@@ -3621,7 +3621,7 @@ var songs = {
         "audio": "https://cdn.discordapp.com/attachments/960729059829096580/960812517880373248/Jack_Stauber_-_MILK.mp3",
         "volume": 1,
         "lyrics": [
-            {"text": "What kind of milk were you?", "dur": [579, 3939]},
+            {"text": "\nWhat kind of milk were you?", "dur": [579, 3939]},
             {"text": "\nWhat kind of life did you live through?", "dur": [ 7032, 11054], "exec": "console.log('HALLO!');"},
             {"text": "\n(Oh!)", "dur": [12624, 12945]},
             {"text": "\nDid you know love?", "dur": [12917, 14256]},
@@ -3647,7 +3647,7 @@ var songs = {
         "audio": "https://cdn.discordapp.com/attachments/960729059829096580/960822608532746240/Jack_Stauber_-_We_See_You_Opal_Reprise.mp3",
         "volume": 1,
         "lyrics": [
-            {"text": "We see you, ", "dur": [660, 2508]},
+            {"text": "\nWe see you, ", "dur": [660, 2508]},
             {"text": "Opal", "dur": [2589, 3664]},
             {"text": "\nYour troubles are miles away", "dur": [3884, 6186]},
             {"text": "\nWe see you, ", "dur": [7068, 8574]},
@@ -3666,7 +3666,7 @@ var songs = {
         "audio": "https://cdn.discordapp.com/attachments/960729059829096580/960838362569252944/Lemon_Demon_-_Eighth_Wonder.mp3",
         "volume": 1,
         "lyrics": [
-            {"text": "Extra clever", "dur": [24582, 26152]},
+            {"text": "\nExtra clever", "dur": [24582, 26152]},
             {"text": "\nEarthbound spirit", "dur": [28021, 29734]},
             {"text": "\nGhost in the form", "dur": [31432, 33417]},
             {"text": "\nOf a mongoose", "dur": [34851, 36778]},
@@ -3924,7 +3924,7 @@ var songs = {
         "audio": "https://dapug.lol/music/memory_hoarder/audio/09.mp3",
         "volume": 1,
         "lyrics": [
-            {"text": "Good morning!", "dur": [18619, 19331]},
+            {"text": "\nGood morning!", "dur": [18619, 19331]},
             {"text": " You have been in suspension for:", "dur": [19485, 21051]},
             {"text": " [FIFTY]", "dur": [21231, 21713]},
             {"text": " days.", "dur": [21901, 22416]},
@@ -3947,7 +3947,7 @@ var songs = {
         "audio": "https://cdn.discordapp.com/attachments/960729059829096580/961360773878267904/Jack_Stauber_-_Oatmeal.mp3",
         "volume": 1,
         "lyrics": [
-            {"text": "I could have", "dur": [1965, 2644]},
+            {"text": "\nI could have", "dur": [1965, 2644]},
             {"text": " oatmeal for breakfast", "dur": [2602, 3888]},
             {"text": " and oatmeal for lunch", "dur": [3910, 5369]},
             {"text": "\nOatmeal for dinner as well", "dur": [5327, 6950]},
@@ -3992,7 +3992,7 @@ var songs = {
         "audio": "https://cdn.discordapp.com/attachments/960729059829096580/961401740098437140/Jack_Stauber_-_Coffee.mp3",
         "volume": 1,
         "lyrics": [
-            {"text": "Do I need it?", "dur": [3331, 4591]},
+            {"text": "\nDo I need it?", "dur": [3331, 4591]},
             {"text": " (Mocha)", "dur": [4586, 5650]},
             {"text": "\nAm I under control?", "dur": [5654, 7381]},
             {"text": "\nCan I beat it?", "dur": [7455, 8693]},
@@ -4210,7 +4210,7 @@ var songs = {
         "audio": "https://cdn.discordapp.com/attachments/960729059829096580/961658854276497458/Lemon_Demon_-_Soft_Fuzzy_Man.mp3",
         "volume": 1,
         "lyrics": [
-            {"text": "Cold and windy", "dur": [8123, 10847]},
+            {"text": "\nCold and windy", "dur": [8123, 10847]},
             {"text": "\nDark and stormy", "dur": [11411, 13963]},
             {"text": "\nLet me float your way", "dur": [14373, 16877]},
             {"text": "\nPlease don't ignore me", "dur": [17679, 20800]},
@@ -4369,7 +4369,7 @@ var songs = {
         "audio": "https://cdn.discordapp.com/attachments/960729059829096580/961676217407401984/Lemon_Demon_-_Ive_Got_Some_Falling_to_Do.mp3",
         "volume": 1,
         "lyrics": [
-            {"text": "In an airplane,", "dur": [23445, 24865]},
+            {"text": "\nIn an airplane,", "dur": [23445, 24865]},
             {"text": " I was flying", "dur": [24950, 26427]},
             {"text": "\nJust a flight attendant guy", "dur": [26469, 29226]},
             {"text": "\nI can be clumsy,", "dur": [29254, 30755]},
@@ -4514,8 +4514,10 @@ var site_credits = [
  ▒█▒ ▒▒ ▒▒ ▒▒ ▒▒ ▒▒ ▒▒ ▒▒▒▒░
 ▒███████████████████████░▒░
 ▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒░
- ░░░░░░░░░░░░░░░░░░░░░░░░`, "dur": [16630, 18157]},
-{"text": "\n\n caeserlettuce - lead developer\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "dur": [18394, 19874]},
+ ░░░░░░░░░░░░░░░░░░░░░░░░
+`, "dur": [16577, 17582]},
+{"text": "\n caeserlettuce - lead developer", "dur": [17582, 18418]},
+{"text": "⠀\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "dur": [19426, 19877]},
 {"text": `
                 ░░   ░
           ░       ░   ░
@@ -4545,10 +4547,34 @@ var site_credits = [
 ▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 ▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓
  ▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓
-    ▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓`, "dur": [19874, 21329]},
-    {"text": "\n\n 18gallons - developer - bug tester - breaker of the site\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "dur": [21329, 23179]},
-    //{"text": "\n
+    ▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓`, "dur": [19877, 20918]},
+    {"text": "\n\n 18gallons - developer - bug tester - breaker of the site", "dur": [20918, 21717]},
+    {"text": "⠀\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "dur": [22743, 23186]},
+    {"text": "\nSPECIAL THANKS TO:\n\nGitHub\nVisual Studio Code\nStack Overflow\n\n\n", "dur": [23153, 27931]},
+    {"text": `
+             .,-:;//;:=,
+         . :H@@@MM@M#H/.,+%;,
+      ,/X+ +M@@M@MM%=,-%HMMM@X/,
+     -+@MM; $M@@MH+-,;XMMMM@MMMM@+-
+    ;@M@@M- XM@X;. -+XXXXXHHH@M@M#@/.
+  ,%MM@@MH ,@%=            .---=-=:=,.
+  -@#@@@MX .,              -%HX$$%%%+;
+ =-./@M@M$                  .;@MMMM@MM:
+ X@/ -$MM/                    .+MM@@@M$
+,@M@H: :@:                    . -X#@@@@-
+,@@@MMX, .                    /H- ;@M@M=
+.H@@@@M@+,                    %MM+..%#$.
+ /MMMM@MMH/.                  XM@MH; -;
+  /%+%$XHH@$=              , .H@@@@MX,
+   .=--------.           -%H.,@@@@@MX,
+   .%MM@@@HHHXX$$$%+- .:$MMX -M@@MM%.
+     =XMMM@MM@MM#H;,-+HMM@M+ /MMMX=
+       =%@M@M#@$-.=$@MM@@@M; %M%=
+         ,:+$+-,/H#MMMMMMM@- -,
+               =++%%%%+/:-.
+    `, "dur": [29777, 31231]}
 
+    // "⠀" // nothing characer
 
     // stackoverflow
     // vscode
