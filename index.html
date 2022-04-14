@@ -62,7 +62,7 @@
 
 
 
-    <pre><p id="consy" class="consy"><span id="CON_0" style="color: inherit;">console started. type 'issue' if you find any issues/errors with this page. type 'help' for help.</span></p></pre>
+    <pre id="consy-pre"><p id="consy" class="consy"><span id="CON_0" style="color: inherit;">console started. type 'issue' if you find any issues/errors with this page. type 'help' for help.</span></p></pre>
 
 
     <div class="input">
@@ -103,10 +103,13 @@
 
     </div>-->
 
-
+    <pre>
+      <p id="regtext" class="text-size-guide">h</p> <!-- DONT MAKE THIS DISPLAY:NONE!!! it has to exist or else console wont be able to get the text size-->
+    </pre>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> <!-- oh god im using jquery now -->
     <script>console.log("\\/ ignore this \\/");</script>
+    <script src="setup.js"></script>
     <script src="ver.js"></script>
     <script src="audio.js"></script>
     <script src="urlParams.js"></script> <!--library i made hahadashdhha-->

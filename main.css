@@ -264,3 +264,11 @@ strong {
   left: 0px;
   z-index: 10;
 }
+
+.text-size-guide {
+  position: absolute;
+  z-index: 9000;
+  top: -20px;
+  left: -20px;
+  margin: 0px;
+}

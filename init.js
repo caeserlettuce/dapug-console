@@ -742,6 +742,7 @@ function sizeCheck() {
         orientation = "landscape";
         aspectratio = windowWidth / windowHeight;
         document.getElementById("body").style.fontSize = `${aspectratio * sizemod}vh`;
+        document.getElementById("regtext").style.fontSize = `${aspectratio * sizemod}vh`;
         document.getElementById("consoleinputstyle").style.fontSize = `${1.25 * aspectratio * sizemod}vh`;
         document.getElementById("consoleinput").style.fontSize = `${1.25 * aspectratio * sizemod}vh`;
         document.getElementById("consy-height").innerHTML = `.consy { height: ${ windowHeight - ( document.getElementById("consoleinput").clientHeight + 35)}px; }`;
@@ -750,11 +751,28 @@ function sizeCheck() {
         orientation = "portrait";
         aspectratio = windowHeight / windowWidth;
         document.getElementById("body").style.fontSize = `${2 * aspectratio * sizemod}vw`;
+        document.getElementById("regtext").style.fontSize = `${2 * aspectratio * sizemod}vw`;
         document.getElementById("consoleinputstyle").style.fontSize = `${2.25 * aspectratio * sizemod}vw`;
         document.getElementById("consoleinput").style.fontSize = `${2.25 * aspectratio * sizemod}vw`;
         document.getElementById("consy-height").innerHTML = `.consy { height: ${ windowHeight - ( document.getElementById("consoleinput").clientHeight + 35)}px; }`;
     }
-    debubg(orientation)
+    debubg(orientation);
+
+
+    vis_consywidth = inHorizViewport($('#consy'));
+    vis_consyheight = inVertiViewport($('#consy'));
+
+    display_textsize[0] = document.getElementById("regtext").clientWidth;
+    display_textsize[1] = document.getElementById("regtext").clientHeight;
+
+    display_charsize[0] = Math.floor( vis_consywidth / display_textsize[0] );
+    display_charsize[1] = Math.floor( vis_consyheight / display_textsize[1] );
+
+    //console.log("console width: ", vis_consywidth);
+    //console.log("console height: ", vis_consyheight);
+    //console.log("console text size: ", display_textsize);
+    //console.log("console char size: ", display_charsize);
+
 
     // CALCULATING HOW MANY NEWLINES PER ENTIRE PAGE HEIGHT!!
 
@@ -764,14 +782,9 @@ function sizeCheck() {
 
     // actually imma just have it do a few checks, if CON_0 exists, it'll get the height of that, if that doesnt exist, it'll try getting CON_1 (when you run clear it starts on CON_1), and if none are present it'll just set it to 20
 
+    // screw this im doing different math because this math is dumb
     
-    if (orientation == "landscape") {
-        textheight = Math.floor( ( ( ( aspectratio * sizemod ) * 0.01 ) * windowHeight ));
-    } else if (orientation == "portrait") {
-        textheight = Math.floor( ( ( ( 2 * aspectratio * sizemod ) * 0.01 ) * windowWidth ));
-    }
-
-    newline_height = Math.floor(windowHeight / textheight);
+    // now its gonna calculate based on the height of a dummy text element with a single character that it gets the size of
     
     //console.log("height: ", textheight);
     //console.log("newlin: ", newline_height);
@@ -2917,12 +2930,6 @@ function rawSaveTheme(nametm, author, text, back, accy) {
 //
 //
 debubg("extra tool functions init finished...");
-
-
-
-
-
-
 
 
 

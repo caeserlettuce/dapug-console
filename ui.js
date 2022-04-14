@@ -4269,8 +4269,8 @@ function updateLyrics() {       // this will be called every time the song is pl
                 {"text": "\nand you make a neat gun.", "dur": [47368, 49319]},
                 {"text": "\nFor the people who are", "dur": [49324, 51067]},
                 {"text": "\nstill alive.", "dur": [51090, 52504]},
-                {"text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nF", "dur": [52569, 53234]},
-                {"text": "orms FORM-55551-5:\nPersonnel File Addendum:", "dur": [53234, 55000]},
+                {"text": `⠀${"\n".repeat(display_charsize[1])}`, "dur": [52569, 53234]},
+                {"text": "Forms FORM-55551-5:\nPersonnel File Addendum:", "dur": [53234, 55000]},
                 {"text": "\n\n\nDear [Subject Name Here],", "dur": [55669, 57937]},
                 {"text": "\n\nI'm not even angry.", "dur": [58551, 60312]},
                 {"text": "\nI'm being so sincere right now.", "dur": [62822, 66246]},
@@ -4288,8 +4288,8 @@ function updateLyrics() {       // this will be called every time the song is pl
                 {"text": "\nThink of all the things we learned", "dur": [99294, 101387]},
                 {"text": "\nfor the people who are", "dur": [101387, 103030]},
                 {"text": "\nstill alive.", "dur": [103030, 104526]},
-                {"text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nF", "dur": [104560, 105770]},
-                {"text": "orms FORM-55551-6:\nPersonnel File Addendum Addendum:", "dur": [105775, 107602]},
+                {"text": `⠀${"\n".repeat(display_charsize[1])}`, "dur": [104560, 105770]},
+                {"text": "Forms FORM-55551-6:\nPersonnel File Addendum Addendum:", "dur": [105775, 107602]},
                 {"text": "\n\nOne last thing:", "dur": [108334, 110401]},
                 {"text": "\n\nGo ahead and leave me.", "dur": [110805, 112650]},
                 {"text": "\nI think I prefer to stay inside.", "dur": [114642, 118080]},
@@ -4308,8 +4308,8 @@ function updateLyrics() {       // this will be called every time the song is pl
                 {"text": "\nThere is research to be done.", "dur": [151261, 153481]},
                 {"text": "\nOn the people who are", "dur": [153390, 154992]},
                 {"text": "\nstill alive.", "dur": [155052, 156603]},
-                {"text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nP", "dur": [156605, 156870]},
-                {"text": "S: ", "dur": [156880, 157000]},
+                {"text": `⠀${"\n".repeat(display_charsize[1])}`, "dur": [156605, 156870]},
+                {"text": "PS: ", "dur": [156880, 157000]},
                 {"text": "And Believe me I am", "dur": [157287, 159041]},
                 {"text": "\nstill alive.", "dur": [159045, 160463]},
                 {"text": "\nPPS: ", "dur": [160602, 160770]},
@@ -4325,7 +4325,7 @@ function updateLyrics() {       // this will be called every time the song is pl
                 {"text": "\nAnd when you're dead I will be", "dur": [173269, 174977]},
                 {"text": "\nstill alive.", "dur": [175220, 176299]},
                 {"text": "\n\n\n\nSTILL ALIVE.", "dur": [176813, 178300]},
-                {"text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  THANK YOU.", "dur": [177000, 180000]}
+                {"text": `${"\n".repeat(display_charsize[1])}  THANK YOU.`, "dur": [177000, 180000]}
             ]
         },
         "want you gone": {
@@ -4346,30 +4346,30 @@ function updateLyrics() {       // this will be called every time the song is pl
                 {"text": "\nExcept I wasn't laughing", "dur": [18714, 20719]},
                 {"text": "\nUnder the circumstances", "dur": [21011, 23261]},
                 {"text": "\nI've been shockingly nice", "dur": [23279, 26026]},
-                {"text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nY", "dur": [25703, 26000]},
-                {"text": "ou want your freedom?", "dur": [26674, 28808]}, // 
+                {"text": `⠀${"\n".repeat(display_charsize[1])}`, "dur": [25703, 26000]},
+                {"text": "You want your freedom?", "dur": [26674, 28808]}, // 
                 {"text": "\nTake it", "dur": [28837, 30514]},
                 {"text": "\nThat's what I'm counting on\n\n", "dur": [31461, 33851]},
                 {"text": "\nI used to want you dead", "dur": [36265, 39082]},
                 {"text": "\nbut", "dur": [39117, 39567]},
                 {"text": "\nNow I only want you gone", "dur": [39649, 43618]},
-                {"text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nS", "dur": [46636, 47435]},
-                {"text": "he was a lot like you", "dur": [47511, 49211]},
+                {"text": `⠀${"\n".repeat(display_charsize[1])}`, "dur": [46636, 47435]},
+                {"text": "She was a lot like you", "dur": [47511, 49211]},
                 {"text": "\n(Maybe not quite as heavy)", "dur": [49947, 51870]},
                 {"text": "\nNow little Caroline is in here too", "dur": [52186, 55651]},
                 {"text": "\nOne day they woke me up", "dur": [56949, 58539]},
                 {"text": "\nSo I could live forever", "dur": [59304, 61404]},
                 {"text": "\nIt's such a shame the same", "dur": [61812, 63629]},
                 {"text": "\nwill never happen to you", "dur": [63635, 66662]},
-                {"text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSeverance Package Details:\n\n", "dur": [66662, 67000]},
+                {"text": `${"\n".repeat(display_charsize[1])}Severance Package Details:\n\n`, "dur": [66662, 67000]},
                 {"text": "\nYou've got your", "dur": [67428, 68363]},
                 {"text": "\nshort sad", "dur": [68392, 69602]},
                 {"text": "\nlife left", "dur": [69602, 71876]},
                 {"text": "\nThat's what I'm counting on", "dur": [72297, 74646]},
                 {"text": "\nI'll let you get right to it", "dur": [77036, 80280]},
                 {"text": "\nNow I only want you gone", "dur": [80426, 83986]},
-                {"text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nG", "dur": [87468, 88736]},
-                {"text": "oodbye my only friend", "dur": [88881, 89947]},
+                {"text": `⠀${"\n".repeat(display_charsize[1])}`, "dur": [87468, 88736]},
+                {"text": "Goodbye my only friend", "dur": [88881, 89947]},
                 {"text": "\nOh, ", "dur": [90555, 90929]},
                 {"text": "did you think I meant you?", "dur": [91151, 92524]},
                 {"text": "\nThat would be funny", "dur": [93056, 94517]},
@@ -4378,14 +4378,14 @@ function updateLyrics() {       // this will be called every time the song is pl
                 {"text": "\nI don't need anyone now", "dur": [100187, 102583]}, 
                 {"text": "\nWhen I delete you maybe", "dur": [102548, 104704]},
                 {"text": "\n[REDACTED]", "dur": [104739, 107492]},
-                {"text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nG", "dur": [107200, 108000]},
-                {"text": "o make some new disaster", "dur": [108305, 112302]},
+                {"text": `⠀${"\n".repeat(display_charsize[1])}`, "dur": [107200, 108000]},
+                {"text": "Go make some new disaster", "dur": [108305, 112302]},
                 {"text": "\nThat's what I'm counting on", "dur": [113091, 115961]},
                 {"text": "\nYou're someone else's problem", "dur": [117837, 121186]},
                 {"text": "\nNow I only want you gone", "dur": [121361, 124868]},
                 {"text": "\nNow I only want you gone", "dur": [126171, 129929]},
                 {"text": "\nNow I only want you", "dur": [130777, 133185]},
-                {"text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ngone", "dur": [132750, 135300]}
+                {"text": `⠀${"\n".repeat(display_charsize[1])}gone`, "dur": [132750, 135300]}
             ]
         },
         "soft fuzzy man": {
@@ -4672,7 +4672,7 @@ var site_credits = [
     {"text": `\n\nStarted January 24, 2022`, "dur": [6610, 8251]},
     {"text": `\n\nCoded with over 5000 lines of javascript`, "dur": [9939, 11490]},
     {"text": `\n\nAn excuse to spend hours tapping away on my keyboard`, "dur": [13240, 14800]},
-    {"text": `\n\n:]\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n`, "dur": [16123, 16630]},
+    {"text": `\n\n:]${"\n".repeat(display_charsize[1])}`, "dur": [16123, 16630]},
     {"text": `
          ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒░
         ▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓█▒░
@@ -4705,7 +4705,7 @@ var site_credits = [
  ░░░░░░░░░░░░░░░░░░░░░░░░
 `, "dur": [16577, 17582]},
 {"text": "\n caeserlettuce - lead developer", "dur": [17582, 18418]},
-{"text": "⠀\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "dur": [19426, 19877]},
+{"text": `⠀${"\n".repeat(display_charsize[1])}`, "dur": [19426, 19877]},
 {"text": `
                 ░░   ░
           ░       ░   ░
@@ -4737,7 +4737,7 @@ var site_credits = [
  ▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓
     ▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓`, "dur": [19877, 20918]},
     {"text": "\n\n 18gallons - developer / bug testing / themes", "dur": [20918, 21717]},
-    {"text": "⠀\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "dur": [22743, 23186]},
+    {"text": `⠀${"\n".repeat(display_charsize[1])}`, "dur": [22743, 23186]},
     {"text": "\nSPECIAL THANKS TO:\n\nGitHub\nVisual Studio Code\nStack Overflow\n\n\n", "dur": [23153, 27931]},
     {"text": `
              .,-:;//;:=,
@@ -4762,11 +4762,11 @@ var site_credits = [
                =++%%%%+/:-.
     `, "dur": [29777, 30832]},
     {"text": "\n\n Valve - Portal 1 & 2 for inspiring me to make this", "dur": [30832, 31653]},
-    {"text": "⠀\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "dur": [33071, 34152]},
+    {"text": `⠀${"\n".repeat(display_charsize[1])}`, "dur": [33071, 34152]},
     {"text": "[insert more credits when i need them]", "dur": [34152, 36152]},
 
 
-    {"text": "⠀\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "dur": [51925, 52958]},
+    {"text": `⠀${"\n".repeat(display_charsize[1])}`, "dur": [51925, 52958]},
     {"text": "THANK YOU\nFOR PLAYING AROUND\nWITH THIS SILLY LITTLE WEBSITE!!", "dur": [52958, 56145]},
     // "⠀" // nothing characer
 
