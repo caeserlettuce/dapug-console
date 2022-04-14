@@ -568,6 +568,8 @@ function parseCommand(command) {
     } else if (command == "snake") {
         snakeGameStart();
 
+    } else if (command == "ascii" || command == "ascii ") {
+        parseCommand("man ascii");
     } else if (argCommand == "ascii") {
         var mmm = argComm(commandInit);
         var fonty = mmm[1];

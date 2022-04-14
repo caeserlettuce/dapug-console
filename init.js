@@ -652,7 +652,7 @@ function debugWindow(bool) {
         try {
             debug_win.document.write(`
             <style>::-webkit-scrollbar {width: 10px;height: 10px;} body {overflow: hidden;} .eee {overflow: scroll; width: calc(100vw - 10px); height: calc(100vh - 10px);}</style>
-            <style id="scroll-text-style">::-webkit-scrollbar-thumb { background: ${textcolour}90; }</style>
+            <style id="scroll-text-style">::-webkit-scrollbar-thumb { background: ${accycolour}; }</style>
             <style id="scroll-back-style">::-webkit-scrollbar-track { background: ${backcolour}; } ::-webkit-scrollbar-corner { background: #000000 }</style>
             <style id="back-style">body { background-color: ${backcolour};}</style>
             <style id="text-style">body { color: ${textcolour};}</style>
@@ -1968,10 +1968,14 @@ function setAccyColour(colour, save) {
     document.getElementById("debubvar").style.borderColor = colour;
     document.getElementById("songinfomouse").style.backgroundColor = colour;
     document.getElementById("songinfo").style.borderColor = colour;
+    document.getElementById("scrollbar-colour").innerHTML = `::-webkit-scrollbar-thumb { background: ${colour}; }`;
     //document.getElementById("bottombar").style.backgroundColor = colour;
     if (do_save == true) {
         localStorage.setItem("accy-colour", colour);
         accycolour = `${colour}`;
+    }
+    if (debug == true) {
+        debug_win.document.getElementById("scroll-text-style").innerHTML = `::-webkit-scrollbar-thumb { background: ${colour}; }`;
     }
 }
 
@@ -2041,14 +2045,14 @@ function setTextColour(colourcode, save) {
     document.getElementById("body").style.color = colourcode;
     document.getElementById("consoleinput").style.color = colourcode;
     document.getElementById("consoleinputstyle").style.color = colourcode;
-    document.getElementById("scrollbar-colour").innerHTML = `::-webkit-scrollbar-thumb { background: rgba(${r}, ${g}, ${b}, 0.5); }`;
+    // rip scrollbar being text colour
     document.getElementById("link-styles").innerHTML = `.link {color: ${colourcode}; font-family: COURIERPRIME; } .link:hover { color: ${colourcode}; font-family: COURIERPRIME; } .link:visited { color: ${colourcode}; font-family: COURIERPRIME; } .link:active { color: ${colourcode}; font-family: COURIERPRIME; } `;
     document.getElementById("debubmouse").style.color = colourcode;
     document.getElementById("debubvarmouse").style.color = colourcode;
     document.getElementById("songinfomouse").style.color = colourcode;
     
     if (debug == true) {
-        debug_win.document.getElementById("scroll-text-style").innerHTML = `::-webkit-scrollbar-thumb { background: rgba(${r}, ${g}, ${b}, 0.5); }`;
+        // rip
         debug_win.document.getElementById("text-style").innerHTML = `body { color: ${colourcode};}`;
     }
 
@@ -2468,6 +2472,8 @@ function shareWorble(parsed) { // parse the worble save into colours
             } else if (lettertm == "Y") {
                 currentLine = `${currentLine}${worble_share_yellow}`;
             } else if (lettertm == "A") {
+                currentLine = `${currentLine}${worble_share_gray}`;
+            }else if (lettertm == "S") {
                 currentLine = `${currentLine}${worble_share_gray}`;
             }
 
