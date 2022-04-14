@@ -2260,7 +2260,30 @@ music pause     | pauses any playing music
 music skip      | skips current song
 music volume    | type this along with a value from 0 to 100 to set the music volume!
 `,
+    "art": `
+ART HELP PAGE
 
+fun art commands
+
+aperture
+cake
+among us
+lovejoy
+cheese
+pebble brain
+benson
+ascii           | type this along with a font (see 'fontlist') and some text, and it will spit out ascii art of the text you input
+font list       | list all supported fonts for the ascii command
+`,
+    "fun": `
+FUN HELP PAGE
+
+all the fun lil commands that dont really have an official place
+
+
+
+
+`
 
 
 }
