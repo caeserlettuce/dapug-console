@@ -2196,6 +2196,7 @@ music   | music
 art     | different art-themed commands
 fun     | fun commands
 tools   | any tools you may need (converters, etc.)
+danger  | anything that has to do with clearing stuff
 dev     | stuff for development`,
 
     "basic": `
@@ -2211,6 +2212,7 @@ ls      | lists all commands in existence
 clear   | clears console
 reset   | resets console completely (even all your saved data, so be careful!!)
 credits | shows the credits for console
+git     | shows the link to the github page for this project
 `,
     "users": `
 USERS HELP PAGE
@@ -2280,8 +2282,37 @@ FUN HELP PAGE
 
 all the fun lil commands that dont really have an official place
 
+portal
+portal2
+eef
+egg
+fitness
+`,
+    "tools": `
+TOOLS HELP PAGE
 
+different useful tools n stuff you can use on here
 
+convert         | type in convert, along with a unit type, a number, from unit, and to unit
+convert -list   | lists all the units and unit types
+`,
+    "dev": `
+DEV HELP PAGE
+
+these are developer commands, so if they are confusing, that's fine
+
+debug
+debug -v
+cinfo
+`,
+    "danger": `
+DANGER HELP PAGE
+
+anything that has to do with clearing cache n stuff
+(usually has to do with clearing all saved site data)
+
+reset           | resets the entire console to factory defaults
+clear -cache    | clears site cache (all saved data)
 
 `
 
@@ -2626,6 +2657,29 @@ var man = {
         " ",
         "USAGE:",
         "`zoom [number]`"
+    ],
+    "theme": [
+        "THEME MANPAGE",
+        "change the colour scheme within one command",
+        " ",
+        "USAGE:",
+        "'theme [option] [name/save]'",
+        " ",
+        "<name> is a name of a theme from the list of themes or a new name (run 'themes' to get a list of themes)",
+        "<save> is an exported theme save. <save> is only used when using the 'install' opeion. all other theme options use a theme name.",
+        " ",
+        "OPTIONS:",
+        " ",
+        "    use | use a theme from the list of themes",
+        "   save | saves your current colour scheme to your list of custom themes",
+        " export | copies the theme save to your clipboard to share with friends",
+        "install | install a theme from the previously mentioned theme save",
+        " ",
+        "EXAMPLES:",
+        " ",
+        "'theme use git'",
+        "'theme export portal2'",
+        "'theme install Cola Soda-caeserlettuce-#fdfdfd-#c70015-#43190e'"
     ]
 
 

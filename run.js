@@ -44,9 +44,20 @@ function parseCommand(command) {
     } else if (command.split(" ")[0] == "echo") {
         displayNewline();
         displayAnim(commandInit.slice(5), 20);
-    } else if (command == "help") {
-        displayNewline();
-        displayAnim(hlep, 1);
+    } else if (command == "help" || command == "help ") {
+        displayAnim(`\n${help["main"]}`, 0.25);
+    } else if (argCommand == "help") {
+        var page =  command.slice(5)
+        //page.slice(0, -5);
+        
+        if (help[page]) {
+            // the page exists
+            displayAnim(`\n${help[page]}`, 0.25 );
+        } else {
+            displayAnim("\nthat help page does not exist! run 'help' to get a list of help pages!");
+        }
+
+
     } else if (argCommand == "login") {
 
         var mmm = argComm(commandInit);
