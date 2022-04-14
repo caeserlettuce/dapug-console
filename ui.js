@@ -5549,6 +5549,69 @@ var themes = {      // console colour themes
         "back colour": "#dbac5c",
         "accy colour": "#62211d"
     },
+    "ocean": {
+        "name": "Ocean",
+        "author": "18gallons",
+        "text colour": "#87E0CF",
+        "back colour": "#155553",
+        "accy colour": "#FAF9F6"
+    },
+"pop tart": {
+        "name": "Pop Tart",
+        "author": "18gallons",
+        "text colour": "#D198B7",
+        "back colour": "#FAF9F6",
+        "accy colour": "#FF91AF"
+    },
+"candy cane": {
+        "name": "Candy Cane",
+        "author": "18gallons",
+        "text colour": "#edefeb",
+        "back colour": "#c54245",
+        "accy colour": "#3f000f"
+    },
+"blackberry": {
+        "name": "Blackberry",
+        "author": "18gallons",
+        "text colour": "#7B1E57",
+        "back colour": " #221C35",
+        "accy colour": "#6b6b7f"
+    },
+"git": {
+        "name": "Git",
+        "author": "18gallons",
+        "text colour": "#b1d1d9",
+        "back colour": "#0d1117",
+        "accy colour": "#238636"
+    },
+"scarlet": {
+        "name": "Scarlet",
+        "author": "18gallons",
+        "text colour": "#FF2400",
+        "back colour": "#240000",
+        "accy colour": "#7e1200"
+    },
+"amethyst": {
+        "name": "Amethyst",
+        "author": "18gallons",
+        "text colour": "#9966cc",
+        "back colour": "#12112a",
+        "accy colour": "#3a3884"
+    },
+"brilliance": {
+        "name": "Brilliance",
+        "author": "18gallons",
+        "text colour": "#00FFFF",
+        "back colour": "#637982",
+        "accy colour": "#aec6cf"
+    },
+"": {
+        "name": "",
+        "author": "18gallons",
+        "text colour": "#F7A8B8",
+        "back colour": "#FFFFFF",
+        "accy colour": "#55CDFC"
+    },
 }
 
 var custom_themes = {
@@ -5559,6 +5622,7 @@ var custom_themes = {
         "back colour": "#1e1e1e",
         "accy colour": "#007acc"
     },
+    
 }
 
 var fhsiofhghszg = ` // more easy copy pasting
