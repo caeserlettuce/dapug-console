@@ -4451,7 +4451,7 @@ function updateLyrics() {       // this will be called every time the song is pl
                 {"text": " Helper", "dur": [76115,76520 ]},
                 {"text": "\n\nGreen beans,", "dur": [76867, 77693]},
                 {"text": " oranges,", "dur": [77693, 78461]},
-                {"text": " pea pods,", "dur": [78461, 79277]},
+                {"text": " pea pod,", "dur": [78461, 79277]},
                 {"text": " pineapple", "dur": [79277, 80060]},
                 {"text": "\nCroissant,", "dur": [80060, 80679]},
                 {"text": " potato,", "dur": [80679, 81324]},
@@ -5556,62 +5556,99 @@ var themes = {      // console colour themes
         "back colour": "#155553",
         "accy colour": "#FAF9F6"
     },
-"pop tart": {
+    "pop tart": {
         "name": "Pop Tart",
         "author": "18gallons",
         "text colour": "#D198B7",
         "back colour": "#FAF9F6",
         "accy colour": "#FF91AF"
     },
-"candy cane": {
+    "candy cane": {
         "name": "Candy Cane",
         "author": "18gallons",
         "text colour": "#edefeb",
         "back colour": "#c54245",
         "accy colour": "#3f000f"
     },
-"blackberry": {
+    "blackberry": {
         "name": "Blackberry",
         "author": "18gallons",
         "text colour": "#7B1E57",
         "back colour": " #221C35",
         "accy colour": "#6b6b7f"
     },
-"git": {
+    "git": {
         "name": "Git",
         "author": "18gallons",
         "text colour": "#b1d1d9",
         "back colour": "#0d1117",
         "accy colour": "#238636"
     },
-"scarlet": {
+    "scarlet": {
         "name": "Scarlet",
         "author": "18gallons",
         "text colour": "#FF2400",
         "back colour": "#240000",
         "accy colour": "#7e1200"
     },
-"amethyst": {
+    "amethyst": {
         "name": "Amethyst",
         "author": "18gallons",
         "text colour": "#9966cc",
         "back colour": "#12112a",
         "accy colour": "#3a3884"
     },
-"brilliance": {
+    "brilliance": {
         "name": "Brilliance",
         "author": "18gallons",
         "text colour": "#00FFFF",
         "back colour": "#637982",
         "accy colour": "#aec6cf"
     },
-"": {
-        "name": "",
+    "cotton candy": {
+        "name": "Cotton Candy",
         "author": "18gallons",
         "text colour": "#F7A8B8",
         "back colour": "#FFFFFF",
         "accy colour": "#55CDFC"
     },
+    "pan": {
+        "name": "Pan",
+        "author": "caeserlettuce",
+        "text colour": "#fd208a",
+        "back colour": "#fcd400",
+        "accy colour": "#21adfc"
+    },
+    "bi": {
+        "name": "Bi",
+        "author": "caeserlettuce",
+        "text colour": "#0038a8",
+        "back colour": "#9b4f96",
+        "accy colour": "#d60270"
+    },
+    "ace": {
+        "name": "Ace",
+        "author": "caeserlettuce",
+        "text colour": "#ffffff",
+        "back colour": "#800080",
+        "accy colour": "#000000"
+    },
+    "spirit phone": {
+        "name": "Spirit Phone",
+        "author": "caeserlettuce",
+        "text colour": "#ffffff",
+        "back colour": "#030202",
+        "accy colour": "#df3b25"
+    },
+    "vscode": {
+        "name": "VSCode",
+        "author": "caeserlettuce",
+        "text colour": "#ffffff",
+        "back colour": "#1e1e1e",
+        "accy colour": "#007acc"
+    },
+
+    
 }
 
 var custom_themes = {
