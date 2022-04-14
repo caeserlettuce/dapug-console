@@ -2423,6 +2423,7 @@ var man = {
         "text/background >",
         "            text | changes the colour of the text",
         "      background | changes the colour of the background",
+        "          accent | changes the colour of the window accents",
         '#hex | any valid hex colour code, or "reset" to reset it',
         " ",
         "EXAMPLE:",
@@ -2530,6 +2531,8 @@ var man = {
     ],
     "share": [
         "SHARE MANPAGE",
+        " ",
+        "[THIS PAGE MAY BE OUTDATED, AND SOME THINGS MAY NOT WORK]",
         " ",
         "will generate and copy a link to your clipboard with all the supported shareable options.",
         " ",

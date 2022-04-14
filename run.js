@@ -217,14 +217,14 @@ function parseCommand(command) {
         } else if (commandInit.split(" ")[1] == "accent") {
             displayNewline();
             var colour = commandInit.split(" ")[2];
-            debubg(`setting text colour to ${colour}`);
+            debubg(`setting accent colour to ${colour}`);
             var iffy = /^#[0-9A-F]{6}$/i.test(colour);
             if (iffy == true) {
                 setColour(null, true, null, true, colour, true);
-                displayAnim(`setting text colour to ${colour}`, 15);
+                displayAnim(`setting accent colour to ${colour}`, 15);
             } else if (iffy == false && colour.toLowerCase() == "reset") {
                 setColour(null, true, null, true, "#1e1e1e", true);
-                displayAnim(`resetting text colour`, 15);
+                displayAnim(`resetting accent colour`, 15);
             } else if (iffy == false) {
                 displayNewline();
                 displayAnim("invalid colour code.", 10);
