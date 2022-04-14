@@ -120,7 +120,14 @@ var autodebugwin = false;
 var listening_input = false;
 var ask_do = function() {console.log("aaaaa!! im broken i think!!")};
 var ask_return = "";
-var istening_end = true;
+var listening_end = true;
+var stars_save = new Object();
+var stars_parse = new Array();
+var stars_status = false;
+var star_speed = 250;   // every quarter of a second itll add a new star
+var star_fade_speed = 250;
+var star_runtime = 0;
+var star_running = false;
 
 debubg("variable init finished...");
 // local storage setup
@@ -1142,6 +1149,19 @@ function displayTimeAnim(message, durat) {    // duration in ms
     debubg(`duration: ${durat}, speed: ${speedy}`);
     displaySingleLine(message, speedy);
 }
+
+function displayScreen(array) {
+    // input 2d array of 1 entry per character
+    var pushy = "";
+    for (i in array) {
+        for (o in array[i]) {
+            pushy += `${array[i][o]}`;
+        }
+        pushy += "\n";
+    }
+    console.log(pushy);
+}
+
 
 
 
@@ -2909,11 +2929,166 @@ function rawSaveTheme(nametm, author, text, back, accy) {
 
 //loadJS('https://raw.githubusercontent.com/caeserlettuce/dapug-console/83165118e417052d21f49dedab18b381338079db/example_mod.js', yourCodeToBeCalled, document.body);
 
+function parseStars() {
+    // parses star save json into a large thingy of text (tm)
+
+    for (var key in stars_save) {
+        if (stars_save.hasOwnProperty(key)) {
+            //console.log(key + " -> " + star_save[key]);
+            // loopy
+            var x = stars_save[key]["x"];
+            var y = stars_save[key]["y"];
+
+            stars_parse[y][x] = `${stars_save[key]["t"]}`;            
+
+            //stars_parse[x]
+
+        }
+    }
+    
+}
 
 
 
 
+function stars() {
+        
+    if (star_running == false) {
+        star_running = true;
+        star_runtime = 0;
+        stars_save = new Object();
 
+        var canvas_width = display_charsize[0];
+        var canvas_height = display_charsize[1];
+
+        var start_id = console_id + 1;
+        console_id += (canvas_width * canvas_height);
+
+        function getIdTm(cords) {
+            var base = cords[1] * canvas_width; // get the y value of of the coord and multiply it by the width
+            return start_id + base + cords[0];  // get the initial id value, add the base for the rows, and then add how many into the row
+        }
+
+        for (let i = 0; i < canvas_height; i++) {
+            stars_parse[i] = new Array();
+            for (let o = 0; o < canvas_width; o++) {
+                stars_parse[i].push(" ");
+            }
+        }
+
+        //console.log(getIdTm([0, 1]));
+
+        stars_status = true;
+        let starTimer = setInterval(() => {
+            // here we have the code for the stars
+            if (stars_status == true) {
+                
+                console.log("stars!");
+
+                var should_star = getRandomInt(0, 1); // if it should add a star
+
+                //should_star = 1;
+
+
+                
+
+
+                //console.log(should_star)
+                if (should_star == 1) {     // if the random integer is 1
+                    var rand_x = getRandomInt(0, canvas_width);     // get a random x coord
+                    var rand_y = getRandomInt(0, canvas_height);    // get a random y coord
+                    var twinkle_dur = getRandomInt(2, 12);           // get a random number from 2 to 6, that will be how many times the star remove twinkle will have to loop before its gone
+
+
+                    debubg(`NEW GENERATED STAR COORDS: ${rand_x}, ${rand_y}`);
+
+                    // "500": {"t": ".", "x": 20, "y": 20, "s": 10, "o": 100}
+
+
+                    function newStar(id) {
+                        
+                        
+                        //setInterval(() => {
+
+                        //}, star_fade_speed);
+                    }
+
+                    var idtm = getIdTm([rand_x, rand_y]);
+
+                    if (stars_save[idtm]) {
+                        // is existent
+                        debubg("star value is existent!!");
+                        
+                        if (stars_save[idtm]["t"] == ".") {
+                            // already is a star
+                            debubg("star is already existent as a star!")
+                        } else {
+                            debubg("replacing old star value!");
+                            stars_save[idtm] = {
+                                "t": ".",                           // the text that should be inside the coordinate
+                                "x": rand_x,                        // the x coordinate of the star
+                                "y": rand_y,                        // the y coordinate of the star
+                                "s": 100 / ( twinkle_dur + 1 ),     // the rate of which the opacity is changed
+                                "o": 100,                           // the starting opacity
+                            }
+                            
+
+                        }
+
+
+                    } else {
+                        debubg("making new star value");
+                        stars_save[idtm] = {
+                            "t": ".",                           // the text that should be inside the coordinate
+                            "x": rand_x,                        // the x coordinate of the star
+                            "y": rand_y,                        // the y coordinate of the star
+                            "s": 100 / ( twinkle_dur + 1 ),     // the rate of which the opacity is changed
+                            "o": 100,                           // the starting opacity
+                        }
+                        var fadeTimer = setInterval(() => {
+                            //console.log(stars_save[idtm]["o"]);
+
+                            var change = -1 * stars_save[idtm]["s"];
+
+                            if ( ( stars_save[idtm]["o"] + change ) > 0) {
+                                // if it is NOT zero
+                                stars_save[idtm]["o"] += change;
+                            } else {
+                                // if it is under zero
+                                debubg(`${idtm} is at zero!!`);
+                                stars_save[idtm]["o"] = 0;
+                                stars_save[idtm]["t"] = " ";
+                                clearInterval(fadeTimer);
+                            }
+        
+
+
+                        }, star_fade_speed);
+
+                    }
+
+                }
+
+                //console.log(stars_save);
+                
+                if (star_runtime == 1) {
+                    stars_status = false;
+                }
+                
+                
+            } else {
+                clearInterval(starTimer);
+                star_running = false;
+            }
+
+            star_runtime += 1;
+        }, star_speed);
+
+    }
+}
+
+//var use_id = console_id + 1;        // the current id that's being used
+//console_id += 1;                    // update console id
 
 
 
