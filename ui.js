@@ -2718,7 +2718,15 @@ var listy = [
     "theme",
     "themes",
     "themelist",
+    "theme use",
+    "theme save",
+    "theme share",
+    "theme export",
+    "theme import",
+    "theme install",
 
+
+    
     "* command is currently in-development and may break the site."
 ]; 
 
@@ -4459,7 +4467,7 @@ function updateLyrics() {       // this will be called every time the song is pl
                 {"text": " baguettes", "dur": [82326, 83116]},
                 {"text": "\nPotato chips,", "dur": [83116, 83979]},
                 {"text": " tomato soup,", "dur": [83979, 84832]},
-                {"text": " pickle,", "dur": [84382, 85232]},
+                {"text": " pickle,", "dur": [84832, 85232]},
                 {"text": " cookie,", "dur": [85232, 85707]},
                 {"text": " niblets", "dur": [85707, 86378]},
                 {"text": "\nMilk,", "dur": [86490, 87061]},
@@ -4516,42 +4524,42 @@ function updateLyrics() {       // this will be called every time the song is pl
                 {"text": " I'll see you in hell.'", "dur": [59454, 61020]},
                 {"text": "\nHe can be like that sometimes,", "dur": [61020, 62782]},
                 {"text": " he's such a nut", "dur": [62782, 63845]},
-                {"text": "\nSo I snicker and say,", "dur": [, ]},
-                {"text": " 'I'd love to, but", "dur": [, ]},
-                {"text": "\nGravity's calling,", "dur": [, ]},
-                {"text": " I've got some falling to", "dur": [, ]},
-                {"text": " do.'\n", "dur": [, ]},
-                {"text": "\nI'm in a state of shock,", "dur": [, ]},
-                {"text": " but it's something new", "dur": [, ]},
-                {"text": "\nI guess it all depends on your point of view.", "dur": [, ]},
-                {"text": " It's true", "dur": [, ]},
-                {"text": "\n\nThis is boring.", "dur": [, ]},
-                {"text": " Yes I'm falling", "dur": [, ]},
-                {"text": "\nBut it's taking quite a while", "dur": [, ]},
-                {"text": "\nMy destination", "dur": [, ]},
-                {"text": " is impending", "dur": [, ]},
-                {"text": "\nMight as well go out in style", "dur": [, ]},
-                {"text": "\nI put my arms out to the skies", "dur": [, ]},
-                {"text": "\nWhistle a tune and close my eyes", "dur": [, ]},
-                {"text": "\nTrying to briefly realise", "dur": [, ]},
-                {"text": " perpetual motion", "dur": [, ]},
-                {"text": "\n\nSuddenly,", "dur": [, ]},
-                {"text": " giant tentacles rise from the open sea", "dur": [, ]},
-                {"text": "\nAnd with total precision they lasso me", "dur": [, ]},
-                {"text": "\nIt's a mostrous squid", "dur": [, ]},
-                {"text": " and he saved my life", "dur": [, ]},
-                {"text": "\nBut I", "dur": [, ]},
-                {"text": " am too freaked out to be nice", "dur": [, ]},
-                {"text": "\nSo I tell him the truth,", "dur": [, ]},
-                {"text": " that i'd rather fall", "dur": [, ]},
-                {"text": "\nNo offense", "dur": [, ]},
-                {"text": " but at least it's predictable", "dur": [, ]},
-                {"text": "\nGotta stop stalling,", "dur": [, ]},
-                {"text": " I've got some falling to do", "dur": [, ]},
-                {"text": "\n\nI'm probably gonna die,", "dur": [, ]},
-                {"text": " but it's something new", "dur": [, ]},
-                {"text": "\nI guess it all depends on your point of view.", "dur": [, ]},
-                {"text": " It's true", "dur": [, ]}
+                {"text": "\nSo I snicker and say,", "dur": [64040, 65272]},
+                {"text": " 'I'd love to, but", "dur": [65347, 66634]},
+                {"text": "\nGravity's calling,", "dur": [66644, 68345]},
+                {"text": " I've got some falling to", "dur": [68350, 69926]},
+                {"text": " do.'\n", "dur": [69926, 70851]},
+                {"text": "\nI'm in a state of shock,", "dur": [72664, 73956]},
+                {"text": " but it's something new", "dur": [73965, 75537]},
+                {"text": "\nI guess it all depends on your point of view.", "dur": [75723, 78591]},
+                {"text": " It's true", "dur": [78605, 80171]},
+                {"text": "\n\nThis is boring.", "dur": [93518, 94606]},
+                {"text": " Yes I'm falling", "dur": [94996, 96400]},
+                {"text": "\nBut it's taking quite a while", "dur": [96540, 99115]},
+                {"text": "\nMy destination", "dur": [99464, 100909]},
+                {"text": " is impending", "dur": [101202, 102713]},
+                {"text": "\nMight as well go out in style", "dur": [102759, 105256]},
+                {"text": "\nI put my arms out to the skies", "dur": [105618, 108491]},
+                {"text": "\nWhistle a tune and close my eyes", "dur": [108724, 111690]},
+                {"text": "\nTrying to briefly realise", "dur": [111876, 114702]},
+                {"text": " perpetual motion", "dur": [114786, 116859]},
+                {"text": "\n\nSuddenly,", "dur": [118105, 119053]},
+                {"text": " giant tentacles rise from the open sea", "dur": [119303, 122279]},
+                {"text": "\nAnd with total precision they lasso me", "dur": [122354, 125106]},
+                {"text": "\nIt's a mostrous squid", "dur": [125250, 126714]},
+                {"text": " and he saved my life", "dur": [126816, 128323]},
+                {"text": "\nBut I", "dur": [128490, 129150]},
+                {"text": " am too freaked out to be nice", "dur": [129224, 131484]},
+                {"text": "\nSo I tell him the truth,", "dur": [131484, 132748]},
+                {"text": " that i'd rather fall", "dur": [132804, 134533]},
+                {"text": "\nNo offense", "dur": [134561, 135203]},
+                {"text": " but at least it's predictable", "dur": [135156, 137155]},
+                {"text": "\nGotta stop stalling,", "dur": [137155, 138587]},
+                {"text": " I've got some falling to do", "dur": [138699, 141367]},
+                {"text": "\n\nI'm probably gonna die,", "dur": [142938, 144594]},
+                {"text": " but it's something new", "dur": [144600, 146006]},
+                {"text": "\nI guess it all depends on your point of view.", "dur": [146192, 148809]},
+                {"text": " It's true", "dur": [149042, 150671]}
             ]
         }
     }
@@ -5647,8 +5655,41 @@ var themes = {      // console colour themes
         "back colour": "#1e1e1e",
         "accy colour": "#007acc"
     },
-
-    
+    "twitter dim": {
+        "name": "Twitter Dim",
+        "author": "caeserlettuce",
+        "text colour": "#f7f9f9",
+        "back colour": "#15202b",
+        "accy colour": "#1d9bf0"
+    },
+    "twitter lights out": {
+        "name": "Twitter Lights Out",
+        "author": "caeserlettuce",
+        "text colour": "#e7e9ea",
+        "back colour": "#000000",
+        "accy colour": "#1d9bf0"
+    },
+    "cola": {
+        "name": "Cola",
+        "author": "caeserlettuce",
+        "text colour": "#fdfdfd",
+        "back colour": "#c70015",
+        "accy colour": "#43190e"
+    },
+    "portal": {
+        "name": "Portal",
+        "author": "caeserlettuce",
+        "text colour": "#c6922b",
+        "back colour": "#010302",
+        "accy colour": "#1e1e1e"
+    },
+    "portal 2": {
+        "name": "Portal 2",
+        "author": "caeserlettuce",
+        "text colour": "#ffb44d",
+        "back colour": "#a15606",
+        "accy colour": "#f68309"
+    },
 }
 
 var custom_themes = {

@@ -1076,7 +1076,7 @@ function parseCommand(command) {
         for (i in keystm) {
             var key = keystm[i];
             var info = songs[key];
-            console.log(info);
+            //console.log(info);
             var song = `${key}`;
             var name = `${info["name"]}`;
             var artist = `${info["artist"]}`;
@@ -1109,16 +1109,16 @@ function parseCommand(command) {
         for (i in keystm) {                 // for all the keys in song (for all the songs in registry);
             var key = keystm[i];
             var info = songs[key];
-            console.log(info);
+            //console.log(info);
             var song = `${key}`;
             var name = `${info["name"]}`;
             var artist = `${info["artist"]}`;
             var album = `${info["album"]}`;
-            console.log("before:");
-            console.log(`'${song}'`);
-            console.log(`'${name}'`);
-            console.log(`'${artist}'`);
-            console.log(`'${album}'`);
+            //console.log("before:");
+            //console.log(`'${song}'`);
+            //console.log(`'${name}'`);
+            //console.log(`'${artist}'`);
+            //console.log(`'${album}'`);
             if (song.length < songlen) {
                 var diff = songlen - song.length;
                 song = `${song}${" ".repeat(diff)}`;
@@ -1151,11 +1151,11 @@ function parseCommand(command) {
                 var diff = albumlen - albumlabel.length;
                 albumlabel = `${albumlabel}${" ".repeat(diff)}`;
             }
-            console.log("after:");
-            console.log(`'${song}'`);
-            console.log(`'${name}'`);
-            console.log(`'${artist}'`);
-            console.log(`'${album}'`);
+            //console.log("after:");
+            //console.log(`'${song}'`);
+            //console.log(`'${name}'`);
+            //console.log(`'${artist}'`);
+            //console.log(`'${album}'`);
             songlist.push(song);       // add the song to the list
             namelist.push(name);       // add the name to the list
             artistlist.push(artist);       // add the artist to the list
@@ -1205,7 +1205,7 @@ function parseCommand(command) {
         fulllist.push("(check 'music' for more options)");
         //console.log(songlist);
         displayNewline();
-        displayAnim(fulllist, 0.1);
+        displayAnim(fulllist, 0.01);
 
     } else if (command == "portal") {   // play portal 1 music
         parseCommand("portal1");
