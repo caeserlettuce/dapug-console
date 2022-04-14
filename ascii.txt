@@ -271,31 +271,40 @@ CHEESE ANTIALIASING PASS
 
 GRADIENT:
 
-lllllllllllllllllllllllllllllllll
-lllllllllllllllllllllllllllllllll
-lllllllllllllllllllllllllllllllll
-IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
-IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
-IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
-OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
-HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
-HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
-#################################
-#################################
-#################################
-KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
-KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
-KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
-NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
-NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
-NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 
+lllllllllllllllllllllllllllllllll
+lllllllllllllllllllllllllllllllll
+lllllllllllllllllllllllllllllllll
+IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
+IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
+IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
+HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
+HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
+#################################
+#################################
+#################################
+KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
+KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
+KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
+NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
+NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
+NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
+MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒
+▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒
+▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒
+▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 
 
 
@@ -515,6 +524,97 @@ GITHUB ANTIALIASING PASS & FINAL:
         '"MMMMM         MMMMM"'
            '"MM         MM"'
 
+
+│┴┬├─┤┼┌┐└┘
+┃┻┳┣━┫╋┏┓┗┛
+║╩╦╠═╣╬╔╗╚╝
+ ╨╤╟ ╡╪╓╖╙╜
+ ╧╥╞ ╢╫╒╕╘╛
+╿┸┯┞ ┦╀┍┑┖┚
+╽┷┰┟ ┧╁┎┒┕┙
+ ┵┭┠╾┥┽╭╮╯╰
+ ┶┮┝╼┨┾
+ ┹┱┡ ┩╇
+ ┺┲┢ ┪╈
+╹   ╸ ╃
+╻   ╺ ╄
+╵   ╴ ╅
+╷   ╶ ╆
+    ╳ ╉
+    ╱ ╊
+    ╲ ┿
+      ╂
+          ↖
+▓▒░
+▗▖▝▘▟▙▜▛▚▞█
+▉▊▋▌▍▎▏
+▇▆▅▄▃▂▁
+▀
+
+
+
+
+         ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒░
+        ▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓█▒░
+       ▒█████████████████▒▒░
+      ▒█▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒░
+      ▒█▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒█▓▒▒░
+      ▒█▓░░░░░░░░░░░░░▒█▓▒▒░
+      ▒█▓░            ▒█▓▒▒░
+      ▒█▓░   ▓▓▓▓▓▓░  ▒█▓▒▒░
+      ▒█▓░   ▒█████░  ▒█▓▒▒░
+      ▒█▓░   ▒█████░  ▒█▓▒▒░
+      ▒█▓░   ░░░░░░░  ▒█▓▒▒░
+      ▒█▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒█▓▒▒░
+      ▒█▓███████████████▓▒▒░
+      ▒█▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒░▒▒
+      ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒░▒▒▓░
+      ░░░░░░░░░░░░░░░░░░░░▒▒▓▒░
+    ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓▒▒░
+   ▒███████████████████████▒▒▒░
+   ▒█▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒░
+   ▒█▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒▒▒▒▓▓▒▒▒░
+   ▒█▓▓▓▓▓▓▓▓▓▓          ▓▓▒▒▒░
+   ▒█▓▓▄▄▓▓▓▓▓▓▓▓▓▓▓▓▒▓▓▓▓▓▒▒▒░
+   ▒█▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒░
+   ▒▒▒ █▒ █▒ █▒ █▒ █▒ █▒ █ ▒▒░
+  ▒█▒ █▒ █▒ █▒ █▒ █▒ █▒ █▒▒░░
+ ▒█▒ ▒▒ ▒▒ ▒▒ ▒▒ ▒▒ ▒▒ ▒▒▒▒░
+▒███████████████████████░▒░
+▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒░
+ ░░░░░░░░░░░░░░░░░░░░░░░░
+
+
+
+                ░░   ░
+          ░       ░   ░
+           ░   ░░░░
+            ░░░░░   ░
+       ░ ░░▒▒▒░  ░░
+        ░▒▒▒▒░
+         ░▒▒▒▒▒▒░░
+           ░░▒▒▒▒▒▒░
+              ░▒▒▒▒▒▒
+        ░░▒▒▒▒▒▒▒▒▒▒░
+      ░▒▒▒▒▒▒▒▒▒▒░░░
+    ▓▓▒▒▒▒▒▓▓▓▓▓▓▓▓▓
+ ▓▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓▓▓
+▓▒▒▒░░░▒▒▒▒▒░░░░░░░░▒▒▒▓
+▓░░░░░░░░░░░░░░░░░░░░░░▓
+▒▓▓▓░░░░░░░░░░░░░░░░▓▓▓▓
+▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒
+▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒
+▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓   ▓▓▓
+▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓    ▓▓
+▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓    ▓▓
+▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓   ▒▓▓
+▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▓▓▓
+▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+ ▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓
+    ▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓
 
 
 

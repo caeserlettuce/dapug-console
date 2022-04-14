@@ -2177,6 +2177,95 @@ var hlep = [
     "convert -list | lists all conversion units and types" 
 ];
 
+var help = {
+    "main": `
+CONSOLE MAIN HELP PAGE
+
+Here you will find lists of fun commands!
+below are listed all the individual help pages, type 'help' and then one of those names to go to that page!
+if you would like a description of a command, run 'man' and then a command, and as long
+as there's a page written for it, you will be greeted with a more detailed explanation of a command!
+
+HELP PAGES:
+    
+basic   | the basic commands you should know
+users   | for logging in and out of different users
+visuals | change up how console looks to suite your style
+games   | fun games
+music   | music
+art     | different art-themed commands
+fun     | fun commands
+tools   | any tools you may need (converters, etc.)
+dev     | stuff for development`,
+
+    "basic": `
+BASIC HELP PAGE
+    
+below are all the basic commands you should probably know exist.
+
+help    | shows the main help page
+man     | explains almost every command
+copy    | put this at the beginning of any command to copy its output (if supported)
+info    | shows some info about this site
+ls      | lists all commands in existence
+clear   | clears console
+reset   | resets console completely (even all your saved data, so be careful!!)
+credits | shows the credits for console
+`,
+    "users": `
+USERS HELP PAGE
+
+below are commands to use for logging in/out of users
+(note: accounts are not actual online accounts)
+
+login       | type login, your username, and your password, and log into your account!
+signup      | type signup, a username, and a password, and then you have made a new account!
+logout      | log out to the generic user
+`,
+    "visuals": `
+VISUALS HELP PAGE
+
+control how console looks for you!
+
+colour text         | type this in, along with a HEX colour code to set the text colour!
+colour background   | type this in, along with a HEX colour code to set the background colour!
+colour accent       | type this in, along with a HEX colour code to set the accent colour!
+colour reset        | this resets all the colours to their defaults
+zoom                | type zoom and any number to change the text size
+themes              | list all of the pre-made colour themes
+theme use           | type this in along with a name of a theme to use it!
+theme save          | type this in along with a theme name to save your current colour scheme to that theme name!
+theme export        | type this in along with a theme name to copy a shareable version of the theme to your clipboard!
+theme install       | type this in along with the previously mentioned shareable theme text to add that theme to your list of themes!
+theme delete        | type this in along with a custom theme name to delete it!
+`,
+    "games": `
+GAMES HELP PAGE
+
+console even has games!!
+
+worble | type this in to start playing worble!
+`,
+    "music": `
+MUSIC HELP PAGE
+
+yes you can play music from console!!!!
+(note: most music files are hosted from discord, so if discord is blocked on your network, this may not work!)
+
+music           | show main music page
+music list      | list all songs you can play
+music play      | type this along with a song name! (as long as it's in the list of songs)
+                | or just type 'music play' to resume your music if it is paused
+music pause     | pauses any playing music
+music skip      | skips current song
+music volume    | type this along with a value from 0 to 100 to set the music volume!
+`,
+
+
+
+}
+
+
 var hlepart = [
     "ART HELP PAGE",
     "aperture",
@@ -2198,6 +2287,7 @@ var hlepdev = [
 ];
 
 var cpoylist = [
+    "[THIS LIST IS NOW OUTDATED]",
     "help",
     "ascii",
     "aperture",
@@ -2515,6 +2605,7 @@ var man = {
         "`zoom [number]`"
     ]
 
+
 }
 
 
@@ -2600,6 +2691,10 @@ var listy = [
     "portal2",
     "egg",
     "zoom",
+    "credits",
+    "theme",
+    "themes",
+    "themelist",
 
     "* command is currently in-development and may break the site."
 ]; 
@@ -3599,852 +3694,861 @@ var uwu_translate = {
 
 var infotm = new Array();
 
-var songs = {
-    "test": {
-        "name": "jeffGameover-2.ogg",
-        "artist": "Doe's World",
-        "album": "fnf week 7 death voicelines",
-        "art": "test.png",
-        "audio": "test.ogg",
-        "volume": 1,
-        "lyrics": [
-            {"text": "HAH!", "dur": [208, 628]},
-            {"text": "\nyou're dead!", "dur": [ 628, 2123]},
-            {"text": "\n*laughs*", "dur": [ 2123, 3664]}
-        ]
-    },
-    "milk": {
-        "name": "MILK",
-        "artist": "Jack Stauber",
-        "album": "Shop: A Pop Opera",
-        "art": "https://cdn.discordapp.com/attachments/960729059829096580/960813263434682368/shop_pop.png",
-        "audio": "https://cdn.discordapp.com/attachments/960729059829096580/960812517880373248/Jack_Stauber_-_MILK.mp3",
-        "volume": 1,
-        "lyrics": [
-            {"text": "What kind of milk were you?", "dur": [579, 3939]},
-            {"text": "\nWhat kind of life did you live through?", "dur": [ 7032, 11054], "exec": "console.log('HALLO!');"},
-            {"text": "\n(Oh!)", "dur": [12624, 12945]},
-            {"text": "\nDid you know love?", "dur": [12917, 14256]},
-            {"text": " Will you rest in peace?", "dur": [14474, 16208]},
-            {"text": "\nDid you have a family?", "dur": [16133, 18482]},
-            {"text": "\nHow was the view from the shelf?", "dur": [19260, 21377]},
-            {"text": "\nDid you ever believe in yourself?", "dur": [21902, 24326]},
-            {"text": "\n\nWhat kind of milk were you?", "dur": [26702, 30047]},
-            {"text": "\nWhat kind of life did you live through?", "dur": [33214, 36941]},
-            {"text": "\nDid your life drip rich with calcium?", "dur": [39027, 42059]},
-            {"text": "\nDid they laugh at you", "dur": [42136, 43546]},
-            {"text": " or did you laugh at them?", "dur": [43623, 45612]},
-            {"text": "\nDairy beloved,", "dur": [46655, 48431]},
-            {"text": " your days are gone", "dur": [48799, 50440]},
-            {"text": "\nThe grocery list goes on", "dur": [50420, 53182]}
-        ]
-    },
-    "we see you opal reprise": {
-        "name": "We See You, Opal (Reprise)",
-        "artist": "Jack Stauber",
-        "album": "Jack Stauber's OPAL (Original Soundtrack)",
-        "art": "https://media.discordapp.net/attachments/960729059829096580/960822574911225877/unknown.png?width=655&height=655",
-        "audio": "https://cdn.discordapp.com/attachments/960729059829096580/960822608532746240/Jack_Stauber_-_We_See_You_Opal_Reprise.mp3",
-        "volume": 1,
-        "lyrics": [
-            {"text": "We see you, ", "dur": [660, 2508]},
-            {"text": "Opal", "dur": [2589, 3664]},
-            {"text": "\nYour troubles are miles away", "dur": [3884, 6186]},
-            {"text": "\nWe see you, ", "dur": [7068, 8574]},
-            {"text": "Opal", "dur": [8900, 11473]},
-            {"text": "\n:]", "dur": [12141, 12451]},
-            {"text": "\nAnd in", "dur": [13281, 15016]},
-            {"text": " our eyes", "dur": [15586, 17841]},
-            {"text": " you'll stay", "dur": [17841, 21530]}
-        ]
-    },
-    "eighth wonder": {
-        "name": "Eighth Wonder",
-        "artist": "Lemon Demon",
-        "album": "Spirit Phone",
-        "art": "https://media.discordapp.net/attachments/960729059829096580/960838302561353738/spiritphone.png?width=655&height=655",
-        "audio": "https://cdn.discordapp.com/attachments/960729059829096580/960838362569252944/Lemon_Demon_-_Eighth_Wonder.mp3",
-        "volume": 1,
-        "lyrics": [
-            {"text": "Extra clever", "dur": [24582, 26152]},
-            {"text": "\nEarthbound spirit", "dur": [28021, 29734]},
-            {"text": "\nGhost in the form", "dur": [31432, 33417]},
-            {"text": "\nOf a mongoose", "dur": [34851, 36778]},
-            {"text": "\n\nAnd I have hands", "dur": [38716, 40696]},
-            {"text": "\nAnd I have feet", "dur": [42170, 43877]},
-            {"text": "\nI'll never die", "dur": [45566, 47423]},
-            {"text": "\nI am a freak", "dur": [48996, 50598]},
-            {"text": "\n\nHello,", "dur": [50918, 51353]},
-            {"text": " I'm here", "dur": [51829, 52612]},
-            {"text": "\nI'm living in the wall", "dur": [52676, 54244]},
-            {"text": "\nI know", "dur": [54394, 55225]},
-            {"text": " I might be small, but", "dur": [55230, 57198]},
-            {"text": "\nI, I, I,", "dur": [57163, 59642]},
-            {"text": " am a", "dur": [59619, 61232]},
-            {"text": "\nFreak", "dur": [61882, 62329]},
-            {"text": "\n\nThou wilt never", "dur": [65725, 67536]},
-            {"text": "\nKnow what I am", "dur": [69126, 70879]},
-            {"text": "\nI am the fifth dimension", "dur": [72801, 74397]},
-            {"text": "\nAnd I'll split the atom", "dur": [76214, 77816]},
-            {"text": "\n\nAnd if you see me", "dur": [79615, 81391]},
-            {"text": "\nYou're paralyzed", "dur": [83319, 85304]},
-            {"text": "\nPillar of salt", "dur": [86720, 88978]},
-            {"text": "\nYou're mummified", "dur": [90127, 91915]},
-            {"text": "\n\nHello,", "dur": [92124, 92792]},
-            {"text": " I'm here", "dur": [92925, 93784]},
-            {"text": "\nI'm living in the wall", "dur": [93819,95514 ]},
-            {"text": "\nI know", "dur": [95508, 96385]},
-            {"text": " I might be small, but", "dur": [96390, 98370]},
-            {"text": "\nI am the Eighth Wonder", "dur": [98294, 103129]},
-            {"text": "\n\nAnd I was born", "dur": [133331, 135618]},
-            {"text": "\n1852", "dur": [136790, 138636]},
-            {"text": "\nAnd I was born", "dur": [140226, 142177]},
-            {"text": "\nIn India", "dur": [144034, 145508]},
-            {"text": "\n\nAnd I shall haunt", "dur": [147505, 149701]},
-            {"text": "\nLike the Buggane", "dur": [150895, 153147]},
-            {"text": "\nWith such weird noise", "dur": [154320, 156909]},
-            {"text": "\nAnd clinking chains", "dur": [157779, 159672]},
-            {"text": "\n\nHello,", "dur": [159706, 160612]},
-            {"text": " I'm here", "dur": [160589, 161483]},
-            {"text": "\nI'm living in the wall", "dur": [161436, 163143]},
-            {"text": "\nI know", "dur": [163144, 164013]},
-            {"text": " I might be small, but", "dur": [164028, 165862]},
-            {"text": "\nI, I, I,", "dur": [165967, 167972]},
-            {"text": " am a", "dur": [168489, 169156]},
-            {"text": "\nFreak", "dur": [172372, 172790]},
-            {"text": '\n\nI say "vanished"', "dur": [174485, 176586]},
-            {"text": "\nTo underground", "dur": [177840, 179906]},
-            {"text": "\nJim, let me go", "dur": [181276, 183168]},
-            {"text": "\nI watch like Hell", "dur": [184968, 186744]},
-            {"text": "\n\nAnd I have hands", "dur": [188590, 190517]},
-            {"text": "\nAnd I have feet", "dur": [192061, 193802]},
-            {"text": "\nI'll never die", "dur": [195474, 197761]},
-            {"text": "\nI am a freak", "dur": [198910, 200745]},
-            {"text": "\n\nHello,", "dur": [200791, 201662]},
-            {"text": " I'm here", "dur": [201697, 202532]},
-            {"text": "\nI'm living in the wall", "dur": [202532, 204181]},
-            {"text": "\nI know", "dur": [204216, 205133]},
-            {"text": " I might be small, but", "dur": [205110, 207083]},
-            {"text": "\nI am the Eighth Wonder", "dur": [207060, 211994]},
-            {"text": "\n\nEighth Wonder of the world", "dur": [213294, 215059]},
-            {"text": "\nYou'll never get to see", "dur": [216266, 218065]},
-            {"text": "\nWhat in the name of God can i", "dur": [219308 , 222848]},
-            {"text": " be?", "dur": [223046, 225646]}
-        ]
-    },
-    //"spiral of ants": {
-    //    "name": "Spiral of Ants",
-    //    "artist": "Lemon Demon",
-    //    "album": "Spirit Phone",
-    //    "art": "https://media.discordapp.net/attachments/960729059829096580/960838302561353738/spiritphone.png?width=655&height=655",
-    //    "audio": "https://cdn.discordapp.com/attachments/960729059829096580/960838432941305856/Lemon_Demon_-_Spiral_of_Ants.mp3",
-    //    "volume": 1
-    //},
-    "god i hate jazz": {
-        "name": "god i hate jazz",
-        "artist": "anne",
-        "album": "[singles]",
-        "art": "https://media.discordapp.net/attachments/960729059829096580/961005178297938071/Screenshot_20220405_135125.png",
-        "audio": "https://cdn.discordapp.com/attachments/960729059829096580/961004688570994738/anne_-_god_i_hate_jazz.wav",
-        "volume": 1,
-        "lyrics": [
-            {"text": " ", "dur": [10, 20]} 
-        ]
-    },
-    "old trash": {
-        "name": "Old Trash",
-        "artist": "HSM",
-        "album": "[singles]",
-        "art": "https://media.discordapp.net/attachments/960729059829096580/961051037337272360/unknown.png",
-        "audio": "https://cdn.discordapp.com/attachments/960729059829096580/961050791756582932/Hot_Step_Mom_-_Old_Trash.mp3",
-        "volume": 1,
-        "lyrics": [
-            {"text": "\nI lost the old necklace you gave me", "dur": [33355, 36212]},
-            {"text": "\nIt's probably in the pocket of old jeans", "dur": [37548, 40422]},
-            {"text": "\nIt's probably in a pocket with old trash", "dur": [41691, 44973]},
-            {"text": "\nI don't really remember so don't ask", "dur": [45829, 49489]},
-            {"text": "\n\nI said I'll give you your things and go", "dur": [49384, 52655]},
-            {"text": " if you don't want to see me", "dur": [52824, 55018]},
-            {"text": "\nI'll just go ghost and cry", "dur": [58463, 60901]},
-            {"text": " when you want to reach me", "dur": [61111, 63345]},
-            {"text": "\nCause I", "dur": [66651, 67355]},
-            {"text": " don't really care", "dur": [67681, 69514]},
-            {"text": " but you said you need me", "dur": [69747, 72232]},
-            {"text": "\nAnd you're", "dur": [74926, 75776]},
-            {"text": " still unaware", "dur": [75904, 77859]},
-            {"text": " of how I was feeling", "dur": [78086, 79995]},
-            {"text": "\n\nWhy do you think", "dur": [85628, 88224]},
-            {"text": " so highly of me?", "dur": [89062, 92327]},
-            {"text": "\nWhy do you think", "dur": [94014, 96336]},
-            {"text": " so highly of me?", "dur": [97570, 100596]},
-            {"text": "\nWhy do you think", "dur": [102313, 105013]},
-            {"text": " so highly of me?", "dur": [106008, 109256]},
-            {"text": "\nAnd why can't I be", "dur": [110396, 113405]},
-            {"text": " the per", "dur": [114586, 115505]},
-            {"text": "son", "dur": [115586, 116053]},
-            {"text": " you see?", "dur": [116449, 117287]},
-            {"text": "\n\nI'm mad about the things that I did", "dur": [125219, 127762]},
-            {"text": " but I don't regret it", "dur": [128198, 130183]},
-            {"text": "\nIt was just way too easy to quit,", "dur": [133494, 136113]},
-            {"text": " though you're still my eyelids", "dur": [136282, 138650]},
-            {"text": "\nAnd if", "dur": [141787, 142666]},
-            {"text": " I could", "dur": [142788, 143696]},
-            {"text": " follow through with what I say", "dur": [144085, 146634]},
-            {"text": "\nI'd get a lot farther with you", "dur": [150126, 152599]},
-            {"text": " and the things that", "dur": [153193, 153920]},
-            {"text": " I want", "dur": [153973, 155282]},
-            {"text": "\nI", "dur": [156056, 156644]},
-            {"text": " want", "dur": [156836, 158367]},
-            {"text": "\n\nWhy do you think", "dur": [160776, 163552]},
-            {"text": " so highly of me?", "dur": [164238, 167451]},
-            {"text": "\nWhy do you think", "dur": [169139, 171763]},
-            {"text": " so highly of me?", "dur": [172613, 175924]},
-            {"text": "\nWhy do you think", "dur": [177559, 180731]},
-            {"text": " so highly of me?", "dur": [181051, 184234]},
-            {"text": "\nAnd why can't I be", "dur": [185509, 188704]},
-            {"text": " the", "dur": [189728, 189984]},
-            {"text": " person ", "dur": [190019, 191189]},
-            {"text": "you see?", "dur": [191549, 192603]},
-            {"text": "\n\nWhy do you think", "dur": [210899, 213507]},
-            {"text": " so highly of me?", "dur": [214502, 217336]},
-            {"text": "\nWhy do you think", "dur": [219233, 221770]},
-            {"text": " so highly of me?", "dur": [222713, 225826]},
-            {"text": "\nWhy do you think", "dur": [227566, 230319]},
-            {"text": " so highly of me?", "dur": [230994, 234090]},
-            {"text": "\nAnd why can't I be", "dur": [235656, 238891]},
-            {"text": " the person", "dur": [239799, 241382]},
-            {"text": " you see?", "dur": [241667, 242476]},
-            {"text": "\n\nWhy do you think", "dur": [244286, 247033]},
-            {"text": " so highly", "dur": [247638, 249873]},
-            {"text": " of me?", "dur": [249983, 251205]},
-            {"text": "\nWhy do you think", "dur": [252555, 255215]},
-            {"text": " so highly of me?", "dur": [256041, 259143]},
-            {"text": "\nWhy do you think", "dur": [260860, 264189]},
-            {"text": " so highly of me?", "dur": [264503, 267419]},
-            {"text": "\nAnd why can't", "dur": [269223, 270992]},
-            {"text": " I be", "dur": [270992, 272127]},
-            {"text": " the", "dur": [273145, 273517]},
-            {"text": " person", "dur": [273523, 274815]},
-            {"text": " you see?", "dur": [275077, 276130]}
-        ]
-    },
-    "packet bread": {
-        "name": "packet bread",
-        "artist": "dough emergency",
-        "album": "MEMORY HOARDER",
-        "art": "https://dapug.lol/music/vis/render-cycles.png",
-        "audio": "https://dapug.lol/music/memory_hoarder/audio/01.mp3",
-        "volume": 1,
-        "lyrics": [
-            {"text": " ", "dur": [10, 20]} 
-        ]
-    },
-    "refrigerator jury": {
-        "name": "refrigerator jury",
-        "artist": "dough emergency",
-        "album": "MEMORY HOARDER",
-        "art": "https://dapug.lol/music/vis/render-cycles.png",
-        "audio": "https://dapug.lol/music/memory_hoarder/audio/02.mp3",
-        "volume": 1,
-        "lyrics": [
-            {"text": " ", "dur": [10, 20]} 
-        ]
-    },
-    "meal thyme": {
-        "name": "meal thyme",
-        "artist": "dough emergency",
-        "album": "MEMORY HOARDER",
-        "art": "https://dapug.lol/music/vis/render-cycles.png",
-        "audio": "https://dapug.lol/music/memory_hoarder/audio/03.mp3",
-        "volume": 1,
-        "lyrics": [
-            {"text": " ", "dur": [10, 20]} 
-        ]
-    },
-    "possible holiday": {
-        "name": "possible holiday",
-        "artist": "dough emergency",
-        "album": "MEMORY HOARDER",
-        "art": "https://dapug.lol/music/vis/render-cycles.png",
-        "audio": "https://dapug.lol/music/memory_hoarder/audio/04.mp3",
-        "volume": 1,
-        "lyrics": [
-            {"text": " ", "dur": [10, 20]} 
-        ]
-    },
-    "goat miracle": {
-        "name": "goat miracle",
-        "artist": "dough emergency",
-        "album": "MEMORY HOARDER",
-        "art": "https://dapug.lol/music/vis/render-cycles.png",
-        "audio": "https://dapug.lol/music/memory_hoarder/audio/05.mp3",
-        "volume": 1,
-        "lyrics": [
-            {"text": " ", "dur": [10, 20]} 
-        ]
-    },
-    "theory coffee": {
-        "name": "theory coffee",
-        "artist": "dough emergency",
-        "album": "MEMORY HOARDER",
-        "art": "https://dapug.lol/music/vis/render-cycles.png",
-        "audio": "https://dapug.lol/music/memory_hoarder/audio/06.mp3",
-        "volume": 1,
-        "lyrics": [
-            {"text": " ", "dur": [10, 20]} 
-        ]
-    },
-    "broccolli drama": {
-        "name": "broccolli drama",
-        "artist": "dough emergency",
-        "album": "MEMORY HOARDER",
-        "art": "https://dapug.lol/music/vis/render-cycles.png",
-        "audio": "https://dapug.lol/music/memory_hoarder/audio/07.mp3",
-        "volume": 1,
-        "lyrics": [
-            {"text": " ", "dur": [10, 20]} 
-        ]
-    },
-    "bed obligation": {
-        "name": "(bonus track) bed obligation",
-        "artist": "dough emergency",
-        "album": "MEMORY HOARDER",
-        "art": "https://dapug.lol/music/vis/render-cycles.png",
-        "audio": "https://dapug.lol/music/memory_hoarder/audio/08.mp3",
-        "volume": 1,
-        "lyrics": [
-            {"text": " ", "dur": [10, 20]} 
-        ]
-    },
-    "sleep button": {
-        "name": "(bonus track) sleep button",
-        "artist": "dough emergency",
-        "album": "MEMORY HOARDER",
-        "art": "https://dapug.lol/music/vis/render-cycles.png",
-        "audio": "https://dapug.lol/music/memory_hoarder/audio/09.mp3",
-        "volume": 1,
-        "lyrics": [
-            {"text": "Good morning!", "dur": [18619, 19331]},
-            {"text": " You have been in suspension for:", "dur": [19485, 21051]},
-            {"text": " [FIFTY]", "dur": [21231, 21713]},
-            {"text": " days.", "dur": [21901, 22416]},
-            {"text": "\nIn compliance with state and federal regulations-", "dur": [22489, 24524]},
-            {"text": "\n\n", "dur": [22500, 22500]},
-            {"text": "Good morning!", "dur": [33189, 33697]},
-            {"text": " You have been in suspension for:", "dur": [33945, 35511]},
-            {"text": "[NINE.", "dur": [35986, 36401]},
-            {"text": " NINE.", "dur": [36595, 36989]},
-            {"text": " NINE.", "dur": [37110, 37518]},
-            {"text": " NINE.", "dur": [37699, 38107]},
-            {"text": " NINE.]", "dur": [38254, 38669]}
-        ]
-    },
-    "oatmeal": {
-        "name": "Oatmeal",
-        "artist": "Jack Stauber",
-        "album": "Shop: A Pop Opera",
-        "art": "https://cdn.discordapp.com/attachments/960729059829096580/960813263434682368/shop_pop.png",
-        "audio": "https://cdn.discordapp.com/attachments/960729059829096580/961360773878267904/Jack_Stauber_-_Oatmeal.mp3",
-        "volume": 1,
-        "lyrics": [
-            {"text": "I could have", "dur": [1965, 2644]},
-            {"text": " oatmeal for breakfast", "dur": [2602, 3888]},
-            {"text": " and oatmeal for lunch", "dur": [3910, 5369]},
-            {"text": "\nOatmeal for dinner as well", "dur": [5327, 6950]},
-            {"text": " at the sound of a bell", "dur": [7056, 8577]},
-            {"text": "\n[ring]", "dur": [8495, 8937]},
-            {"text": "\nI could have oatmeal wake up", "dur": [8757, 10304]},
-            {"text": " and", "dur": [10480, 10840]},
-            {"text": " oatmeal", "dur": [10844, 11469]},
-            {"text": " brush my teeh", "dur": [11499, 12327]},
-            {"text": "\nGo to my oatmeal job,", "dur": [12319, 13728]},
-            {"text": " oatmeal home,", "dur": [13762, 14595]},
-            {"text": " oatmeal sleep", "dur": [14639, 15333]},
-            {"text": "\n\nEvery day,", "dur": [15715, 16714]},
-            {"text": " my oatmeal routine", "dur": [17372, 18879]},
-            {"text": "\nTime is my master,", "dur": [19482, 20923]},
-            {"text": " keep everything clean", "dur": [20985, 22217]},
-            {"text": "\nEvery day,", "dur": [22455, 23592]},
-            {"text": " my oatmeal routine", "dur": [24132, 25697]},
-            {"text": "\nLife could have rhythm", "dur": [25493, 26758]},
-            {"text": " and maybe harmony", "dur": [27320, 28887]},
-            {"text": "\n\nCircumstance,", "dur": [29574, 31099]},
-            {"text": " the unexpected!", "dur": [31067, 32897]},
-            {"text": "\nHow could I have known?", "dur": [33001, 34348]},
-            {"text": " Err", "dur": [34255, 34615]},
-            {"text": "\nRoutine?", "dur": [34540, 35255]},
-            {"text": " Is it human?", "dur": [35225, 36444]},
-            {"text": "\nMolded in my ways,", "dur": [36374, 37779]},
-            {"text": " how would I change?", "dur": [37889, 39143]},
-            {"text": "\nDisaster,", "dur": [39166, 40124]},
-            {"text": " Routineless,", "dur": [40490, 41181]},
-            {"text": " I adapt to", "dur": [41076, 42011]},
-            {"text": " chaos", "dur": [42034, 42719]},
-            {"text": " faster", "dur": [42736, 43590]},
-            {"text": "\nNo master", "dur": [43793, 44855]}
-        ]
-    },
-    "coffee": {
-        "name": "Coffee",
-        "artist": "Jack Stauber",
-        "album": "Shop: A Pop Opera",
-        "art": "https://cdn.discordapp.com/attachments/960729059829096580/960813263434682368/shop_pop.png",
-        "audio": "https://cdn.discordapp.com/attachments/960729059829096580/961401740098437140/Jack_Stauber_-_Coffee.mp3",
-        "volume": 1,
-        "lyrics": [
-            {"text": "Do I need it?", "dur": [3331, 4591]},
-            {"text": " (Mocha)", "dur": [4586, 5650]},
-            {"text": "\nAm I under control?", "dur": [5654, 7381]},
-            {"text": "\nCan I beat it?", "dur": [7455, 8693]},
-            {"text": " (Wake up)", "dur": [8693, 9730]},
-            {"text": "\nIf it swallowed me whole,", "dur": [9800, 11544]},
-            {"text": " would I see it?", "dur": [11566, 12856]},
-            {"text": "\nI can", "dur": [12887, 13349]},
-            {"text": " make you feel", "dur": [13305, 14251]},
-            {"text": " alive", "dur": [14234, 15306]},
-            {"text": "\nI know,", "dur": [15990, 16575]},
-            {"text": " but do I need you to survive?", "dur": [16740, 19208]},
-            {"text": "\n\nJust a sip!", "dur": [20027, 21030]},
-            {"text": "\nDoes it still matter which one?", "dur": [21954, 23759]},
-            {"text": "\nJust a drip!", "dur": [24199, 25237]},
-            {"text": "\nAm I", "dur": [26096, 26793]},
-            {"text": " dumbfounded", "dur": [26832, 27861]},
-            {"text": " when I slip?", "dur": [27857, 29139]},
-            {"text": "\nYou can't believe", "dur": [30054, 31244]},
-            {"text": "\nI can't believe", "dur": [31235, 32386]},
-            {"text": "\nYou can't believe", "dur": [32264, 33311]},
-            {"text": "\nI can't believe", "dur": [33284, 34444]},
-            {"text": "\nYou can't believe", "dur": [34283, 35373]},
-            {"text": "\nI can't believe this happened", "dur": [35412, 37051]},
-            {"text": "\n\nWow!", "dur": [37099, 37779]},
-            {"text": "\nFrench vanilla,", "dur": [38699, 39658]},
-            {"text": " I think I should sit this one out", "dur": [39749, 41877]},
-            {"text": "\nNo", "dur": [41825, 42199]},
-            {"text": " no", "dur": [42300, 42683]},
-            {"text": " no", "dur": [42875, 43202]},
-            {"text": "\nMaybe a", "dur": [42876, 43411]},
-            {"text": " cup of self control would", "dur": [43411, 44915]},
-            {"text": " be the route", "dur": [44950, 46092]},
-            {"text": "\nBut it's the flavour,", "dur": [45857, 46943]},
-            {"text": "\nit's the flavour you want!", "dur": [47056, 48760]},
-            {"text": "\nMaybe so,", "dur": [48821, 49698]},
-            {"text": "but it feels better to check", "dur": [49898, 51808]},
-            {"text": " than to reflect", "dur": [51812, 53329]},
-            {"text": "\nOh", "dur": [53762, 54480]}
-        ]
-    },
-    "still alive": {
-        "name": "Still Alive",
-        "artist": "Jonathan Coulton",
-        "album": "Portal OST",
-        "art": "aperture1.png",
-        "audio": "still_alive.mp3",
-        "volume": 1,
-        "lyrics": [
-            // credits
-            {"text": false, "dur": [8569, 8569], "exec": "portalCreditAnim(1, 60);"},
-            // the ascii arts   {"text": false, "dur": [, ], "exec": "p1Ascii('');"},
-            {"text": false, "dur": [22535, 22535], "exec": "p1Ascii('logo');"},
-            {"text": false, "dur": [34770, 34770], "exec": "p1Ascii('hazard');"},
-            {"text": false, "dur": [36870, 36870], "exec": "p1Ascii('logo');"},
-            {"text": false, "dur": [44703, 44703], "exec": "p1Ascii('atom');"},
-            {"text": false, "dur": [48669, 48669], "exec": "p1Ascii('logo');"},
-            {"text": false, "dur": [69334, 69334], "exec": "p1Ascii('heartbreak');"},
-            {"text": false, "dur": [74167, 74167], "exec": "p1Ascii('explosion');"},
-            {"text": false, "dur": [80870, 80870], "exec": "p1Ascii('campfire');"},
-            {"text": false, "dur": [86602, 86602], "exec": "p1Ascii('checkmark');"},
-            {"text": false, "dur": [96669, 96669], "exec": "p1Ascii('explosion');"},
-            {"text": false, "dur": [98770, 98770], "exec": "p1Ascii('atom');"},
-            {"text": false, "dur": [100803, 100803], "exec": "p1Ascii('logo');"},
-            {"text": false, "dur": [127000, 127000], "exec": "p1Ascii('black mesa');"},
-            {"text": false, "dur": [136971, 136971], "exec": "p1Ascii('cake');"},
-            {"text": false, "dur": [141066, 141066], "exec": "p1Ascii('camera');"},
-            {"text": false, "dur": [143000, 143000], "exec": "p1Ascii('hazard');"},
-            {"text": false, "dur": [145066, 145066], "exec": "p1Ascii('logo');"},
-            {"text": false, "dur": [148971, 148971], "exec": "p1Ascii('atom');"},
-            {"text": false, "dur": [150000, 150000], "exec": "p1Ascii('explosion');"},
-            {"text": false, "dur": [153000, 153000], "exec": "p1Ascii('logo');"},
-            {"text": "FORMS FORM-29827281-12:\nTest Assessment Report\n\n\n", "dur": [0, 3468]},
-            {"text": "This was a triumph.", "dur": [6811, 8198]},
-            {"text": "\nI'm making a note here:", "dur": [10566, 12324]},
-            {"text": "\nHUGE SUCCESS.", "dur": [12746, 13995]},
-            {"text": "\nIt's hard to overstate", "dur": [15587, 17992]},
-            {"text": "\nmy satisfaction.", "dur": [18034, 20590]},
-            {"text": "\nAperture Science", "dur": [22812, 24368]},
-            {"text": "\nWe do what we must", "dur": [26557, 28012]},
-            {"text": "\nbecause we can.", "dur": [28311, 30390]},
-            {"text": "\nFor the good of all of us", "dur": [31480, 34989]},
-            {"text": "\nExcept the ones who are dead.\n\n", "dur": [35062, 36930]},
-            {"text": "But there's no sense crying", "dur": [37348, 39317]},
-            {"text": "\nover every mistake.", "dur": [39326, 41231]},
-            {"text": "\nYou just keep on trying", "dur": [41291, 43320]},
-            {"text": "\ntill you run out of cake.", "dur": [43301, 45293]},
-            {"text": "\nand the science gets done.", "dur": [45298, 47418]},
-            {"text": "\nand you make a neat gun.", "dur": [47368, 49319]},
-            {"text": "\nFor the people who are", "dur": [49324, 51067]},
-            {"text": "\nstill alive.", "dur": [51090, 52504]},
-            {"text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nF", "dur": [52569, 53234]},
-            {"text": "orms FORM-55551-5:\nPersonnel File Addendum:", "dur": [53234, 55000]},
-            {"text": "\n\n\nDear [Subject Name Here],", "dur": [55669, 57937]},
-            {"text": "\n\nI'm not even angry.", "dur": [58551, 60312]},
-            {"text": "\nI'm being so sincere right now.", "dur": [62822, 66246]},
-            {"text": "\nEven though you broke my heart.", "dur": [67816, 71300]},
-            {"text": "\nAnd killed me.", "dur": [71300, 72819]},
-            {"text": "\nAnd tore me to pieces.", "dur": [74549, 76459]},
-            {"text": "\nAnd threw every piece into a fire.", "dur": [78515, 82040]},
-            {"text": "\nAs they burned it hurt because", "dur": [83780, 87011]},
-            {"text": "\nI was so happy for you!", "dur": [87057, 88902]},
-            {"text": "\nNow these points of data", "dur": [89242, 91330]},
-            {"text": "\nmake a beautiful line.", "dur": [91353, 93299]},
-            {"text": "\nAnd we're out of beta.", "dur": [93350, 95333]},
-            {"text": "\nWe're releasing on time.", "dur": [95314, 97265]},
-            {"text": "\nSo I'm GLaD. I got burned.", "dur": [97320, 99234]},
-            {"text": "\nThink of all the things we learned", "dur": [99294, 101387]},
-            {"text": "\nfor the people who are", "dur": [101387, 103030]},
-            {"text": "\nstill alive.", "dur": [103030, 104526]},
-            {"text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nF", "dur": [104560, 105770]},
-            {"text": "orms FORM-55551-6:\nPersonnel File Addendum Addendum:", "dur": [105775, 107602]},
-            {"text": "\n\nOne last thing:", "dur": [108334, 110401]},
-            {"text": "\n\nGo ahead and leave me.", "dur": [110805, 112650]},
-            {"text": "\nI think I prefer to stay inside.", "dur": [114642, 118080]},
-            {"text": "\nMaybe you'll find someone else", "dur": [119783, 123377]},
-            {"text": "\nto help you.", "dur": [123380, 124593]},
-            {"text": "\nMaybe Black Mesa...", "dur": [126773, 129211]},
-            {"text": "\nTHAT WAS A JOKE.", "dur": [130808, 132300]},
-            {"text": " FAT CHANCE.", "dur": [133108, 134636]},
-            {"text": "\nAnyway, this cake is great.", "dur": [135783, 139074]},
-            {"text": "\nIt's so delicious and moist.", "dur": [139075, 141071]},
-            {"text": "\nLook at me still talking", "dur": [141305, 143366]},
-            {"text": "\nWhen there's Science to do.", "dur": [143375, 145294]},
-            {"text": "\nWhen I look out there,", "dur": [145340, 147107]},
-            {"text": "\nit makes me GLaD I'm not you.", "dur": [147144, 149149]},
-            {"text": "\nI've experiments to run.", "dur": [149296, 151343]},
-            {"text": "\nThere is research to be done.", "dur": [151261, 153481]},
-            {"text": "\nOn the people who are", "dur": [153390, 154992]},
-            {"text": "\nstill alive.", "dur": [155052, 156603]},
-            {"text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nP", "dur": [156605, 156870]},
-            {"text": "S: ", "dur": [156880, 157000]},
-            {"text": "And Believe me I am", "dur": [157287, 159041]},
-            {"text": "\nstill alive.", "dur": [159045, 160463]},
-            {"text": "\nPPS: ", "dur": [160602, 160770]},
-            {"text": "I'm doing Science and I'm", "dur": [161120, 163075]},
-            {"text": "\nstill alive.", "dur": [162933, 164186]},
-            {"text": "\nPPPS: ", "dur": [164602, 164803]},
-            {"text": "I feel FANTASTIC and I'm", "dur": [165058, 166908]},
-            {"text": "\nstill alive.", "dur": [167004, 168206]},
-            {"text": "\n\nFINAL THOUGHT", "dur": [167837, 169000]},
-            {"text": "\nWhile you're dying I'll be", "dur": [169308, 171016]},
-            {"text": "\nstill alive.", "dur": [171052, 172310]},
-            {"text": "\n\nFINAL THOUGHT PS:", "dur": [171937, 172770]},
-            {"text": "\nAnd when you're dead I will be", "dur": [173269, 174977]},
-            {"text": "\nstill alive.", "dur": [175220, 176299]},
-            {"text": "\n\n\n\nSTILL ALIVE.", "dur": [176813, 178300]},
-            {"text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  THANK YOU.", "dur": [177000, 180000]}
-        ]
-    },
-    "want you gone": {
-        "name": "Want You Gone",
-        "artist": "Jonathan Coulton",
-        "album": "Portal 2 OST",
-        "art": "aperture2.png",
-        "audio": "want_you_gone.mp3",
-        "volume": 1,
-        "lyrics": [
-            {"text": false, "dur": [5167, 5167], "exec": "portalCreditAnim(2, 30);"},
-            {"text": "Forms FORM-29827281-12-2:\nNotice of Dismissal\n\n", "dur": [0, 4200]},
-            {"text": "\nWell here we are again", "dur": [6598, 8311]},
-            {"text": "\nIt's always such a pleasure", "dur": [9024, 11075]},
-            {"text": "\nRemember when you tried", "dur": [11701, 13121]},
-            {"text": "\nto kill me twice?", "dur": [13185, 15120]},
-            {"text": "\nOh how we laughed and laughed", "dur": [16178, 18211]},
-            {"text": "\nExcept I wasn't laughing", "dur": [18714, 20719]},
-            {"text": "\nUnder the circumstances", "dur": [21011, 23261]},
-            {"text": "\nI've been shockingly nice", "dur": [23279, 26026]},
-            {"text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nY", "dur": [25703, 26000]},
-            {"text": "ou want your freedom?", "dur": [26674, 28808]}, // 
-            {"text": "\nTake it", "dur": [28837, 30514]},
-            {"text": "\nThat's what I'm counting on\n\n", "dur": [31461, 33851]},
-            {"text": "\nI used to want you dead", "dur": [36265, 39082]},
-            {"text": "\nbut", "dur": [39117, 39567]},
-            {"text": "\nNow I only want you gone", "dur": [39649, 43618]},
-            {"text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nS", "dur": [46636, 47435]},
-            {"text": "he was a lot like you", "dur": [47511, 49211]},
-            {"text": "\n(Maybe not quite as heavy)", "dur": [49947, 51870]},
-            {"text": "\nNow little Caroline is in here too", "dur": [52186, 55651]},
-            {"text": "\nOne day they woke me up", "dur": [56949, 58539]},
-            {"text": "\nSo I could live forever", "dur": [59304, 61404]},
-            {"text": "\nIt's such a shame the same", "dur": [61812, 63629]},
-            {"text": "\nwill never happen to you", "dur": [63635, 66662]},
-            {"text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSeverance Package Details:\n\n", "dur": [66662, 67000]},
-            {"text": "\nYou've got your", "dur": [67428, 68363]},
-            {"text": "\nshort sad", "dur": [68392, 69602]},
-            {"text": "\nlife left", "dur": [69602, 71876]},
-            {"text": "\nThat's what I'm counting on", "dur": [72297, 74646]},
-            {"text": "\nI'll let you get right to it", "dur": [77036, 80280]},
-            {"text": "\nNow I only want you gone", "dur": [80426, 83986]},
-            {"text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nG", "dur": [87468, 88736]},
-            {"text": "oodbye my only friend", "dur": [88881, 89947]},
-            {"text": "\nOh, ", "dur": [90555, 90929]},
-            {"text": "did you think I meant you?", "dur": [91151, 92524]},
-            {"text": "\nThat would be funny", "dur": [93056, 94517]},
-            {"text": "\nIf it weren't so sad", "dur": [94652, 96399]},
-            {"text": "\nWell you have been replaced", "dur": [97691, 99672]},
-            {"text": "\nI don't need anyone now", "dur": [100187, 102583]}, 
-            {"text": "\nWhen I delete you maybe", "dur": [102548, 104704]},
-            {"text": "\n[REDACTED]", "dur": [104739, 107492]},
-            {"text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nG", "dur": [107200, 108000]},
-            {"text": "o make some new disaster", "dur": [108305, 112302]},
-            {"text": "\nThat's what I'm counting on", "dur": [113091, 115961]},
-            {"text": "\nYou're someone else's problem", "dur": [117837, 121186]},
-            {"text": "\nNow I only want you gone", "dur": [121361, 124868]},
-            {"text": "\nNow I only want you gone", "dur": [126171, 129929]},
-            {"text": "\nNow I only want you", "dur": [130777, 133185]},
-            {"text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ngone", "dur": [132750, 135300]}
-        ]
-    },
-    "soft fuzzy man": {
-        "name": "Soft Fuzzy Man",
-        "artist": "Lemon Demon",
-        "album": "Spirit Phone",
-        "art": "https://media.discordapp.net/attachments/960729059829096580/960838302561353738/spiritphone.png?width=655&height=655",
-        "audio": "https://cdn.discordapp.com/attachments/960729059829096580/961658854276497458/Lemon_Demon_-_Soft_Fuzzy_Man.mp3",
-        "volume": 1,
-        "lyrics": [
-            {"text": "Cold and windy", "dur": [8123, 10847]},
-            {"text": "\nDark and stormy", "dur": [11411, 13963]},
-            {"text": "\nLet me float your way", "dur": [14373, 16877]},
-            {"text": "\nPlease don't ignore me", "dur": [17679, 20800]},
-            {"text": "\n\nWhat you girls really need's a soft, fuzzy man", "dur": [20958, 24343]},
-            {"text": "\n(An ambient man)", "dur": [24286, 26199]},
-            {"text": " A trick of the light", "dur": [26146, 27618]},
-            {"text": " to love you tonight", "dur": [27592, 29452]},
-            {"text": "\nYou don't understand,", "dur": [29434,30941 ]},
-            {"text": " there's nothing quite like a soft, fuzzy man", "dur": [31127, 34670]},
-            {"text": "\n\nCan't you see me?", "dur": [61116, 63866]},
-            {"text": "\nWhy can't you see me?", "dur": [63998, 67163]},
-            {"text": "\nI'm all around", "dur": [67771, 70187]},
-            {"text": "\nAll cold and dreamy", "dur": [70619, 73757]},
-            {"text": "\n\nWhat you girls really need's a soft, fuzzy man", "dur": [73969, 77257]},
-            {"text": "\n(A wisp of smoke man)", "dur": [77259, 79064]},
-            {"text": " To waft over you", "dur": [79065, 80386]},
-            {"text": " and cloud up your view", "dur": [80545, 82369]},
-            {"text": "\nSo show me your hands", "dur": [82413, 83911]},
-            {"text": " and wave them right through a soft, fuzzy man", "dur": [84027, 87852]},
-            {"text": "\n\nAlthough I have no arms to hold you in", "dur": [100176, 103799]},
-            {"text": "\nA human passion burns within me", "dur": [103940, 106876]},
-            {"text": "\nI need to feel like I exist", "dur": [106902, 110402]},
-            {"text": "\nSo please baby, please baby, step into the mist", "dur": [110493, 113663]},
-            {"text": "\nWoo!", "dur": [113672, 114333]},
-            {"text": "\n\nDon't be nervous", "dur": [114113, 116846]},
-            {"text": "\nNo, don't be nervous", "dur": [116855, 120125]},
-            {"text": "\nI'm not like other guys", "dur": [120163, 123404]},
-            {"text": "\nWho have a surface", "dur": [123554, 126754]},
-            {"text": "\n\nWhat you girls really need's a soft, fuzzy man", "dur": [126886, 130307]},
-            {"text": "\n(An atmospheric man)", "dur": [130307, 132158]},
-            {"text": " A shimmering puff of indistinct love", "dur": [132105, 135419]},
-            {"text": "\nWhat's better than", "dur": [135472, 136479]},
-            {"text": " the vague embrace of a soft,", "dur": [136839, 139571]},
-            {"text": " fuzzy man?", "dur": [139563, 141202]},
-            {"text": "\n\nWho seeps through your thoughs?", "dur": [141819, 143875]},
-            {"text": "\nWho makes you see spots?", "dur": [145199, 147205]},
-            {"text": "\nWho blows through the air?", "dur": [148431, 150661]},
-            {"text": "\nWho plays with your hair?", "dur": [151895, 153702]},
-            {"text": "\nI know it sounds crazy", "dur": [155024, 157114]},
-            {"text": "\nBut once you go hazy,", "dur": [158313, 160225]},
-            {"text": " you'll understand", "dur": [160393, 161900]},
-            {"text": "\nI'm your soft fuzzy man", "dur": [163082, 165435]}
-        ]
-    },
-    "toy food": {
-        "name": "Toy Food",
-        "artist": "Lemon Demon",
-        "album": "The FuMP Volume 18",
-        "art": "https://media.discordapp.net/attachments/960729059829096580/961675105753260092/unknown.png",
-        "audio": "https://cdn.discordapp.com/attachments/960729059829096580/961676233979076739/Lemon_Demon_-_Toy_Food.mp3",
-        "volume": 1,
-        "lyrics": [
-            {"text": "\nDrumsticks,", "dur": [12889, 13708]},
-            {"text": " cake mix,", "dur": [13708, 14502]},
-            {"text": " watermelon,", "dur": [14502, 15297]},
-            {"text": " taco shells", "dur": [15297, 16107]},
-            {"text": "\nSoda pop,", "dur": [16107, 16907]},
-            {"text": " lemon,", "dur": [16907, 17280]},
-            {"text": " apple,", "dur": [17280, 17680]},
-            {"text": " olive oil,", "dur": [17680, 18517]},
-            {"text": " cheerios", "dur": [18518, 19295]},
-            {"text": "\nGreen grapes,", "dur": [19295, 20100]},
-            {"text": " purple grapes,", "dur": [20100, 20922]},
-            {"text": " lettuce,", "dur": [20922, 21375]},
-            {"text": " pretzel,", "dur": [21375, 21732]},
-            {"text": " corn,", "dur": [21732, 22089]},
-            {"text": " ketchup", "dur": [22089, 22580]},
-            {"text": "\nOrange juice,", "dur": [22580, 23289]},
-            {"text": " hot dogs,", "dur": [23289, 24141]},
-            {"text": " chicken noodle soup", "dur": [24141, 25304]},
-            {"text": "\n\nToy Food!", "dur": [25305, 27330]},
-            {"text": "\nLike real food,", "dur": [26109, 27468]},
-            {"text": " but is toy", "dur": [27368, 28524]},
-            {"text": "\nToy Food!", "dur": [28455, 29633]},
-            {"text": "\nNot real food,", "dur": [29250, 30471]},
-            {"text": " do not eat", "dur": [30471, 31761]},
-            {"text": "\nToy Food!", "dur": [31638, 33979]},
-            {"text": "\nLike real food,", "dur": [32545, 33766]},
-            {"text": " but is toy", "dur": [33766, 34917]},
-            {"text": "\nToy Food!", "dur": [34832, 35983]},
-            {"text": "\nNot real food,", "dur": [35706, 36879]},
-            {"text": " do not eat", "dur": [36879, 38212]},
-            {"text": "\n\nSweet peas,", "dur": [38308, 39310]},
-            {"text": " strawberries,", "dur": [39310, 40110]},
-            {"text": " salt and pepper", "dur": [40110, 41342]},
-            {"text": "\nFrench fries,", "dur": [41342, 42126]},
-            {"text": " garlic loaf,", "dur": [42126, 42877]},
-            {"text": " refried beans", "dur": [42877, 44269]},
-            {"text": "\nBananas,", "dur": [44269, 44962]},
-            {"text": " red pepper,", "dur": [44962, 45751]},
-            {"text": " green pepper,", "dur": [45751, 46567]},
-            {"text": " crinkle fries,", "dur": [46567, 47388]},
-            {"text": " ice cream", "dur": [47388, 48038]},
-            {"text": "\nTurkey chunks,", "dur": [48038, 48913]},
-            {"text": " chicken chunks,", "dur": [48913, 49702]},
-            {"text": " tuna chunks,", "dur": [49702, 50502]},
-            {"text": " fudge", "dur": [50502, 50997]},
-            {"text": "\n\nToy Food!", "dur": [50997, 52933]},
-            {"text": "\nLike real food,", "dur": [51723, 52976]},
-            {"text": " but is toy", "dur": [53040, 54143]},
-            {"text": "\nToy Food!", "dur": [54047, 55098]},
-            {"text": "\nNot real food,", "dur": [54895, 56079]},
-            {"text": " do not eat", "dur": [56089, 57374]},
-            {"text": "\nToy Food!", "dur": [57204, 59347]},
-            {"text": "\nLike real food,", "dur": [58174, 59352]},
-            {"text": " but is toy", "dur": [59390, 60499]},
-            {"text": "\nToy Food!", "dur": [60429, 61474]},
-            {"text": "\nNot real food,", "dur": [61394, 62471]},
-            {"text": " do not eat", "dur": [62503, 63836]},
-            {"text": "\n\nHamburger, hamburger", "dur": [64033, 65745]},
-            {"text": " donuts", "dur": [65745, 66390]},
-            {"text": "\nHamburger, hamburger", "dur": [67238, 68690]},
-            {"text": " pizza", "dur": [68690, 69584]},
-            {"text": "\nHamburger, hamburger", "dur": [70410, 72042]},
-            {"text": " carrot", "dur": [72042, 72548]},
-            {"text": "\nHamburger, Hamburger", "dur": [73625, 75315]},
-            {"text": " Helper", "dur": [76115,76520 ]},
-            {"text": "\n\nGreen beans,", "dur": [76867, 77693]},
-            {"text": " oranges,", "dur": [77693, 78461]},
-            {"text": " pea pods,", "dur": [78461, 79277]},
-            {"text": " pineapple", "dur": [79277, 80060]},
-            {"text": "\nCroissant,", "dur": [80060, 80679]},
-            {"text": " potato,", "dur": [80679, 81324]},
-            {"text": " spaghetti,", "dur": [81415, 82092]},
-            {"text": " baguettes", "dur": [82326, 83116]},
-            {"text": "\nPotato chips,", "dur": [83116, 83979]},
-            {"text": " tomato soup,", "dur": [83979, 84832]},
-            {"text": " pickle,", "dur": [84382, 85232]},
-            {"text": " cookie,", "dur": [85232, 85707]},
-            {"text": " niblets", "dur": [85707, 86378]},
-            {"text": "\nMilk,", "dur": [86490, 87061]},
-            {"text": " peas,", "dur": [87216, 87914]},
-            {"text": " gourd,", "dur": [88063, 88714]},
-            {"text": " meat", "dur": [88858, 89354]},
-            {"text": "\n\nToy Food!", "dur": [89354, 91422]},
-            {"text": "\nLike real food,", "dur": [90111, 91373]},
-            {"text": " but is toy", "dur": [91374, 92617]},
-            {"text": "\nToy Food!", "dur": [92510, 93560]},
-            {"text": "\nNot real food,", "dur": [93432, 94573]},
-            {"text": " do not eat", "dur": [94573, 95842]},
-            {"text": "\nToy Food!", "dur": [95688, 97842]},
-            {"text": "\nLike real food,", "dur": [96583, 97895]},
-            {"text": " but is toy", "dur": [97895, 98977]},
-            {"text": "\nToy Food!", "dur": [98876, 100000]},
-            {"text": "\nNot real food,", "dur": [99798, 100977]},
-            {"text": " do not eat", "dur": [100977, 102214]},
-            {"text": "\n\nToy food", "dur": [102176, 104245]},
-            {"text": "\nToy food", "dur": [105301, 106396]}
-        ]
-    },
-    "ive got some falling to do": {
-        "name": "I've Got Some Falling To Do",
-        "artist": "Lemon Demon",
-        "album": "The FuMP Volume 27",
-        "art": "https://media.discordapp.net/attachments/960729059829096580/961675267284299816/unknown.png?width=639&height=639",
-        "audio": "https://cdn.discordapp.com/attachments/960729059829096580/961676217407401984/Lemon_Demon_-_Ive_Got_Some_Falling_to_Do.mp3",
-        "volume": 1,
-        "lyrics": [
-            {"text": "In an airplane,", "dur": [23445, 24865]},
-            {"text": " I was flying", "dur": [24950, 26427]},
-            {"text": "\nJust a flight attendant guy", "dur": [26469, 29226]},
-            {"text": "\nI can be clumsy,", "dur": [29254, 30755]},
-            {"text": " and I stumbled", "dur": [31041, 32524]},
-            {"text": "\nOut the door into the sky", "dur": [32524, 35068]},
-            {"text": "\nNow I am falling through the air", "dur": [35348, 38247]},
-            {"text": "\nWind and regret flow through my hair", "dur": [38434, 41329]},
-            {"text": "\nAll I can do right now is stare", "dur": [41547, 44418]},
-            {"text": " down at the", "dur": [44633, 45257]},
-            {"text": " ocean\n", "dur": [45266, 47448]},
-            {"text": "\nSuddenly,", "dur": [47746, 48510]},
-            {"text": " there's a ring in my cell phone.", "dur": [48846, 50776]},
-            {"text": " I pick it up", "dur": [50776, 51820]},
-            {"text": "\nIt's the Angel of Death,", "dur": [51997, 53171]},
-            {"text": " and he says", "dur": [53264, 54215]},
-            {"text": " 'Wazzup?'", "dur": [54215, 54840]},
-            {"text": "\nI say,", "dur": [54998, 55436]},
-            {"text": " 'What is it this time?'", "dur": [55436, 56825]},
-            {"text": "\nAnd he's like,", "dur": [56825, 57422]},
-            {"text": " 'Well,", "dur": [57394, 57953]},
-            {"text": " hello,", "dur": [58000, 58597]},
-            {"text": " goodbye,", "dur": [58736, 59591]},
-            {"text": " I'll see you in hell.'", "dur": [59454, 61020]},
-            {"text": "\nHe can be like that sometimes,", "dur": [61020, 62782]},
-            {"text": " he's such a nut", "dur": [62782, 63845]},
-            {"text": "\nSo I snicker and say,", "dur": [, ]},
-            {"text": " 'I'd love to, but", "dur": [, ]},
-            {"text": "\nGravity's calling,", "dur": [, ]},
-            {"text": " I've got some falling to", "dur": [, ]},
-            {"text": " do.'\n", "dur": [, ]},
-            {"text": "\nI'm in a state of shock,", "dur": [, ]},
-            {"text": " but it's something new", "dur": [, ]},
-            {"text": "\nI guess it all depends on your point of view.", "dur": [, ]},
-            {"text": " It's true", "dur": [, ]},
-            {"text": "\n\nThis is boring.", "dur": [, ]},
-            {"text": " Yes I'm falling", "dur": [, ]},
-            {"text": "\nBut it's taking quite a while", "dur": [, ]},
-            {"text": "\nMy destination", "dur": [, ]},
-            {"text": " is impending", "dur": [, ]},
-            {"text": "\nMight as well go out in style", "dur": [, ]},
-            {"text": "\nI put my arms out to the skies", "dur": [, ]},
-            {"text": "\nWhistle a tune and close my eyes", "dur": [, ]},
-            {"text": "\nTrying to briefly realise", "dur": [, ]},
-            {"text": " perpetual motion", "dur": [, ]},
-            {"text": "\n\nSuddenly,", "dur": [, ]},
-            {"text": " giant tentacles rise from the open sea", "dur": [, ]},
-            {"text": "\nAnd with total precision they lasso me", "dur": [, ]},
-            {"text": "\nIt's a mostrous squid", "dur": [, ]},
-            {"text": " and he saved my life", "dur": [, ]},
-            {"text": "\nBut I", "dur": [, ]},
-            {"text": " am too freaked out to be nice", "dur": [, ]},
-            {"text": "\nSo I tell him the truth,", "dur": [, ]},
-            {"text": " that i'd rather fall", "dur": [, ]},
-            {"text": "\nNo offense", "dur": [, ]},
-            {"text": " but at least it's predictable", "dur": [, ]},
-            {"text": "\nGotta stop stalling,", "dur": [, ]},
-            {"text": " I've got some falling to do", "dur": [, ]},
-            {"text": "\n\nI'm probably gonna die,", "dur": [, ]},
-            {"text": " but it's something new", "dur": [, ]},
-            {"text": "\nI guess it all depends on your point of view.", "dur": [, ]},
-            {"text": " It's true", "dur": [, ]}
-        ]
+var songs = new Object();
+
+function updateLyrics() {       // this will be called every time the song is played, so that it can do the correct height for the newlines that clear the screen and stuff
+    songs = {
+        "test": {
+            "name": "jeffGameover-2.ogg",
+            "artist": "Doe's World",
+            "album": "fnf week 7 death voicelines",
+            "art": "test.png",
+            "audio": "test.ogg",
+            "volume": 1,
+            "lyrics": [
+                {"text": "\nHAH!", "dur": [208, 628]},
+                {"text": "\nyou're dead!", "dur": [ 628, 2123]},
+                {"text": "\n*laughs*", "dur": [ 2123, 3664]}
+            ]
+        },
+        "milk": {
+            "name": "MILK",
+            "artist": "Jack Stauber",
+            "album": "Shop: A Pop Opera",
+            "art": "https://cdn.discordapp.com/attachments/960729059829096580/960813263434682368/shop_pop.png",
+            "audio": "https://cdn.discordapp.com/attachments/960729059829096580/960812517880373248/Jack_Stauber_-_MILK.mp3",
+            "volume": 1,
+            "lyrics": [
+                {"text": "\nWhat kind of milk were you?", "dur": [579, 3939]},
+                {"text": "\nWhat kind of life did you live through?", "dur": [ 7032, 11054], "exec": "console.log('HALLO!');"},
+                {"text": "\n(Oh!)", "dur": [12624, 12945]},
+                {"text": "\nDid you know love?", "dur": [12917, 14256]},
+                {"text": " Will you rest in peace?", "dur": [14474, 16208]},
+                {"text": "\nDid you have a family?", "dur": [16133, 18482]},
+                {"text": "\nHow was the view from the shelf?", "dur": [19260, 21377]},
+                {"text": "\nDid you ever believe in yourself?", "dur": [21902, 24326]},
+                {"text": "\n\nWhat kind of milk were you?", "dur": [26702, 30047]},
+                {"text": "\nWhat kind of life did you live through?", "dur": [33214, 36941]},
+                {"text": "\nDid your life drip rich with calcium?", "dur": [39027, 42059]},
+                {"text": "\nDid they laugh at you", "dur": [42136, 43546]},
+                {"text": " or did you laugh at them?", "dur": [43623, 45612]},
+                {"text": "\nDairy beloved,", "dur": [46655, 48431]},
+                {"text": " your days are gone", "dur": [48799, 50440]},
+                {"text": "\nThe grocery list goes on", "dur": [50420, 53182]}
+            ]
+        },
+        "we see you opal reprise": {
+            "name": "We See You, Opal (Reprise)",
+            "artist": "Jack Stauber",
+            "album": "Jack Stauber's OPAL (Original Soundtrack)",
+            "art": "https://media.discordapp.net/attachments/960729059829096580/960822574911225877/unknown.png?width=655&height=655",
+            "audio": "https://cdn.discordapp.com/attachments/960729059829096580/960822608532746240/Jack_Stauber_-_We_See_You_Opal_Reprise.mp3",
+            "volume": 1,
+            "lyrics": [
+                {"text": "\nWe see you, ", "dur": [660, 2508]},
+                {"text": "Opal", "dur": [2589, 3664]},
+                {"text": "\nYour troubles are miles away", "dur": [3884, 6186]},
+                {"text": "\nWe see you, ", "dur": [7068, 8574]},
+                {"text": "Opal", "dur": [8900, 11473]},
+                {"text": "\n:]", "dur": [12141, 12451]},
+                {"text": "\nAnd in", "dur": [13281, 15016]},
+                {"text": " our eyes", "dur": [15586, 17841]},
+                {"text": " you'll stay", "dur": [17841, 21530]}
+            ]
+        },
+        "eighth wonder": {
+            "name": "Eighth Wonder",
+            "artist": "Lemon Demon",
+            "album": "Spirit Phone",
+            "art": "https://media.discordapp.net/attachments/960729059829096580/960838302561353738/spiritphone.png?width=655&height=655",
+            "audio": "https://cdn.discordapp.com/attachments/960729059829096580/960838362569252944/Lemon_Demon_-_Eighth_Wonder.mp3",
+            "volume": 1,
+            "lyrics": [
+                {"text": "\nExtra clever", "dur": [24582, 26152]},
+                {"text": "\nEarthbound spirit", "dur": [28021, 29734]},
+                {"text": "\nGhost in the form", "dur": [31432, 33417]},
+                {"text": "\nOf a mongoose", "dur": [34851, 36778]},
+                {"text": "\n\nAnd I have hands", "dur": [38716, 40696]},
+                {"text": "\nAnd I have feet", "dur": [42170, 43877]},
+                {"text": "\nI'll never die", "dur": [45566, 47423]},
+                {"text": "\nI am a freak", "dur": [48996, 50598]},
+                {"text": "\n\nHello,", "dur": [50918, 51353]},
+                {"text": " I'm here", "dur": [51829, 52612]},
+                {"text": "\nI'm living in the wall", "dur": [52676, 54244]},
+                {"text": "\nI know", "dur": [54394, 55225]},
+                {"text": " I might be small, but", "dur": [55230, 57198]},
+                {"text": "\nI, I, I,", "dur": [57163, 59642]},
+                {"text": " am a", "dur": [59619, 61232]},
+                {"text": "\nFreak", "dur": [61882, 62329]},
+                {"text": "\n\nThou wilt never", "dur": [65725, 67536]},
+                {"text": "\nKnow what I am", "dur": [69126, 70879]},
+                {"text": "\nI am the fifth dimension", "dur": [72801, 74397]},
+                {"text": "\nAnd I'll split the atom", "dur": [76214, 77816]},
+                {"text": "\n\nAnd if you see me", "dur": [79615, 81391]},
+                {"text": "\nYou're paralyzed", "dur": [83319, 85304]},
+                {"text": "\nPillar of salt", "dur": [86720, 88978]},
+                {"text": "\nYou're mummified", "dur": [90127, 91915]},
+                {"text": "\n\nHello,", "dur": [92124, 92792]},
+                {"text": " I'm here", "dur": [92925, 93784]},
+                {"text": "\nI'm living in the wall", "dur": [93819,95514 ]},
+                {"text": "\nI know", "dur": [95508, 96385]},
+                {"text": " I might be small, but", "dur": [96390, 98370]},
+                {"text": "\nI am the Eighth Wonder", "dur": [98294, 103129]},
+                {"text": "\n\nAnd I was born", "dur": [133331, 135618]},
+                {"text": "\n1852", "dur": [136790, 138636]},
+                {"text": "\nAnd I was born", "dur": [140226, 142177]},
+                {"text": "\nIn India", "dur": [144034, 145508]},
+                {"text": "\n\nAnd I shall haunt", "dur": [147505, 149701]},
+                {"text": "\nLike the Buggane", "dur": [150895, 153147]},
+                {"text": "\nWith such weird noise", "dur": [154320, 156909]},
+                {"text": "\nAnd clinking chains", "dur": [157779, 159672]},
+                {"text": "\n\nHello,", "dur": [159706, 160612]},
+                {"text": " I'm here", "dur": [160589, 161483]},
+                {"text": "\nI'm living in the wall", "dur": [161436, 163143]},
+                {"text": "\nI know", "dur": [163144, 164013]},
+                {"text": " I might be small, but", "dur": [164028, 165862]},
+                {"text": "\nI, I, I,", "dur": [165967, 167972]},
+                {"text": " am a", "dur": [168489, 169156]},
+                {"text": "\nFreak", "dur": [172372, 172790]},
+                {"text": '\n\nI say "vanished"', "dur": [174485, 176586]},
+                {"text": "\nTo underground", "dur": [177840, 179906]},
+                {"text": "\nJim, let me go", "dur": [181276, 183168]},
+                {"text": "\nI watch like Hell", "dur": [184968, 186744]},
+                {"text": "\n\nAnd I have hands", "dur": [188590, 190517]},
+                {"text": "\nAnd I have feet", "dur": [192061, 193802]},
+                {"text": "\nI'll never die", "dur": [195474, 197761]},
+                {"text": "\nI am a freak", "dur": [198910, 200745]},
+                {"text": "\n\nHello,", "dur": [200791, 201662]},
+                {"text": " I'm here", "dur": [201697, 202532]},
+                {"text": "\nI'm living in the wall", "dur": [202532, 204181]},
+                {"text": "\nI know", "dur": [204216, 205133]},
+                {"text": " I might be small, but", "dur": [205110, 207083]},
+                {"text": "\nI am the Eighth Wonder", "dur": [207060, 211994]},
+                {"text": "\n\nEighth Wonder of the world", "dur": [213294, 215059]},
+                {"text": "\nYou'll never get to see", "dur": [216266, 218065]},
+                {"text": "\nWhat in the name of God can i", "dur": [219308 , 222848]},
+                {"text": " be?", "dur": [223046, 225646]}
+            ]
+        },
+        //"spiral of ants": {
+        //    "name": "Spiral of Ants",
+        //    "artist": "Lemon Demon",
+        //    "album": "Spirit Phone",
+        //    "art": "https://media.discordapp.net/attachments/960729059829096580/960838302561353738/spiritphone.png?width=655&height=655",
+        //    "audio": "https://cdn.discordapp.com/attachments/960729059829096580/960838432941305856/Lemon_Demon_-_Spiral_of_Ants.mp3",
+        //    "volume": 1
+        //},
+        "god i hate jazz": {
+            "name": "god i hate jazz",
+            "artist": "anne",
+            "album": "[singles]",
+            "art": "https://media.discordapp.net/attachments/960729059829096580/961005178297938071/Screenshot_20220405_135125.png",
+            "audio": "https://cdn.discordapp.com/attachments/960729059829096580/961004688570994738/anne_-_god_i_hate_jazz.wav",
+            "volume": 1,
+            "lyrics": [
+                {"text": " ", "dur": [10, 20]} 
+            ]
+        },
+        "old trash": {
+            "name": "Old Trash",
+            "artist": "HSM",
+            "album": "[singles]",
+            "art": "https://media.discordapp.net/attachments/960729059829096580/961051037337272360/unknown.png",
+            "audio": "https://cdn.discordapp.com/attachments/960729059829096580/961050791756582932/Hot_Step_Mom_-_Old_Trash.mp3",
+            "volume": 1,
+            "lyrics": [
+                {"text": "\nI lost the old necklace you gave me", "dur": [33355, 36212]},
+                {"text": "\nIt's probably in the pocket of old jeans", "dur": [37548, 40422]},
+                {"text": "\nIt's probably in a pocket with old trash", "dur": [41691, 44973]},
+                {"text": "\nI don't really remember so don't ask", "dur": [45829, 49489]},
+                {"text": "\n\nI said I'll give you your things and go", "dur": [49384, 52655]},
+                {"text": " if you don't want to see me", "dur": [52824, 55018]},
+                {"text": "\nI'll just go ghost and cry", "dur": [58463, 60901]},
+                {"text": " when you want to reach me", "dur": [61111, 63345]},
+                {"text": "\nCause I", "dur": [66651, 67355]},
+                {"text": " don't really care", "dur": [67681, 69514]},
+                {"text": " but you said you need me", "dur": [69747, 72232]},
+                {"text": "\nAnd you're", "dur": [74926, 75776]},
+                {"text": " still unaware", "dur": [75904, 77859]},
+                {"text": " of how I was feeling", "dur": [78086, 79995]},
+                {"text": "\n\nWhy do you think", "dur": [85628, 88224]},
+                {"text": " so highly of me?", "dur": [89062, 92327]},
+                {"text": "\nWhy do you think", "dur": [94014, 96336]},
+                {"text": " so highly of me?", "dur": [97570, 100596]},
+                {"text": "\nWhy do you think", "dur": [102313, 105013]},
+                {"text": " so highly of me?", "dur": [106008, 109256]},
+                {"text": "\nAnd why can't I be", "dur": [110396, 113405]},
+                {"text": " the per", "dur": [114586, 115505]},
+                {"text": "son", "dur": [115586, 116053]},
+                {"text": " you see?", "dur": [116449, 117287]},
+                {"text": "\n\nI'm mad about the things that I did", "dur": [125219, 127762]},
+                {"text": " but I don't regret it", "dur": [128198, 130183]},
+                {"text": "\nIt was just way too easy to quit,", "dur": [133494, 136113]},
+                {"text": " though you're still my eyelids", "dur": [136282, 138650]},
+                {"text": "\nAnd if", "dur": [141787, 142666]},
+                {"text": " I could", "dur": [142788, 143696]},
+                {"text": " follow through with what I say", "dur": [144085, 146634]},
+                {"text": "\nI'd get a lot farther with you", "dur": [150126, 152599]},
+                {"text": " and the things that", "dur": [153193, 153920]},
+                {"text": " I want", "dur": [153973, 155282]},
+                {"text": "\nI", "dur": [156056, 156644]},
+                {"text": " want", "dur": [156836, 158367]},
+                {"text": "\n\nWhy do you think", "dur": [160776, 163552]},
+                {"text": " so highly of me?", "dur": [164238, 167451]},
+                {"text": "\nWhy do you think", "dur": [169139, 171763]},
+                {"text": " so highly of me?", "dur": [172613, 175924]},
+                {"text": "\nWhy do you think", "dur": [177559, 180731]},
+                {"text": " so highly of me?", "dur": [181051, 184234]},
+                {"text": "\nAnd why can't I be", "dur": [185509, 188704]},
+                {"text": " the", "dur": [189728, 189984]},
+                {"text": " person ", "dur": [190019, 191189]},
+                {"text": "you see?", "dur": [191549, 192603]},
+                {"text": "\n\nWhy do you think", "dur": [210899, 213507]},
+                {"text": " so highly of me?", "dur": [214502, 217336]},
+                {"text": "\nWhy do you think", "dur": [219233, 221770]},
+                {"text": " so highly of me?", "dur": [222713, 225826]},
+                {"text": "\nWhy do you think", "dur": [227566, 230319]},
+                {"text": " so highly of me?", "dur": [230994, 234090]},
+                {"text": "\nAnd why can't I be", "dur": [235656, 238891]},
+                {"text": " the person", "dur": [239799, 241382]},
+                {"text": " you see?", "dur": [241667, 242476]},
+                {"text": "\n\nWhy do you think", "dur": [244286, 247033]},
+                {"text": " so highly", "dur": [247638, 249873]},
+                {"text": " of me?", "dur": [249983, 251205]},
+                {"text": "\nWhy do you think", "dur": [252555, 255215]},
+                {"text": " so highly of me?", "dur": [256041, 259143]},
+                {"text": "\nWhy do you think", "dur": [260860, 264189]},
+                {"text": " so highly of me?", "dur": [264503, 267419]},
+                {"text": "\nAnd why can't", "dur": [269223, 270992]},
+                {"text": " I be", "dur": [270992, 272127]},
+                {"text": " the", "dur": [273145, 273517]},
+                {"text": " person", "dur": [273523, 274815]},
+                {"text": " you see?", "dur": [275077, 276130]}
+            ]
+        },
+        "packet bread": {
+            "name": "packet bread",
+            "artist": "dough emergency",
+            "album": "MEMORY HOARDER",
+            "art": "https://dapug.lol/music/vis/render-cycles.png",
+            "audio": "https://dapug.lol/music/memory_hoarder/audio/01.mp3",
+            "volume": 1,
+            "lyrics": [
+                {"text": " ", "dur": [10, 20]} 
+            ]
+        },
+        "refrigerator jury": {
+            "name": "refrigerator jury",
+            "artist": "dough emergency",
+            "album": "MEMORY HOARDER",
+            "art": "https://dapug.lol/music/vis/render-cycles.png",
+            "audio": "https://dapug.lol/music/memory_hoarder/audio/02.mp3",
+            "volume": 1,
+            "lyrics": [
+                {"text": " ", "dur": [10, 20]} 
+            ]
+        },
+        "meal thyme": {
+            "name": "meal thyme",
+            "artist": "dough emergency",
+            "album": "MEMORY HOARDER",
+            "art": "https://dapug.lol/music/vis/render-cycles.png",
+            "audio": "https://dapug.lol/music/memory_hoarder/audio/03.mp3",
+            "volume": 1,
+            "lyrics": [
+                {"text": " ", "dur": [10, 20]} 
+            ]
+        },
+        "possible holiday": {
+            "name": "possible holiday",
+            "artist": "dough emergency",
+            "album": "MEMORY HOARDER",
+            "art": "https://dapug.lol/music/vis/render-cycles.png",
+            "audio": "https://dapug.lol/music/memory_hoarder/audio/04.mp3",
+            "volume": 1,
+            "lyrics": [
+                {"text": " ", "dur": [10, 20]} 
+            ]
+        },
+        "goat miracle": {
+            "name": "goat miracle",
+            "artist": "dough emergency",
+            "album": "MEMORY HOARDER",
+            "art": "https://dapug.lol/music/vis/render-cycles.png",
+            "audio": "https://dapug.lol/music/memory_hoarder/audio/05.mp3",
+            "volume": 1,
+            "lyrics": [
+                {"text": " ", "dur": [10, 20]} 
+            ]
+        },
+        "theory coffee": {
+            "name": "theory coffee",
+            "artist": "dough emergency",
+            "album": "MEMORY HOARDER",
+            "art": "https://dapug.lol/music/vis/render-cycles.png",
+            "audio": "https://dapug.lol/music/memory_hoarder/audio/06.mp3",
+            "volume": 1,
+            "lyrics": [
+                {"text": " ", "dur": [10, 20]} 
+            ]
+        },
+        "broccolli drama": {
+            "name": "broccolli drama",
+            "artist": "dough emergency",
+            "album": "MEMORY HOARDER",
+            "art": "https://dapug.lol/music/vis/render-cycles.png",
+            "audio": "https://dapug.lol/music/memory_hoarder/audio/07.mp3",
+            "volume": 1,
+            "lyrics": [
+                {"text": " ", "dur": [10, 20]} 
+            ]
+        },
+        "bed obligation": {
+            "name": "(bonus track) bed obligation",
+            "artist": "dough emergency",
+            "album": "MEMORY HOARDER",
+            "art": "https://dapug.lol/music/vis/render-cycles.png",
+            "audio": "https://dapug.lol/music/memory_hoarder/audio/08.mp3",
+            "volume": 1,
+            "lyrics": [
+                {"text": " ", "dur": [10, 20]} 
+            ]
+        },
+        "sleep button": {
+            "name": "(bonus track) sleep button",
+            "artist": "dough emergency",
+            "album": "MEMORY HOARDER",
+            "art": "https://dapug.lol/music/vis/render-cycles.png",
+            "audio": "https://dapug.lol/music/memory_hoarder/audio/09.mp3",
+            "volume": 1,
+            "lyrics": [
+                {"text": "\nGood morning!", "dur": [18619, 19331]},
+                {"text": " You have been in suspension for:", "dur": [19485, 21051]},
+                {"text": " [FIFTY]", "dur": [21231, 21713]},
+                {"text": " days.", "dur": [21901, 22416]},
+                {"text": "\nIn compliance with state and federal regulations-", "dur": [22489, 24524]},
+                {"text": "\n\n", "dur": [22500, 22500]},
+                {"text": "Good morning!", "dur": [33189, 33697]},
+                {"text": " You have been in suspension for:", "dur": [33945, 35511]},
+                {"text": "[NINE.", "dur": [35986, 36401]},
+                {"text": " NINE.", "dur": [36595, 36989]},
+                {"text": " NINE.", "dur": [37110, 37518]},
+                {"text": " NINE.", "dur": [37699, 38107]},
+                {"text": " NINE.]", "dur": [38254, 38669]}
+            ]
+        },
+        "oatmeal": {
+            "name": "Oatmeal",
+            "artist": "Jack Stauber",
+            "album": "Shop: A Pop Opera",
+            "art": "https://cdn.discordapp.com/attachments/960729059829096580/960813263434682368/shop_pop.png",
+            "audio": "https://cdn.discordapp.com/attachments/960729059829096580/961360773878267904/Jack_Stauber_-_Oatmeal.mp3",
+            "volume": 1,
+            "lyrics": [
+                {"text": "\nI could have", "dur": [1965, 2644]},
+                {"text": " oatmeal for breakfast", "dur": [2602, 3888]},
+                {"text": " and oatmeal for lunch", "dur": [3910, 5369]},
+                {"text": "\nOatmeal for dinner as well", "dur": [5327, 6950]},
+                {"text": " at the sound of a bell", "dur": [7056, 8577]},
+                {"text": "\n[ring]", "dur": [8495, 8937]},
+                {"text": "\nI could have oatmeal wake up", "dur": [8757, 10304]},
+                {"text": " and", "dur": [10480, 10840]},
+                {"text": " oatmeal", "dur": [10844, 11469]},
+                {"text": " brush my teeh", "dur": [11499, 12327]},
+                {"text": "\nGo to my oatmeal job,", "dur": [12319, 13728]},
+                {"text": " oatmeal home,", "dur": [13762, 14595]},
+                {"text": " oatmeal sleep", "dur": [14639, 15333]},
+                {"text": "\n\nEvery day,", "dur": [15715, 16714]},
+                {"text": " my oatmeal routine", "dur": [17372, 18879]},
+                {"text": "\nTime is my master,", "dur": [19482, 20923]},
+                {"text": " keep everything clean", "dur": [20985, 22217]},
+                {"text": "\nEvery day,", "dur": [22455, 23592]},
+                {"text": " my oatmeal routine", "dur": [24132, 25697]},
+                {"text": "\nLife could have rhythm", "dur": [25493, 26758]},
+                {"text": " and maybe harmony", "dur": [27320, 28887]},
+                {"text": "\n\nCircumstance,", "dur": [29574, 31099]},
+                {"text": " the unexpected!", "dur": [31067, 32897]},
+                {"text": "\nHow could I have known?", "dur": [33001, 34348]},
+                {"text": " Err", "dur": [34255, 34615]},
+                {"text": "\nRoutine?", "dur": [34540, 35255]},
+                {"text": " Is it human?", "dur": [35225, 36444]},
+                {"text": "\nMolded in my ways,", "dur": [36374, 37779]},
+                {"text": " how would I change?", "dur": [37889, 39143]},
+                {"text": "\nDisaster,", "dur": [39166, 40124]},
+                {"text": " Routineless,", "dur": [40490, 41181]},
+                {"text": " I adapt to", "dur": [41076, 42011]},
+                {"text": " chaos", "dur": [42034, 42719]},
+                {"text": " faster", "dur": [42736, 43590]},
+                {"text": "\nNo master", "dur": [43793, 44855]}
+            ]
+        },
+        "coffee": {
+            "name": "Coffee",
+            "artist": "Jack Stauber",
+            "album": "Shop: A Pop Opera",
+            "art": "https://cdn.discordapp.com/attachments/960729059829096580/960813263434682368/shop_pop.png",
+            "audio": "https://cdn.discordapp.com/attachments/960729059829096580/961401740098437140/Jack_Stauber_-_Coffee.mp3",
+            "volume": 1,
+            "lyrics": [
+                {"text": "\nDo I need it?", "dur": [3331, 4591]},
+                {"text": " (Mocha)", "dur": [4586, 5650]},
+                {"text": "\nAm I under control?", "dur": [5654, 7381]},
+                {"text": "\nCan I beat it?", "dur": [7455, 8693]},
+                {"text": " (Wake up)", "dur": [8693, 9730]},
+                {"text": "\nIf it swallowed me whole,", "dur": [9800, 11544]},
+                {"text": " would I see it?", "dur": [11566, 12856]},
+                {"text": "\nI can", "dur": [12887, 13349]},
+                {"text": " make you feel", "dur": [13305, 14251]},
+                {"text": " alive", "dur": [14234, 15306]},
+                {"text": "\nI know,", "dur": [15990, 16575]},
+                {"text": " but do I need you to survive?", "dur": [16740, 19208]},
+                {"text": "\n\nJust a sip!", "dur": [20027, 21030]},
+                {"text": "\nDoes it still matter which one?", "dur": [21954, 23759]},
+                {"text": "\nJust a drip!", "dur": [24199, 25237]},
+                {"text": "\nAm I", "dur": [26096, 26793]},
+                {"text": " dumbfounded", "dur": [26832, 27861]},
+                {"text": " when I slip?", "dur": [27857, 29139]},
+                {"text": "\nYou can't believe", "dur": [30054, 31244]},
+                {"text": "\nI can't believe", "dur": [31235, 32386]},
+                {"text": "\nYou can't believe", "dur": [32264, 33311]},
+                {"text": "\nI can't believe", "dur": [33284, 34444]},
+                {"text": "\nYou can't believe", "dur": [34283, 35373]},
+                {"text": "\nI can't believe this happened", "dur": [35412, 37051]},
+                {"text": "\n\nWow!", "dur": [37099, 37779]},
+                {"text": "\nFrench vanilla,", "dur": [38699, 39658]},
+                {"text": " I think I should sit this one out", "dur": [39749, 41877]},
+                {"text": "\nNo", "dur": [41825, 42199]},
+                {"text": " no", "dur": [42300, 42683]},
+                {"text": " no", "dur": [42875, 43202]},
+                {"text": "\nMaybe a", "dur": [42876, 43411]},
+                {"text": " cup of self control would", "dur": [43411, 44915]},
+                {"text": " be the route", "dur": [44950, 46092]},
+                {"text": "\nBut it's the flavour,", "dur": [45857, 46943]},
+                {"text": "\nit's the flavour you want!", "dur": [47056, 48760]},
+                {"text": "\nMaybe so,", "dur": [48821, 49698]},
+                {"text": "but it feels better to check", "dur": [49898, 51808]},
+                {"text": " than to reflect", "dur": [51812, 53329]},
+                {"text": "\nOh", "dur": [53762, 54480]}
+            ]
+        },
+        "still alive": {
+            "name": "Still Alive",
+            "artist": "Jonathan Coulton",
+            "album": "Portal OST",
+            "art": "aperture1.png",
+            "audio": "still_alive.mp3",
+            "volume": 1,
+            "lyrics": [
+                // credits
+                {"text": false, "dur": [8569, 8569], "exec": "portalCreditAnim(1, 60);"},
+                // the ascii arts   {"text": false, "dur": [, ], "exec": "p1Ascii('');"},
+                {"text": false, "dur": [22535, 22535], "exec": "p1Ascii('logo');"},
+                {"text": false, "dur": [34770, 34770], "exec": "p1Ascii('hazard');"},
+                {"text": false, "dur": [36870, 36870], "exec": "p1Ascii('logo');"},
+                {"text": false, "dur": [44703, 44703], "exec": "p1Ascii('atom');"},
+                {"text": false, "dur": [48669, 48669], "exec": "p1Ascii('logo');"},
+                {"text": false, "dur": [69334, 69334], "exec": "p1Ascii('heartbreak');"},
+                {"text": false, "dur": [74167, 74167], "exec": "p1Ascii('explosion');"},
+                {"text": false, "dur": [80870, 80870], "exec": "p1Ascii('campfire');"},
+                {"text": false, "dur": [86602, 86602], "exec": "p1Ascii('checkmark');"},
+                {"text": false, "dur": [96669, 96669], "exec": "p1Ascii('explosion');"},
+                {"text": false, "dur": [98770, 98770], "exec": "p1Ascii('atom');"},
+                {"text": false, "dur": [100803, 100803], "exec": "p1Ascii('logo');"},
+                {"text": false, "dur": [127000, 127000], "exec": "p1Ascii('black mesa');"},
+                {"text": false, "dur": [136971, 136971], "exec": "p1Ascii('cake');"},
+                {"text": false, "dur": [141066, 141066], "exec": "p1Ascii('camera');"},
+                {"text": false, "dur": [143000, 143000], "exec": "p1Ascii('hazard');"},
+                {"text": false, "dur": [145066, 145066], "exec": "p1Ascii('logo');"},
+                {"text": false, "dur": [148971, 148971], "exec": "p1Ascii('atom');"},
+                {"text": false, "dur": [150000, 150000], "exec": "p1Ascii('explosion');"},
+                {"text": false, "dur": [153000, 153000], "exec": "p1Ascii('logo');"},
+                {"text": "FORMS FORM-29827281-12:\nTest Assessment Report\n\n\n", "dur": [0, 3468]},
+                {"text": "This was a triumph.", "dur": [6811, 8198]},
+                {"text": "\nI'm making a note here:", "dur": [10566, 12324]},
+                {"text": "\nHUGE SUCCESS.", "dur": [12746, 13995]},
+                {"text": "\nIt's hard to overstate", "dur": [15587, 17992]},
+                {"text": "\nmy satisfaction.", "dur": [18034, 20590]},
+                {"text": "\nAperture Science", "dur": [22812, 24368]},
+                {"text": "\nWe do what we must", "dur": [26557, 28012]},
+                {"text": "\nbecause we can.", "dur": [28311, 30390]},
+                {"text": "\nFor the good of all of us", "dur": [31480, 34989]},
+                {"text": "\nExcept the ones who are dead.\n\n", "dur": [35062, 36930]},
+                {"text": "But there's no sense crying", "dur": [37348, 39317]},
+                {"text": "\nover every mistake.", "dur": [39326, 41231]},
+                {"text": "\nYou just keep on trying", "dur": [41291, 43320]},
+                {"text": "\ntill you run out of cake.", "dur": [43301, 45293]},
+                {"text": "\nand the science gets done.", "dur": [45298, 47418]},
+                {"text": "\nand you make a neat gun.", "dur": [47368, 49319]},
+                {"text": "\nFor the people who are", "dur": [49324, 51067]},
+                {"text": "\nstill alive.", "dur": [51090, 52504]},
+                {"text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nF", "dur": [52569, 53234]},
+                {"text": "orms FORM-55551-5:\nPersonnel File Addendum:", "dur": [53234, 55000]},
+                {"text": "\n\n\nDear [Subject Name Here],", "dur": [55669, 57937]},
+                {"text": "\n\nI'm not even angry.", "dur": [58551, 60312]},
+                {"text": "\nI'm being so sincere right now.", "dur": [62822, 66246]},
+                {"text": "\nEven though you broke my heart.", "dur": [67816, 71300]},
+                {"text": "\nAnd killed me.", "dur": [71300, 72819]},
+                {"text": "\nAnd tore me to pieces.", "dur": [74549, 76459]},
+                {"text": "\nAnd threw every piece into a fire.", "dur": [78515, 82040]},
+                {"text": "\nAs they burned it hurt because", "dur": [83780, 87011]},
+                {"text": "\nI was so happy for you!", "dur": [87057, 88902]},
+                {"text": "\nNow these points of data", "dur": [89242, 91330]},
+                {"text": "\nmake a beautiful line.", "dur": [91353, 93299]},
+                {"text": "\nAnd we're out of beta.", "dur": [93350, 95333]},
+                {"text": "\nWe're releasing on time.", "dur": [95314, 97265]},
+                {"text": "\nSo I'm GLaD. I got burned.", "dur": [97320, 99234]},
+                {"text": "\nThink of all the things we learned", "dur": [99294, 101387]},
+                {"text": "\nfor the people who are", "dur": [101387, 103030]},
+                {"text": "\nstill alive.", "dur": [103030, 104526]},
+                {"text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nF", "dur": [104560, 105770]},
+                {"text": "orms FORM-55551-6:\nPersonnel File Addendum Addendum:", "dur": [105775, 107602]},
+                {"text": "\n\nOne last thing:", "dur": [108334, 110401]},
+                {"text": "\n\nGo ahead and leave me.", "dur": [110805, 112650]},
+                {"text": "\nI think I prefer to stay inside.", "dur": [114642, 118080]},
+                {"text": "\nMaybe you'll find someone else", "dur": [119783, 123377]},
+                {"text": "\nto help you.", "dur": [123380, 124593]},
+                {"text": "\nMaybe Black Mesa...", "dur": [126773, 129211]},
+                {"text": "\nTHAT WAS A JOKE.", "dur": [130808, 132300]},
+                {"text": " FAT CHANCE.", "dur": [133108, 134636]},
+                {"text": "\nAnyway, this cake is great.", "dur": [135783, 139074]},
+                {"text": "\nIt's so delicious and moist.", "dur": [139075, 141071]},
+                {"text": "\nLook at me still talking", "dur": [141305, 143366]},
+                {"text": "\nWhen there's Science to do.", "dur": [143375, 145294]},
+                {"text": "\nWhen I look out there,", "dur": [145340, 147107]},
+                {"text": "\nit makes me GLaD I'm not you.", "dur": [147144, 149149]},
+                {"text": "\nI've experiments to run.", "dur": [149296, 151343]},
+                {"text": "\nThere is research to be done.", "dur": [151261, 153481]},
+                {"text": "\nOn the people who are", "dur": [153390, 154992]},
+                {"text": "\nstill alive.", "dur": [155052, 156603]},
+                {"text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nP", "dur": [156605, 156870]},
+                {"text": "S: ", "dur": [156880, 157000]},
+                {"text": "And Believe me I am", "dur": [157287, 159041]},
+                {"text": "\nstill alive.", "dur": [159045, 160463]},
+                {"text": "\nPPS: ", "dur": [160602, 160770]},
+                {"text": "I'm doing Science and I'm", "dur": [161120, 163075]},
+                {"text": "\nstill alive.", "dur": [162933, 164186]},
+                {"text": "\nPPPS: ", "dur": [164602, 164803]},
+                {"text": "I feel FANTASTIC and I'm", "dur": [165058, 166908]},
+                {"text": "\nstill alive.", "dur": [167004, 168206]},
+                {"text": "\n\nFINAL THOUGHT", "dur": [167837, 169000]},
+                {"text": "\nWhile you're dying I'll be", "dur": [169308, 171016]},
+                {"text": "\nstill alive.", "dur": [171052, 172310]},
+                {"text": "\n\nFINAL THOUGHT PS:", "dur": [171937, 172770]},
+                {"text": "\nAnd when you're dead I will be", "dur": [173269, 174977]},
+                {"text": "\nstill alive.", "dur": [175220, 176299]},
+                {"text": "\n\n\n\nSTILL ALIVE.", "dur": [176813, 178300]},
+                {"text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  THANK YOU.", "dur": [177000, 180000]}
+            ]
+        },
+        "want you gone": {
+            "name": "Want You Gone",
+            "artist": "Jonathan Coulton",
+            "album": "Portal 2 OST",
+            "art": "aperture2.png",
+            "audio": "want_you_gone.mp3",
+            "volume": 1,
+            "lyrics": [
+                {"text": false, "dur": [5167, 5167], "exec": "portalCreditAnim(2, 30);"},
+                {"text": "Forms FORM-29827281-12-2:\nNotice of Dismissal\n\n", "dur": [0, 4200]},
+                {"text": "\nWell here we are again", "dur": [6598, 8311]},
+                {"text": "\nIt's always such a pleasure", "dur": [9024, 11075]},
+                {"text": "\nRemember when you tried", "dur": [11701, 13121]},
+                {"text": "\nto kill me twice?", "dur": [13185, 15120]},
+                {"text": "\nOh how we laughed and laughed", "dur": [16178, 18211]},
+                {"text": "\nExcept I wasn't laughing", "dur": [18714, 20719]},
+                {"text": "\nUnder the circumstances", "dur": [21011, 23261]},
+                {"text": "\nI've been shockingly nice", "dur": [23279, 26026]},
+                {"text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nY", "dur": [25703, 26000]},
+                {"text": "ou want your freedom?", "dur": [26674, 28808]}, // 
+                {"text": "\nTake it", "dur": [28837, 30514]},
+                {"text": "\nThat's what I'm counting on\n\n", "dur": [31461, 33851]},
+                {"text": "\nI used to want you dead", "dur": [36265, 39082]},
+                {"text": "\nbut", "dur": [39117, 39567]},
+                {"text": "\nNow I only want you gone", "dur": [39649, 43618]},
+                {"text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nS", "dur": [46636, 47435]},
+                {"text": "he was a lot like you", "dur": [47511, 49211]},
+                {"text": "\n(Maybe not quite as heavy)", "dur": [49947, 51870]},
+                {"text": "\nNow little Caroline is in here too", "dur": [52186, 55651]},
+                {"text": "\nOne day they woke me up", "dur": [56949, 58539]},
+                {"text": "\nSo I could live forever", "dur": [59304, 61404]},
+                {"text": "\nIt's such a shame the same", "dur": [61812, 63629]},
+                {"text": "\nwill never happen to you", "dur": [63635, 66662]},
+                {"text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSeverance Package Details:\n\n", "dur": [66662, 67000]},
+                {"text": "\nYou've got your", "dur": [67428, 68363]},
+                {"text": "\nshort sad", "dur": [68392, 69602]},
+                {"text": "\nlife left", "dur": [69602, 71876]},
+                {"text": "\nThat's what I'm counting on", "dur": [72297, 74646]},
+                {"text": "\nI'll let you get right to it", "dur": [77036, 80280]},
+                {"text": "\nNow I only want you gone", "dur": [80426, 83986]},
+                {"text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nG", "dur": [87468, 88736]},
+                {"text": "oodbye my only friend", "dur": [88881, 89947]},
+                {"text": "\nOh, ", "dur": [90555, 90929]},
+                {"text": "did you think I meant you?", "dur": [91151, 92524]},
+                {"text": "\nThat would be funny", "dur": [93056, 94517]},
+                {"text": "\nIf it weren't so sad", "dur": [94652, 96399]},
+                {"text": "\nWell you have been replaced", "dur": [97691, 99672]},
+                {"text": "\nI don't need anyone now", "dur": [100187, 102583]}, 
+                {"text": "\nWhen I delete you maybe", "dur": [102548, 104704]},
+                {"text": "\n[REDACTED]", "dur": [104739, 107492]},
+                {"text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nG", "dur": [107200, 108000]},
+                {"text": "o make some new disaster", "dur": [108305, 112302]},
+                {"text": "\nThat's what I'm counting on", "dur": [113091, 115961]},
+                {"text": "\nYou're someone else's problem", "dur": [117837, 121186]},
+                {"text": "\nNow I only want you gone", "dur": [121361, 124868]},
+                {"text": "\nNow I only want you gone", "dur": [126171, 129929]},
+                {"text": "\nNow I only want you", "dur": [130777, 133185]},
+                {"text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ngone", "dur": [132750, 135300]}
+            ]
+        },
+        "soft fuzzy man": {
+            "name": "Soft Fuzzy Man",
+            "artist": "Lemon Demon",
+            "album": "Spirit Phone",
+            "art": "https://media.discordapp.net/attachments/960729059829096580/960838302561353738/spiritphone.png?width=655&height=655",
+            "audio": "https://cdn.discordapp.com/attachments/960729059829096580/961658854276497458/Lemon_Demon_-_Soft_Fuzzy_Man.mp3",
+            "volume": 1,
+            "lyrics": [
+                {"text": "\nCold and windy", "dur": [8123, 10847]},
+                {"text": "\nDark and stormy", "dur": [11411, 13963]},
+                {"text": "\nLet me float your way", "dur": [14373, 16877]},
+                {"text": "\nPlease don't ignore me", "dur": [17679, 20800]},
+                {"text": "\n\nWhat you girls really need's a soft, fuzzy man", "dur": [20958, 24343]},
+                {"text": "\n(An ambient man)", "dur": [24286, 26199]},
+                {"text": " A trick of the light", "dur": [26146, 27618]},
+                {"text": " to love you tonight", "dur": [27592, 29452]},
+                {"text": "\nYou don't understand,", "dur": [29434,30941 ]},
+                {"text": " there's nothing quite like a soft, fuzzy man", "dur": [31127, 34670]},
+                {"text": "\n\nCan't you see me?", "dur": [61116, 63866]},
+                {"text": "\nWhy can't you see me?", "dur": [63998, 67163]},
+                {"text": "\nI'm all around", "dur": [67771, 70187]},
+                {"text": "\nAll cold and dreamy", "dur": [70619, 73757]},
+                {"text": "\n\nWhat you girls really need's a soft, fuzzy man", "dur": [73969, 77257]},
+                {"text": "\n(A wisp of smoke man)", "dur": [77259, 79064]},
+                {"text": " To waft over you", "dur": [79065, 80386]},
+                {"text": " and cloud up your view", "dur": [80545, 82369]},
+                {"text": "\nSo show me your hands", "dur": [82413, 83911]},
+                {"text": " and wave them right through a soft, fuzzy man", "dur": [84027, 87852]},
+                {"text": "\n\nAlthough I have no arms to hold you in", "dur": [100176, 103799]},
+                {"text": "\nA human passion burns within me", "dur": [103940, 106876]},
+                {"text": "\nI need to feel like I exist", "dur": [106902, 110402]},
+                {"text": "\nSo please baby, please baby, step into the mist", "dur": [110493, 113663]},
+                {"text": "\nWoo!", "dur": [113672, 114333]},
+                {"text": "\n\nDon't be nervous", "dur": [114113, 116846]},
+                {"text": "\nNo, don't be nervous", "dur": [116855, 120125]},
+                {"text": "\nI'm not like other guys", "dur": [120163, 123404]},
+                {"text": "\nWho have a surface", "dur": [123554, 126754]},
+                {"text": "\n\nWhat you girls really need's a soft, fuzzy man", "dur": [126886, 130307]},
+                {"text": "\n(An atmospheric man)", "dur": [130307, 132158]},
+                {"text": " A shimmering puff of indistinct love", "dur": [132105, 135419]},
+                {"text": "\nWhat's better than", "dur": [135472, 136479]},
+                {"text": " the vague embrace of a soft,", "dur": [136839, 139571]},
+                {"text": " fuzzy man?", "dur": [139563, 141202]},
+                {"text": "\n\nWho seeps through your thoughs?", "dur": [141819, 143875]},
+                {"text": "\nWho makes you see spots?", "dur": [145199, 147205]},
+                {"text": "\nWho blows through the air?", "dur": [148431, 150661]},
+                {"text": "\nWho plays with your hair?", "dur": [151895, 153702]},
+                {"text": "\nI know it sounds crazy", "dur": [155024, 157114]},
+                {"text": "\nBut once you go hazy,", "dur": [158313, 160225]},
+                {"text": " you'll understand", "dur": [160393, 161900]},
+                {"text": "\nI'm your soft fuzzy man", "dur": [163082, 165435]}
+            ]
+        },
+        "toy food": {
+            "name": "Toy Food",
+            "artist": "Lemon Demon",
+            "album": "The FuMP Volume 18",
+            "art": "https://media.discordapp.net/attachments/960729059829096580/961675105753260092/unknown.png",
+            "audio": "https://cdn.discordapp.com/attachments/960729059829096580/961676233979076739/Lemon_Demon_-_Toy_Food.mp3",
+            "volume": 1,
+            "lyrics": [
+                {"text": "\nDrumsticks,", "dur": [12889, 13708]},
+                {"text": " cake mix,", "dur": [13708, 14502]},
+                {"text": " watermelon,", "dur": [14502, 15297]},
+                {"text": " taco shells", "dur": [15297, 16107]},
+                {"text": "\nSoda pop,", "dur": [16107, 16907]},
+                {"text": " lemon,", "dur": [16907, 17280]},
+                {"text": " apple,", "dur": [17280, 17680]},
+                {"text": " olive oil,", "dur": [17680, 18517]},
+                {"text": " cheerios", "dur": [18518, 19295]},
+                {"text": "\nGreen grapes,", "dur": [19295, 20100]},
+                {"text": " purple grapes,", "dur": [20100, 20922]},
+                {"text": " lettuce,", "dur": [20922, 21375]},
+                {"text": " pretzel,", "dur": [21375, 21732]},
+                {"text": " corn,", "dur": [21732, 22089]},
+                {"text": " ketchup", "dur": [22089, 22580]},
+                {"text": "\nOrange juice,", "dur": [22580, 23289]},
+                {"text": " hot dogs,", "dur": [23289, 24141]},
+                {"text": " chicken noodle soup", "dur": [24141, 25304]},
+                {"text": "\n\nToy Food!", "dur": [25305, 27330]},
+                {"text": "\nLike real food,", "dur": [26109, 27468]},
+                {"text": " but is toy", "dur": [27368, 28524]},
+                {"text": "\nToy Food!", "dur": [28455, 29633]},
+                {"text": "\nNot real food,", "dur": [29250, 30471]},
+                {"text": " do not eat", "dur": [30471, 31761]},
+                {"text": "\nToy Food!", "dur": [31638, 33979]},
+                {"text": "\nLike real food,", "dur": [32545, 33766]},
+                {"text": " but is toy", "dur": [33766, 34917]},
+                {"text": "\nToy Food!", "dur": [34832, 35983]},
+                {"text": "\nNot real food,", "dur": [35706, 36879]},
+                {"text": " do not eat", "dur": [36879, 38212]},
+                {"text": "\n\nSweet peas,", "dur": [38308, 39310]},
+                {"text": " strawberries,", "dur": [39310, 40110]},
+                {"text": " salt and pepper", "dur": [40110, 41342]},
+                {"text": "\nFrench fries,", "dur": [41342, 42126]},
+                {"text": " garlic loaf,", "dur": [42126, 42877]},
+                {"text": " refried beans", "dur": [42877, 44269]},
+                {"text": "\nBananas,", "dur": [44269, 44962]},
+                {"text": " red pepper,", "dur": [44962, 45751]},
+                {"text": " green pepper,", "dur": [45751, 46567]},
+                {"text": " crinkle fries,", "dur": [46567, 47388]},
+                {"text": " ice cream", "dur": [47388, 48038]},
+                {"text": "\nTurkey chunks,", "dur": [48038, 48913]},
+                {"text": " chicken chunks,", "dur": [48913, 49702]},
+                {"text": " tuna chunks,", "dur": [49702, 50502]},
+                {"text": " fudge", "dur": [50502, 50997]},
+                {"text": "\n\nToy Food!", "dur": [50997, 52933]},
+                {"text": "\nLike real food,", "dur": [51723, 52976]},
+                {"text": " but is toy", "dur": [53040, 54143]},
+                {"text": "\nToy Food!", "dur": [54047, 55098]},
+                {"text": "\nNot real food,", "dur": [54895, 56079]},
+                {"text": " do not eat", "dur": [56089, 57374]},
+                {"text": "\nToy Food!", "dur": [57204, 59347]},
+                {"text": "\nLike real food,", "dur": [58174, 59352]},
+                {"text": " but is toy", "dur": [59390, 60499]},
+                {"text": "\nToy Food!", "dur": [60429, 61474]},
+                {"text": "\nNot real food,", "dur": [61394, 62471]},
+                {"text": " do not eat", "dur": [62503, 63836]},
+                {"text": "\n\nHamburger, hamburger", "dur": [64033, 65745]},
+                {"text": " donuts", "dur": [65745, 66390]},
+                {"text": "\nHamburger, hamburger", "dur": [67238, 68690]},
+                {"text": " pizza", "dur": [68690, 69584]},
+                {"text": "\nHamburger, hamburger", "dur": [70410, 72042]},
+                {"text": " carrot", "dur": [72042, 72548]},
+                {"text": "\nHamburger, Hamburger", "dur": [73625, 75315]},
+                {"text": " Helper", "dur": [76115,76520 ]},
+                {"text": "\n\nGreen beans,", "dur": [76867, 77693]},
+                {"text": " oranges,", "dur": [77693, 78461]},
+                {"text": " pea pods,", "dur": [78461, 79277]},
+                {"text": " pineapple", "dur": [79277, 80060]},
+                {"text": "\nCroissant,", "dur": [80060, 80679]},
+                {"text": " potato,", "dur": [80679, 81324]},
+                {"text": " spaghetti,", "dur": [81415, 82092]},
+                {"text": " baguettes", "dur": [82326, 83116]},
+                {"text": "\nPotato chips,", "dur": [83116, 83979]},
+                {"text": " tomato soup,", "dur": [83979, 84832]},
+                {"text": " pickle,", "dur": [84382, 85232]},
+                {"text": " cookie,", "dur": [85232, 85707]},
+                {"text": " niblets", "dur": [85707, 86378]},
+                {"text": "\nMilk,", "dur": [86490, 87061]},
+                {"text": " peas,", "dur": [87216, 87914]},
+                {"text": " gourd,", "dur": [88063, 88714]},
+                {"text": " meat", "dur": [88858, 89354]},
+                {"text": "\n\nToy Food!", "dur": [89354, 91422]},
+                {"text": "\nLike real food,", "dur": [90111, 91373]},
+                {"text": " but is toy", "dur": [91374, 92617]},
+                {"text": "\nToy Food!", "dur": [92510, 93560]},
+                {"text": "\nNot real food,", "dur": [93432, 94573]},
+                {"text": " do not eat", "dur": [94573, 95842]},
+                {"text": "\nToy Food!", "dur": [95688, 97842]},
+                {"text": "\nLike real food,", "dur": [96583, 97895]},
+                {"text": " but is toy", "dur": [97895, 98977]},
+                {"text": "\nToy Food!", "dur": [98876, 100000]},
+                {"text": "\nNot real food,", "dur": [99798, 100977]},
+                {"text": " do not eat", "dur": [100977, 102214]},
+                {"text": "\n\nToy food", "dur": [102176, 104245]},
+                {"text": "\nToy food", "dur": [105301, 106396]}
+            ]
+        },
+        "ive got some falling to do": {
+            "name": "I've Got Some Falling To Do",
+            "artist": "Lemon Demon",
+            "album": "The FuMP Volume 27",
+            "art": "https://media.discordapp.net/attachments/960729059829096580/961675267284299816/unknown.png?width=639&height=639",
+            "audio": "https://cdn.discordapp.com/attachments/960729059829096580/961676217407401984/Lemon_Demon_-_Ive_Got_Some_Falling_to_Do.mp3",
+            "volume": 1,
+            "lyrics": [
+                {"text": "\nIn an airplane,", "dur": [23445, 24865]},
+                {"text": " I was flying", "dur": [24950, 26427]},
+                {"text": "\nJust a flight attendant guy", "dur": [26469, 29226]},
+                {"text": "\nI can be clumsy,", "dur": [29254, 30755]},
+                {"text": " and I stumbled", "dur": [31041, 32524]},
+                {"text": "\nOut the door into the sky", "dur": [32524, 35068]},
+                {"text": "\nNow I am falling through the air", "dur": [35348, 38247]},
+                {"text": "\nWind and regret flow through my hair", "dur": [38434, 41329]},
+                {"text": "\nAll I can do right now is stare", "dur": [41547, 44418]},
+                {"text": " down at the", "dur": [44633, 45257]},
+                {"text": " ocean\n", "dur": [45266, 47448]},
+                {"text": "\nSuddenly,", "dur": [47746, 48510]},
+                {"text": " there's a ring in my cell phone.", "dur": [48846, 50776]},
+                {"text": " I pick it up", "dur": [50776, 51820]},
+                {"text": "\nIt's the Angel of Death,", "dur": [51997, 53171]},
+                {"text": " and he says", "dur": [53264, 54215]},
+                {"text": " 'Wazzup?'", "dur": [54215, 54840]},
+                {"text": "\nI say,", "dur": [54998, 55436]},
+                {"text": " 'What is it this time?'", "dur": [55436, 56825]},
+                {"text": "\nAnd he's like,", "dur": [56825, 57422]},
+                {"text": " 'Well,", "dur": [57394, 57953]},
+                {"text": " hello,", "dur": [58000, 58597]},
+                {"text": " goodbye,", "dur": [58736, 59591]},
+                {"text": " I'll see you in hell.'", "dur": [59454, 61020]},
+                {"text": "\nHe can be like that sometimes,", "dur": [61020, 62782]},
+                {"text": " he's such a nut", "dur": [62782, 63845]},
+                {"text": "\nSo I snicker and say,", "dur": [, ]},
+                {"text": " 'I'd love to, but", "dur": [, ]},
+                {"text": "\nGravity's calling,", "dur": [, ]},
+                {"text": " I've got some falling to", "dur": [, ]},
+                {"text": " do.'\n", "dur": [, ]},
+                {"text": "\nI'm in a state of shock,", "dur": [, ]},
+                {"text": " but it's something new", "dur": [, ]},
+                {"text": "\nI guess it all depends on your point of view.", "dur": [, ]},
+                {"text": " It's true", "dur": [, ]},
+                {"text": "\n\nThis is boring.", "dur": [, ]},
+                {"text": " Yes I'm falling", "dur": [, ]},
+                {"text": "\nBut it's taking quite a while", "dur": [, ]},
+                {"text": "\nMy destination", "dur": [, ]},
+                {"text": " is impending", "dur": [, ]},
+                {"text": "\nMight as well go out in style", "dur": [, ]},
+                {"text": "\nI put my arms out to the skies", "dur": [, ]},
+                {"text": "\nWhistle a tune and close my eyes", "dur": [, ]},
+                {"text": "\nTrying to briefly realise", "dur": [, ]},
+                {"text": " perpetual motion", "dur": [, ]},
+                {"text": "\n\nSuddenly,", "dur": [, ]},
+                {"text": " giant tentacles rise from the open sea", "dur": [, ]},
+                {"text": "\nAnd with total precision they lasso me", "dur": [, ]},
+                {"text": "\nIt's a mostrous squid", "dur": [, ]},
+                {"text": " and he saved my life", "dur": [, ]},
+                {"text": "\nBut I", "dur": [, ]},
+                {"text": " am too freaked out to be nice", "dur": [, ]},
+                {"text": "\nSo I tell him the truth,", "dur": [, ]},
+                {"text": " that i'd rather fall", "dur": [, ]},
+                {"text": "\nNo offense", "dur": [, ]},
+                {"text": " but at least it's predictable", "dur": [, ]},
+                {"text": "\nGotta stop stalling,", "dur": [, ]},
+                {"text": " I've got some falling to do", "dur": [, ]},
+                {"text": "\n\nI'm probably gonna die,", "dur": [, ]},
+                {"text": " but it's something new", "dur": [, ]},
+                {"text": "\nI guess it all depends on your point of view.", "dur": [, ]},
+                {"text": " It's true", "dur": [, ]}
+            ]
+        }
     }
 }
 
+updateLyrics();
 
 // spirit phone: https://media.discordapp.net/attachments/960729059829096580/960838302561353738/spiritphone.png?width=655&height=655
 
 // if you just want javascript to run at a specific time without any lyrics, just set "text" to false, without quotes, but still have the times and then ofcourse set "exec" to the javascript you want run
-var HJABJBGASFJHKBGSDLFBJLF = `
+var HJABJBGASFJHKBGSDLFBJLF = 
+    
+`
 ,
 {"text": "\n", "dur": [, ]}
 
 ", "dur": [, ]},
 {"text": "\n
+
+
 
 ,
     "": {
@@ -4459,7 +4563,146 @@ var HJABJBGASFJHKBGSDLFBJLF = `
         ]
     }
 
-`                               // this is essentially just block comments so i can be able to copy paste this for lyrics (tm)
+`
+                               // this is essentially just block comments so i can be able to copy paste this for lyrics (tm)
+
+// CONSOLE CREDITS TM!!!
+
+var site_credits = [
+    {"text": `
+  .%MMMMMM .%MMMMMMM%. +MM.      M+ .%MMMMMMM%. .%MMMMMMM%. +M         +MMMMMMMMI 
+ .%MMMMMMM %MM%' '%MM% MMMM.     MM %MM%' '%MM% %MM%' '%MM% MM         MMMMMMMMMI 
+ %MM%'     MM'     'MM MM'MM.    MM MM'         MM'     'MM MM         MM+        
+ MMM'      MM       MM MM 'MM.   MM MM%.......  MM       MM MM         MM........ 
+ MMM       MM       MM MM  'MM.  MM  %MMMMMMM%. MM       MM MM         MMMMMMMMMM 
+ MMM.      MM       MM MM   'MM. MM   ''''''%MM MM       MM MM         MM'''''''' 
+ %MM%.     MM.     .MM MM    'MM.MM         .MM MM.     .MM MM         MM+        
+ '%MMMMMMM %MM%. .%MM% MM     'MMMM %MM%. .%MM% %MM%. .%MM% MM........ MMMMMMMMMI 
+  '%MMMMMM '%MMMMMMM%' +M      'MM+ '%MMMMMMM%' '%MMMMMMM%' +MMMMMMMM% +MMMMMMMMI 
+`, "dur": [0, 3343]},
+    {"text": `\n\nCONSOLE v${version}, by da pug`, "dur": [3343, 4761]},
+    {"text": `\n\nStarted January 24, 2022`, "dur": [6610, 8251]},
+    {"text": `\n\nCoded with over 5000 lines of javascript`, "dur": [9939, 11490]},
+    {"text": `\n\nAn excuse to spend hours tapping away on my keyboard`, "dur": [13240, 14800]},
+    {"text": `\n\n:]\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n`, "dur": [16123, 16630]},
+    {"text": `
+         ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒░
+        ▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓█▒░
+       ▒█████████████████▒▒░
+      ▒█▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒░
+      ▒█▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒█▓▒▒░
+      ▒█▓░░░░░░░░░░░░░▒█▓▒▒░
+      ▒█▓░            ▒█▓▒▒░
+      ▒█▓░   ▓▓▓▓▓▓░  ▒█▓▒▒░
+      ▒█▓░   ▒█████░  ▒█▓▒▒░
+      ▒█▓░   ▒█████░  ▒█▓▒▒░
+      ▒█▓░   ░░░░░░░  ▒█▓▒▒░
+      ▒█▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒█▓▒▒░
+      ▒█▓███████████████▓▒▒░
+      ▒█▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒░▒▒
+      ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒░▒▒▓░
+      ░░░░░░░░░░░░░░░░░░░░▒▒▓▒░
+    ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓▒▒░
+   ▒███████████████████████▒▒▒░
+   ▒█▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒░
+   ▒█▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒▒▒▒▓▓▒▒▒░
+   ▒█▓▓▓▓▓▓▓▓▓▓          ▓▓▒▒▒░
+   ▒█▓▓▄▄▓▓▓▓▓▓▓▓▓▓▓▓▒▓▓▓▓▓▒▒▒░
+   ▒█▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒░
+   ▒▒▒ █▒ █▒ █▒ █▒ █▒ █▒ █ ▒▒░
+  ▒█▒ █▒ █▒ █▒ █▒ █▒ █▒ █▒▒░░
+ ▒█▒ ▒▒ ▒▒ ▒▒ ▒▒ ▒▒ ▒▒ ▒▒▒▒░
+▒███████████████████████░▒░
+▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒░
+ ░░░░░░░░░░░░░░░░░░░░░░░░
+`, "dur": [16577, 17582]},
+{"text": "\n caeserlettuce - lead developer", "dur": [17582, 18418]},
+{"text": "⠀\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "dur": [19426, 19877]},
+{"text": `
+                ░░   ░
+          ░       ░   ░
+           ░   ░░░░
+            ░░░░░   ░
+       ░ ░░▒▒▒░  ░░
+        ░▒▒▒▒░
+         ░▒▒▒▒▒▒░░
+           ░░▒▒▒▒▒▒░
+              ░▒▒▒▒▒▒
+        ░░▒▒▒▒▒▒▒▒▒▒░
+      ░▒▒▒▒▒▒▒▒▒▒░░░
+    ▓▓▒▒▒▒▒▓▓▓▓▓▓▓▓▓
+ ▓▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓▓▓
+▓▒▒▒░░░▒▒▒▒▒░░░░░░░░▒▒▒▓
+▓░░░░░░░░░░░░░░░░░░░░░░▓
+▒▓▓▓░░░░░░░░░░░░░░░░▓▓▓▓
+▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒
+▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒
+▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓   ▓▓▓
+▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓    ▓▓
+▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓    ▓▓
+▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓   ▒▓▓
+▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▓▓▓
+▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+ ▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓
+    ▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓`, "dur": [19877, 20918]},
+    {"text": "\n\n 18gallons - developer / bug testing / themes", "dur": [20918, 21717]},
+    {"text": "⠀\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "dur": [22743, 23186]},
+    {"text": "\nSPECIAL THANKS TO:\n\nGitHub\nVisual Studio Code\nStack Overflow\n\n\n", "dur": [23153, 27931]},
+    {"text": `
+             .,-:;//;:=,
+         . :H@@@MM@M#H/.,+%;,
+      ,/X+ +M@@M@MM%=,-%HMMM@X/,
+     -+@MM; $M@@MH+-,;XMMMM@MMMM@+-
+    ;@M@@M- XM@X;. -+XXXXXHHH@M@M#@/.
+  ,%MM@@MH ,@%=            .---=-=:=,.
+  -@#@@@MX .,              -%HX$$%%%+;
+ =-./@M@M$                  .;@MMMM@MM:
+ X@/ -$MM/                    .+MM@@@M$
+,@M@H: :@:                    . -X#@@@@-
+,@@@MMX, .                    /H- ;@M@M=
+.H@@@@M@+,                    %MM+..%#$.
+ /MMMM@MMH/.                  XM@MH; -;
+  /%+%$XHH@$=              , .H@@@@MX,
+   .=--------.           -%H.,@@@@@MX,
+   .%MM@@@HHHXX$$$%+- .:$MMX -M@@MM%.
+     =XMMM@MM@MM#H;,-+HMM@M+ /MMMX=
+       =%@M@M#@$-.=$@MM@@@M; %M%=
+         ,:+$+-,/H#MMMMMMM@- -,
+               =++%%%%+/:-.
+    `, "dur": [29777, 30832]},
+    {"text": "\n\n Valve - Portal 1 & 2 for inspiring me to make this", "dur": [30832, 31653]},
+    {"text": "⠀\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "dur": [33071, 34152]},
+    {"text": "[insert more credits when i need them]", "dur": [34152, 36152]},
+
+
+    {"text": "⠀\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "dur": [51925, 52958]},
+    {"text": "THANK YOU\nFOR PLAYING AROUND\nWITH THIS SILLY LITTLE WEBSITE!!", "dur": [52958, 56145]},
+    // "⠀" // nothing characer
+
+    // stackoverflow
+    // vscode
+    // github
+    // [im really thinking of every possible thing]
+    // the portal credit sequences for inspiring this in the first place
+    
+
+    // 43 lines tall
+    // 907 pixels tall
+    // 21.0930232558 pixels per newline (ish)
+
+
+    
+
+
+
+
+    
+]
+
+
 
 
 //
@@ -4704,7 +4947,7 @@ var p2_credits = [
     "Matt Boone",
     "Michael Booth",
     "Antoine Bourdon",
-    "CHristopher Boyd",
+    "Christopher Boyd",
     "Jason Brashill",
     "Charlie Brown",
     "Tom Bui",
@@ -5204,6 +5447,110 @@ var table_themes = {
     }
 }
 
+
+var themes = {      // console colour themes
+    "default": {
+        "name": "Default",
+        "author": "caeserlettuce",
+        "text colour": "#7cfc00",
+        "back colour": "#000000",
+        "accy colour": "#1e1e1e"
+    },
+    "ocean": {
+        "name": "Ocean",
+        "author": "18gallons",
+        "text colour": "#87e0cf",
+        "back colour": "#155553",
+        "accy colour": "#faf9f6"
+    },
+    "pop tart": {
+        "name": "Pop Tart",
+        "author": "18gallons",
+        "text colour": "#d19887",
+        "back colour": "#faf9f6",
+        "accy colour": "#ff91af"
+    },
+    "candy cane": {
+        "name": "Candy Cane",
+        "author": "18gallons",
+        "text colour": "#edefeb",
+        "back colour": "#c54245",
+        "accy colour": "#3f000f"
+    },
+    "blackberry": {
+        "name": "Blackberry",
+        "author": "18gallons",
+        "text colour": "#7b1e57",
+        "back colour": "#221c35",
+        "accy colour": "#6b6b7f"
+    },
+    "git": {
+        "name": "Git",
+        "author": "18gallons",
+        "text colour": "#b1d1d9",
+        "back colour": "#0d1117",
+        "accy colour": "#238636"
+    },
+    "scarlet": {
+        "name": "Scarlet",
+        "author": "18gallons",
+        "text colour": "#ff2400",
+        "back colour": "#240000",
+        "accy colour": "#7e1200"
+    },
+    "win95": {
+        "name": "win95",
+        "author": "caeserlettuce",
+        "text colour": "#eff7f7",
+        "back colour": "#008282",
+        "accy colour": "#000082"
+    },
+    "are you alright": {
+        "name": "Are You Alright",
+        "author": "caeserlettuce",
+        "text colour": "#e9e6dd",
+        "back colour": "#4e1818",
+        "accy colour": "#292420"
+    },
+    "pebble brain": {
+        "name": "Pebble Brain",
+        "author": "caeserlettuce",
+        "text colour": "#fcfef9",
+        "back colour": "#89c8fe",
+        "accy colour": "#fddab4"
+    },
+    "atp": {
+        "name": "ATP",
+        "author": "caeserlettuce",
+        "text colour": "#a0292d",
+        "back colour": "#dbac5c",
+        "accy colour": "#62211d"
+    },
+}
+
+var custom_themes = {
+    "custom": {
+        "name": "Custom",
+        "author": "caeserlettuce",
+        "text colour": "#ffffff",
+        "back colour": "#1e1e1e",
+        "accy colour": "#007acc"
+    },
+}
+
+var fhsiofhghszg = ` // more easy copy pasting
+"": {
+    "name": "",
+    "author": "",
+    "text colour": "#",
+    "back colour": "#",
+    "accy colour": "#"
+},
+
+
+`
+
+
 //│┴┬├─┤┼┌┐└┘
 //┃┻┳┣━┫╋┏┓┗┛
 //║╩╦╠═╣╬╔╗╚╝
@@ -5231,6 +5578,8 @@ var table_themes = {
 //
 
 
-
-
-console.log("ui elements loaded.");
+if (true) {
+    var dat = new Date();
+    var tim = `${dat.getHours()}:${dat.getMinutes()}:${dat.getSeconds()}:${dat.getMilliseconds()}`;
+    console.log(`[${tim}]: ui elements loaded.`);
+}

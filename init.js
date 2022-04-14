@@ -1,19 +1,25 @@
 function debubg(message) {
+    if (debug_time == true) {
+        var dat = new Date();
+        var tim = `${dat.getHours()}:${dat.getMinutes()}:${dat.getSeconds()}:${dat.getMilliseconds()}`;
+        message = `[${tim}]: ${message}`;
+    }
+
     console.log(message);
     if (debug == true) {
         //var pogchamp = debug_win.body;
         //texty = pogchamp.innerHTML;
         //pogchamp.innerHTML = `${texty}<br>${message}`;
         //debug_win.document.write('<pre>HEHE</pre>');
-
         debug_win.document.getElementById("aaa").innerHTML += `${message}\n`;
         mom = debug_win.document.getElementById("aaa");
         mom.scrollTop = mom.scrollHeight;
     }
 }
+
+var debug_time = true;
 debubg("debug message init finished...");
 var consol = document.getElementById("consy");
-var version = "0.4.5";
 var user = "user";
 var user_permission;
 var consoltext = "";
@@ -80,7 +86,7 @@ var commandHistory = new Array();
 var commandIndex = 0;
 var currentCommand = "";
 var inHistory = false;
-var console_history = {0: "console started. type 'issue' if you find any issues/errors with this page."};
+var console_history = {0: "console started. type 'issue' if you find any issues/errors with this page. type 'help' for help."};
 var console_colour_history = {0: "inherit"};
 var console_link_history = {0: ""};
 var console_id = 0;
@@ -103,11 +109,18 @@ var modlist = [                                                                 
     "https://raw.githubusercontent.com/caeserlettuce/dapug-console/83165118e417052d21f49dedab18b381338079db/example_mod.js",
 ]
 var htmlmods = document.getElementById("mods");
-
 var debug_win;
 var debugvar_win;
-
-
+var credits_playing = false;
+var lyr_disp;
+var orientation = "what";
+var textheight = 20;
+var debugwin_status = false;
+var autodebugwin = false;
+var listening_input = false;
+var ask_do = function() {console.log("aaaaa!! im broken i think!!")};
+var ask_return = "";
+var istening_end = true;
 
 debubg("variable init finished...");
 // local storage setup
@@ -364,7 +377,42 @@ function worbleInit() {
     }
 }
 
+function themeInit() {
+    var themey = localStorage.getItem("themes");
 
+    if (themey) {   // if it exists
+        debubg('[THEME INIT] themes localstorage exists!');
+        custom_themes = JSON.parse(themey);
+
+    } else { // if it doesnt exist
+        debubg('[THEME INIT] themes localstorage doesnt exist!');
+        localStorage.setItem("themes", JSON.stringify(custom_themes));
+    }
+}
+
+function fixDevExploit() {
+    var deed = localStorage.getItem("dev-exploit");
+
+    // for context, in the github version of this site, there is a file called devtools.js, which automatically sets your user to dev (because why not)
+    // and so, i once accidentally pushed it to the official site, and so everyone who had loaded the site, had gotted the dev user
+    // i dont want to have it reset your user every single time, so i thought of this:
+    // i make a new local storage variable, where if that local storage variable is not equal to 1, it'll set your user to user, and then set that vatiable to 1
+    // so that way it'll only reset your user once!
+
+    if (deed) {
+        if (deed != 1) {                        // if the variable is not 1
+            setUser("user");                    // set user to user
+            localStorage.setItem("dev-exploit", 1);    // set it to 1
+        }
+    } else {
+        localStorage.setItem("dev-exploit", 0);
+    }
+}
+
+
+
+fixDevExploit();
+themeInit();
 worbleInit();
 doStart();
 getCommentIter();
@@ -420,7 +468,8 @@ debubg(`[url param init] debug: ${pr_debug}, debugvar: ${pr_debugvar}, suggestio
 
 // toggle the debugs
 if (pr_debug == "true") {
-    debug = true;
+    //debug = true;
+    //autodebugwin = true;
 } else {
     debug = false;
 }
@@ -598,37 +647,39 @@ function toggleHideP1Ascii() {
 function debugWindow(bool) {
     
     if (bool == true) {     // if it open window
+        debugwin_status = true;
         debug_win = window.open("", "Title", "directories=0,titlebar=0,toolbar=0,location=0,status=0,menubar=0,scrollbars=no,resizable=no,width=400,height=350,top="+(screen.height-400)+",left="+(screen.width-840));
-        debug_win.document.write(`
-
-        <style>::-webkit-scrollbar {width: 10px;height: 10px;} body {overflow: hidden;} .eee {overflow: scroll; width: calc(100vw - 10px); height: calc(100vh - 10px);}</style>
-        <style id="scroll-text-style">::-webkit-scrollbar-thumb { background: ${textcolour}90; }</style>
-        <style id="scroll-back-style">::-webkit-scrollbar-track { background: ${backcolour}; } ::-webkit-scrollbar-corner { background: #000000 }</style>
-        <style id="back-style">body { background-color: ${backcolour};}</style>
-        <style id="text-style">body { color: ${textcolour};}</style>
-        <title>CONSOLE DEBUG</title>
-        <link rel="icon" href="icon.png">
-        `);
-        debug_win.document.write('<pre id="aaa" class="eee"></pre>'); 
-        debug_win.document.write(`<script>
-        var toot = false;
-        setInterval(function() {                // loop this every quarter second
-            toot = false;
-            try {
-                if (window.opener.debug != true) {      // if debug is false
-                    window.close();                     // close window
-                } else {
-                    toot = true;                        // else go and set it to true
+        try {
+            debug_win.document.write(`
+            <style>::-webkit-scrollbar {width: 10px;height: 10px;} body {overflow: hidden;} .eee {overflow: scroll; width: calc(100vw - 10px); height: calc(100vh - 10px);}</style>
+            <style id="scroll-text-style">::-webkit-scrollbar-thumb { background: ${textcolour}90; }</style>
+            <style id="scroll-back-style">::-webkit-scrollbar-track { background: ${backcolour}; } ::-webkit-scrollbar-corner { background: #000000 }</style>
+            <style id="back-style">body { background-color: ${backcolour};}</style>
+            <style id="text-style">body { color: ${textcolour};}</style>
+            <title>CONSOLE DEBUG</title>
+            <link rel="icon" href="icon.png">`);
+            debug_win.document.write('<pre id="aaa" class="eee"></pre>'); 
+            debug_win.document.write(`<script>
+            var toot = false;
+            setInterval(function() {                    // loop this every quarter second
+                toot = false;
+                try {
+                    if (window.opener.debug != true) {      // if debug is false
+                        window.close();                     // close window
+                    } else {
+                        toot = true;                        // else go and set it to true
+                    }
+                } catch (err) {                             // if it returns an error (like if the main console window is closed)
+                    if (toot == false) {
+                        window.close();                     // close this window
+                    }
                 }
-            } catch (err) {                             // if it returns an error (like if the main console window is closed)
-                if (toot == false) {
-                    window.close();                     // close this window
-                }
-            }
             }, 250);
-        </script>`);
-
-
+            </script>`);
+        } catch (err) {
+            console.log("oh crap i think the popup got blocked or smth");
+            displayAnim("\nUh oh! it seems that the debug window didn't open! Please make sure that popups are allowed on this site!", 7, "#ff0000");
+        }
         var debug_check = setInterval(function() { 
             if(debug_win.closed) {
                 clearInterval(debug_check);
@@ -637,13 +688,9 @@ function debugWindow(bool) {
             }
         }, 1000);
     } else {
-        
         //debug_win.close();
     }
 }
-
-
-
 
 debubg("debug window init finished...");
 
@@ -692,19 +739,44 @@ function sizeCheck() {
     updateScreenVars();
     if (windowWidth > windowHeight) {
         // if on landscape
-        debubg("landscape");
+        orientation = "landscape";
         aspectratio = windowWidth / windowHeight;
         document.getElementById("body").style.fontSize = `${aspectratio * sizemod}vh`;
         document.getElementById("consoleinputstyle").style.fontSize = `${1.25 * aspectratio * sizemod}vh`;
         document.getElementById("consoleinput").style.fontSize = `${1.25 * aspectratio * sizemod}vh`;
     } else if (windowWidth < windowHeight) {
         // if on portrait
-        debubg("portrait");
+        orientation = "portrait";
         aspectratio = windowHeight / windowWidth;
         document.getElementById("body").style.fontSize = `${2 * aspectratio * sizemod}vw`;
         document.getElementById("consoleinputstyle").style.fontSize = `${2.25 * aspectratio * sizemod}vw`;
         document.getElementById("consoleinput").style.fontSize = `${2.25 * aspectratio * sizemod}vw`;
     }
+    debubg(orientation)
+
+    // CALCULATING HOW MANY NEWLINES PER ENTIRE PAGE HEIGHT!!
+
+    // so
+    // (landscape) at 1% view height (of 907 pixels), it can display 43 lines
+    // (portrait) at 2% view width (of 734 pixels), it can display 41 lines
+
+    // actually imma just have it do a few checks, if CON_0 exists, it'll get the height of that, if that doesnt exist, it'll try getting CON_1 (when you run clear it starts on CON_1), and if none are present it'll just set it to 20
+
+    
+    if (orientation == "landscape") {
+        textheight = Math.floor( ( ( ( aspectratio * sizemod ) * 0.01 ) * windowHeight ));
+    } else if (orientation == "portrait") {
+        textheight = Math.floor( ( ( ( 2 * aspectratio * sizemod ) * 0.01 ) * windowWidth ));
+    }
+
+    newline_height = Math.floor(windowHeight / textheight);
+    
+    //console.log("height: ", textheight);
+    //console.log("newlin: ", newline_height);
+
+
+    
+
 }
 sizeCheck();
 debubg("text scaling init finished...");
@@ -742,9 +814,6 @@ debubg("text scaling init finished...");
 
 function displayAppend(message, in_id, hide, colour, link) {
     //debubg(`[displayAppend]   message: ${message}  in_id: ${in_id}   hide: ${hide}   colour: ${colour}   link: ${link}`);
-    if (message == "\n") {
-        message = "<br>";
-    }
     if (console_history[in_id] != undefined || console_history[in_id] != null) {    // if the value already exists
         console_history[in_id] = `${console_history[in_id]}${message}`;             // append to value
     } else {                                                                        // else
@@ -779,7 +848,7 @@ function displayAppend(message, in_id, hide, colour, link) {
     if (hide != undefined && hide != null && hide == true) {    // if hide exists and set to true
         //debubg("i shall hide display update");
     } else {
-        displayUpdate();                    // update display
+        singleDisplayUpdate(in_id);                    // update display
     }
 }
 
@@ -854,6 +923,61 @@ function displayUpdate() {
         }
     }
 }
+
+function singleDisplayUpdate(cur_id) {
+    // UPDATES THE CONSOLE DISPLAY TM
+    var finalUpdate = "";
+    var history = console_history;
+    var elemCheck = document.getElementById(`CON_${cur_id}`);
+    if (elemCheck) {                                                // if the element exists
+        //debubg("it EXISTS"); 
+                                                // it does exist
+        if (elemCheck.innerHTML != console_history[cur_id] || elemCheck.style.color != console_colour_history[cur_id] ) {       // if the element does not match what's in memory
+            //debubg("they dont match");
+            elemCheck.innerHTML = `${console_history[cur_id]}`;
+            elemCheck.style.color = `${console_colour_history[cur_id]}`;
+
+        } else {
+            //debubg("they do match")
+        }
+        // function() { alert("hallo!") }
+        //debubg(`checking id of ${cur_id} of ${console_link_history[cur_id]}`);
+        var check_url = `${console_link_history[cur_id]}`;
+        if (isUrl(`${check_url}`) == true) {
+            //debubg("it is a url!!! woo!!!");
+            //debubg(`checking ${console_link_history[cur_id]}`);
+            elemCheck.onclick = function() { window.open(`${check_url}`); }
+        } else {
+            //debubg("it is not a url!!");
+            //elemCheck.onclick = "";
+        }
+        // function() { alert("hallo!") }
+        //debubg(`checking id of ${cur_id} : ${console_link_history[cur_id]}`);
+        var check_url = `${console_link_history[cur_id]}`;
+        //check_url = "https://dapug.lol"
+        if (isUrl(`${check_url}`) == true && check_url != "") {
+            //debubg("it is a url!!! woo!!!");
+            //debubg(`checking id of ${cur_id} : ${console_link_history[cur_id]}`);
+            elemCheck.setAttribute( "onClick", `javascript: window.open("${check_url}");` );
+            elemCheck.style.textDecoration = "underline";
+            elemCheck.style.cursor = "pointer";
+        } else {
+            //debubg("it is not a url!!");
+            //elemCheck.onclick = "";
+            elemCheck.removeAttribute("onClick");
+            elemCheck.style.textDecoration = "none";
+            elemCheck.style.cursor = "auto";
+        }
+
+
+    } else {
+        //debubg("you idiot it doesnt exist");                        // it doesnt exist
+        consol.innerHTML = `${consol.innerHTML}<span id="CON_${cur_id}" style="color: ${console_colour_history[cur_id]};">${console_history[cur_id]}</span>`;
+    }
+    
+}
+
+
 
 function displayMultilineLine(message, speed, use_id) {
     return new Promise((resolve,reject)=>{
@@ -983,6 +1107,9 @@ async function displayUser(message, userin) {
 
 async function displayAnim(message, speed, colour, link) {      // fancy anim
     boom();
+    if (speed == "" || speed == undefined || speed == null) {
+        speed = 7;
+    }
     //console.log(`[displayanim] ${message}, ${speed}, ${type}`);
     //debubg(`[displayAnim]   message: ${message}  speed: ${speed}   colour: ${colour}   link: ${link}`);
     if (typeof message == "string") {           // if it's a string
@@ -1072,6 +1199,7 @@ async function displayLyrics(lyrics) {
     var lyr_len = lyrics.length;
     musicTimeouts = 0;
     var timeouts = 0;
+    updateLyrics();
     
     // timeout var template:
 
@@ -2589,9 +2717,11 @@ function generateTable(table, theme) {
     var rows = 0;
     var table_top = "";
     var table_middle = "";
+    var table_conten = "";
     var table_bottom = "";
     var final_table = "";
     // CALCULATION OF STUFF AND THINGS!!!
+    //console.log(table);
     for (i in table) {
         // for every column
         var cur_col = table[i];
@@ -2613,6 +2743,7 @@ function generateTable(table, theme) {
             rows = cur_rows;                // set it to the new value
         }
         col_widths.push(curWid);            // for every column
+        //console.log(curWid);
     }
     //console.log("widths: ", col_widths);
     //console.log("columns: ", columns);
@@ -2628,9 +2759,9 @@ function generateTable(table, theme) {
         for (o in coly["contents"]) {
             var entry = coly["contents"][o];
             raw_table[i].push(stringWidth(entry, widy, false, false));
+            console.log(entry);
         }
     }
-
     // making top and bottom bit
     table_top = `${use["tl"]}`;
     table_middle = `${use["vr"]}`;
@@ -2656,13 +2787,13 @@ function generateTable(table, theme) {
     table_top += `${use["tr"]}`;
     table_middle += `${use["vl"]}`;
     table_bottom += `${use["br"]}`;
+
     //debubg(table_top);
     //debubg(table_middle);
     //debubg(table_bottom);
-
     //console.log("raw table: ", raw_table);
-
-    for (let i = 0; i < rows; i++) {
+    //console.log(rows);
+    for (let i = 0; i < rows + 1; i++) {
         if (i == 0) {
             final_table = `${table_top}\n`;
             //debubg(table_top);
@@ -2674,18 +2805,21 @@ function generateTable(table, theme) {
             final_table += `${table_middle}\n`;
         } else {
             for (a in table) {
-                var enty = raw_table[a][i];
-                final_table += `${use["ve"]}${enty}`;
+                if (raw_table[a][i]) {
+                    var enty = raw_table[a][i];
+                    final_table += `${use["ve"]}${enty}`;
+                } else {
+                    var wid = col_widths[a];
+                    var enty = stringWidth(" ", wid, false, false);
+                    final_table += `${use["ve"]}${enty}`;
+                }
             }
             final_table += `${use["ve"]}\n`;
         }
-        
-        
-        
     }
+
+    console.log(final_table);
     final_table += table_bottom;
-
-
     //debubg("FINAL:");
     //console.log("widths: ", col_widths);
     //console.log(final_table);
@@ -2693,6 +2827,32 @@ function generateTable(table, theme) {
     //console.log("rows: ", rows);
     return final_table
 }
+
+function saveTheme(nametm) {
+    var lowname = nametm.toLowerCase();
+    custom_themes[lowname] = {
+        "name": `${nametm}`,
+        "author": `${user}`,
+        "text colour": `${textcolour}`,
+        "back colour": `${backcolour}`,
+        "accy colour": `${accycolour}`
+    }
+    localStorage.setItem("themes", JSON.stringify(custom_themes));
+}
+
+function rawSaveTheme(nametm, author, text, back, accy) {
+    var lowname = nametm.toLowerCase();
+    custom_themes[lowname] = {
+        "name": `${nametm}`,
+        "author": `${author}`,
+        "text colour": `${text}`,
+        "back colour": `${back}`,
+        "accy colour": `${accy}`
+    }
+    localStorage.setItem("themes", JSON.stringify(custom_themes));
+}
+
+
 
 //generateTable(example_table);
 
@@ -2881,6 +3041,13 @@ async function musicPage() {
     await displayAnim(musicText, 4);
 }
 
+async function themelist(table1, table2) {
+    await displayAnim("\nBuilt-in Themes:\n", 7);
+    await displayAnim(table1, 0.5);
+    await displayAnim("\nCustom Themes:\n", 7);
+    await displayAnim(table2, 0.5);
+    await displayAnim("\nTo use a theme, type 'theme use [name]', To save a theme, type 'theme save [name]'");
+}
 
 
 
@@ -2899,6 +3066,32 @@ debubg("async command functions init finished...");
 //                   :MM%      %MM: %MM%. .%MM%    MM    MM     'MMMM '%MMMMMMM             MM         %MM%   %MM% MM     'MMMM '%MMMMMMM     MM     mmmmMMmmmm %MM%. .%MM% MM     'MMMM %MM%. .%MM%                   
 //                   :MM:      :MM: '%MMMMMMM%'    MM    +M      'MM+  '%MMMMMM             MM          %MMMMMMM%  +M      'MM+  '%MMMMMM     MM     MMMMMMMMMM '%MMMMMMM%' +M      'MM+ '%MMMMMMM%'                   
 
+
+
+
+
+function askInput(scooby_doo, end) {   // ask for a text input from console thing
+    listening_input = true;
+    ask_do = scooby_doo;
+}
+// example!!
+
+//askInput(() => { displayAnim(`your name is ${ask_return}!!`, 7); } );
+
+
+
+
+
+
+//  .M.                  :MMMM:     .%MMMMMMM%. +M   .M%             mmmmmmmmmm +MM.      M+ +MMMMMMM%. MM       MM %MMMMMMMM%             +MMMMMMMMI MM       MM +MM.      M+  .%MMMMMM %MMMMMMMM% mmmmmmmmmm .%MMMMMMM%. +MM.      M+ .%MMMMMMM%.              .M.  
+// .M'M.                :MMMMMM:    %MM%' '%MM% MM  .M%'             MMMMMMMMMM MMMM.     MM MM+'  '+M% MM       MM %MMMMMMMM%             MMMMMMMMMI MM       MM MMMM.     MM .%MMMMMMM %MMMMMMMM% MMMMMMMMMM %MM%' '%MM% MMMM.     MM %MM%' '%MM%             .M'M. 
+// M' 'M                IMM::MMI    MM'         MM .M%'                  MM     MM'MM.    MM MM      MM MM       MM     MM                 MM+        MM       MM MM'MM.    MM %MM%'         MM         MM     MM'     'MM MM'MM.    MM MM'                     M' 'M 
+//                     :MM:  :MM:   MM%.......  MM.M%'                   MM     MM 'MM.   MM MM+.  .+M% MM       MM     MM                 MM........ MM       MM MM 'MM.   MM MMM'          MM         MM     MM       MM MM 'MM.   MM MM%.......                    
+//                     IMM:  :MMI    %MMMMMMM%. MMMX                     MM     MM  'MM.  MM MMMMMMMM%' MM       MM     MM                 MMMMMMMMMM MM       MM MM  'MM.  MM MMM           MM         MM     MM       MM MM  'MM.  MM  %MMMMMMM%.                   
+//                    :MMMMMMMMMM:    ''''''%MM MM'M%.                   MM     MM   'MM. MM MM         MM       MM     MM                 MM'''''''' MM       MM MM   'MM. MM MMM.          MM         MM     MM       MM MM   'MM. MM   ''''''%MM                   
+//                    IMM:    :MMI          .MM MM 'M%.                  MM     MM    'MM.MM MM         MM       MM     MM                 MM         MM       MM MM    'MM.MM %MM%.         MM         MM     MM.     .MM MM    'MM.MM         .MM                   
+//                   :MM%      %MM: %MM%. .%MM% MM  'M%.             mmmmMMmmmm MM     'MMMM MM         %MM%   %MM%     MM                 MM         %MM%   %MM% MM     'MMMM '%MMMMMMM     MM     mmmmMMmmmm %MM%. .%MM% MM     'MMMM %MM%. .%MM%                   
+//                   :MM:      :MM: '%MMMMMMM%' +M   'M%             MMMMMMMMMM +M      'MM+ +M          %MMMMMMM%      MM                 MM          %MMMMMMM%  +M      'MM+  '%MMMMMM     MM     MMMMMMMMMM '%MMMMMMM%' +M      'MM+ '%MMMMMMM%'                   
 
 
 
@@ -2972,21 +3165,20 @@ var elem = document.getElementById("consoleinput");
                         // stinky old code is gone!!!!
 
                         // *crab rave*
-
-                        displayUser(`${elem.value}`, `${user}`);
-
-
-                        historyPush();
-                        
-
-
-                        
-                        parseCommand(elem.value);
-                        
-
-                        historyReset();
-                        elem.value = "";
-                        scrolly("consy");
+                        if (listening_input == true) {  // if its listening for a text input
+                            ask_return = elem.value;
+                            ask_do();
+                            listening_input = false;
+                            elem.value = "";
+                        } else {
+                            displayUser(`${elem.value}`, `${user}`);
+                            historyPush();
+                            parseCommand(elem.value);
+                            historyReset();
+                            elem.value = "";
+                            scrolly("consy");
+                        }
+                            
                         //debubg(consoltext);
                         //debubg(commang);
                     }
@@ -3034,7 +3226,7 @@ var elem = document.getElementById("consoleinput");
     }
         
 
-console.log("key input init finished...");
+debubg("key input init finished...");
 
 music.addEventListener('ended', (event) => {
     document.getElementById("songinfo").style.display = "none";
@@ -3053,18 +3245,32 @@ music.addEventListener('ended', (event) => {
         document.getElementById("songinfomouse").style.color = "white";
         document.getElementById("songinfo").style.borderColor = "#1e1e1e";
         document.getElementById("songinfo").style.backgroundColor = og_backcolour;
+    } else if (credits_playing == true) {
+        credits_playing = false;
+        inputlock = false;
+        setColour(og_textcolour, true, og_backcolour, true, og_accycolour, true);
+
     }
     boom();
 });
 
+music.addEventListener('play', (event) => {
+    if (music.currentTime == 0) { // if it has just started tm
+        displayLyrics(lyr_disp);
+    }
+
+});
+
+
 window.onresize = sizeCheck;
 
 
-console.log("music info hide thingy init finished...");
+debubg("music info hide thingy init finished...");
 
 function closeDebuG() {
     if (debug == true) {
         debug_win.close();
+        debugwin_status = false;
     }
 }
 

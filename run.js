@@ -65,7 +65,13 @@ function parseCommand(command) {
 
         debubg(`attempting to log in using username '${inusername}' and password '${ooo}'.`);
 
-        if (inusername == "dev") {
+        var locked_accounts = [
+            "dev",
+            "caeserlettuce",
+            "18gallons"
+        ]
+
+        if (locked_accounts.indexOf(inusername) > -1) {
             displayNewline();
             displayAnim("sorry, that account cannot be logged into.", 10);
         } else if (accountregistry[inusername] != undefined) {    // if account name exists in registry
@@ -188,7 +194,7 @@ function parseCommand(command) {
                 setColour(colour, true, null, true, null, true);
                 displayAnim(`setting text colour to ${colour}`, 15);
             } else if (iffy == false && colour.toLowerCase() == "reset") {
-                setColour("#7cfc00", true, null, true, null, true);
+                setColour("#7cfc00", true, "#000000", true, "#1e1e1e", true);
                 displayAnim(`resetting text colour`, 15);
             } else if (iffy == false) {
                 displayNewline();
@@ -515,7 +521,16 @@ function parseCommand(command) {
     } else if (command == "clear -cache") {
 
         if (confirm("WARNING: clearing the cache will remove ALL DATA saved from your adventures on this site. Are you sure you want to clear the cache?")) {
+            var dev_ex = true;
+            if (localStorage.getItem("dev-exploit") == 1) {
+                dev_ex = false;
+            }
             localStorage.clear();
+
+            if (dev_ex == false) {
+                localStorage.setItem("dev-exploit", 1);
+            }
+            
             debubg("cache cleared");
             location.reload();
         } else {
@@ -800,7 +815,14 @@ function parseCommand(command) {
     } else if (command == "reset" ) {
         // full hard reset on everything
         if (confirm("WARNING: clearing the cache will remove ALL DATA, and ALL SETTINGS. Are you sure you want to reset?")) {
+            var dev_ex = true
+            if (localStorage.getItem("dev-exploit") == 1) {
+                dev_ex = false;
+            }
             localStorage.clear();
+            if (dev_ex == false) {
+                localStorage.setItem("dev-exploit", 1);
+            }
             debubg("cache cleared");
             let path = window.location.href.split('?')[0];
             debubg(path);
@@ -975,6 +997,8 @@ function parseCommand(command) {
         } else {
             displayAnim(`\nthere is no current song playing!`, 7);
         }
+    } else if (command == "music list") {
+        parseCommand("songlist");
     } else if (argCommand == "music") {     // all the fancy music stuff
         var mmm = argComm(commandInit);
         var eee = [...mmm];
@@ -986,7 +1010,7 @@ function parseCommand(command) {
             songname = songname.toLowerCase();
             var songname = `${songname}`.replaceAll('"', "");
             
-            debubg(`[MAN] queueing song ${songname}.`);
+            debubg(`[SONG™] queueing song ${songname}.`);
             
             debubg(songname);
 
@@ -1008,7 +1032,8 @@ function parseCommand(command) {
                 setSongInfo(`${songname}`);
                 document.getElementById("songinfo").style.display = "";
                 playMusic(songname);
-                displayLyrics(song_lyrics);
+
+                lyr_disp = song_lyrics; // set the current lyrics
 
             } else {                    // hello mario
                 displayNewline();
@@ -1228,6 +1253,227 @@ function parseCommand(command) {
         } else {
             displayAnim("\nplease enter a valid number or check the man page!", 7);
         }
+    } else if (command == "credits" || command == "credits ") {
+        // display fancy credits
+        clearScreen();
+        setColour("#7cfc00", false, "#000000", false, "#1e1e1e", false);
+        inputlock = true;
+        debubg("playing credits!!! thank you for using this silly little website!");
+        parseCommand("music play meal thyme");
+        lyr_disp = site_credits;
+    } else if (command == "theme" || command == "theme " || command == "theme import" || command == "theme import " || command == "theme install" || command == "theme install " || command == "theme export" || command == "theme export " || command == "theme share" || command == "theme share ") {                 // show theme manpage
+        parseCommand("man theme");
+    } else if (command == "themes" || command == "themes " || command == "themelist" || command == "themelist " || command == "theme list" || command == "theme list ") {      // show list of themes
+
+        // make the table object tm
+
+        var def_table = [
+            {
+                "name": "name",
+                "contents": [
+                ]
+            },
+            {
+                "name": "author",
+                "contents": [
+                ]
+            }
+        ]
+        var cus_table = [
+            {
+                "name": "name",
+                "contents": [
+                ]
+            },
+            {
+                "name": "author",
+                "contents": [
+                ]
+            }
+        ]
+        for (i in themes) {
+            def_table[0]["contents"].push(themes[i]["name"]);
+            def_table[1]["contents"].push(themes[i]["author"]);
+        }
+        for (i in custom_themes) {
+            cus_table[0]["contents"].push(custom_themes[i]["name"]);
+            cus_table[1]["contents"].push(custom_themes[i]["author"]);
+        }
+
+        var table1 = generateTable(def_table, "default");
+        var table2 = generateTable(cus_table, "default");
+
+        //console.log(def_table);
+        //console.log(cus_table);
+
+        console.log(table1);
+        console.log(table2);
+
+        themelist(table1, table2);
+
+    } else if (argCommand == "theme") { // main parsing for theme command
+        var mmm = argComm(commandInit);
+        var eee = argComm(commandInit);
+
+        var operation = mmm[1];     // if it's theme save, theme use, theme list, theme import, theme export (theme share), etc.
+
+        eee.shift();        // remove first two entries to get the rest of the stuff
+        eee.shift();
+
+        var nametm = eee.join(" ");
+
+        var actualname = nametm;
+
+        nametm = nametm.replaceAll("-", "");
+    
+        var lowname = nametm.toLowerCase();
+
+        debubg(`theme command has been called. parsed: operation: ${operation}, name: ${nametm}`);
+
+        if (operation == "use") {
+            if (custom_themes[lowname]) { // if it exists in the custom themes
+                debubg("theme exists as a customs theme!!");
+                // custom themes is first so that way if someone has a custom theme named, say, 'rose', and then we make a theme called rose, they can still access their theme
+                var tem = custom_themes[lowname]; // HOI IM TEMMIE!!!!!!!
+                setColour(tem["text colour"], true, tem["back colour"], true, tem["accy colour"], true);
+                displayAnim(`\nusing theme '${lowname}'!`, 7);
+
+            } else if (themes[lowname]) {   // if it exists in the default themes
+                debubg("theme exists as a default theme!!");
+                var tem = themes[lowname]; // HOI IM TEMMIE!!!!!!!
+                setColour(tem["text colour"], true, tem["back colour"], true, tem["accy colour"], true);
+                displayAnim(`\nusing theme '${lowname}'!`, 7);
+
+            } else {
+                debubg("theme does not exist this is stupid");
+                displayAnim("\nthe theme that you attempted to use does not exist! you can save your current colour scheme using 'theme save [name]',\nor list all available themes with 'theme list'");
+            }
+
+        } else if (operation == "save") {
+
+            if (nametm == "" || nametm == undefined || nametm == null) {
+                displayAnim("\nplease enter a valid theme name!", 7)
+            } else if (themes[lowname]) {   // if it exists in the default themes
+                debubg("theme exists as a default theme!!");
+                displayAnim("\nthere's already a default theme with that name! (default themes cannot be changed)", 7);
+            } else if (custom_themes[lowname]) { // if it exists in the custom themes
+                debubg("theme exists as a customs theme!!");
+                // custom themes is first so that way if someone has a custom theme named, say, 'rose', and then we make a theme called rose, they can still access their theme
+                displayAnim(`\nthe theme '${lowname}' already exists. would you like to overwrite this theme? (y/n)`, 7);
+                askInput(() => {
+                    if (ask_return == "y") {            // yes overwrite it
+                        saveTheme(nametm);      // save the theme
+                        displayAnim(`\nsaved theme '${nametm}' to your custom themes.`, 7);
+                    } else if (ask_return == "n") {     // no dont overwrite it
+                        displayAnim(`\ntheme has not been saved to custom themes. input a different name and try again!`, 7);
+                    }
+                });
+            } else {
+                debubg("theme does not exist");
+                saveTheme(nametm);              // save the theme
+                displayAnim(`\nsaved theme '${nametm}' to your custom themes.`, 7);
+            }
+
+        } else if (operation == "import" || operation == "install") {
+            if (nametm != "" && nametm != undefined && nametm != null) {
+                
+                console.log(nametm);
+                var teem = actualname.split("-");
+
+                console.log(teem);
+                if (teem.length == 5) {
+                    var nam = teem[0];
+                    var aut = teem[1];
+                    var txt = teem[2];
+                    var bac = teem[3];
+                    var acc = teem[4];
+
+                    function check(naaa) {
+                        var lowname = naaa.toLowerCase();
+                        if (themes[lowname]) {
+                            displayAnim("\nthere's already a default theme with that name! what would you like the theme to be named?", 5);
+                            askInput(() => {
+                                check(ask_return);
+                            });
+                        } else if (custom_themes[lowname]) {
+                            displayAnim(`\nthe theme '${lowname}' already exists. would you like to overwrite this theme? (y/n)`, 7);
+                            askInput(() => {
+                                if (ask_return == "y") {
+                                    rawSaveTheme(naaa, aut, txt, bac, acc);
+                                    displayAnim(`\nthe theme '${naaa}' has been saved. use 'theme use ${lowname}' to use the theme!`, 7);
+                                } else if (ask_return == "n") {
+                                    displayAnim(`\nplease replace the text before the first '-' with a new name and try again!`, 7);
+                                }
+                            });
+                        } else {
+                            rawSaveTheme(naaa, aut, txt, bac, acc);
+                            displayAnim(`\nthe theme '${naaa}' has been saved. use 'theme use ${lowname}' to use the theme!`, 7);
+                            listening_input = false;
+                        }
+                    }
+
+                 
+                    check(nam);
+
+                } else {
+                    displayAnim("invalid theme!", 7);
+                }
+
+
+            } else { // if it is bad
+                displayAnim("\nplease enter a valid theme! use 'theme export [theme name]' to export a theme!", 7);
+            }
+
+
+        } else if (operation == "export" || operation == "share") {
+            // time to export theme
+            if (nametm == "" || nametm == undefined || nametm == null) {
+                displayAnim("\nplease enter a valid theme name!", 7)
+            } else if (themes[lowname]) {   // if it exists in the default themes
+                debubg("theme exists as a default theme!!");
+                var share = `${themes[nametm]["name"]}-${themes[nametm]["author"]}-${themes[nametm]["text colour"]}-${themes[nametm]["back colour"]}-${themes[nametm]["accy colour"]}`;
+                debubg(`exported theme: ${share}`);
+                copyclip(share);
+                displayAnim("\nexported theme copied to clipboard. import it again by using 'theme import [exported theme]'");
+            } else if (custom_themes[lowname]) { // if it exists in the custom themes
+                debubg("theme exists as a custom theme!!"); // airport customs
+                var share = `${custom_themes[nametm]["name"]}-${custom_themes[nametm]["author"]}-${custom_themes[nametm]["text colour"]}-${custom_themes[nametm]["back colour"]}-${custom_themes[nametm]["accy colour"]}`;
+                debubg(`exported theme: ${share}`);
+                copyclip(share);
+                displayAnim("\nexported theme copied to clipboard. import it again by using 'theme import [exported theme]'");
+            } else {
+                debubg("theme does not exist");
+                displayAnim(`\ntheme '${nametm}' does not exist! check 'themelist' for a list of available themes.`, 7);
+            }
+
+        } else if (operation == "delete" || operation == "remove" || operation == "kill" || operation == "murder") {
+            if (nametm == "" || nametm == undefined || nametm == null) {
+                displayAnim("\nplease enter a valid theme name!", 7)
+            } else if (themes[lowname]) {   // if it exists in the default themes
+                displayAnim(`\n'${lowname}' is a default theme, and cannot be edited or deleted.`, 7);
+            } else if (custom_themes[lowname]) { // if it exists in the custom themes
+                displayAnim(`\nare you sure you want to delete '${lowname}' forever? (a long time!)  (y/n)`, 7);
+                askInput(() => {
+                    if (ask_return == "y") {
+                        delete custom_themes[lowname];
+                        localStorage.setItem("themes", JSON.stringify(custom_themes));
+                        displayAnim(`\nthe theme '${lowname}' has been deleted.`, 7);
+                    } else if (ask_return == "n") {
+                        displayAnim(`\ntheme has not been deleted.`, 7);
+                    }
+                });
+            } else {
+                debubg("theme does not exist");
+                displayAnim(`\ntheme '${nametm}' does not exist! check 'themelist' for a list of available themes.`, 7);
+            }
+
+
+        } else if (operation == "clear") {
+            
+        } else {
+            displayAnim("\ninvalid theme command! check 'man theme' for all possible theme commands", 7);
+        }
+
     }
 
     else {
@@ -1235,4 +1481,4 @@ function parseCommand(command) {
         displayAnim(`command error: ${commandInit} is not an existing command.`, 10);
     }
     coopy = false;
-}
+} 
