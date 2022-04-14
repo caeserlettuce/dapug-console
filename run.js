@@ -997,6 +997,8 @@ function parseCommand(command) {
         } else {
             displayAnim(`\nthere is no current song playing!`, 7);
         }
+    } else if (command == "music list") {
+        parseCommand("songlist");
     } else if (argCommand == "music") {     // all the fancy music stuff
         var mmm = argComm(commandInit);
         var eee = [...mmm];
@@ -1008,7 +1010,7 @@ function parseCommand(command) {
             songname = songname.toLowerCase();
             var songname = `${songname}`.replaceAll('"', "");
             
-            debubg(`[MAN] queueing song ${songname}.`);
+            debubg(`[SONG™] queueing song ${songname}.`);
             
             debubg(songname);
 
@@ -1269,43 +1271,45 @@ function parseCommand(command) {
             {
                 "name": "name",
                 "contents": [
-
                 ]
             },
             {
                 "name": "author",
                 "contents": [
-                    
                 ]
             }
         ]
-
         var cus_table = [
             {
                 "name": "name",
                 "contents": [
-
                 ]
             },
             {
                 "name": "author",
                 "contents": [
-                    
                 ]
             }
         ]
-
         for (i in themes) {
-            var coo = themes[i];
-            var nam = coo["name"];
-            var aut = coo["author"];
-
-            def_table[0]["contents"].push(nam);
-            def_table[1]["contents"].push(aut);
+            def_table[0]["contents"].push(themes[i]["name"]);
+            def_table[1]["contents"].push(themes[i]["author"]);
+        }
+        for (i in custom_themes) {
+            cus_table[0]["contents"].push(custom_themes[i]["name"]);
+            cus_table[1]["contents"].push(custom_themes[i]["author"]);
         }
 
-        console.log(def_table);
-        console.log(cus_table);
+        var table1 = generateTable(def_table, "default");
+        var table2 = generateTable(cus_table, "default");
+
+        //console.log(def_table);
+        //console.log(cus_table);
+
+        console.log(table1);
+        console.log(table2);
+
+        themelist(table1, table2);
 
     } else if (argCommand == "theme") { // main parsing for theme command
         var mmm = argComm(commandInit);
@@ -1317,8 +1321,11 @@ function parseCommand(command) {
         eee.shift();
 
         var nametm = eee.join(" ");
-        nametm = nametm.replaceAll(";", "");    // so that when you share it it wont break     thats probably what itll look like when exported ->   rose gold;caeserlettuce;#ffffff;#000000;#1e1e1e
 
+        var actualname = nametm;
+
+        nametm = nametm.replaceAll("-", "");
+    
         var lowname = nametm.toLowerCase();
 
         debubg(`theme command has been called. parsed: operation: ${operation}, name: ${nametm}`);
@@ -1368,11 +1375,103 @@ function parseCommand(command) {
             }
 
         } else if (operation == "import" || operation == "install") {
+            if (nametm != "" && nametm != undefined && nametm != null) {
+                
+                console.log(nametm);
+                var teem = actualname.split("-");
+
+                console.log(teem);
+                if (teem.length == 5) {
+                    var nam = teem[0];
+                    var aut = teem[1];
+                    var txt = teem[2];
+                    var bac = teem[3];
+                    var acc = teem[4];
+
+                    function check(naaa) {
+                        var lowname = naaa.toLowerCase();
+                        if (themes[lowname]) {
+                            displayAnim("\nthere's already a default theme with that name! what would you like the theme to be named?", 5);
+                            askInput(() => {
+                                check(ask_return);
+                            });
+                        } else if (custom_themes[lowname]) {
+                            displayAnim(`\nthe theme '${lowname}' already exists. would you like to overwrite this theme? (y/n)`, 7);
+                            askInput(() => {
+                                if (ask_return == "y") {
+                                    rawSaveTheme(naaa, aut, txt, bac, acc);
+                                    displayAnim(`\nthe theme '${naaa}' has been saved. use 'theme use ${lowname}' to use the theme!`, 7);
+                                } else if (ask_return == "n") {
+                                    displayAnim(`\nplease replace the text before the first '-' with a new name and try again!`, 7);
+                                }
+                            });
+                        } else {
+                            rawSaveTheme(naaa, aut, txt, bac, acc);
+                            displayAnim(`\nthe theme '${naaa}' has been saved. use 'theme use ${lowname}' to use the theme!`, 7);
+                            listening_input = false;
+                        }
+                    }
+
+                 
+                    check(nam);
+
+                } else {
+                    displayAnim("invalid theme!", 7);
+                }
+
+
+            } else { // if it is bad
+                displayAnim("\nplease enter a valid theme! use 'theme export [theme name]' to export a theme!", 7);
+            }
+
 
         } else if (operation == "export" || operation == "share") {
+            // time to export theme
+            if (nametm == "" || nametm == undefined || nametm == null) {
+                displayAnim("\nplease enter a valid theme name!", 7)
+            } else if (themes[lowname]) {   // if it exists in the default themes
+                debubg("theme exists as a default theme!!");
+                var share = `${themes[nametm]["name"]}-${themes[nametm]["author"]}-${themes[nametm]["text colour"]}-${themes[nametm]["back colour"]}-${themes[nametm]["accy colour"]}`;
+                debubg(`exported theme: ${share}`);
+                copyclip(share);
+                displayAnim("\nexported theme copied to clipboard. import it again by using 'theme import [exported theme]'");
+            } else if (custom_themes[lowname]) { // if it exists in the custom themes
+                debubg("theme exists as a custom theme!!"); // airport customs
+                var share = `${custom_themes[nametm]["name"]}-${custom_themes[nametm]["author"]}-${custom_themes[nametm]["text colour"]}-${custom_themes[nametm]["back colour"]}-${custom_themes[nametm]["accy colour"]}`;
+                debubg(`exported theme: ${share}`);
+                copyclip(share);
+                displayAnim("\nexported theme copied to clipboard. import it again by using 'theme import [exported theme]'");
+            } else {
+                debubg("theme does not exist");
+                displayAnim(`\ntheme '${nametm}' does not exist! check 'themelist' for a list of available themes.`, 7);
+            }
 
+        } else if (operation == "delete" || operation == "remove" || operation == "kill" || operation == "murder") {
+            if (nametm == "" || nametm == undefined || nametm == null) {
+                displayAnim("\nplease enter a valid theme name!", 7)
+            } else if (themes[lowname]) {   // if it exists in the default themes
+                displayAnim(`\n'${lowname}' is a default theme, and cannot be edited or deleted.`, 7);
+            } else if (custom_themes[lowname]) { // if it exists in the custom themes
+                displayAnim(`\nare you sure you want to delete '${lowname}' forever? (a long time!)  (y/n)`, 7);
+                askInput(() => {
+                    if (ask_return == "y") {
+                        delete custom_themes[lowname];
+                        localStorage.setItem("themes", JSON.stringify(custom_themes));
+                        displayAnim(`\nthe theme '${lowname}' has been deleted.`, 7);
+                    } else if (ask_return == "n") {
+                        displayAnim(`\ntheme has not been deleted.`, 7);
+                    }
+                });
+            } else {
+                debubg("theme does not exist");
+                displayAnim(`\ntheme '${nametm}' does not exist! check 'themelist' for a list of available themes.`, 7);
+            }
+
+
+        } else if (operation == "clear") {
+            
         } else {
-            displayAnim("invalid theme command! check 'man theme' for all possible theme commands", 7);
+            displayAnim("\ninvalid theme command! check 'man theme' for all possible theme commands", 7);
         }
 
     }

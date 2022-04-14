@@ -86,7 +86,7 @@ var commandHistory = new Array();
 var commandIndex = 0;
 var currentCommand = "";
 var inHistory = false;
-var console_history = {0: "console started. type 'issue' if you find any issues/errors with this page."};
+var console_history = {0: "console started. type 'issue' if you find any issues/errors with this page. type 'help' for help."};
 var console_colour_history = {0: "inherit"};
 var console_link_history = {0: ""};
 var console_id = 0;
@@ -120,6 +120,7 @@ var autodebugwin = false;
 var listening_input = false;
 var ask_do = function() {console.log("aaaaa!! im broken i think!!")};
 var ask_return = "";
+var istening_end = true;
 
 debubg("variable init finished...");
 // local storage setup
@@ -847,7 +848,7 @@ function displayAppend(message, in_id, hide, colour, link) {
     if (hide != undefined && hide != null && hide == true) {    // if hide exists and set to true
         //debubg("i shall hide display update");
     } else {
-        displayUpdate();                    // update display
+        singleDisplayUpdate(in_id);                    // update display
     }
 }
 
@@ -922,6 +923,61 @@ function displayUpdate() {
         }
     }
 }
+
+function singleDisplayUpdate(cur_id) {
+    // UPDATES THE CONSOLE DISPLAY TM
+    var finalUpdate = "";
+    var history = console_history;
+    var elemCheck = document.getElementById(`CON_${cur_id}`);
+    if (elemCheck) {                                                // if the element exists
+        //debubg("it EXISTS"); 
+                                                // it does exist
+        if (elemCheck.innerHTML != console_history[cur_id] || elemCheck.style.color != console_colour_history[cur_id] ) {       // if the element does not match what's in memory
+            //debubg("they dont match");
+            elemCheck.innerHTML = `${console_history[cur_id]}`;
+            elemCheck.style.color = `${console_colour_history[cur_id]}`;
+
+        } else {
+            //debubg("they do match")
+        }
+        // function() { alert("hallo!") }
+        //debubg(`checking id of ${cur_id} of ${console_link_history[cur_id]}`);
+        var check_url = `${console_link_history[cur_id]}`;
+        if (isUrl(`${check_url}`) == true) {
+            //debubg("it is a url!!! woo!!!");
+            //debubg(`checking ${console_link_history[cur_id]}`);
+            elemCheck.onclick = function() { window.open(`${check_url}`); }
+        } else {
+            //debubg("it is not a url!!");
+            //elemCheck.onclick = "";
+        }
+        // function() { alert("hallo!") }
+        //debubg(`checking id of ${cur_id} : ${console_link_history[cur_id]}`);
+        var check_url = `${console_link_history[cur_id]}`;
+        //check_url = "https://dapug.lol"
+        if (isUrl(`${check_url}`) == true && check_url != "") {
+            //debubg("it is a url!!! woo!!!");
+            //debubg(`checking id of ${cur_id} : ${console_link_history[cur_id]}`);
+            elemCheck.setAttribute( "onClick", `javascript: window.open("${check_url}");` );
+            elemCheck.style.textDecoration = "underline";
+            elemCheck.style.cursor = "pointer";
+        } else {
+            //debubg("it is not a url!!");
+            //elemCheck.onclick = "";
+            elemCheck.removeAttribute("onClick");
+            elemCheck.style.textDecoration = "none";
+            elemCheck.style.cursor = "auto";
+        }
+
+
+    } else {
+        //debubg("you idiot it doesnt exist");                        // it doesnt exist
+        consol.innerHTML = `${consol.innerHTML}<span id="CON_${cur_id}" style="color: ${console_colour_history[cur_id]};">${console_history[cur_id]}</span>`;
+    }
+    
+}
+
+
 
 function displayMultilineLine(message, speed, use_id) {
     return new Promise((resolve,reject)=>{
@@ -2661,9 +2717,11 @@ function generateTable(table, theme) {
     var rows = 0;
     var table_top = "";
     var table_middle = "";
+    var table_conten = "";
     var table_bottom = "";
     var final_table = "";
     // CALCULATION OF STUFF AND THINGS!!!
+    //console.log(table);
     for (i in table) {
         // for every column
         var cur_col = table[i];
@@ -2685,6 +2743,7 @@ function generateTable(table, theme) {
             rows = cur_rows;                // set it to the new value
         }
         col_widths.push(curWid);            // for every column
+        //console.log(curWid);
     }
     //console.log("widths: ", col_widths);
     //console.log("columns: ", columns);
@@ -2700,9 +2759,9 @@ function generateTable(table, theme) {
         for (o in coly["contents"]) {
             var entry = coly["contents"][o];
             raw_table[i].push(stringWidth(entry, widy, false, false));
+            console.log(entry);
         }
     }
-
     // making top and bottom bit
     table_top = `${use["tl"]}`;
     table_middle = `${use["vr"]}`;
@@ -2728,13 +2787,13 @@ function generateTable(table, theme) {
     table_top += `${use["tr"]}`;
     table_middle += `${use["vl"]}`;
     table_bottom += `${use["br"]}`;
+
     //debubg(table_top);
     //debubg(table_middle);
     //debubg(table_bottom);
-
     //console.log("raw table: ", raw_table);
-
-    for (let i = 0; i < rows; i++) {
+    //console.log(rows);
+    for (let i = 0; i < rows + 1; i++) {
         if (i == 0) {
             final_table = `${table_top}\n`;
             //debubg(table_top);
@@ -2746,18 +2805,21 @@ function generateTable(table, theme) {
             final_table += `${table_middle}\n`;
         } else {
             for (a in table) {
-                var enty = raw_table[a][i];
-                final_table += `${use["ve"]}${enty}`;
+                if (raw_table[a][i]) {
+                    var enty = raw_table[a][i];
+                    final_table += `${use["ve"]}${enty}`;
+                } else {
+                    var wid = col_widths[a];
+                    var enty = stringWidth(" ", wid, false, false);
+                    final_table += `${use["ve"]}${enty}`;
+                }
             }
             final_table += `${use["ve"]}\n`;
         }
-        
-        
-        
     }
+
+    console.log(final_table);
     final_table += table_bottom;
-
-
     //debubg("FINAL:");
     //console.log("widths: ", col_widths);
     //console.log(final_table);
@@ -2778,6 +2840,17 @@ function saveTheme(nametm) {
     localStorage.setItem("themes", JSON.stringify(custom_themes));
 }
 
+function rawSaveTheme(nametm, author, text, back, accy) {
+    var lowname = nametm.toLowerCase();
+    custom_themes[lowname] = {
+        "name": `${nametm}`,
+        "author": `${author}`,
+        "text colour": `${text}`,
+        "back colour": `${back}`,
+        "accy colour": `${accy}`
+    }
+    localStorage.setItem("themes", JSON.stringify(custom_themes));
+}
 
 
 
@@ -2968,7 +3041,13 @@ async function musicPage() {
     await displayAnim(musicText, 4);
 }
 
-
+async function themelist(table1, table2) {
+    await displayAnim("\nBuilt-in Themes:\n", 7);
+    await displayAnim(table1, 0.5);
+    await displayAnim("\nCustom Themes:\n", 7);
+    await displayAnim(table2, 0.5);
+    await displayAnim("\nTo use a theme, type 'theme use [name]', To save a theme, type 'theme save [name]'");
+}
 
 
 
@@ -2991,7 +3070,7 @@ debubg("async command functions init finished...");
 
 
 
-function askInput(scooby_doo) {   // ask for a text input from console thing
+function askInput(scooby_doo, end) {   // ask for a text input from console thing
     listening_input = true;
     ask_do = scooby_doo;
 }
@@ -3168,9 +3247,8 @@ music.addEventListener('ended', (event) => {
         document.getElementById("songinfo").style.backgroundColor = og_backcolour;
     } else if (credits_playing == true) {
         credits_playing = false;
-
-        setColour(og_textcolour, true, og_backcolour, true, og_accycolour, true);
         inputlock = false;
+        setColour(og_textcolour, true, og_backcolour, true, og_accycolour, true);
 
     }
     boom();

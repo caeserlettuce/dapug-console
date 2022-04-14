@@ -2177,6 +2177,95 @@ var hlep = [
     "convert -list | lists all conversion units and types" 
 ];
 
+var help = {
+    "main": `
+CONSOLE MAIN HELP PAGE
+
+Here you will find lists of fun commands!
+below are listed all the individual help pages, type 'help' and then one of those names to go to that page!
+if you would like a description of a command, run 'man' and then a command, and as long
+as there's a page written for it, you will be greeted with a more detailed explanation of a command!
+
+HELP PAGES:
+    
+basic   | the basic commands you should know
+users   | for logging in and out of different users
+visuals | change up how console looks to suite your style
+games   | fun games
+music   | music
+art     | different art-themed commands
+fun     | fun commands
+tools   | any tools you may need (converters, etc.)
+dev     | stuff for development`,
+
+    "basic": `
+BASIC HELP PAGE
+    
+below are all the basic commands you should probably know exist.
+
+help    | shows the main help page
+man     | explains almost every command
+copy    | put this at the beginning of any command to copy its output (if supported)
+info    | shows some info about this site
+ls      | lists all commands in existence
+clear   | clears console
+reset   | resets console completely (even all your saved data, so be careful!!)
+credits | shows the credits for console
+`,
+    "users": `
+USERS HELP PAGE
+
+below are commands to use for logging in/out of users
+(note: accounts are not actual online accounts)
+
+login       | type login, your username, and your password, and log into your account!
+signup      | type signup, a username, and a password, and then you have made a new account!
+logout      | log out to the generic user
+`,
+    "visuals": `
+VISUALS HELP PAGE
+
+control how console looks for you!
+
+colour text         | type this in, along with a HEX colour code to set the text colour!
+colour background   | type this in, along with a HEX colour code to set the background colour!
+colour accent       | type this in, along with a HEX colour code to set the accent colour!
+colour reset        | this resets all the colours to their defaults
+zoom                | type zoom and any number to change the text size
+themes              | list all of the pre-made colour themes
+theme use           | type this in along with a name of a theme to use it!
+theme save          | type this in along with a theme name to save your current colour scheme to that theme name!
+theme export        | type this in along with a theme name to copy a shareable version of the theme to your clipboard!
+theme install       | type this in along with the previously mentioned shareable theme text to add that theme to your list of themes!
+theme delete        | type this in along with a custom theme name to delete it!
+`,
+    "games": `
+GAMES HELP PAGE
+
+console even has games!!
+
+worble | type this in to start playing worble!
+`,
+    "music": `
+MUSIC HELP PAGE
+
+yes you can play music from console!!!!
+(note: most music files are hosted from discord, so if discord is blocked on your network, this may not work!)
+
+music           | show main music page
+music list      | list all songs you can play
+music play      | type this along with a song name! (as long as it's in the list of songs)
+                | or just type 'music play' to resume your music if it is paused
+music pause     | pauses any playing music
+music skip      | skips current song
+music volume    | type this along with a value from 0 to 100 to set the music volume!
+`,
+
+
+
+}
+
+
 var hlepart = [
     "ART HELP PAGE",
     "aperture",
@@ -2198,6 +2287,7 @@ var hlepdev = [
 ];
 
 var cpoylist = [
+    "[THIS LIST IS NOW OUTDATED]",
     "help",
     "ascii",
     "aperture",
@@ -4558,7 +4648,7 @@ var site_credits = [
 ▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓
  ▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓
     ▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓`, "dur": [19877, 20918]},
-    {"text": "\n\n 18gallons - developer - bug tester - breaker of the site", "dur": [20918, 21717]},
+    {"text": "\n\n 18gallons - developer / bug testing / themes", "dur": [20918, 21717]},
     {"text": "⠀\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "dur": [22743, 23186]},
     {"text": "\nSPECIAL THANKS TO:\n\nGitHub\nVisual Studio Code\nStack Overflow\n\n\n", "dur": [23153, 27931]},
     {"text": `
@@ -4857,7 +4947,7 @@ var p2_credits = [
     "Matt Boone",
     "Michael Booth",
     "Antoine Bourdon",
-    "CHristopher Boyd",
+    "Christopher Boyd",
     "Jason Brashill",
     "Charlie Brown",
     "Tom Bui",
@@ -5365,6 +5455,76 @@ var themes = {      // console colour themes
         "text colour": "#7cfc00",
         "back colour": "#000000",
         "accy colour": "#1e1e1e"
+    },
+    "ocean": {
+        "name": "Ocean",
+        "author": "18gallons",
+        "text colour": "#87e0cf",
+        "back colour": "#155553",
+        "accy colour": "#faf9f6"
+    },
+    "pop tart": {
+        "name": "Pop Tart",
+        "author": "18gallons",
+        "text colour": "#d19887",
+        "back colour": "#faf9f6",
+        "accy colour": "#ff91af"
+    },
+    "candy cane": {
+        "name": "Candy Cane",
+        "author": "18gallons",
+        "text colour": "#edefeb",
+        "back colour": "#c54245",
+        "accy colour": "#3f000f"
+    },
+    "blackberry": {
+        "name": "Blackberry",
+        "author": "18gallons",
+        "text colour": "#7b1e57",
+        "back colour": "#221c35",
+        "accy colour": "#6b6b7f"
+    },
+    "git": {
+        "name": "Git",
+        "author": "18gallons",
+        "text colour": "#b1d1d9",
+        "back colour": "#0d1117",
+        "accy colour": "#238636"
+    },
+    "scarlet": {
+        "name": "Scarlet",
+        "author": "18gallons",
+        "text colour": "#ff2400",
+        "back colour": "#240000",
+        "accy colour": "#7e1200"
+    },
+    "win95": {
+        "name": "win95",
+        "author": "caeserlettuce",
+        "text colour": "#eff7f7",
+        "back colour": "#008282",
+        "accy colour": "#000082"
+    },
+    "are you alright": {
+        "name": "Are You Alright",
+        "author": "caeserlettuce",
+        "text colour": "#e9e6dd",
+        "back colour": "#4e1818",
+        "accy colour": "#292420"
+    },
+    "pebble brain": {
+        "name": "Pebble Brain",
+        "author": "caeserlettuce",
+        "text colour": "#fcfef9",
+        "back colour": "#89c8fe",
+        "accy colour": "#fddab4"
+    },
+    "atp": {
+        "name": "ATP",
+        "author": "caeserlettuce",
+        "text colour": "#a0292d",
+        "back colour": "#dbac5c",
+        "accy colour": "#62211d"
     },
 }
 
