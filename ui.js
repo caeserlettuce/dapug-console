@@ -5768,9 +5768,165 @@ var fhsiofhghszg = ` // more easy copy pasting
     "back colour": "#",
     "accy colour": "#"
 },
-
-
 `
+
+
+var tones = {
+    "0": {
+        "sound": "touch tone telephone/0.mp3",
+        "amount": 1
+    },
+    "1": {
+        "sound": "touch tone telephone/1.mp3",
+        "amount": 1
+    },
+    "2": {
+        "sound": "touch tone telephone/2.mp3",
+        "amount": 1
+    },
+    "3": {
+        "sound": "touch tone telephone/3.mp3",
+        "amount": 1
+    },
+    "4": {
+        "sound": "touch tone telephone/4.mp3",
+        "amount": 1
+    },
+    "5": {
+        "sound": "touch tone telephone/5.mp3",
+        "amount": 1
+    },
+    "6": {
+        "sound": "touch tone telephone/6.mp3",
+        "amount": 1
+    },
+    "7": {
+        "sound": "touch tone telephone/7.mp3",
+        "amount": 1
+    },
+    "8": {
+        "sound": "touch tone telephone/8.mp3",
+        "amount": 1
+    },
+    "9": {
+        "sound": "touch tone telephone/9.mp3",
+        "amount": 1
+    },
+    "*": {
+        "sound": "touch tone telephone/star.mp3",
+        "amount": 1
+    },
+    "#": {
+        "sound": "touch tone telephone/pound.mp3",
+        "amount": 1
+    },
+    "a": {
+        "sound": "touch tone telephone/2.mp3",
+        "amount": 1
+    },
+    "b": {
+        "sound": "touch tone telephone/2.mp3",
+        "amount": 2
+    },
+    "c": {
+        "sound": "touch tone telephone/2.mp3",
+        "amount": 3
+    },
+    "d": {
+        "sound": "touch tone telephone/3.mp3",
+        "amount": 1
+    },
+    "e": {
+        "sound": "touch tone telephone/3.mp3",
+        "amount": 2
+    },
+    "f": {
+        "sound": "touch tone telephone/3.mp3",
+        "amount": 3
+    },
+    "g": {
+        "sound": "touch tone telephone/4.mp3",
+        "amount": 1
+    },
+    "h": {
+        "sound": "touch tone telephone/4.mp3",
+        "amount": 2
+    },
+    "i": {
+        "sound": "touch tone telephone/4.mp3",
+        "amount": 3
+    },
+    "j": {
+        "sound": "touch tone telephone/5.mp3",
+        "amount": 1
+    },
+    "k": {
+        "sound": "touch tone telephone/5.mp3",
+        "amount": 2
+    },
+    "l": {
+        "sound": "touch tone telephone/5.mp3",
+        "amount": 3
+    },
+    "m": {
+        "sound": "touch tone telephone/6.mp3",
+        "amount": 1
+    },
+    "n": {
+        "sound": "touch tone telephone/6.mp3",
+        "amount": 2
+    },
+    "o": {
+        "sound": "touch tone telephone/6.mp3",
+        "amount": 3
+    },
+    "p": {
+        "sound": "touch tone telephone/7.mp3",
+        "amount": 1
+    },
+    "q": {
+        "sound": "touch tone telephone/7.mp3",
+        "amount": 2
+    },
+    "r": {
+        "sound": "touch tone telephone/7.mp3",
+        "amount": 3
+    },
+    "s": {
+        "sound": "touch tone telephone/7.mp3",
+        "amount": 4
+    },
+    "t": {
+        "sound": "touch tone telephone/8.mp3",
+        "amount": 1
+    },
+    "u": {
+        "sound": "touch tone telephone/8.mp3",
+        "amount": 2
+    },
+    "v": {
+        "sound": "touch tone telephone/8.mp3",
+        "amount": 3
+    },
+    "w": {
+        "sound": "touch tone telephone/9.mp3",
+        "amount": 1
+    },
+    "x": {
+        "sound": "touch tone telephone/9.mp3",
+        "amount": 2
+    },
+    "y": {
+        "sound": "touch tone telephone/9.mp3",
+        "amount": 3
+    },
+    "z": {
+        "sound": "touch tone telephone/9.mp3",
+        "amount": 4
+    }
+}
+
+
 
 
 //│┴┬├─┤┼┌┐└┘

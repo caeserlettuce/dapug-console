@@ -1336,6 +1336,12 @@ function parseCommand(command) {
         var nametm = eee.join(" ");
 
         var actualname = nametm;
+        
+        var lastChar = nametm[nametm.length -1];
+
+        if (lastChar == " ") {
+            nametm = nametm.slice(0, -1);
+        }
 
         nametm = nametm.replaceAll("-", "");
     

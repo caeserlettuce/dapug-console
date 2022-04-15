@@ -130,6 +130,7 @@ var star_runtime = 0;
 var star_running = false;
 var starlock = false;
 var starTimers = 0;
+var touchtonetm = true;
 
 debubg("variable init finished...");
 // local storage setup
