@@ -34,10 +34,10 @@ strong {
   border: none;
   outline: none;
   position: fixed;
-  bottom: 10px;
+  bottom: 20px;
+  margin-bottom: 0px;
   width: 100vw;
   z-index: 15;
-  padding-top: 1vw;
   
 }
 .consoleinputbox {
@@ -60,11 +60,11 @@ strong {
   /*overflow-wrap: break-word;*/
   margin-left: 10px;
   margin-right: 10px;
-  margin-bottom: 5vh;
-  /*word-break: break-all;*/
+  margin-bottom: 10px;
+  /*word-break: break-all;
   padding-bottom: 6.5vh;
+  height: 90vh;*/
   width: calc(100vw - 17px);
-  height: 90vh;
   z-index: 10;
   overflow-y: scroll;
   overflow-x: scroll;
@@ -141,6 +141,7 @@ strong {
     bottom: 2px;
     border: 2px #1e1e1e solid;
     overflow-y: hidden;
+    /*z-index: 100;*/
 }
 
 .p1credwindow {
@@ -252,4 +253,22 @@ strong {
 
 .window {
     font-size: 15px;
+}
+
+.bottombar {
+  position: absolute;
+  background-color: #1e1e1e;
+  height: 30px;
+  width: 100vw;
+  bottom: 0px;
+  left: 0px;
+  z-index: 10;
+}
+
+.text-size-guide {
+  position: absolute;
+  z-index: 9000;
+  top: -20px;
+  left: -20px;
+  margin: 0px;
 }

@@ -44,9 +44,20 @@ function parseCommand(command) {
     } else if (command.split(" ")[0] == "echo") {
         displayNewline();
         displayAnim(commandInit.slice(5), 20);
-    } else if (command == "help") {
-        displayNewline();
-        displayAnim(hlep, 1);
+    } else if (command == "help" || command == "help ") {
+        displayAnim(`\n${help["main"]}`, 0.25);
+    } else if (argCommand == "help") {
+        var page =  command.slice(5)
+        //page.slice(0, -5);
+        
+        if (help[page]) {
+            // the page exists
+            displayAnim(`\n${help[page]}`, 0.25 );
+        } else {
+            displayAnim("\nthat help page does not exist! run 'help' to get a list of help pages!");
+        }
+
+
     } else if (argCommand == "login") {
 
         var mmm = argComm(commandInit);
@@ -206,14 +217,14 @@ function parseCommand(command) {
         } else if (commandInit.split(" ")[1] == "accent") {
             displayNewline();
             var colour = commandInit.split(" ")[2];
-            debubg(`setting text colour to ${colour}`);
+            debubg(`setting accent colour to ${colour}`);
             var iffy = /^#[0-9A-F]{6}$/i.test(colour);
             if (iffy == true) {
                 setColour(null, true, null, true, colour, true);
-                displayAnim(`setting text colour to ${colour}`, 15);
+                displayAnim(`setting accent colour to ${colour}`, 15);
             } else if (iffy == false && colour.toLowerCase() == "reset") {
                 setColour(null, true, null, true, "#1e1e1e", true);
-                displayAnim(`resetting text colour`, 15);
+                displayAnim(`resetting accent colour`, 15);
             } else if (iffy == false) {
                 displayNewline();
                 displayAnim("invalid colour code.", 10);
@@ -557,6 +568,8 @@ function parseCommand(command) {
     } else if (command == "snake") {
         snakeGameStart();
 
+    } else if (command == "ascii" || command == "ascii ") {
+        parseCommand("man ascii");
     } else if (argCommand == "ascii") {
         var mmm = argComm(commandInit);
         var fonty = mmm[1];
@@ -1076,7 +1089,7 @@ function parseCommand(command) {
         for (i in keystm) {
             var key = keystm[i];
             var info = songs[key];
-            console.log(info);
+            //console.log(info);
             var song = `${key}`;
             var name = `${info["name"]}`;
             var artist = `${info["artist"]}`;
@@ -1109,16 +1122,16 @@ function parseCommand(command) {
         for (i in keystm) {                 // for all the keys in song (for all the songs in registry);
             var key = keystm[i];
             var info = songs[key];
-            console.log(info);
+            //console.log(info);
             var song = `${key}`;
             var name = `${info["name"]}`;
             var artist = `${info["artist"]}`;
             var album = `${info["album"]}`;
-            console.log("before:");
-            console.log(`'${song}'`);
-            console.log(`'${name}'`);
-            console.log(`'${artist}'`);
-            console.log(`'${album}'`);
+            //console.log("before:");
+            //console.log(`'${song}'`);
+            //console.log(`'${name}'`);
+            //console.log(`'${artist}'`);
+            //console.log(`'${album}'`);
             if (song.length < songlen) {
                 var diff = songlen - song.length;
                 song = `${song}${" ".repeat(diff)}`;
@@ -1151,11 +1164,11 @@ function parseCommand(command) {
                 var diff = albumlen - albumlabel.length;
                 albumlabel = `${albumlabel}${" ".repeat(diff)}`;
             }
-            console.log("after:");
-            console.log(`'${song}'`);
-            console.log(`'${name}'`);
-            console.log(`'${artist}'`);
-            console.log(`'${album}'`);
+            //console.log("after:");
+            //console.log(`'${song}'`);
+            //console.log(`'${name}'`);
+            //console.log(`'${artist}'`);
+            //console.log(`'${album}'`);
             songlist.push(song);       // add the song to the list
             namelist.push(name);       // add the name to the list
             artistlist.push(artist);       // add the artist to the list
@@ -1205,7 +1218,7 @@ function parseCommand(command) {
         fulllist.push("(check 'music' for more options)");
         //console.log(songlist);
         displayNewline();
-        displayAnim(fulllist, 0.1);
+        displayAnim(fulllist, 0.01);
 
     } else if (command == "portal") {   // play portal 1 music
         parseCommand("portal1");
@@ -1215,7 +1228,7 @@ function parseCommand(command) {
         parseCommand("music play still alive");
         //setTextColour("#c6922b", false);
         //setBackColour("#010302", false);
-        setColour("#c6922b", false, "#010302", false);
+        setColour("#c6922b", false, "#010302", false, "#1e1e1e", false);
         inputlock = true;
         document.getElementById("p1cred").style.display = "";
         document.getElementById("p1ascii").style.display = "";
@@ -1474,6 +1487,8 @@ function parseCommand(command) {
             displayAnim("\ninvalid theme command! check 'man theme' for all possible theme commands", 7);
         }
 
+    } else if (command == "stars" || command == "stars ") {
+        stars();
     }
 
     else {
