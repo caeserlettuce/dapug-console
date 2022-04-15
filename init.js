@@ -95,7 +95,7 @@ var musicTimeouts = 0; // number of timeouts in the current song
 var cur_lyrics = new Object();
 var paused_lyrics = true;
 var lyr_status = new Array();
-var portal_playing = true;
+var portal_playing = false;
 var portal_type = 1;
 var og_textcolour = textcolour;
 var og_backcolour = backcolour;
@@ -120,7 +120,16 @@ var autodebugwin = false;
 var listening_input = false;
 var ask_do = function() {console.log("aaaaa!! im broken i think!!")};
 var ask_return = "";
-var istening_end = true;
+var listening_end = true;
+var stars_save = new Object();
+var stars_parse = new Array();
+var stars_status = false;
+var star_speed = 50;   // every quarter of a second itll add a new star
+var star_fade_speed = 250;
+var star_runtime = 0;
+var star_running = false;
+var starlock = false;
+var starTimers = 0;
 
 debubg("variable init finished...");
 // local storage setup
@@ -652,7 +661,7 @@ function debugWindow(bool) {
         try {
             debug_win.document.write(`
             <style>::-webkit-scrollbar {width: 10px;height: 10px;} body {overflow: hidden;} .eee {overflow: scroll; width: calc(100vw - 10px); height: calc(100vh - 10px);}</style>
-            <style id="scroll-text-style">::-webkit-scrollbar-thumb { background: ${textcolour}90; }</style>
+            <style id="scroll-text-style">::-webkit-scrollbar-thumb { background: ${accycolour}; }</style>
             <style id="scroll-back-style">::-webkit-scrollbar-track { background: ${backcolour}; } ::-webkit-scrollbar-corner { background: #000000 }</style>
             <style id="back-style">body { background-color: ${backcolour};}</style>
             <style id="text-style">body { color: ${textcolour};}</style>
@@ -742,17 +751,37 @@ function sizeCheck() {
         orientation = "landscape";
         aspectratio = windowWidth / windowHeight;
         document.getElementById("body").style.fontSize = `${aspectratio * sizemod}vh`;
+        document.getElementById("regtext").style.fontSize = `${aspectratio * sizemod}vh`;
         document.getElementById("consoleinputstyle").style.fontSize = `${1.25 * aspectratio * sizemod}vh`;
         document.getElementById("consoleinput").style.fontSize = `${1.25 * aspectratio * sizemod}vh`;
+        document.getElementById("consy-height").innerHTML = `.consy { height: ${ windowHeight - ( document.getElementById("consoleinput").clientHeight + 35)}px; }`;
     } else if (windowWidth < windowHeight) {
         // if on portrait
         orientation = "portrait";
         aspectratio = windowHeight / windowWidth;
         document.getElementById("body").style.fontSize = `${2 * aspectratio * sizemod}vw`;
+        document.getElementById("regtext").style.fontSize = `${2 * aspectratio * sizemod}vw`;
         document.getElementById("consoleinputstyle").style.fontSize = `${2.25 * aspectratio * sizemod}vw`;
         document.getElementById("consoleinput").style.fontSize = `${2.25 * aspectratio * sizemod}vw`;
+        document.getElementById("consy-height").innerHTML = `.consy { height: ${ windowHeight - ( document.getElementById("consoleinput").clientHeight + 35)}px; }`;
     }
-    debubg(orientation)
+    debubg(orientation);
+
+
+    vis_consywidth = inHorizViewport($('#consy'));
+    vis_consyheight = inVertiViewport($('#consy'));
+
+    display_textsize[0] = document.getElementById("regtext").clientWidth;
+    display_textsize[1] = document.getElementById("regtext").clientHeight;
+
+    display_charsize[0] = Math.floor( vis_consywidth / display_textsize[0]);
+    display_charsize[1] = Math.floor( vis_consyheight / display_textsize[1]);
+
+    //console.log("console width: ", vis_consywidth);
+    //console.log("console height: ", vis_consyheight);
+    //console.log("console text size: ", display_textsize);
+    //console.log("console char size: ", display_charsize);
+
 
     // CALCULATING HOW MANY NEWLINES PER ENTIRE PAGE HEIGHT!!
 
@@ -762,14 +791,9 @@ function sizeCheck() {
 
     // actually imma just have it do a few checks, if CON_0 exists, it'll get the height of that, if that doesnt exist, it'll try getting CON_1 (when you run clear it starts on CON_1), and if none are present it'll just set it to 20
 
+    // screw this im doing different math because this math is dumb
     
-    if (orientation == "landscape") {
-        textheight = Math.floor( ( ( ( aspectratio * sizemod ) * 0.01 ) * windowHeight ));
-    } else if (orientation == "portrait") {
-        textheight = Math.floor( ( ( ( 2 * aspectratio * sizemod ) * 0.01 ) * windowWidth ));
-    }
-
-    newline_height = Math.floor(windowHeight / textheight);
+    // now its gonna calculate based on the height of a dummy text element with a single character that it gets the size of
     
     //console.log("height: ", textheight);
     //console.log("newlin: ", newline_height);
@@ -1128,6 +1152,20 @@ function displayTimeAnim(message, durat) {    // duration in ms
     displaySingleLine(message, speedy);
 }
 
+function displayScreen(array) {
+    // input 2d array of 1 entry per character
+    var pushy = "";
+    for (i in array) {
+        for (o in array[i]) {
+            pushy += `${array[i][o]}`;
+        }
+        pushy += "\n";
+    }
+    console.log(pushy);
+
+}
+
+
 
 
 //  .M.              +MMMMMM%+   mmmmmmmmmm .%MMMMMMM%. +MMMMMMM%. +M             :MMMM:     MM    MM              .M.  
@@ -1405,6 +1443,7 @@ worble_stats_biggeststreak: ${worble_stats_biggeststreak}
              og_textcolour: ${og_textcolour}
              og_backcolour: ${og_backcolour}
                        egg: ${egg}
+           credits_playing: ${credits_playing}
 `;autocommand
         console.log("binted.");
     }
@@ -1966,10 +2005,14 @@ function setAccyColour(colour, save) {
     document.getElementById("debubvar").style.borderColor = colour;
     document.getElementById("songinfomouse").style.backgroundColor = colour;
     document.getElementById("songinfo").style.borderColor = colour;
-    
+    document.getElementById("scrollbar-colour").innerHTML = `::-webkit-scrollbar-thumb { background: ${colour}; }`;
+    //document.getElementById("bottombar").style.backgroundColor = colour;
     if (do_save == true) {
         localStorage.setItem("accy-colour", colour);
         accycolour = `${colour}`;
+    }
+    if (debug == true) {
+        debug_win.document.getElementById("scroll-text-style").innerHTML = `::-webkit-scrollbar-thumb { background: ${colour}; }`;
     }
 }
 
@@ -2039,14 +2082,14 @@ function setTextColour(colourcode, save) {
     document.getElementById("body").style.color = colourcode;
     document.getElementById("consoleinput").style.color = colourcode;
     document.getElementById("consoleinputstyle").style.color = colourcode;
-    document.getElementById("scrollbar-colour").innerHTML = `::-webkit-scrollbar-thumb { background: rgba(${r}, ${g}, ${b}, 0.5); }`;
+    // rip scrollbar being text colour
     document.getElementById("link-styles").innerHTML = `.link {color: ${colourcode}; font-family: COURIERPRIME; } .link:hover { color: ${colourcode}; font-family: COURIERPRIME; } .link:visited { color: ${colourcode}; font-family: COURIERPRIME; } .link:active { color: ${colourcode}; font-family: COURIERPRIME; } `;
     document.getElementById("debubmouse").style.color = colourcode;
     document.getElementById("debubvarmouse").style.color = colourcode;
     document.getElementById("songinfomouse").style.color = colourcode;
     
     if (debug == true) {
-        debug_win.document.getElementById("scroll-text-style").innerHTML = `::-webkit-scrollbar-thumb { background: rgba(${r}, ${g}, ${b}, 0.5); }`;
+        // rip
         debug_win.document.getElementById("text-style").innerHTML = `body { color: ${colourcode};}`;
     }
 
@@ -2055,6 +2098,17 @@ function setTextColour(colourcode, save) {
         textcolour = `${colourcode}`;
     }
 }
+
+//  .M.               .%MMMMMM .%MMMMMMM%. +M         .%MMMMMMM%. MM       MM +MMMMMMM%.             .%MMMMMMM%. +MMMMMMMMI %MMMMMMMM%              .M.  
+// .M'M.             .%MMMMMMM %MM%' '%MM% MM         %MM%' '%MM% MM       MM MM+'  '+M%             %MM%' '%MM% MMMMMMMMMI %MMMMMMMM%             .M'M. 
+// M' 'M             %MM%'     MM'     'MM MM         MM'     'MM MM       MM MM      MM             MM'         MM+            MM                 M' 'M 
+//                   MMM'      MM       MM MM         MM       MM MM       MM MM+.  .+M%             MM%.......  MM........     MM                       
+//                   MMM       MM       MM MM         MM       MM MM       MM MMMMMMMM%'              %MMMMMMM%. MMMMMMMMMM     MM                       
+//                   MMM.      MM       MM MM         MM       MM MM       MM MM  'MM.                 ''''''%MM MM''''''''     MM                       
+//                   %MM%.     MM.     .MM MM         MM.     .MM MM       MM MM   'MM.                      .MM MM+            MM                       
+//                   '%MMMMMMM %MM%. .%MM% MM........ %MM%. .%MM% %MM%   %MM% MM    'MM.             %MM%. .%MM% MMMMMMMMMI     MM                       
+//                    '%MMMMMM '%MMMMMMM%' +MMMMMMMM% '%MMMMMMM%'  %MMMMMMM%  +M     'MM             '%MMMMMMM%' +MMMMMMMMI     MM                       
+
 
 function setUser(inuser) {
     user = inuser;
@@ -2455,6 +2509,8 @@ function shareWorble(parsed) { // parse the worble save into colours
             } else if (lettertm == "Y") {
                 currentLine = `${currentLine}${worble_share_yellow}`;
             } else if (lettertm == "A") {
+                currentLine = `${currentLine}${worble_share_gray}`;
+            }else if (lettertm == "S") {
                 currentLine = `${currentLine}${worble_share_gray}`;
             }
 
@@ -2877,11 +2933,163 @@ function rawSaveTheme(nametm, author, text, back, accy) {
 
 //loadJS('https://raw.githubusercontent.com/caeserlettuce/dapug-console/83165118e417052d21f49dedab18b381338079db/example_mod.js', yourCodeToBeCalled, document.body);
 
+function updateStars() {
+    var final = ""
+    for (i in stars_parse) {
+        for(o in stars_parse[i]) {
+            final += stars_parse[i][o];
+        }
+        final += "\n";
+    }
+    document.getElementById("consy").innerHTML = final;
+}
+function parseStars() {
+    // parses star save json into a large thingy of text (tm)
+    for (var key in stars_save) {
+        if (stars_save.hasOwnProperty(key)) {
+            //console.log(key + " -> " + star_save[key]);
+            // loopy
+            var x = stars_save[key]["x"];
+            var y = stars_save[key]["y"];
+            var opacity = stars_save[key]["o"];
+            try {
+                stars_parse[y][x] = `<span id="CON_${key}" style="opacity: ${opacity * 0.01};">${stars_save[key]["t"]}</span>`;
+            } catch (err) {
+                debubg("oopy");
+            }
+            //stars_parse[x]
+        }
+    }
+    updateStars();
+}
+function stars() {
+    if (star_running == false) {
+        starlock = true;
+        document.getElementById("consy").style.overflow = "hidden";
+        document.getElementById("consy").style.fontWeight = "bold";
+        document.getElementById("consoleinput").value = "press ESC to exit!";
+        star_running = true;
+        star_runtime = 0;
+        var starTimers = 0;
+        stars_save = new Object();
+        var canvas_width = display_charsize[0];
+        var canvas_height = display_charsize[1];
+        var start_id = console_id + 1;
+        console_id += (canvas_width * canvas_height);
+        function getIdTm(cords) {
+            var base = cords[1] * canvas_width; // get the y value of of the coord and multiply it by the width
+            return start_id + base + cords[0];  // get the initial id value, add the base for the rows, and then add how many into the row
+        }
+        for (let i = 0; i < canvas_height; i++) {
+            stars_parse[i] = new Array();
+            for (let o = 0; o < canvas_width; o++) {
+                stars_parse[i].push(" ");
+            }
+        }
+        //console.log(getIdTm([0, 1]));
+        stars_status = true;
+        let starTimer = setInterval(() => {
+            document.getElementById("consoleinput").value = "press ESC to exit!";
+            // here we have the code for the stars
+            if (stars_status == true) {
+                console.log("stars!");
+                var should_star = getRandomInt(0, 1); // if it should add a star
+                //should_star = 1;
+                //console.log(should_star)
+                if (should_star == 1) {     // if the random integer is 1
+                    var rand_x = getRandomInt(0, canvas_width);     // get a random x coord
+                    var rand_y = getRandomInt(0, canvas_height);    // get a random y coord
+                    var twinkle_dur = getRandomInt(2, 12);           // get a random number from 2 to 6, that will be how many times the star remove twinkle will have to loop before its gone
+                    debubg(`NEW GENERATED STAR COORDS: ${rand_x}, ${rand_y}`);
+                    // "500": {"t": ".", "x": 20, "y": 20, "s": 10, "o": 100}
+                    var idtm = getIdTm([rand_x, rand_y]);
+                    if (stars_save[idtm]) {
+                        // is existent
+                        debubg("star value is existent!!");
+                        if (stars_save[idtm]["t"] == ".") {
+                            // already is a star
+                            debubg("star is already existent as a star!")
+                        } else {
+                            debubg("replacing old star value!");
+                            stars_save[idtm] = {
+                                "t": ".",                           // the text that should be inside the coordinate
+                                "x": rand_x,                        // the x coordinate of the star
+                                "y": rand_y,                        // the y coordinate of the star
+                                "s": 100 / ( twinkle_dur + 1 ),     // the rate of which the opacity is changed
+                                "o": 100,                           // the starting opacity
+                            }
+                            starTimers += 1;
+                            var fadeTimer = setInterval(() => {
+                                //console.log(stars_save[idtm]["o"]);
+                                if (stars_status == false) {
+                                    clearInterval(fadeTimer);
+                                    clearScreen();
+                                }
+                                stars_status = true;
+                                var change = -1 * stars_save[idtm]["s"];
+                                if ( ( stars_save[idtm]["o"] + change ) > 0) {
+                                    // if it is NOT zero
+                                    stars_save[idtm]["o"] += change;
+                                } else {
+                                    // if it is under zero
+                                    debubg(`${idtm} is at zero!!`);
+                                    stars_save[idtm]["o"] = 0;
+                                    stars_save[idtm]["t"] = " ";
+                                    clearInterval(fadeTimer);
+                                }
+                                parseStars();
+                            }, star_fade_speed);
+                        }
+                    } else {
+                        debubg("making new star value");
+                        stars_save[idtm] = {
+                            "t": ".",                           // the text that should be inside the coordinate
+                            "x": rand_x,                        // the x coordinate of the star
+                            "y": rand_y,                        // the y coordinate of the star
+                            "s": 100 / ( twinkle_dur + 1 ),     // the rate of which the opacity is changed
+                            "o": 100,                           // the starting opacity
+                        }
+                        starTimers += 1;
+                        var fadeTimer = setInterval(() => {
+                            //console.log(stars_save[idtm]["o"]);
+                            if (stars_status == false) {
+                                clearInterval(fadeTimer);
+                                clearScreen();
+                            }
+                            stars_status = true;
+                            var change = -1 * stars_save[idtm]["s"];
+                            if ( ( stars_save[idtm]["o"] + change ) > 0) {
+                                // if it is NOT zero
+                                stars_save[idtm]["o"] += change;
+                            } else {
+                                // if it is under zero
+                                debubg(`${idtm} is at zero!!`);
+                                stars_save[idtm]["o"] = 0;
+                                stars_save[idtm]["t"] = " ";
+                                clearInterval(fadeTimer);
+                            }
+                            parseStars();
+                        }, star_fade_speed);
+                    }
+                }
+            } else {
+                clearInterval(starTimer);
+                star_running = false;
+                starlock = false;
+                document.getElementById("consy").style.overflow = "";
+                document.getElementById("consy").style.fontWeight = "normal";
+                document.getElementById("consoleinput").value = "";
+                clearScreen();
+                for (let i = 0; i < starTimers; i++) {
+                }
+            }
+            star_runtime += 1;
+        }, star_speed);
+    }
+}
 
-
-
-
-
+//var use_id = console_id + 1;        // the current id that's being used
+//console_id += 1;                    // update console id
 
 
 
@@ -2898,12 +3106,6 @@ function rawSaveTheme(nametm, author, text, back, accy) {
 //
 //
 debubg("extra tool functions init finished...");
-
-
-
-
-
-
 
 
 
@@ -3159,68 +3361,73 @@ setColour(textcolour, true, backcolour, true, accycolour, true);
 var elem = document.getElementById("consoleinput");
     elem.onkeyup = function keyParse(e){
         if (inputlock == false) {
-            if(e.keyCode == 13) {
-                if (elem.value != "") {
-                    if (enterlock == false) {
-                        // stinky old code is gone!!!!
+            if (starlock == false) {
+                if(e.keyCode == 13) {
+                    if (elem.value != "") {
+                        if (enterlock == false) {
+                            // stinky old code is gone!!!!
 
-                        // *crab rave*
-                        if (listening_input == true) {  // if its listening for a text input
-                            ask_return = elem.value;
-                            ask_do();
-                            listening_input = false;
-                            elem.value = "";
-                        } else {
-                            displayUser(`${elem.value}`, `${user}`);
-                            historyPush();
-                            parseCommand(elem.value);
-                            historyReset();
-                            elem.value = "";
-                            scrolly("consy");
+                            // *crab rave*
+                            if (listening_input == true) {  // if its listening for a text input
+                                ask_return = elem.value;
+                                ask_do();
+                                listening_input = false;
+                                elem.value = "";
+                            } else {
+                                displayUser(`${elem.value}`, `${user}`);
+                                historyPush();
+                                parseCommand(elem.value);
+                                historyReset();
+                                elem.value = "";
+                                scrolly("consy");
+                            }
+                                
+                            //debubg(consoltext);
+                            //debubg(commang);
                         }
-                            
-                        //debubg(consoltext);
-                        //debubg(commang);
+                    }
+                    boom();
+                } else if(e.keyCode == 37) {
+                    if (snakeinputs == true) {
+                        debubg("left arrow detected");
+                    }
+                } else if(e.keyCode == 38) {
+                    if (snakeinputs == true) {
+                        debubg("up arrow detected");
+
+                    } else if (commandhistorylock == false) {
+                        // get out of here old command history code, you stinky
+                        var indexed = historyIndex(1); // index history up by 1
+                        elem.value = `${indexed}`;
+
+                    }
+                    
+                } else if(e.keyCode == 39) {
+                    if (snakeinputs == true) {
+                        debubg("right arrow detected");
+                    }
+                } else if(e.keyCode == 40) {
+                    if (snakeinputs == true) {
+                        debubg("down arrow detected");
+
+                    } else if (commandhistorylock == false) {
+                        // SAME WITH YOU! get outta here you stinky old code!! make room for the new code! just kidding!
+                        // it uses up less space than you! ha!
+                        var indexed = historyIndex(-1); // index history up by 1
+                        elem.value = `${indexed}`;
+
+
+
+
+
+
                     }
                 }
-                boom();
-            } else if(e.keyCode == 37) {
-                if (snakeinputs == true) {
-                    debubg("left arrow detected");
-                }
-            } else if(e.keyCode == 38) {
-                if (snakeinputs == true) {
-                    debubg("up arrow detected");
-
-                } else if (commandhistorylock == false) {
-                    // get out of here old command history code, you stinky
-                    var indexed = historyIndex(1); // index history up by 1
-                    elem.value = `${indexed}`;
-
-                }
-                
-            } else if(e.keyCode == 39) {
-                if (snakeinputs == true) {
-                    debubg("right arrow detected");
-                }
-            } else if(e.keyCode == 40) {
-                if (snakeinputs == true) {
-                    debubg("down arrow detected");
-
-                } else if (commandhistorylock == false) {
-                    // SAME WITH YOU! get outta here you stinky old code!! make room for the new code! just kidding!
-                    // it uses up less space than you! ha!
-                    var indexed = historyIndex(-1); // index history up by 1
-                    elem.value = `${indexed}`;
-
-
-
-
-
-
+            } else if (starlock == true) {
+                if(e.keyCode == 27) {
+                    stars_status = false;
                 }
             }
-            
     
         }
     }

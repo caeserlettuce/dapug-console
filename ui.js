@@ -2196,6 +2196,7 @@ music   | music
 art     | different art-themed commands
 fun     | fun commands
 tools   | any tools you may need (converters, etc.)
+danger  | anything that has to do with clearing stuff
 dev     | stuff for development`,
 
     "basic": `
@@ -2211,6 +2212,7 @@ ls      | lists all commands in existence
 clear   | clears console
 reset   | resets console completely (even all your saved data, so be careful!!)
 credits | shows the credits for console
+git     | shows the link to the github page for this project
 `,
     "users": `
 USERS HELP PAGE
@@ -2260,7 +2262,59 @@ music pause     | pauses any playing music
 music skip      | skips current song
 music volume    | type this along with a value from 0 to 100 to set the music volume!
 `,
+    "art": `
+ART HELP PAGE
 
+fun art commands
+
+aperture
+cake
+among us
+lovejoy
+cheese
+pebble brain
+benson
+ascii           | type this along with a font (see 'fontlist') and some text, and it will spit out ascii art of the text you input
+font list       | list all supported fonts for the ascii command
+`,
+    "fun": `
+FUN HELP PAGE
+
+all the fun lil commands that dont really have an official place
+
+portal
+portal2
+eef
+egg
+fitness
+`,
+    "tools": `
+TOOLS HELP PAGE
+
+different useful tools n stuff you can use on here
+
+convert         | type in convert, along with a unit type, a number, from unit, and to unit
+convert -list   | lists all the units and unit types
+`,
+    "dev": `
+DEV HELP PAGE
+
+these are developer commands, so if they are confusing, that's fine
+
+debug
+debug -v
+cinfo
+`,
+    "danger": `
+DANGER HELP PAGE
+
+anything that has to do with clearing cache n stuff
+(usually has to do with clearing all saved site data)
+
+reset           | resets the entire console to factory defaults
+clear -cache    | clears site cache (all saved data)
+
+`
 
 
 }
@@ -2369,6 +2423,7 @@ var man = {
         "text/background >",
         "            text | changes the colour of the text",
         "      background | changes the colour of the background",
+        "          accent | changes the colour of the window accents",
         '#hex | any valid hex colour code, or "reset" to reset it',
         " ",
         "EXAMPLE:",
@@ -2476,6 +2531,8 @@ var man = {
     ],
     "share": [
         "SHARE MANPAGE",
+        " ",
+        "[THIS PAGE MAY BE OUTDATED, AND SOME THINGS MAY NOT WORK]",
         " ",
         "will generate and copy a link to your clipboard with all the supported shareable options.",
         " ",
@@ -2603,6 +2660,29 @@ var man = {
         " ",
         "USAGE:",
         "`zoom [number]`"
+    ],
+    "theme": [
+        "THEME MANPAGE",
+        "change the colour scheme within one command",
+        " ",
+        "USAGE:",
+        "'theme [option] [name/save]'",
+        " ",
+        "<name> is a name of a theme from the list of themes or a new name (run 'themes' to get a list of themes)",
+        "<save> is an exported theme save. <save> is only used when using the 'install' opeion. all other theme options use a theme name.",
+        " ",
+        "OPTIONS:",
+        " ",
+        "    use | use a theme from the list of themes",
+        "   save | saves your current colour scheme to your list of custom themes",
+        " export | copies the theme save to your clipboard to share with friends",
+        "install | install a theme from the previously mentioned theme save",
+        " ",
+        "EXAMPLES:",
+        " ",
+        "'theme use git'",
+        "'theme export portal2'",
+        "'theme install Cola Soda-caeserlettuce-#fdfdfd-#c70015-#43190e'"
     ]
 
 
@@ -2695,7 +2775,15 @@ var listy = [
     "theme",
     "themes",
     "themelist",
+    "theme use",
+    "theme save",
+    "theme share",
+    "theme export",
+    "theme import",
+    "theme install",
 
+
+    
     "* command is currently in-development and may break the site."
 ]; 
 
@@ -4181,8 +4269,8 @@ function updateLyrics() {       // this will be called every time the song is pl
                 {"text": "\nand you make a neat gun.", "dur": [47368, 49319]},
                 {"text": "\nFor the people who are", "dur": [49324, 51067]},
                 {"text": "\nstill alive.", "dur": [51090, 52504]},
-                {"text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nF", "dur": [52569, 53234]},
-                {"text": "orms FORM-55551-5:\nPersonnel File Addendum:", "dur": [53234, 55000]},
+                {"text": `⠀${"\n".repeat(display_charsize[1])}`, "dur": [52569, 53234]},
+                {"text": "Forms FORM-55551-5:\nPersonnel File Addendum:", "dur": [53234, 55000]},
                 {"text": "\n\n\nDear [Subject Name Here],", "dur": [55669, 57937]},
                 {"text": "\n\nI'm not even angry.", "dur": [58551, 60312]},
                 {"text": "\nI'm being so sincere right now.", "dur": [62822, 66246]},
@@ -4200,8 +4288,8 @@ function updateLyrics() {       // this will be called every time the song is pl
                 {"text": "\nThink of all the things we learned", "dur": [99294, 101387]},
                 {"text": "\nfor the people who are", "dur": [101387, 103030]},
                 {"text": "\nstill alive.", "dur": [103030, 104526]},
-                {"text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nF", "dur": [104560, 105770]},
-                {"text": "orms FORM-55551-6:\nPersonnel File Addendum Addendum:", "dur": [105775, 107602]},
+                {"text": `⠀${"\n".repeat(display_charsize[1])}`, "dur": [104560, 105770]},
+                {"text": "Forms FORM-55551-6:\nPersonnel File Addendum Addendum:", "dur": [105775, 107602]},
                 {"text": "\n\nOne last thing:", "dur": [108334, 110401]},
                 {"text": "\n\nGo ahead and leave me.", "dur": [110805, 112650]},
                 {"text": "\nI think I prefer to stay inside.", "dur": [114642, 118080]},
@@ -4220,8 +4308,8 @@ function updateLyrics() {       // this will be called every time the song is pl
                 {"text": "\nThere is research to be done.", "dur": [151261, 153481]},
                 {"text": "\nOn the people who are", "dur": [153390, 154992]},
                 {"text": "\nstill alive.", "dur": [155052, 156603]},
-                {"text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nP", "dur": [156605, 156870]},
-                {"text": "S: ", "dur": [156880, 157000]},
+                {"text": `⠀${"\n".repeat(display_charsize[1])}`, "dur": [156605, 156870]},
+                {"text": "PS: ", "dur": [156880, 157000]},
                 {"text": "And Believe me I am", "dur": [157287, 159041]},
                 {"text": "\nstill alive.", "dur": [159045, 160463]},
                 {"text": "\nPPS: ", "dur": [160602, 160770]},
@@ -4237,7 +4325,7 @@ function updateLyrics() {       // this will be called every time the song is pl
                 {"text": "\nAnd when you're dead I will be", "dur": [173269, 174977]},
                 {"text": "\nstill alive.", "dur": [175220, 176299]},
                 {"text": "\n\n\n\nSTILL ALIVE.", "dur": [176813, 178300]},
-                {"text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  THANK YOU.", "dur": [177000, 180000]}
+                {"text": `${"\n".repeat(display_charsize[1])}  THANK YOU.`, "dur": [177000, 180000]}
             ]
         },
         "want you gone": {
@@ -4258,30 +4346,30 @@ function updateLyrics() {       // this will be called every time the song is pl
                 {"text": "\nExcept I wasn't laughing", "dur": [18714, 20719]},
                 {"text": "\nUnder the circumstances", "dur": [21011, 23261]},
                 {"text": "\nI've been shockingly nice", "dur": [23279, 26026]},
-                {"text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nY", "dur": [25703, 26000]},
-                {"text": "ou want your freedom?", "dur": [26674, 28808]}, // 
+                {"text": `⠀${"\n".repeat(display_charsize[1] + 4)}`, "dur": [25703, 26000]},
+                {"text": "You want your freedom?", "dur": [26674, 28808]}, // 
                 {"text": "\nTake it", "dur": [28837, 30514]},
                 {"text": "\nThat's what I'm counting on\n\n", "dur": [31461, 33851]},
                 {"text": "\nI used to want you dead", "dur": [36265, 39082]},
                 {"text": "\nbut", "dur": [39117, 39567]},
                 {"text": "\nNow I only want you gone", "dur": [39649, 43618]},
-                {"text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nS", "dur": [46636, 47435]},
-                {"text": "he was a lot like you", "dur": [47511, 49211]},
+                {"text": `⠀${"\n".repeat(display_charsize[1] + 4)}`, "dur": [46636, 47435]},
+                {"text": "She was a lot like you", "dur": [47511, 49211]},
                 {"text": "\n(Maybe not quite as heavy)", "dur": [49947, 51870]},
                 {"text": "\nNow little Caroline is in here too", "dur": [52186, 55651]},
                 {"text": "\nOne day they woke me up", "dur": [56949, 58539]},
                 {"text": "\nSo I could live forever", "dur": [59304, 61404]},
                 {"text": "\nIt's such a shame the same", "dur": [61812, 63629]},
                 {"text": "\nwill never happen to you", "dur": [63635, 66662]},
-                {"text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSeverance Package Details:\n\n", "dur": [66662, 67000]},
+                {"text": `${"\n".repeat(display_charsize[1] + 4)}Severance Package Details:\n\n`, "dur": [66662, 67000]},
                 {"text": "\nYou've got your", "dur": [67428, 68363]},
                 {"text": "\nshort sad", "dur": [68392, 69602]},
                 {"text": "\nlife left", "dur": [69602, 71876]},
                 {"text": "\nThat's what I'm counting on", "dur": [72297, 74646]},
                 {"text": "\nI'll let you get right to it", "dur": [77036, 80280]},
                 {"text": "\nNow I only want you gone", "dur": [80426, 83986]},
-                {"text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nG", "dur": [87468, 88736]},
-                {"text": "oodbye my only friend", "dur": [88881, 89947]},
+                {"text": `⠀${"\n".repeat(display_charsize[1] + 4)}`, "dur": [87468, 88736]},
+                {"text": "Goodbye my only friend", "dur": [88881, 89947]},
                 {"text": "\nOh, ", "dur": [90555, 90929]},
                 {"text": "did you think I meant you?", "dur": [91151, 92524]},
                 {"text": "\nThat would be funny", "dur": [93056, 94517]},
@@ -4290,14 +4378,14 @@ function updateLyrics() {       // this will be called every time the song is pl
                 {"text": "\nI don't need anyone now", "dur": [100187, 102583]}, 
                 {"text": "\nWhen I delete you maybe", "dur": [102548, 104704]},
                 {"text": "\n[REDACTED]", "dur": [104739, 107492]},
-                {"text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nG", "dur": [107200, 108000]},
-                {"text": "o make some new disaster", "dur": [108305, 112302]},
+                {"text": `⠀${"\n".repeat(display_charsize[1] + 4)}`, "dur": [107200, 108000]},
+                {"text": "Go make some new disaster", "dur": [108305, 112302]},
                 {"text": "\nThat's what I'm counting on", "dur": [113091, 115961]},
                 {"text": "\nYou're someone else's problem", "dur": [117837, 121186]},
                 {"text": "\nNow I only want you gone", "dur": [121361, 124868]},
                 {"text": "\nNow I only want you gone", "dur": [126171, 129929]},
                 {"text": "\nNow I only want you", "dur": [130777, 133185]},
-                {"text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ngone", "dur": [132750, 135300]}
+                {"text": `⠀${"\n".repeat(display_charsize[1] + 4)}gone`, "dur": [132750, 135300]}
             ]
         },
         "soft fuzzy man": {
@@ -4428,7 +4516,7 @@ function updateLyrics() {       // this will be called every time the song is pl
                 {"text": " Helper", "dur": [76115,76520 ]},
                 {"text": "\n\nGreen beans,", "dur": [76867, 77693]},
                 {"text": " oranges,", "dur": [77693, 78461]},
-                {"text": " pea pods,", "dur": [78461, 79277]},
+                {"text": " pea pod,", "dur": [78461, 79277]},
                 {"text": " pineapple", "dur": [79277, 80060]},
                 {"text": "\nCroissant,", "dur": [80060, 80679]},
                 {"text": " potato,", "dur": [80679, 81324]},
@@ -4436,7 +4524,7 @@ function updateLyrics() {       // this will be called every time the song is pl
                 {"text": " baguettes", "dur": [82326, 83116]},
                 {"text": "\nPotato chips,", "dur": [83116, 83979]},
                 {"text": " tomato soup,", "dur": [83979, 84832]},
-                {"text": " pickle,", "dur": [84382, 85232]},
+                {"text": " pickle,", "dur": [84832, 85232]},
                 {"text": " cookie,", "dur": [85232, 85707]},
                 {"text": " niblets", "dur": [85707, 86378]},
                 {"text": "\nMilk,", "dur": [86490, 87061]},
@@ -4493,42 +4581,42 @@ function updateLyrics() {       // this will be called every time the song is pl
                 {"text": " I'll see you in hell.'", "dur": [59454, 61020]},
                 {"text": "\nHe can be like that sometimes,", "dur": [61020, 62782]},
                 {"text": " he's such a nut", "dur": [62782, 63845]},
-                {"text": "\nSo I snicker and say,", "dur": [, ]},
-                {"text": " 'I'd love to, but", "dur": [, ]},
-                {"text": "\nGravity's calling,", "dur": [, ]},
-                {"text": " I've got some falling to", "dur": [, ]},
-                {"text": " do.'\n", "dur": [, ]},
-                {"text": "\nI'm in a state of shock,", "dur": [, ]},
-                {"text": " but it's something new", "dur": [, ]},
-                {"text": "\nI guess it all depends on your point of view.", "dur": [, ]},
-                {"text": " It's true", "dur": [, ]},
-                {"text": "\n\nThis is boring.", "dur": [, ]},
-                {"text": " Yes I'm falling", "dur": [, ]},
-                {"text": "\nBut it's taking quite a while", "dur": [, ]},
-                {"text": "\nMy destination", "dur": [, ]},
-                {"text": " is impending", "dur": [, ]},
-                {"text": "\nMight as well go out in style", "dur": [, ]},
-                {"text": "\nI put my arms out to the skies", "dur": [, ]},
-                {"text": "\nWhistle a tune and close my eyes", "dur": [, ]},
-                {"text": "\nTrying to briefly realise", "dur": [, ]},
-                {"text": " perpetual motion", "dur": [, ]},
-                {"text": "\n\nSuddenly,", "dur": [, ]},
-                {"text": " giant tentacles rise from the open sea", "dur": [, ]},
-                {"text": "\nAnd with total precision they lasso me", "dur": [, ]},
-                {"text": "\nIt's a mostrous squid", "dur": [, ]},
-                {"text": " and he saved my life", "dur": [, ]},
-                {"text": "\nBut I", "dur": [, ]},
-                {"text": " am too freaked out to be nice", "dur": [, ]},
-                {"text": "\nSo I tell him the truth,", "dur": [, ]},
-                {"text": " that i'd rather fall", "dur": [, ]},
-                {"text": "\nNo offense", "dur": [, ]},
-                {"text": " but at least it's predictable", "dur": [, ]},
-                {"text": "\nGotta stop stalling,", "dur": [, ]},
-                {"text": " I've got some falling to do", "dur": [, ]},
-                {"text": "\n\nI'm probably gonna die,", "dur": [, ]},
-                {"text": " but it's something new", "dur": [, ]},
-                {"text": "\nI guess it all depends on your point of view.", "dur": [, ]},
-                {"text": " It's true", "dur": [, ]}
+                {"text": "\nSo I snicker and say,", "dur": [64040, 65272]},
+                {"text": " 'I'd love to, but", "dur": [65347, 66634]},
+                {"text": "\nGravity's calling,", "dur": [66644, 68345]},
+                {"text": " I've got some falling to", "dur": [68350, 69926]},
+                {"text": " do.'\n", "dur": [69926, 70851]},
+                {"text": "\nI'm in a state of shock,", "dur": [72664, 73956]},
+                {"text": " but it's something new", "dur": [73965, 75537]},
+                {"text": "\nI guess it all depends on your point of view.", "dur": [75723, 78591]},
+                {"text": " It's true", "dur": [78605, 80171]},
+                {"text": "\n\nThis is boring.", "dur": [93518, 94606]},
+                {"text": " Yes I'm falling", "dur": [94996, 96400]},
+                {"text": "\nBut it's taking quite a while", "dur": [96540, 99115]},
+                {"text": "\nMy destination", "dur": [99464, 100909]},
+                {"text": " is impending", "dur": [101202, 102713]},
+                {"text": "\nMight as well go out in style", "dur": [102759, 105256]},
+                {"text": "\nI put my arms out to the skies", "dur": [105618, 108491]},
+                {"text": "\nWhistle a tune and close my eyes", "dur": [108724, 111690]},
+                {"text": "\nTrying to briefly realise", "dur": [111876, 114702]},
+                {"text": " perpetual motion", "dur": [114786, 116859]},
+                {"text": "\n\nSuddenly,", "dur": [118105, 119053]},
+                {"text": " giant tentacles rise from the open sea", "dur": [119303, 122279]},
+                {"text": "\nAnd with total precision they lasso me", "dur": [122354, 125106]},
+                {"text": "\nIt's a mostrous squid", "dur": [125250, 126714]},
+                {"text": " and he saved my life", "dur": [126816, 128323]},
+                {"text": "\nBut I", "dur": [128490, 129150]},
+                {"text": " am too freaked out to be nice", "dur": [129224, 131484]},
+                {"text": "\nSo I tell him the truth,", "dur": [131484, 132748]},
+                {"text": " that i'd rather fall", "dur": [132804, 134533]},
+                {"text": "\nNo offense", "dur": [134561, 135203]},
+                {"text": " but at least it's predictable", "dur": [135156, 137155]},
+                {"text": "\nGotta stop stalling,", "dur": [137155, 138587]},
+                {"text": " I've got some falling to do", "dur": [138699, 141367]},
+                {"text": "\n\nI'm probably gonna die,", "dur": [142938, 144594]},
+                {"text": " but it's something new", "dur": [144600, 146006]},
+                {"text": "\nI guess it all depends on your point of view.", "dur": [146192, 148809]},
+                {"text": " It's true", "dur": [149042, 150671]}
             ]
         }
     }
@@ -4584,7 +4672,7 @@ var site_credits = [
     {"text": `\n\nStarted January 24, 2022`, "dur": [6610, 8251]},
     {"text": `\n\nCoded with over 5000 lines of javascript`, "dur": [9939, 11490]},
     {"text": `\n\nAn excuse to spend hours tapping away on my keyboard`, "dur": [13240, 14800]},
-    {"text": `\n\n:]\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n`, "dur": [16123, 16630]},
+    {"text": `\n\n:]${"\n".repeat(display_charsize[1])}`, "dur": [16123, 16630]},
     {"text": `
          ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒░
         ▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓█▒░
@@ -4617,7 +4705,7 @@ var site_credits = [
  ░░░░░░░░░░░░░░░░░░░░░░░░
 `, "dur": [16577, 17582]},
 {"text": "\n caeserlettuce - lead developer", "dur": [17582, 18418]},
-{"text": "⠀\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "dur": [19426, 19877]},
+{"text": `⠀${"\n".repeat(display_charsize[1])}`, "dur": [19426, 19877]},
 {"text": `
                 ░░   ░
           ░       ░   ░
@@ -4649,7 +4737,7 @@ var site_credits = [
  ▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓
     ▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓`, "dur": [19877, 20918]},
     {"text": "\n\n 18gallons - developer / bug testing / themes", "dur": [20918, 21717]},
-    {"text": "⠀\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "dur": [22743, 23186]},
+    {"text": `⠀${"\n".repeat(display_charsize[1])}`, "dur": [22743, 23186]},
     {"text": "\nSPECIAL THANKS TO:\n\nGitHub\nVisual Studio Code\nStack Overflow\n\n\n", "dur": [23153, 27931]},
     {"text": `
              .,-:;//;:=,
@@ -4674,11 +4762,11 @@ var site_credits = [
                =++%%%%+/:-.
     `, "dur": [29777, 30832]},
     {"text": "\n\n Valve - Portal 1 & 2 for inspiring me to make this", "dur": [30832, 31653]},
-    {"text": "⠀\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "dur": [33071, 34152]},
+    {"text": `⠀${"\n".repeat(display_charsize[1])}`, "dur": [33071, 34152]},
     {"text": "[insert more credits when i need them]", "dur": [34152, 36152]},
 
 
-    {"text": "⠀\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "dur": [51925, 52958]},
+    {"text": `⠀${"\n".repeat(display_charsize[1])}`, "dur": [51925, 52958]},
     {"text": "THANK YOU\nFOR PLAYING AROUND\nWITH THIS SILLY LITTLE WEBSITE!!", "dur": [52958, 56145]},
     // "⠀" // nothing characer
 
@@ -5533,61 +5621,131 @@ var themes = {      // console colour themes
         "back colour": "#155553",
         "accy colour": "#FAF9F6"
     },
-"pop tart": {
+    "pop tart": {
         "name": "Pop Tart",
         "author": "18gallons",
         "text colour": "#D198B7",
         "back colour": "#FAF9F6",
         "accy colour": "#FF91AF"
     },
-"candy cane": {
+    "candy cane": {
         "name": "Candy Cane",
         "author": "18gallons",
         "text colour": "#edefeb",
         "back colour": "#c54245",
         "accy colour": "#3f000f"
     },
-"blackberry": {
+    "blackberry": {
         "name": "Blackberry",
         "author": "18gallons",
         "text colour": "#7B1E57",
         "back colour": " #221C35",
         "accy colour": "#6b6b7f"
     },
-"git": {
+    "git": {
         "name": "Git",
         "author": "18gallons",
         "text colour": "#b1d1d9",
         "back colour": "#0d1117",
         "accy colour": "#238636"
     },
-"scarlet": {
+    "scarlet": {
         "name": "Scarlet",
         "author": "18gallons",
         "text colour": "#FF2400",
         "back colour": "#240000",
         "accy colour": "#7e1200"
     },
-"amethyst": {
+    "amethyst": {
         "name": "Amethyst",
         "author": "18gallons",
         "text colour": "#9966cc",
         "back colour": "#12112a",
         "accy colour": "#3a3884"
     },
-"brilliance": {
+    "brilliance": {
         "name": "Brilliance",
         "author": "18gallons",
         "text colour": "#00FFFF",
         "back colour": "#637982",
         "accy colour": "#aec6cf"
     },
-"": {
-        "name": "",
+    "cotton candy": {
+        "name": "Cotton Candy",
         "author": "18gallons",
         "text colour": "#F7A8B8",
         "back colour": "#FFFFFF",
         "accy colour": "#55CDFC"
+    },
+    "pan": {
+        "name": "Pan",
+        "author": "caeserlettuce",
+        "text colour": "#fd208a",
+        "back colour": "#fcd400",
+        "accy colour": "#21adfc"
+    },
+    "bi": {
+        "name": "Bi",
+        "author": "caeserlettuce",
+        "text colour": "#0038a8",
+        "back colour": "#9b4f96",
+        "accy colour": "#d60270"
+    },
+    "ace": {
+        "name": "Ace",
+        "author": "caeserlettuce",
+        "text colour": "#ffffff",
+        "back colour": "#800080",
+        "accy colour": "#000000"
+    },
+    "spirit phone": {
+        "name": "Spirit Phone",
+        "author": "caeserlettuce",
+        "text colour": "#ffffff",
+        "back colour": "#030202",
+        "accy colour": "#df3b25"
+    },
+    "vscode": {
+        "name": "VSCode",
+        "author": "caeserlettuce",
+        "text colour": "#ffffff",
+        "back colour": "#1e1e1e",
+        "accy colour": "#007acc"
+    },
+    "twitter dim": {
+        "name": "Twitter Dim",
+        "author": "caeserlettuce",
+        "text colour": "#f7f9f9",
+        "back colour": "#15202b",
+        "accy colour": "#1d9bf0"
+    },
+    "twitter lights out": {
+        "name": "Twitter Lights Out",
+        "author": "caeserlettuce",
+        "text colour": "#e7e9ea",
+        "back colour": "#000000",
+        "accy colour": "#1d9bf0"
+    },
+    "cola": {
+        "name": "Cola",
+        "author": "caeserlettuce",
+        "text colour": "#fdfdfd",
+        "back colour": "#c70015",
+        "accy colour": "#43190e"
+    },
+    "portal": {
+        "name": "Portal",
+        "author": "caeserlettuce",
+        "text colour": "#c6922b",
+        "back colour": "#010302",
+        "accy colour": "#1e1e1e"
+    },
+    "portal 2": {
+        "name": "Portal 2",
+        "author": "caeserlettuce",
+        "text colour": "#ffb44d",
+        "back colour": "#a15606",
+        "accy colour": "#f68309"
     },
 }
 
@@ -5640,6 +5798,9 @@ var fhsiofhghszg = ` // more easy copy pasting
 //▉▊▋▌▍▎▏
 //▇▆▅▄▃▂▁
 //
+
+
+
 
 
 if (true) {
