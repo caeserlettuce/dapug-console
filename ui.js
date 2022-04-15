@@ -4725,6 +4725,58 @@ function updateLyrics() {       // this will be called every time the song is pl
                 {"text": " liar,", "dur": [282502, 283516]},
                 {"text": " wings on fire!", "dur": [283516, 287109]}
             ]
+        },
+        "sweet bod bonus track": {
+            "name": "Sweet Bod (Bonus Track)",
+            "artist": "Lemon Demon",
+            "album": "Spirit Phone",
+            "art": "https://media.discordapp.net/attachments/960729059829096580/960838302561353738/spiritphone.png?width=655&height=655",
+            "audio": "DONT_PUSH/Lemon Demon - Sweet Bod (Bonus Track).mp3",
+            "volume": 1,
+            "lyrics": [
+                {"text": "Your body is so sweet now,", "dur": [27388, 29900]},
+                {"text": " I'm saying trick or treat now", "dur": [30472, 33744]},
+                {"text": "\nYou know I've got to have you,", "dur": [34019, 36072]},
+                {"text": " you sexy sweet cadaver", "dur": [37019, 40018]},
+                {"text": "\nAll wrapped up like a mummy,", "dur": [40675, 42953]},
+                {"text": " I'll bury you in honey", "dur": [43740, 46852]},
+                {"text": "\nAnd wait a hundred years or so", "dur": [47293, 49814]},    // oh oh oh oh
+                {"text": "\n(Oh oh oh oh oh)", "dur": [49437, 51184]},
+                {"text": "\nYou know,", "dur": [51183, 52036]},
+                {"text": " you know", "dur": [52036, 52758]},
+                {"text": " it isnt sexual", "dur": [52758, 54558]},
+                {"text": "\nStrictly Confectional", "dur": [55973, 57829]},
+                {"text": "\nStrictly medicinal", "dur": [59264, 61110]},
+                {"text": "\nIf a little nontraditional", "dur": [61954, 65001]},
+                {"text": "\n\nI'm digging up your coffin", "dur": [74525, 76465]},
+                {"text": " and pouring out the contents", "dur": [77871, 79756]},
+                {"text": "\nYour sexy sweet solution", "dur": [81171, 83936]},
+                {"text": " is prime for distribution", "dur": [84490, 86533]},
+                {"text": "\nSweet bod", "dur": [87002, 88258]},
+                {"text": "\n\nYour body's starting rumours", "dur": [101916, 104376]},
+                {"text": " of Mason jars of sweetness", "dur": [105034, 108301]},
+                {"text": "\nWhose satisfied conumers", "dur": [108507, 110812]},
+                {"text": " have often claimed to witness", "dur": [111540, 114944]},
+                {"text": "\nSome sexy shrinking tumours,", "dur": [114765, 117634]},
+                {"text": " a sweet return to fitness", "dur": [118237, 121573]},
+                {"text": "\nThey're just a hundred bucks or so", "dur": [121751, 124221]},  // oh oh oh oh 
+                {"text": "\n(Oh oh oh oh oh)", "dur": [123974, 125675]},
+                {"text": "\nYou know,", "dur": [125704, 126280]},
+                {"text": " you know", "dur": [126280, 127117]},
+                {"text": " it isnt sexual", "dur": [127117, 129052]},
+                {"text": "\nStrictly professional", "dur": [130411, 132758]},
+                {"text": "\nEntreprenurial", "dur": [133746, 135654]},
+                {"text": "\nAnd what a sweet memorial", "dur": [136628, 139469]},
+                {"text": "\n\nI'm digging up your coffin", "dur": [213596, 215257]},
+                {"text": " and pouring out the contents", "dur": [216876, 218962]},
+                {"text": "\nAnd I'm so glad to see you", "dur": [220266, 222270]},          // oh oh ohoh
+                {"text": "\n(Oh oh oh oh oh)", "dur": [221455, 223401]},
+                {"text": "\nWon't you be my panacea?", "dur": [223341, 225633]},
+                {"text": "\nSweet bod,", "dur": [226607, 228007]},
+                {"text": " sweet bod,", "dur": [229764, 233167]},
+                {"text": " sweet bod", "dur": [233167, 234732]},
+                {"text": "\nSweet bod", "dur": [239343, 240524]}
+            ]
         }
     }
 }
