@@ -22,5 +22,5 @@ var vis_consyheight = inVertiViewport($('#consy'));
 display_textsize[0] = document.getElementById("regtext").clientWidth;
 display_textsize[1] = document.getElementById("regtext").clientHeight;
 
-display_charsize[0] = Math.floor( vis_consywidth / display_textsize[0] );
-display_charsize[1] = Math.floor( vis_consyheight / display_textsize[1] );
+display_charsize[0] = Math.floor( vis_consywidth / display_textsize[0]);
+display_charsize[1] = Math.floor( vis_consyheight / display_textsize[1]);

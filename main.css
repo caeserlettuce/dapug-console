@@ -141,7 +141,7 @@ strong {
     bottom: 2px;
     border: 2px #1e1e1e solid;
     overflow-y: hidden;
-    z-index: 100;
+    /*z-index: 100;*/
 }
 
 .p1credwindow {

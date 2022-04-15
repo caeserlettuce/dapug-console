@@ -1228,7 +1228,7 @@ function parseCommand(command) {
         parseCommand("music play still alive");
         //setTextColour("#c6922b", false);
         //setBackColour("#010302", false);
-        setColour("#c6922b", false, "#010302", false);
+        setColour("#c6922b", false, "#010302", false, "#1e1e1e", false);
         inputlock = true;
         document.getElementById("p1cred").style.display = "";
         document.getElementById("p1ascii").style.display = "";
@@ -1487,6 +1487,8 @@ function parseCommand(command) {
             displayAnim("\ninvalid theme command! check 'man theme' for all possible theme commands", 7);
         }
 
+    } else if (command == "stars" || command == "stars ") {
+        stars();
     }
 
     else {
