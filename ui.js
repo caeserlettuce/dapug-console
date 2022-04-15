@@ -4618,6 +4618,67 @@ function updateLyrics() {       // this will be called every time the song is pl
                 {"text": "\nI guess it all depends on your point of view.", "dur": [146192, 148809]},
                 {"text": " It's true", "dur": [149042, 150671]}
             ]
+        },
+        "your imaginary friend": {
+            "name": "Your Imaginary Friend",
+            "artist": "Lemon Demon",
+            "album": "Dinosaurchestra",
+            "art": "https://media.discordapp.net/attachments/960729059829096580/964394351188922408/dinosaurchestra.jpg?width=655&height=655",
+            "audio": "https://cdn.discordapp.com/attachments/960729059829096580/964403332208791572/Lemon_Demon_-_Your_Imaginary_Friend.mp3",
+            "volume": 1,
+            "lyrics": [
+                {"text": false, "dur": [0, 0]} 
+            ]
+        },
+        "archaeopteryx": {
+            "name": "Archaeopteryx",
+            "artist": "Lemon Demon",
+            "album": "Dinosaurchestra",
+            "art": "https://media.discordapp.net/attachments/960729059829096580/964394351188922408/dinosaurchestra.jpg?width=655&height=655",
+            "audio": "DONT_PUSH/Lemon Demon - Archaeopteryx.mp3",
+            "volume": 1,
+            "lyrics": [
+                {"text": "Saw him in a book of fossils", "dur": [30017, 34807]},
+                {"text": "\nDancing with some old Apostles", "dur": [35180, 39857]},
+                {"text": "\nI think if I went back in time", "dur": [40375, 44216]},
+                {"text": "\nHe'd be there alive", "dur": [44863, 47442]},
+                {"text": "\nRoot of all my jealousy", "dur": [49794, 52427]},
+                {"text": "\n\nGrounded in my devastation", "dur": [59170, 63195]},
+                {"text": "\nI can't get no aviation", "dur": [64442, 68819]},
+                {"text": "\nUp in the sky, his grandchildren fly", "dur": [69611, 74036]},
+                {"text": "\nI don't sing, I sigh", "dur": [74036, 76385]},
+                {"text": "\n\nTell the archaeopteryx", "dur": [79055, 82432]},
+                {"text": "\nThat I never wanted this", "dur": [83177, 86597]},
+                {"text": "\nFeatherhead metropolis", "dur": [87353, 90169]},
+                {"text": "\nLiar,", "dur": [90514, 91571]},
+                {"text": " liar,", "dur": [91571, 92542]},
+                {"text": " wings on fire!", "dur": [92542, 96222]},
+                {"text": "\n\nWhen It's fast approaching winter", "dur": [113470, 118112]},
+                {"text": "\nAnd I eat my turkey dinner", "dur": [118724, 123289]},
+                {"text": "\nTickles of hate, they rattle my cage", "dur": [123901, 128063]},
+                {"text": "\nAnd evolve to rage", "dur": [128274, 131263]},
+                {"text": "\nThis is when I make a choice", "dur": [133263, 136417]},
+                {"text": "\n\nI will build a time contraption", "dur": [142629, 146888]},
+                {"text": "\nI will start a chain reaction", "dur": [147830, 152654]},
+                {"text": "\nKnow what I think I'm going to do?", "dur": [153077, 157313]},
+                {"text": "\nI am going to", "dur": [157313, 159972]},
+                {"text": "\n\nTell the archaeopteryx", "dur": [162467, 165879]},
+                {"text": "\nThat I never wanted this", "dur": [166608, 169903]},
+                {"text": "\nFeatherhead metropolis", "dur": [170915, 173880]},
+                {"text": "\nLiar,", "dur": [174001, 175011]},
+                {"text": " liar,", "dur": [175011, 176139]},
+                {"text": " wings on fire!", "dur": [176139, 179151]},
+                {"text": "\n\nNow the clock ticks", "dur": [180234, 184893]},
+                {"text": "\nAnd I hope this will fix", "dur": [184987, 190023]},
+                {"text": "\nAll the present bird tricks", "dur": [190023, 195671]},
+                {"text": "\nFarewell, Mr. Archaeopteryx", "dur": [195906, 201177]},
+                {"text": "\n\nTell the archaeopteryx", "dur": [270026, 273387]},
+                {"text": "\nThat I never wanted this", "dur": [274111, 277559]},
+                {"text": "\nFeatherhead metropolis", "dur": [278254, 281587]},
+                {"text": "\nLiar,", "dur": [281587, 282473]},
+                {"text": " liar,", "dur": [282502, 283516]},
+                {"text": " wings on fire!", "dur": [283516, 287109]}
+            ]
         }
     }
 }

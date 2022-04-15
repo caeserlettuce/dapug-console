@@ -2957,6 +2957,7 @@ function parseStars() {
                 stars_parse[y][x] = `<span id="CON_${key}" style="opacity: ${opacity * 0.01};">${stars_save[key]["t"]}</span>`;
             } catch (err) {
                 debubg("oopy");
+                delete stars_save[key];
             }
             //stars_parse[x]
         }
