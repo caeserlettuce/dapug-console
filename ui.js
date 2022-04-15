@@ -4785,6 +4785,16 @@ updateLyrics();
 
 // spirit phone: https://media.discordapp.net/attachments/960729059829096580/960838302561353738/spiritphone.png?width=655&height=655
 
+// https://cdn.discordapp.com/attachments/960729059829096580/964627869861040238/Lemon_Demon_-_Youre_At_The_Party.mp3
+// https://cdn.discordapp.com/attachments/960729059829096580/964627868757917797/Lemon_Demon_-_Redesign_Your_Logo.mp3
+// https://cdn.discordapp.com/attachments/960729059829096580/964627868384645140/Lemon_Demon_-_Pizza_Heroes.mp3
+// https://cdn.discordapp.com/attachments/960729059829096580/964627868019753060/Lemon_Demon_-_Moons_Request.mp3
+// https://cdn.discordapp.com/attachments/960729059829096580/964627867579330621/Lemon_Demon_-_Kubrick_and_the_Beast.mp3
+// https://cdn.discordapp.com/attachments/960729059829096580/964627867235393566/Lemon_Demon_-_Gravitron.mp3
+
+
+
+
 // if you just want javascript to run at a specific time without any lyrics, just set "text" to false, without quotes, but still have the times and then ofcourse set "exec" to the javascript you want run
 var HJABJBGASFJHKBGSDLFBJLF = 
     

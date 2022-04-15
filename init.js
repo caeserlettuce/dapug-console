@@ -1,3 +1,18 @@
+//      ____   ___     ____   __  __ ______    __     ____   __        __ ______ ____   _   __ _____  ____   __     ______ 
+//     / __ \ /   |   / __ \ / / / // ____/   / /    / __ \ / /      _/_// ____// __ \ / | / // ___/ / __ \ / /    / ____/
+//    / / / // /| |  / /_/ // / / // / __    / /    / / / // /     _/_/ / /    / / / //  |/ / \__ \ / / / // /    / __/  
+//   / /_/ // ___ | / ____// /_/ // /_/ /_  / /___ / /_/ // /___ _/_/  / /___ / /_/ // /|  / ___/ // /_/ // /___ / /___ 
+//  /_____//_/  |_|/_/     \____/ \____/(_)/_____/ \____//_____//_/    \____/ \____//_/ |_/ /____/ \____//_____//_____/
+//                                                                                                                    
+//
+//  ITS THE DAPUG.LOL CONSOLE!!!!!
+//
+//
+//
+//  yes
+//
+//
+
 function debubg(message) {
     if (debug_time == true) {
         var dat = new Date();
@@ -133,6 +148,7 @@ var starTimers = 0;
 var touchtonetm = true;
 var autoscrolling = false;
 var scroll_bottom = true;
+var autoscroll_buffer = 300;    // how many pixels up you have to scroll before autoscroll turns off
 
 
 
@@ -742,18 +758,32 @@ function copyArr(arr) {
 }
 
 debubg("window scale init finished...");
-function scrolly(elf) {
-    mom = document.getElementById(elf);
-    //console.log(mom.scrollTop, mom.scrollHeight);
-    var scroll1 = mom.scrollTop;
-    autoscrolling = true;
-    mom.scrollTop = mom.scrollHeight;
-    autoscrolling = false;
-    var scroll2 = mom.scrollTop;
 
-    console.log("  1:", scroll1);
-    console.log("  2:", scroll2);
-    console.log("top:", mom.scrollHeight);
+function scrollDifference(parmesan) {
+    //console.log(mom.scrollTop, mom.scrollHeight);
+    var scrolltop = parmesan.scrollTop;
+    var scoll = scrolltop + vis_consyheight - 10;
+    var diff = parmesan.scrollHeight - scoll;
+    return diff
+}
+
+
+function scrolly(elf, force) {
+    mom = document.getElementById(elf);
+    var diff = scrollDifference(mom);
+
+    
+
+    //autoscrolling = true;
+    //mom.scrollTop = mom.scrollHeight;
+    //autoscrolling = false;
+
+    // jesse figure it out
+
+    
+
+
+    
 
 };
 debubg("scrolly init finished...");
@@ -3509,11 +3539,13 @@ elem.addEventListener('mousemove', (event) => {
     //debubg("mouse has been moved inside of the input!");
 });
 
-consol.addEventListener('scroll', (event) => {
-    debubg("scrolling!!!");
-    var scrolltop = consol.scrollTop;
-    var scrollheight = consol.scrollHeight;
-    var buffer = 200;
+//consol.addEventListener('scroll', (event) => {
+    //debubg("scrolling!!!");
+    //var scrolltop = consol.scrollTop;
+    //var scrollheight = consol.scrollHeight;
+    //var buffer = 200;
+
+    //debubg(scrollTop + vis_consyheight);
     
-    if ( (vis_consyheight + scrollTop + buffer - 10) )
-});
+    //if ( () )
+//});
