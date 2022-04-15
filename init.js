@@ -131,6 +131,10 @@ var star_running = false;
 var starlock = false;
 var starTimers = 0;
 var touchtonetm = true;
+var autoscrolling = false;
+var scroll_bottom = true;
+
+
 
 debubg("variable init finished...");
 // local storage setup
@@ -741,7 +745,16 @@ debubg("window scale init finished...");
 function scrolly(elf) {
     mom = document.getElementById(elf);
     //console.log(mom.scrollTop, mom.scrollHeight);
+    var scroll1 = mom.scrollTop;
+    autoscrolling = true;
     mom.scrollTop = mom.scrollHeight;
+    autoscrolling = false;
+    var scroll2 = mom.scrollTop;
+
+    console.log("  1:", scroll1);
+    console.log("  2:", scroll2);
+    console.log("top:", mom.scrollHeight);
+
 };
 debubg("scrolly init finished...");
 
@@ -3483,5 +3496,24 @@ function closeDebuG() {
     }
 }
 
-
 window.onclose = closeDebuG;
+
+debubg("close debug window init finished...");
+
+
+consol.addEventListener('mousemove', (event) => {
+    //debubg("mouse has been moved inside of the main console!");
+});
+
+elem.addEventListener('mousemove', (event) => {
+    //debubg("mouse has been moved inside of the input!");
+});
+
+consol.addEventListener('scroll', (event) => {
+    debubg("scrolling!!!");
+    var scrolltop = consol.scrollTop;
+    var scrollheight = consol.scrollHeight;
+    var buffer = 200;
+    
+    if ( (vis_consyheight + scrollTop + buffer - 10) )
+});
