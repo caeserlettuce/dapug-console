@@ -5551,7 +5551,7 @@ var themes = {      // console colour themes
         "name": "Blackberry",
         "author": "18gallons",
         "text colour": "#7B1E57",
-        "back colour": " #221C35",
+        "back colour": "#221C35",
         "accy colour": "#6b6b7f"
     },
 "git": {
