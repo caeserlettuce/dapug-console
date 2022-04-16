@@ -1068,7 +1068,8 @@ function parseCommand(command) {
                     displayAnim("\nplease enter a valid volume between 0 and 100.", 7);
                 }
             } else {
-                displayAnim("\nplease enter a valid volume between 0 and 100.", 7);
+                //displayAnim("\nplease enter a valid volume between 0 and 100.", 7);
+                displayAnim(`\nto change volume, please enter a valid number between 0 and 100. \ncurrent volume is ${music.volume * 100}`)
             }
         }
     } else if (command == "songlist") {
@@ -1271,6 +1272,7 @@ function parseCommand(command) {
         clearScreen();
         setColour("#7cfc00", false, "#000000", false, "#1e1e1e", false);
         inputlock = true;
+        credits_playing = true;
         debubg("playing credits!!! thank you for using this silly little website!");
         parseCommand("music play meal thyme");
         lyr_disp = site_credits;
