@@ -3376,7 +3376,7 @@ var worble_words = [
 
 var worble_awful_words = [
     "neil cicierega aka lemon demon",
-    "the fitness gram pacer test is a multi stage aerobic capacity test that progressively gets more difficult as it continues. ",
+    "the fitness gram pacer test is a multi stage aerobic capacity test that progressively gets more difficult as it continues.",
     "hello world i guess"
 ]
 

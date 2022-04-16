@@ -771,20 +771,10 @@ function scrollDifference(parmesan) {
 function scrolly(elf, force) {
     mom = document.getElementById(elf);
     var diff = scrollDifference(mom);
-
-    
-
-    //autoscrolling = true;
-    //mom.scrollTop = mom.scrollHeight;
-    //autoscrolling = false;
-
+    if (diff <= autoscroll_buffer || force == true) {
+        mom.scrollTop = mom.scrollHeight;
+    }
     // jesse figure it out
-
-    
-
-
-    
-
 };
 debubg("scrolly init finished...");
 
