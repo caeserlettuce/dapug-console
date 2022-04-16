@@ -5677,22 +5677,22 @@ var themes = {      // console colour themes
         "back colour": "#FFFFFF",
         "accy colour": "#55CDFC"
     },
-    "pan": {
-        "name": "Pan",
+    "catseye": {
+        "name": "Catseye",
         "author": "caeserlettuce",
         "text colour": "#fd208a",
         "back colour": "#fcd400",
         "accy colour": "#21adfc"
     },
-    "bi": {
-        "name": "Bi",
+    "both": {
+        "name": "Both",
         "author": "caeserlettuce",
         "text colour": "#0038a8",
         "back colour": "#9b4f96",
         "accy colour": "#d60270"
     },
-    "ace": {
-        "name": "Ace",
+    "tanzanite": {
+        "name": "Tanzanite",
         "author": "caeserlettuce",
         "text colour": "#ffffff",
         "back colour": "#800080",
@@ -5747,8 +5747,35 @@ var themes = {      // console colour themes
         "back colour": "#a15606",
         "accy colour": "#f68309"
     },
+    "soft": {
+        "name": "Soft",
+        "author": "18gallons",
+        "text colour": "#363636",
+        "back colour": "#acacac",
+        "accy colour": "#7c7c7c"
+    },
+    "matcha": {
+        "name": "Matcha",
+        "author": "18gallons",
+        "text colour": "#ccdca4",
+        "back colour": "#11360d",
+        "accy colour": "#274b21"
+    },
+    "cozy": {
+        "name": "Cozy",
+        "author": "18gallons",
+        "text colour": "#463239",
+        "back colour": "#e2d4b7",
+        "accy colour": "#83775d"
+    },
 }
-
+/*"": {
+    "name": "",
+    "author": "18gallons",
+    "text colour": "",
+    "back colour": "",
+    "accy colour": ""
+},*/ //this is for ease of themecrafting
 var custom_themes = {
     "custom": {
         "name": "Custom",
