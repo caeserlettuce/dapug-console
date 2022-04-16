@@ -4627,7 +4627,7 @@ function updateLyrics() {       // this will be called every time the song is pl
             "audio": "https://cdn.discordapp.com/attachments/960729059829096580/964403332208791572/Lemon_Demon_-_Your_Imaginary_Friend.mp3",
             "volume": 1,
             "lyrics": [
-                {"text": "Simple and small", "dur": [19690, 22095]},
+                {"text": "\nSimple and small", "dur": [19690, 22095]},
                 {"text": "\nAlmost alone", "dur": [22745, 25160]},
                 {"text": "\nCurled up in a ball", "dur": [25432, 28089]},
                 {"text": "\nWith a tin can phone", "dur": [28147, 31251]},
@@ -4684,7 +4684,7 @@ function updateLyrics() {       // this will be called every time the song is pl
             "audio": "DONT_PUSH/Lemon Demon - Archaeopteryx.mp3",
             "volume": 1,
             "lyrics": [
-                {"text": "Saw him in a book of fossils", "dur": [30017, 34807]},
+                {"text": "\nSaw him in a book of fossils", "dur": [30017, 34807]},
                 {"text": "\nDancing with some old Apostles", "dur": [35180, 39857]},
                 {"text": "\nI think if I went back in time", "dur": [40375, 44216]},
                 {"text": "\nHe'd be there alive", "dur": [44863, 47442]},
@@ -4734,7 +4734,7 @@ function updateLyrics() {       // this will be called every time the song is pl
             "audio": "DONT_PUSH/Lemon Demon - Sweet Bod (Bonus Track).mp3",
             "volume": 1,
             "lyrics": [
-                {"text": "Your body is so sweet now,", "dur": [27388, 29900]},
+                {"text": "\nYour body is so sweet now,", "dur": [27388, 29900]},
                 {"text": " I'm saying trick or treat now", "dur": [30472, 33744]},
                 {"text": "\nYou know I've got to have you,", "dur": [34019, 36072]},
                 {"text": " you sexy sweet cadaver", "dur": [37019, 40018]},
@@ -4745,7 +4745,7 @@ function updateLyrics() {       // this will be called every time the song is pl
                 {"text": "\nYou know,", "dur": [51183, 52036]},
                 {"text": " you know", "dur": [52036, 52758]},
                 {"text": " it isnt sexual", "dur": [52758, 54558]},
-                {"text": "\nStrictly Confectional", "dur": [55973, 57829]},
+                {"text": "\nStrictly confectional", "dur": [55973, 57829]},
                 {"text": "\nStrictly medicinal", "dur": [59264, 61110]},
                 {"text": "\nIf a little nontraditional", "dur": [61954, 65001]},
                 {"text": "\n\nI'm digging up your coffin", "dur": [74525, 76465]},
