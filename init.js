@@ -149,7 +149,10 @@ var touchtonetm = true;
 var autoscrolling = false;
 var scroll_bottom = true;
 var autoscroll_buffer = 300;    // how many pixels up you have to scroll before autoscroll turns off
-
+var cursor_pos = [0, 0];
+var cursor_hide_timer;
+var song_err = false;
+var caret_type = 1;
 
 
 debubg("variable init finished...");
@@ -788,6 +791,7 @@ function sizeCheck() {
         document.getElementById("regtext").style.fontSize = `${aspectratio * sizemod}vh`;
         document.getElementById("consoleinputstyle").style.fontSize = `${1.25 * aspectratio * sizemod}vh`;
         document.getElementById("consoleinput").style.fontSize = `${1.25 * aspectratio * sizemod}vh`;
+        document.getElementById("inputcursor").style.fontSize = `${1.25 * aspectratio * sizemod}vh`;
         document.getElementById("consy-height").innerHTML = `.consy { height: ${ windowHeight - ( document.getElementById("consoleinput").clientHeight + 35)}px; }`;
     } else if (windowWidth < windowHeight) {
         // if on portrait
@@ -797,6 +801,7 @@ function sizeCheck() {
         document.getElementById("regtext").style.fontSize = `${2 * aspectratio * sizemod}vw`;
         document.getElementById("consoleinputstyle").style.fontSize = `${2.25 * aspectratio * sizemod}vw`;
         document.getElementById("consoleinput").style.fontSize = `${2.25 * aspectratio * sizemod}vw`;
+        document.getElementById("inputcursor").style.fontSize = `${2.25 * aspectratio * sizemod}vw`;
         document.getElementById("consy-height").innerHTML = `.consy { height: ${ windowHeight - ( document.getElementById("consoleinput").clientHeight + 35)}px; }`;
     }
     debubg(orientation);
@@ -851,6 +856,47 @@ debubg("text scaling init finished...");
 //                   '%MMMMMMM%'  '%MMMMMM :MM:      :MM: +MMMMMMMM% MMMMMMMMMM +M      'MM+ '%MMMMMMM%'                   
 
 
+
+
+
+
+
+
+
+
+
+function updateCaret() {
+    var caret = document.getElementById("inputcursor");
+    if (caret.clientWidth <= windowWidth) {
+        debubg("Hee Hee!");
+    } else {
+        debubg("no");
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//  .M.              mmmmmmmmmm +MM.      M+ +MMMMMMM%. MM       MM %MMMMMMMM%              .%MMMMMM MM       MM +MMMMMMM%. .%MMMMMMM%. .%MMMMMMM%. +MMMMMMM%.             .%MMMMMMM%. %MMMMMMMM% MM       MM +MMMMMMMMI +MMMMMMMMI              .M.  
+// .M'M.             MMMMMMMMMM MMMM.     MM MM+'  '+M% MM       MM %MMMMMMMM%             .%MMMMMMM MM       MM MM+'  '+M% %MM%' '%MM% %MM%' '%MM% MM+'  '+M%             %MM%' '%MM% %MMMMMMMM% MM       MM MMMMMMMMMI MMMMMMMMMI             .M'M. 
+// M' 'M                 MM     MM'MM.    MM MM      MM MM       MM     MM                 %MM%'     MM       MM MM      MM MM'         MM'     'MM MM      MM             MM'             MM     MM       MM MM+        MM+                    M' 'M 
+//                       MM     MM 'MM.   MM MM+.  .+M% MM       MM     MM                 MMM'      MM       MM MM+.  .+M% MM%.......  MM       MM MM+.  .+M%             MM%.......      MM     MM       MM MM........ MM........                   
+//                       MM     MM  'MM.  MM MMMMMMMM%' MM       MM     MM                 MMM       MM       MM MMMMMMMM%'  %MMMMMMM%. MM       MM MMMMMMMM%'              %MMMMMMM%.     MM     MM       MM MMMMMMMMMM MMMMMMMMMM                   
+//                       MM     MM   'MM. MM MM         MM       MM     MM                 MMM.      MM       MM MM  'MM.     ''''''%MM MM       MM MM  'MM.                 ''''''%MM     MM     MM       MM MM'''''''' MM''''''''                   
+//                       MM     MM    'MM.MM MM         MM       MM     MM                 %MM%.     MM       MM MM   'MM.          .MM MM.     .MM MM   'MM.                      .MM     MM     MM       MM MM         MM                           
+//                   mmmmMMmmmm MM     'MMMM MM         %MM%   %MM%     MM                 '%MMMMMMM %MM%   %MM% MM    'MM. %MM%. .%MM% %MM%. .%MM% MM    'MM.             %MM%. .%MM%     MM     %MM%   %MM% MM         MM                           
+//                   MMMMMMMMMM +M      'MM+ +M          %MMMMMMM%      MM                  '%MMMMMM  %MMMMMMM%  +M     'MM '%MMMMMMM%' '%MMMMMMM%' +M     'MM             '%MMMMMMM%'     MM      %MMMMMMM%  MM         MM                           
 
 
 
@@ -2687,6 +2733,7 @@ function isUrl(string) {
 }
 
 function setSongInfo(internal_name) {
+    song_err = false;
     var songArt = document.getElementById("song-art");
     var songName = document.getElementById("song-name");
     var songArtist = document.getElementById("song-artist");
@@ -3468,7 +3515,6 @@ var elem = document.getElementById("consoleinput");
     }
         
 
-debubg("key input init finished...");
 
 music.addEventListener('ended', (event) => {
     document.getElementById("songinfo").style.display = "none";
@@ -3486,7 +3532,8 @@ music.addEventListener('ended', (event) => {
         document.getElementById("songinfomouse").style.backgroundColor = "#1e1e1e";
         document.getElementById("songinfomouse").style.color = "white";
         document.getElementById("songinfo").style.borderColor = "#1e1e1e";
-        document.getElementById("songinfo").style.backgroundColor = og_backcolour;
+        d
+        ocument.getElementById("songinfo").style.backgroundColor = og_backcolour;
     } else if (credits_playing == true) {
         credits_playing = false;
         inputlock = false;
@@ -3506,9 +3553,6 @@ music.addEventListener('play', (event) => {
 
 window.onresize = sizeCheck;
 
-
-debubg("music info hide thingy init finished...");
-
 function closeDebuG() {
     if (debug == true) {
         debug_win.close();
@@ -3518,24 +3562,15 @@ function closeDebuG() {
 
 window.onclose = closeDebuG;
 
-debubg("close debug window init finished...");
-
 
 consol.addEventListener('mousemove', (event) => {
-    //debubg("mouse has been moved inside of the main console!");
+    consol.style.cursor = "auto";
+    cursor_pos = [event.pageX + 1, event.pageY];     // sets the current pos (not needed for this system but may be useful in the future)
+    clearTimeout(cursor_hide_timer);
+    cursor_hide_timer = setTimeout(function timer() {
+        consol.style.cursor = "none";
+        //debubg("the letter a");
+    }, 2000);
 });
 
-elem.addEventListener('mousemove', (event) => {
-    //debubg("mouse has been moved inside of the input!");
-});
-
-//consol.addEventListener('scroll', (event) => {
-    //debubg("scrolling!!!");
-    //var scrolltop = consol.scrollTop;
-    //var scrollheight = consol.scrollHeight;
-    //var buffer = 200;
-
-    //debubg(scrollTop + vis_consyheight);
-    
-    //if ( () )
-//});
+debubg("listeners added...");

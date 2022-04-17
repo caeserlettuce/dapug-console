@@ -50,9 +50,14 @@ strong {
   margin-left: 10px;
   width: 96vw;
   z-index: 15;
+  caret-color: transparent;
 }
 
-
+/*
+.textcaret {
+  overflow-x: visible;
+}
+*/
 
 
 .consy {

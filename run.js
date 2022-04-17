@@ -1047,7 +1047,10 @@ function parseCommand(command) {
                 
                 
                 playMusic(songname);
-
+                if (song_err == true) {
+                    debubg("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa");
+                }
+                
                 lyr_disp = song_lyrics; // set the current lyrics
 
             } else {                    // hello mario
