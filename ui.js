@@ -2659,7 +2659,7 @@ var man = {
         "multiplies text size by the entered value",
         " ",
         "USAGE:",
-        "`zoom [number]`"
+        "'zoom [number]'"
     ],
     "theme": [
         "THEME MANPAGE",
@@ -2683,6 +2683,15 @@ var man = {
         "'theme use git'",
         "'theme export portal2'",
         "'theme install Cola Soda-caeserlettuce-#fdfdfd-#c70015-#43190e'"
+    ],
+    "asciigame": [
+        "ASCIIGAME MANPAGE",
+        "play a fun little text adventure game",
+        " ",
+        "USAGE:",
+        "'asciigame'",
+        " ",
+        "every screen will give you a list of options, just enter the one you wish to do and it will happen",
     ]
 
 
@@ -2781,6 +2790,7 @@ var listy = [ " ",
     "theme export",
     "theme import",
     "theme install",
+    "asciigame",
 
 
     

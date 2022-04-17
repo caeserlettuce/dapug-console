@@ -1447,6 +1447,20 @@ function parseCommand(command) {
         stars();
     }
 
+    else if (command == "asciigame") {
+        displayAnim("\nyou know the rules", 13);
+        setTimeout(() => {
+
+            displayAnim("\nAND SO DO I", 20);
+            
+            }, 534);
+        setTimeout(() => {
+
+            window.open("https://www.youtube.com/watch?v=-AXetJvTfU0")
+            
+            }, 1000);  
+    }
+
     else {
         displayAnim(`\ncommand error: ${commandInit} is not an existing command.`, 10);
     }
