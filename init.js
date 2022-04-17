@@ -69,7 +69,8 @@ var textcolour = "#7cfc00";
 var backcolour = "#000000";
 var accycolour = "#1e1e1e";
 var autocommand = false;
-var startup = false; // REMEMBER TO SET TO TRUE LATER (haha now its automatic)
+var startup = false; // REMEMBER TO SET TO TRUE LATER (haha now its automatic);
+var autocommand_wait = false;
 var worble_status = false;
 var worble_colourblind = false;
 var worble_word = "";
@@ -151,6 +152,20 @@ var scroll_bottom = true;
 var autoscroll_buffer = 300;    // how many pixels up you have to scroll before autoscroll turns off
 var cursor_pos = [0, 0];
 var cursor_hide_timer;
+var accountsregistry;
+var default_accounts = {
+    "admin": "password"
+}
+var locked_accounts = [
+    "dev",
+    "caeserlettuce",
+    "18gallons",
+    "dapug",
+    "caffy",
+    ""
+]
+var login_username;
+var signup_username;
 
 
 
@@ -158,7 +173,7 @@ debubg("variable init finished...");
 // local storage setup
 
 
-function getCommentIter() {
+function getCommentIter() {             // dont touch this until i redo how comments work
 
     var commentIter = localStorage.getItem("commiter");
 
@@ -185,230 +200,105 @@ function getCommentIter() {
     return commentIter
 }
 
-function getTextColour() {
-    var coly = localStorage.getItem("text-colour");
 
-    if (coly) {
-        debubg("local storage text colour colour exists, skipping creation.");
-    } else {
-        debubg("creating text colour local storage...");
-        localStorage.setItem("text-colour", "#7cfc00");
-        coly = localStorage.getItem("text-colour");
-    }
-    return coly
-}
-
-function getAccyColour() {
-    var coly = localStorage.getItem("accy-colour");
-
-    if (coly) {
-        debubg("local storage accy colour colour exists, skipping creation.");
-    } else {
-        debubg("creating accy colour local storage...");
-        localStorage.setItem("accy-colour", "#1e1e1e");
-        coly = localStorage.getItem("accy-colour");
-    }
-    return coly
-}
-
-
-function getBackColour() {
-    var coly = localStorage.getItem("back-colour");
-
-    if (coly) {
-        debubg("local storage back colur colour exists, skipping creation.");
-    } else {
-        debubg("creating back colour local storage...");
-        localStorage.setItem("back-colour", "#000000");
-        coly = localStorage.getItem("back-colour");
-    }
-    return coly
-}
-
-
-//startup sequence only happens on a freshly cleared cache
-
-function doStart() {
-    
-   
-    var starty = localStorage.getItem("startup");
-
-    if(starty) {
-        // startup
-        
-        debubg("cache is not freshly reset, skipping startup sequence.");
-
-
-    } else {
-        // continue
-        inputlock = true;
-        debubg("cache is freshly reset, running startup sequence");
-        startup = true;
-    }
-
-
-}
-
-function accountRegistry() {
-    
-    var accountsregistry = localStorage.getItem("accounts");
-    
-    var currentaccount = localStorage.getItem("currentaccount");
-
-    if(accountsregistry) {
-        // exists
-        debubg("local storage accounts does exist, skipping creation.");
-    } else {
-        // doesnt
-
-        var accounts = {            // congratulations, you found a security hole!
-            "admin": "password",
-            "pugface": "laptop",
-            "dev": "ihatejavascript"
+function local_storage(name, default_tm, if_exists, if_doesnt) {
+    var item = localStorage.getItem(`${name}`);                                             // sets item to whatever the localtorage for name is
+    var return_value = "";                                                                  // initialise this
+    if (item) {                                                                             // if that item exists in localstorage
+        debubg(`[LOCAL STORAGE]: local storage for '${name}' exists. skipping creation.`);  // status update ™
+        return_value = localStorage.getItem(`${name}`);                                     // set the return value to the localstorage value
+        if (typeof if_exists === 'function') {                                              // if it's a function       (if extra code should be run if it exists)
+            if_exists();                                                                    // run said function
         }
-
-        debubg("local storage accounts doesn't exist. creating one.");
-        localStorage.setItem("accounts", JSON.stringify(accounts).replace("{", "").replace("}", ""));
+    } else {                                                                                // if it doesn't exist
+        debubg(`[LOCAL STORAGE]: local storage for '${name}' does not exist. creating.`);   // status update ™
+        localStorage.setItem(`${name}`, `${default_tm}`);                                   // set the localstorage value
+        return_value = `${default_tm}`;                                                     // set the return value to the default value
+        if (typeof if_doesnt === 'function') {                                              // if it's a function       (if extra code should be run if it exists)
+            if_doesnt();                                                                    // run said function
+        }
     }
-
-    if(currentaccount) {
-        // exists
-        debubg("current account already is logged in.");
-        user = currentaccount;
-
-    } else {
-        localStorage.setItem("currentaccount", "user");
-    }
-
+    return return_value                                                                     // return the localstorage value
 }
 
-function worbleInit() {
+/*
+EXAMPLE OF THIS FUNCTION:
 
-    var game = localStorage.getItem("worble_save");         // save all the guesses in an array
+backcolour = local_storage("back-colour", "#000000", function a(){console.log("yay!!");}, function b(){console.log("crap!!");})
 
-    var wordy = localStorage.getItem("worble_word");        // save the current word
+*/
 
-    var status = localStorage.getItem("worble_status");   // saves if the previous game has been finished yet
+// localstorage updates!!
 
-    var blind = localStorage.getItem("worble_colourblind"); // colourblind mode will stay on even after page reload
+// old localStorage: "admin":"password","pugface":"laptop","dev":"ihatejavascript"
 
-    var guesses = localStorage.getItem("worble_guesscount"); // how many guesses
+// \"admin\":\"password\",\"pugface\":\"laptop\",\"dev\":\"ihatejavascript\"
 
-    var stats_guesses = localStorage.getItem("worble_stats_guesses"); // how many guesses per game
 
-    var stats_currentstreak = localStorage.getItem("worble_stats_currentstreak"); // how many games youve won in a row currently
 
-    var stats_biggeststreak = localStorage.getItem("worble_stats_biggeststreak"); // 
-
-    var stats_restarts = localStorage.getItem("worble_stats_restarts"); // 
-
-    var word_id = localStorage.getItem("worble_word_id"); // 
-
-    if(game) {
-        // exists
-        debubg("[WORBLE] worble save is saved. continuing.");
-        worble_save = loadWorble();   // when there is an existing local save it'll automatically load it (fancy)
-    } else {
-        // not set eixsir he hehhe hehe hehe i h he heheh  ehe e
-        debubg("[WORBLE] worble save is not saved. creating.");
-        localStorage.setItem("worble_save", '');
-    }
-    if(wordy) {
-        // exists
-        debubg("[WORBLE] worble word is saved. continuing.");
-        worble_word = `${wordy}`;
-    } else {
-        // not set eixsir he hehhe hehe hehe i h he heheh  ehe e
-        debubg("[WORBLE] worble word is not saved. creating.");
-        localStorage.setItem("worble_word", '');
-    }
-    if(status) {
-        // exists
-        debubg("[WORBLE] worble game status is saved. continuing.");
-        if (status == "false") {
-            worble_status = false;
-        } else {
-            worble_status = true;
+local_storage("account registry update", "true", function gromit(){                         // if they have not gotten the account registry update
+    if (localStorage.getItem("accounts").slice(0,1) != "{") {                               // the new registry starts with "{", so if the start is not that, it's the old registry
+        var old_registry = JSON.parse(`{${localStorage.getItem("accounts")}}`);             // get old registry
+        var new_registry = new Object();                                                    // initialise new registry
+        for (keys in old_registry) {                                                        // for all the accounts in your old registry save
+            if (keys != "admin" && keys != "pugface" && keys != "dev") {                    // strip the old default accounts
+                new_registry[keys] = old_registry[keys];                                    // add any other account
+            }
         }
-    } else {
-        // not set eixsir he hehhe hehe hehe i h he heheh  ehe e
-        debubg("[WORBLE] worble status is not saved. creating.");
-        localStorage.setItem("worble_status", 'false');
+        localStorage.setItem("accounts", JSON.stringify(new_registry));                     // set it as the new registry
     }
-    if(blind) {
-        // exists
-        debubg("[WORBLE] worble colourblind mode is saved. continuing.");
-        if (blind == "true") {
-            worble_colourblind = true;
-        } else {
-            worble_colourblind = false;
-        }
-        worbleColourUpdate();
-    } else {
-        // not set eixsir he hehhe hehe hehe i h he heheh  ehe e
-        debubg("[WORBLE] worble colourblind mode is not saved. creating."); 
-        localStorage.setItem("worble_colourblind", 'false');
-    }
-    if(guesses) {
-        // exists
-        debubg("[WORBLE] worble guess count is saved. continuing.");
-    } else {
-        // not set eixsir he hehhe hehe hehe i h he heheh  ehe e
-        debubg("[WORBLE] worble guess count is not saved. creating."); 
-        localStorage.setItem("worble_guesscount", 0);
-    }
+});
 
-    if(stats_guesses) {
-        // exists
-        debubg("[WORBLE] worble stats guesses is saved. continuing.");
-        worble_stats_guesses = JSON.parse(stats_guesses)["guesses"];
-    } else {
-        // not set eixsir he hehhe hehe hehe i h he heheh  ehe e
-        debubg("[WORBLE] worble stats guesses is not saved. creating."); 
-        localStorage.setItem("worble_stats_guesses", '');
-    }
 
-    if(stats_restarts) {
-        // exists
-        debubg("[WORBLE] worble stats restarts is saved. continuing.");
-        worble_stats_restarts = parseInt(stats_restarts);
-    } else {
-        // not set eixsir he hehhe hehe hehe i h he heheh  ehe e
-        debubg("[WORBLE] worble stats restarts is not saved. creating."); 
-        localStorage.setItem("worble_stats_restarts", '');
-    }
-
-    if(stats_currentstreak) {
-        // exists
-        debubg("[WORBLE] worble stats current streak is saved. continuing.");
-        worble_stats_currentstreak = parseInt(stats_currentstreak);
-    } else {
-        // not set eixsir he hehhe hehe hehe i h he heheh  ehe e
-        debubg("[WORBLE] worble stats current streak is not saved. creating."); 
-        localStorage.setItem("worble_stats_currentstreak", 0);
-    }
-
-    if(stats_biggeststreak) {
-        // exists
-        debubg("[WORBLE] worble stats biggest streak is saved. continuing.");
-        worble_stats_biggeststreak = parseInt(stats_biggeststreak);
-    } else {
-        // not set eixsir he hehhe hehe hehe i h he heheh  ehe e
-        debubg("[WORBLE] worble stats biggest streak is not saved. creating."); 
-        localStorage.setItem("worble_stats_biggeststreak", 0);
-    }
-
-    if(word_id) {
-        // exists
-        debubg("[WORBLE] worble stats biggest streak is saved. continuing.");
-        worble_word_id = parseInt(word_id);
-    } else {
-        // not set eixsir he hehhe hehe hehe i h he heheh  ehe e
-        debubg("[WORBLE] worble stats biggest streak is not saved. creating."); 
-        localStorage.setItem("worble_word_id", 0);
-    }
+textcolour = local_storage("text-colour", "#7cfc00");                   // colour localstorage
+backcolour = local_storage("back-colour", "#000000");
+accycolour = local_storage("accy-colour", "#1e1e1e");
+og_textcolour = textcolour;
+og_backcolour = backcolour;
+og_accycolour = accycolour;
+local_storage("startup", "true", function jeremy(){                     //startup sequence only happens on a freshly cleared cache
+    debubg("cache is not freshly reset, skipping startup sequence.");
+}, function candice(){
+    inputlock = true;
+    debubg("cache is freshly reset, running startup sequence");
+    startup = true;
+});
+accountsregistry = local_storage("accounts", JSON.stringify({"pugs": "hello"}));
+user = local_storage("currentaccount", "user");
+local_storage("worble_save", "", function robert(){
+    worble_save = loadWorble();   // when there is an existing local save it'll automatically load it (fancy)
+});
+worble_word = local_storage("worble_word", "");
+worble_staus = local_storage("worble_status", "false");
+if (worble_status == "false") {
+    worble_status = false;
+} else {
+    worble_status = true;
 }
+worble_colourblind = local_storage("worble_colourblind", "false");
+if (worble_colourblind == "false") {
+    worble_colourblind = false;
+} else {
+    worble_colourblind = true;
+}
+local_storage("worble_guesscount", 0);
+worble_stats_guesses = local_storage("worble_stats_guesses", '{"guesses": [0]}');
+if (worble_stats_guesses != "") {
+    worble_stats_guesses = JSON.parse(worble_stats_guesses)["guesses"];
+}
+console.log(worble_stats_guesses);
+worble_stats_currentstreak = local_storage("worble_stats_currentstreak", 0);
+worble_stats_currentstreak = parseInt(worble_stats_currentstreak);
+worble_stats_biggeststreak = local_storage("worble_stats_biggeststreak", 0);
+worble_stats_biggeststreak = parseInt(worble_stats_biggeststreak);
+worble_stats_restarts = local_storage("worble_stats_restarts", 0);
+worble_stats_restarts = parseInt(worble_stats_restarts);
+worble_word_id = local_storage("worble_word_id", 0);
+worble_word_id = parseInt(worble_word_id);
+custom_themes = JSON.parse(local_storage("themes", JSON.stringify(custom_themes)));
 
+
+/*
 function themeInit() {
     var themey = localStorage.getItem("themes");
 
@@ -422,15 +312,15 @@ function themeInit() {
     }
 }
 
+*/
+
 function fixDevExploit() {
     var deed = localStorage.getItem("dev-exploit");
-
     // for context, in the github version of this site, there is a file called devtools.js, which automatically sets your user to dev (because why not)
     // and so, i once accidentally pushed it to the official site, and so everyone who had loaded the site, had gotted the dev user
     // i dont want to have it reset your user every single time, so i thought of this:
     // i make a new local storage variable, where if that local storage variable is not equal to 1, it'll set your user to user, and then set that vatiable to 1
     // so that way it'll only reset your user once!
-
     if (deed) {
         if (deed != 1) {                        // if the variable is not 1
             setUser("user");                    // set user to user
@@ -444,17 +334,7 @@ function fixDevExploit() {
 
 
 fixDevExploit();
-themeInit();
-worbleInit();
-doStart();
 getCommentIter();
-accountRegistry();
-textcolour = getTextColour();
-backcolour = getBackColour();
-accycolour = getAccyColour();
-og_textcolour = textcolour;
-og_backcolour = backcolour;
-og_accycolour = accycolour;
 
 debubg("local storage init finished.");
 
@@ -2453,7 +2333,13 @@ function saveWorbleStats(restarted) {
     debubg(`[WORBLE STATS]: stats are being saved...`);
     if (worble_guesscount != 0) {
         worble_stats_games += 1;
-        worble_stats_guesses.push(worble_guesscount);
+        if (worble_stats_guesses == "" || worble_stats_guesses == undefined || worble_stats_guesses == null) {
+            worble_stats_guesses["guesses"] = new Array();
+            worble_stats_guesses["guesses"].push(worble_guesscount);
+        } else {
+            worble_stats_guesses.push(worble_guesscount);
+        }
+        
         worble_stats_currentstreak += 1;
         if (worble_stats_currentstreak > worble_stats_biggeststreak) {
             worble_stats_biggeststreak = worble_stats_currentstreak * 1;
