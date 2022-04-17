@@ -13,11 +13,9 @@ function playMusic(internal_name) {
 
         
         
-        try {
-            music.src = `${url}`;
-        } catch (error) {
-            song_err = true;
-        }
+        
+        music.src = `${url}`;
+        
         
         if (song_err == false) {
             music.currentTime = 0;

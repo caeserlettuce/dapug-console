@@ -3528,9 +3528,6 @@ music.addEventListener('play', (event) => {
     }
 });
 
-music.addEventListener('error', function heehee() {
-    song_err = true;
-});
 
 window.onresize = sizeCheck;
 

@@ -1043,6 +1043,11 @@ function parseCommand(command) {
                 displayNewline();
                 var song_lyrics = songs[songname]["lyrics"];
 
+
+                //var jeremy = new Audio(songs[songname]["audio"])
+
+
+
                 playMusic(songname);
                 if (song_err == false) {
                     setSongInfo(`${songname}`);
