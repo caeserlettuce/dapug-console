@@ -50,8 +50,14 @@ strong {
   margin-left: 10px;
   width: 96vw;
   z-index: 15;
-  caret-color: transparent;
+  /*caret-color: transparent;*/
 }
+
+
+pre {
+  margin: 0px;
+}
+
 
 /*
 .textcaret {

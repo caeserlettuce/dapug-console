@@ -44,7 +44,7 @@ function parseCommand(command) {
     } else if (command == "help" || command == "help ") {
         displayAnim(`\n${help["main"]}`, 0.25);
     } else if (argCommand == "help") {
-        var page =  command.slice(5)
+        var page = command.slice(5)
         //page.slice(0, -5);
         
         if (help[page]) {
@@ -976,11 +976,23 @@ function parseCommand(command) {
 
                 displayAnim("\n");
                 var song_lyrics = songs[songname]["lyrics"];
-                setSongInfo(`${songname}`);
+
+
+                //var jeremy = new Audio(songs[songname]["audio"])
+
+
+
+                playMusic(songname);
+                if (song_err == false) {
+                    setSongInfo(`${songname}`);
+                }
+                
+
                 document.getElementById("songinfo").style.display = "";
                 
                 
-                playMusic(songname);
+
+
                 if (song_err == true) {
                     debubg("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa");
                 }
