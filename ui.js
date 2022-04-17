@@ -1934,7 +1934,7 @@ var snakemenu = [
 ];
 
 
-var apertureLogo = [
+var apertureLogo = [ " ",
     "              .,-:;//;:=,",
     "         . :H@@@MM@M#H/.,+%;,",
     "      ,/X+ +M@@M@MM%=,-%HMMM@X/,",
@@ -1957,7 +1957,7 @@ var apertureLogo = [
     "               =++%%%%+/:-."
 ];
 
-var cake = [
+var cake = [ " ",
     "    ,:/+/-",
     "    /M/              .,-=;//;-",
     ".:/= ;MH/,    ,=/+%$XH@MM#@:",
@@ -1980,7 +1980,7 @@ var cake = [
     "      ,.:=-."
 ];
 
-var amogus = [
+var amogus = [ " ",
 "                   .%MMMMMMMMMMM%.",
 "               .%MMMMMMMMMMMMMMMMMM%.",
 "              %MM%'            '%MMMM%.",
@@ -2028,7 +2028,7 @@ var lovejoy = [
 "                           ''    '%MMM%'",
 ];
 
-var cheese = [
+var cheese = [ " ",
 "          ..::MMMMMMMMMMMMMMMMMM..",
 "     .:MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM.",
 "   .MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM.",
@@ -2047,7 +2047,7 @@ var cheese = [
 "                    :HHHHHHHHHH''"
 ];
 
-var pebblebrain = [
+var pebblebrain = [ " ",
     `..........................................................`,
     `..........................................................`,
     `................................................,,........`,
@@ -2080,7 +2080,7 @@ var pebblebrain = [
 
 ]
 
-var benson = [
+var benson = [ " ",
 "      .,MMMMMMMM,.",
 "    .MMMMMMMMMMMMMMM.",
 "   %MMMMMMMMMMMMMMMMMM.",
@@ -2320,7 +2320,7 @@ clear -cache    | clears site cache (all saved data)
 }
 
 
-var hlepart = [
+var hlepart = [ " ",
     "ART HELP PAGE",
     "aperture",
     "cake",
@@ -2331,7 +2331,7 @@ var hlepart = [
     "benson",
 ];
 
-var hlepdev = [
+var hlepdev = [" ",
     "HELP DEV PAGE",
     "test | my initial test command to test things haehhahhe",
     "debug | toggles a little fancy debig window",
@@ -2340,7 +2340,7 @@ var hlepdev = [
     "cinfo | returns the integer value of a character"
 ];
 
-var cpoylist = [
+var cpoylist = [ " ",
     "[THIS LIST IS NOW OUTDATED]",
     "help",
     "ascii",
@@ -2689,7 +2689,7 @@ var man = {
 }
 
 
-var listy = [
+var listy = [ " ",
     "info",
     "eef",
     "echo",
@@ -2787,12 +2787,12 @@ var listy = [
     "* command is currently in-development and may break the site."
 ]; 
 
-var fomb = [
+var fomb = [ " ",
     "default / def / d",
     "slant / sla / s",
 ];
 
-var convertlist = [
+var convertlist = [ " ",
     "UNIT CONVERSION LIST",
     "entries on the left is the unit abbreviation you use in the command",
     "entries on the right are the full unit names (for convenience)",
