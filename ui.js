@@ -3376,7 +3376,7 @@ var worble_words = [
 
 var worble_awful_words = [
     "neil cicierega aka lemon demon",
-    "the fitness gram pacer test is a multi stage aerobic capacity test that progressively gets more difficult as it continues. ",
+    "the fitness gram pacer test is a multi stage aerobic capacity test that progressively gets more difficult as it continues.",
     "hello world i guess"
 ]
 
@@ -4618,6 +4618,165 @@ function updateLyrics() {       // this will be called every time the song is pl
                 {"text": "\nI guess it all depends on your point of view.", "dur": [146192, 148809]},
                 {"text": " It's true", "dur": [149042, 150671]}
             ]
+        },
+        "your imaginary friend": {
+            "name": "Your Imaginary Friend",
+            "artist": "Lemon Demon",
+            "album": "Dinosaurchestra",
+            "art": "https://media.discordapp.net/attachments/960729059829096580/964394351188922408/dinosaurchestra.jpg?width=655&height=655",
+            "audio": "https://cdn.discordapp.com/attachments/960729059829096580/964403332208791572/Lemon_Demon_-_Your_Imaginary_Friend.mp3",
+            "volume": 1,
+            "lyrics": [
+                {"text": "\nSimple and small", "dur": [19690, 22095]},
+                {"text": "\nAlmost alone", "dur": [22745, 25160]},
+                {"text": "\nCurled up in a ball", "dur": [25432, 28089]},
+                {"text": "\nWith a tin can phone", "dur": [28147, 31251]},
+                {"text": "\nTied to a twist", "dur": [31814, 34258]},
+                {"text": "\nLeading outside", "dur": [34956, 37265]},
+                {"text": "\nAnd into the mist", "dur": [37643, 40291]},
+                {"text": "\nWhere the shadows hide", "dur": [40320, 43249]},
+                {"text": "\n\nMaybe when you're gone", "dur": [44142, 46605]},
+                {"text": "\n(Maybe when you're gone)", "dur": [45645, 48283]},
+                {"text": "\nWe'll gladly take your place", "dur": [48283, 51164]},
+                {"text": "\nYou're so nicely drawn", "dur": [51746, 54103]},
+                {"text": "\n(You're so nicely drawn)", "dur": [53259, 55887]},
+                {"text": "\nWe like your face,", "dur": [55887, 57507]},
+                {"text": " and", "dur": [57507, 57837]},
+                {"text": "\n\nWe want to be", "dur": [57837, 60087]},
+                {"text": " your imaginary friend", "dur": [60087, 63123]},
+                {"text": "\nWant to be", "dur": [63123, 64510]},
+                {"text": " your imaginary friend", "dur": [64588, 67643]},
+                {"text": "\n\nWhen you were young", "dur": [69990, 72211]},
+                {"text": "\nYou knew us well", "dur": [73026, 75286]},
+                {"text": "\nThe cat had your tongue", "dur": [75655, 78206]},
+                {"text": "\nSo you could not yell", "dur": [78303, 81338]},
+                {"text": "\nWhen you were cross", "dur": [82105, 84694]},
+                {"text": "\nAll you could do", "dur": [85160, 87420]},
+                {"text": "\nWas call it a loss", "dur": [87730, 90330]},
+                {"text": "\nThough this was not true", "dur": [90465, 93521]},
+                {"text": "\nWe've since disappeared", "dur": [94239, 96644]},
+                {"text": "\nThat is, until tonight", "dur": [99195, 101862]},
+                {"text": "\nWhen you turn out the light", "dur": [102240, 104927]},
+                {"text": "\nAnd everything stands still", "dur": [106237, 109166]},
+                {"text": "\nThe wind's direction shifts", "dur": [111348, 114161]},
+                {"text": "\nAnd makes the curtains lift", "dur": [114452, 117129]},
+                {"text": "\nAnd you see us on the sill", "dur": [118293, 120989]},
+                {"text": "\n\nEvery word", "dur": [156541, 157707]},
+                {"text": " that you've learned", "dur": [158038, 159271]},
+                {"text": "\nEvery wish", "dur": [159583, 160830]},
+                {"text": " that you've burned", "dur": [161110, 162342]},
+                {"text": "\nEvery single strand of hair", "dur": [162622, 165367]},
+                {"text": " in your head", "dur": [165661, 166813]},
+                {"text": "\nEvery book", "dur": [167180, 168239]},
+                {"text": " that you've read", "dur": [168699, 169845]},
+                {"text": "\nWe love you this much!", "dur": [169845, 172011]},
+                {"text": "\n\nWe want to be", "dur": [172011, 174016]},
+                {"text": " your imaginary friend", "dur": [174016, 176668]},
+                {"text": "\nWant to be", "dur": [177061, 178214]},
+                {"text": " your imaginary", "dur": [178547, 182485]}
+            ]
+        },
+        "archaeopteryx": {
+            "name": "Archaeopteryx", // ADD THE DISCORD LINK INTO IT INSTEAD OF THE DONT PUSH LINK!!!
+            "artist": "Lemon Demon",
+            "album": "Dinosaurchestra",
+            "art": "https://media.discordapp.net/attachments/960729059829096580/964394351188922408/dinosaurchestra.jpg?width=655&height=655",
+            "audio": "DONT_PUSH/Lemon Demon - Archaeopteryx.mp3",
+            "volume": 1,
+            "lyrics": [
+                {"text": "\nSaw him in a book of fossils", "dur": [30017, 34807]},
+                {"text": "\nDancing with some old Apostles", "dur": [35180, 39857]},
+                {"text": "\nI think if I went back in time", "dur": [40375, 44216]},
+                {"text": "\nHe'd be there alive", "dur": [44863, 47442]},
+                {"text": "\nRoot of all my jealousy", "dur": [49794, 52427]},
+                {"text": "\n\nGrounded in my devastation", "dur": [59170, 63195]},
+                {"text": "\nI can't get no aviation", "dur": [64442, 68819]},
+                {"text": "\nUp in the sky, his grandchildren fly", "dur": [69611, 74036]},
+                {"text": "\nI don't sing, I sigh", "dur": [74036, 76385]},
+                {"text": "\n\nTell the archaeopteryx", "dur": [79055, 82432]},
+                {"text": "\nThat I never wanted this", "dur": [83177, 86597]},
+                {"text": "\nFeatherhead metropolis", "dur": [87353, 90169]},
+                {"text": "\nLiar,", "dur": [90514, 91571]},
+                {"text": " liar,", "dur": [91571, 92542]},
+                {"text": " wings on fire!", "dur": [92542, 96222]},
+                {"text": "\n\nWhen It's fast approaching winter", "dur": [113470, 118112]},
+                {"text": "\nAnd I eat my turkey dinner", "dur": [118724, 123289]},
+                {"text": "\nTickles of hate, they rattle my cage", "dur": [123901, 128063]},
+                {"text": "\nAnd evolve to rage", "dur": [128274, 131263]},
+                {"text": "\nThis is when I make a choice", "dur": [133263, 136417]},
+                {"text": "\n\nI will build a time contraption", "dur": [142629, 146888]},
+                {"text": "\nI will start a chain reaction", "dur": [147830, 152654]},
+                {"text": "\nKnow what I think I'm going to do?", "dur": [153077, 157313]},
+                {"text": "\nI am going to", "dur": [157313, 159972]},
+                {"text": "\n\nTell the archaeopteryx", "dur": [162467, 165879]},
+                {"text": "\nThat I never wanted this", "dur": [166608, 169903]},
+                {"text": "\nFeatherhead metropolis", "dur": [170915, 173880]},
+                {"text": "\nLiar,", "dur": [174001, 175011]},
+                {"text": " liar,", "dur": [175011, 176139]},
+                {"text": " wings on fire!", "dur": [176139, 179151]},
+                {"text": "\n\nNow the clock ticks", "dur": [180234, 184893]},
+                {"text": "\nAnd I hope this will fix", "dur": [184987, 190023]},
+                {"text": "\nAll the present bird tricks", "dur": [190023, 195671]},
+                {"text": "\nFarewell, Mr. Archaeopteryx", "dur": [195906, 201177]},
+                {"text": "\n\nTell the archaeopteryx", "dur": [270026, 273387]},
+                {"text": "\nThat I never wanted this", "dur": [274111, 277559]},
+                {"text": "\nFeatherhead metropolis", "dur": [278254, 281587]},
+                {"text": "\nLiar,", "dur": [281587, 282473]},
+                {"text": " liar,", "dur": [282502, 283516]},
+                {"text": " wings on fire!", "dur": [283516, 287109]}
+            ]
+        },
+        "sweet bod bonus track": {
+            "name": "Sweet Bod (Bonus Track)",
+            "artist": "Lemon Demon",
+            "album": "Spirit Phone",
+            "art": "https://media.discordapp.net/attachments/960729059829096580/960838302561353738/spiritphone.png?width=655&height=655",
+            "audio": "DONT_PUSH/Lemon Demon - Sweet Bod (Bonus Track).mp3",
+            "volume": 1,
+            "lyrics": [
+                {"text": "\nYour body is so sweet now,", "dur": [27388, 29900]},
+                {"text": " I'm saying trick or treat now", "dur": [30472, 33744]},
+                {"text": "\nYou know I've got to have you,", "dur": [34019, 36072]},
+                {"text": " you sexy sweet cadaver", "dur": [37019, 40018]},
+                {"text": "\nAll wrapped up like a mummy,", "dur": [40675, 42953]},
+                {"text": " I'll bury you in honey", "dur": [43740, 46852]},
+                {"text": "\nAnd wait a hundred years or so", "dur": [47293, 49814]},    // oh oh oh oh
+                {"text": "\n(Oh oh oh oh oh)", "dur": [49437, 51184]},
+                {"text": "\nYou know,", "dur": [51183, 52036]},
+                {"text": " you know", "dur": [52036, 52758]},
+                {"text": " it isnt sexual", "dur": [52758, 54558]},
+                {"text": "\nStrictly confectional", "dur": [55973, 57829]},
+                {"text": "\nStrictly medicinal", "dur": [59264, 61110]},
+                {"text": "\nIf a little nontraditional", "dur": [61954, 65001]},
+                {"text": "\n\nI'm digging up your coffin", "dur": [74525, 76465]},
+                {"text": " and pouring out the contents", "dur": [77871, 79756]},
+                {"text": "\nYour sexy sweet solution", "dur": [81171, 83936]},
+                {"text": " is prime for distribution", "dur": [84490, 86533]},
+                {"text": "\nSweet bod", "dur": [87002, 88258]},
+                {"text": "\n\nYour body's starting rumours", "dur": [101916, 104376]},
+                {"text": " of Mason jars of sweetness", "dur": [105034, 108301]},
+                {"text": "\nWhose satisfied conumers", "dur": [108507, 110812]},
+                {"text": " have often claimed to witness", "dur": [111540, 114944]},
+                {"text": "\nSome sexy shrinking tumours,", "dur": [114765, 117634]},
+                {"text": " a sweet return to fitness", "dur": [118237, 121573]},
+                {"text": "\nThey're just a hundred bucks or so", "dur": [121751, 124221]},  // oh oh oh oh 
+                {"text": "\n(Oh oh oh oh oh)", "dur": [123974, 125675]},
+                {"text": "\nYou know,", "dur": [125704, 126280]},
+                {"text": " you know", "dur": [126280, 127117]},
+                {"text": " it isnt sexual", "dur": [127117, 129052]},
+                {"text": "\nStrictly professional", "dur": [130411, 132758]},
+                {"text": "\nEntreprenurial", "dur": [133746, 135654]},
+                {"text": "\nAnd what a sweet memorial", "dur": [136628, 139469]},
+                {"text": "\n\nI'm digging up your coffin", "dur": [213596, 215257]},
+                {"text": " and pouring out the contents", "dur": [216876, 218962]},
+                {"text": "\nAnd I'm so glad to see you", "dur": [220266, 222270]},          // oh oh ohoh
+                {"text": "\n(Oh oh oh oh oh)", "dur": [221455, 223401]},
+                {"text": "\nWon't you be my panacea?", "dur": [223341, 225633]},
+                {"text": "\nSweet bod,", "dur": [226607, 228007]},
+                {"text": " sweet bod,", "dur": [229764, 233167]},
+                {"text": " sweet bod", "dur": [233167, 234732]},
+                {"text": "\nSweet bod", "dur": [239343, 240524]}
+            ]
         }
     }
 }
@@ -4625,6 +4784,16 @@ function updateLyrics() {       // this will be called every time the song is pl
 updateLyrics();
 
 // spirit phone: https://media.discordapp.net/attachments/960729059829096580/960838302561353738/spiritphone.png?width=655&height=655
+
+// https://cdn.discordapp.com/attachments/960729059829096580/964627869861040238/Lemon_Demon_-_Youre_At_The_Party.mp3
+// https://cdn.discordapp.com/attachments/960729059829096580/964627868757917797/Lemon_Demon_-_Redesign_Your_Logo.mp3
+// https://cdn.discordapp.com/attachments/960729059829096580/964627868384645140/Lemon_Demon_-_Pizza_Heroes.mp3
+// https://cdn.discordapp.com/attachments/960729059829096580/964627868019753060/Lemon_Demon_-_Moons_Request.mp3
+// https://cdn.discordapp.com/attachments/960729059829096580/964627867579330621/Lemon_Demon_-_Kubrick_and_the_Beast.mp3
+// https://cdn.discordapp.com/attachments/960729059829096580/964627867235393566/Lemon_Demon_-_Gravitron.mp3
+
+
+
 
 // if you just want javascript to run at a specific time without any lyrics, just set "text" to false, without quotes, but still have the times and then ofcourse set "exec" to the javascript you want run
 var HJABJBGASFJHKBGSDLFBJLF = 
@@ -5795,9 +5964,165 @@ var fhsiofhghszg = ` // more easy copy pasting
     "back colour": "#",
     "accy colour": "#"
 },
-
-
 `
+
+
+var tones = {
+    "0": {
+        "sound": "touch tone telephone/0.mp3",
+        "amount": 1
+    },
+    "1": {
+        "sound": "touch tone telephone/1.mp3",
+        "amount": 1
+    },
+    "2": {
+        "sound": "touch tone telephone/2.mp3",
+        "amount": 1
+    },
+    "3": {
+        "sound": "touch tone telephone/3.mp3",
+        "amount": 1
+    },
+    "4": {
+        "sound": "touch tone telephone/4.mp3",
+        "amount": 1
+    },
+    "5": {
+        "sound": "touch tone telephone/5.mp3",
+        "amount": 1
+    },
+    "6": {
+        "sound": "touch tone telephone/6.mp3",
+        "amount": 1
+    },
+    "7": {
+        "sound": "touch tone telephone/7.mp3",
+        "amount": 1
+    },
+    "8": {
+        "sound": "touch tone telephone/8.mp3",
+        "amount": 1
+    },
+    "9": {
+        "sound": "touch tone telephone/9.mp3",
+        "amount": 1
+    },
+    "*": {
+        "sound": "touch tone telephone/star.mp3",
+        "amount": 1
+    },
+    "#": {
+        "sound": "touch tone telephone/pound.mp3",
+        "amount": 1
+    },
+    "a": {
+        "sound": "touch tone telephone/2.mp3",
+        "amount": 1
+    },
+    "b": {
+        "sound": "touch tone telephone/2.mp3",
+        "amount": 2
+    },
+    "c": {
+        "sound": "touch tone telephone/2.mp3",
+        "amount": 3
+    },
+    "d": {
+        "sound": "touch tone telephone/3.mp3",
+        "amount": 1
+    },
+    "e": {
+        "sound": "touch tone telephone/3.mp3",
+        "amount": 2
+    },
+    "f": {
+        "sound": "touch tone telephone/3.mp3",
+        "amount": 3
+    },
+    "g": {
+        "sound": "touch tone telephone/4.mp3",
+        "amount": 1
+    },
+    "h": {
+        "sound": "touch tone telephone/4.mp3",
+        "amount": 2
+    },
+    "i": {
+        "sound": "touch tone telephone/4.mp3",
+        "amount": 3
+    },
+    "j": {
+        "sound": "touch tone telephone/5.mp3",
+        "amount": 1
+    },
+    "k": {
+        "sound": "touch tone telephone/5.mp3",
+        "amount": 2
+    },
+    "l": {
+        "sound": "touch tone telephone/5.mp3",
+        "amount": 3
+    },
+    "m": {
+        "sound": "touch tone telephone/6.mp3",
+        "amount": 1
+    },
+    "n": {
+        "sound": "touch tone telephone/6.mp3",
+        "amount": 2
+    },
+    "o": {
+        "sound": "touch tone telephone/6.mp3",
+        "amount": 3
+    },
+    "p": {
+        "sound": "touch tone telephone/7.mp3",
+        "amount": 1
+    },
+    "q": {
+        "sound": "touch tone telephone/7.mp3",
+        "amount": 2
+    },
+    "r": {
+        "sound": "touch tone telephone/7.mp3",
+        "amount": 3
+    },
+    "s": {
+        "sound": "touch tone telephone/7.mp3",
+        "amount": 4
+    },
+    "t": {
+        "sound": "touch tone telephone/8.mp3",
+        "amount": 1
+    },
+    "u": {
+        "sound": "touch tone telephone/8.mp3",
+        "amount": 2
+    },
+    "v": {
+        "sound": "touch tone telephone/8.mp3",
+        "amount": 3
+    },
+    "w": {
+        "sound": "touch tone telephone/9.mp3",
+        "amount": 1
+    },
+    "x": {
+        "sound": "touch tone telephone/9.mp3",
+        "amount": 2
+    },
+    "y": {
+        "sound": "touch tone telephone/9.mp3",
+        "amount": 3
+    },
+    "z": {
+        "sound": "touch tone telephone/9.mp3",
+        "amount": 4
+    }
+}
+
+
 
 
 //│┴┬├─┤┼┌┐└┘
