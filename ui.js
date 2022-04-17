@@ -2220,8 +2220,8 @@ USERS HELP PAGE
 below are commands to use for logging in/out of users
 (note: accounts are not actual online accounts)
 
-login       | type login, your username, and your password, and log into your account!
-signup      | type signup, a username, and a password, and then you have made a new account!
+login       | type login, your username, and log into your account!
+signup      | type signup, a username, and then you have made a new account!
 logout      | log out to the generic user
 `,
     "visuals": `
@@ -2408,10 +2408,10 @@ var man = {
         "LOGIN MANPAPGE:",
         "logs you into another user on the system",
         "USAGE:",
-        "'login [username] [password]'",
+        "'login [username]'",
         " ",
         "EXAMPLE:",
-        "login admin password"
+        "login admin"
     ],
     "colour": [
         "COLOUR MANPAPGE:",

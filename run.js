@@ -56,87 +56,68 @@ function parseCommand(command) {
 
 
     } else if (argCommand == "login") {
-
         var mmm = argComm(commandInit);
-        var ooo = argComm(commandInit);
-
-        var rawaccountregistry = `{${localStorage.getItem("accounts")}}`;
-
-        //debubg(rawaccountregistry);
-
+        accountsregistry = JSON.parse(localStorage.getItem("accounts"));
         var inusername = mmm[1];
-        ooo.splice(0,2);
-
-        var accountregistry = JSON.parse(rawaccountregistry);
-
-        //debubg(accountregistry);
-
-        debubg(`attempting to log in using username '${inusername}' and password '${ooo}'.`);
-
-        var locked_accounts = [
-            "dev",
-            "caeserlettuce",
-            "18gallons"
-        ]
-
-        if (locked_accounts.indexOf(inusername) > -1) {
-            displayAnim("\nsorry, that account cannot be logged into.", 10);
-        } else if (accountregistry[inusername] != undefined) {    // if account name exists in registry
-            debubg("username found in registry. continuing.");
-
-            var realpassword = accountregistry[inusername];
-            //debubg(`password to account is ${realpassword}`);
-
-            if (ooo == realpassword) {
-                // password success
-                debubg("password succesful password tm tm");
-                displayAnim(`\nlogged into ${inusername}.`, 10);
-                setUser(inusername);
-            } else {
-                debubg("hah you tried but the password was incorrect lmao")
-                displayAnim("\npassword incorrect.", 10);
-            }
-
-        } else {
-            displayAnim("\ninvalid username. use 'signup' to sign up with a new account.", 10);
+        login_username = inusername;
+        debubg(`attempting to log in using username '${inusername}'`);
+        if (locked_accounts.indexOf(inusername) > -1) { // it's a locked account
+            displayAnim("\nsorry, that account cannot be logged into.", 7);    // youtuber apology video
+        } else if (accountsregistry[inusername]) {           // if it's in the custom account registry
+            displayAnim(`\nplease type in the password for user '${inusername}'`);
+            askInput(() => {
+                var realpassword = accountsregistry[login_username];
+                if (ask_return == realpassword) {  // if it's the password
+                    debubg("password succesful password tm tm");
+                    displayAnim(`\nsuccessfully logged into '${login_username}'`, 10);
+                    setUser(login_username);
+                } else {    // else
+                    debubg("hah you tried but the password was incorrect lmao")
+                    displayAnim("\npassword incorrect.", 10);
+                }
+            });
+        } else if (default_accounts[inusername]) {              // if it's in default account registry
+            displayAnim(`\nplease type in the password for user '${inusername}'`);
+            askInput(() => {
+                var realpassword = default_accounts[login_username];
+                if (ask_return == realpassword) {  // if it's the password
+                    debubg("password succesful password tm tm");
+                    displayAnim(`\nsuccessfully logged into '${login_username}'`, 10);
+                    setUser(login_username);
+                } else {    // else
+                    debubg("hah you tried but the password was incorrect lmao")
+                    displayAnim("\npassword incorrect.", 10);
+                }
+            });
+        } else {                    // it literally just does not exist
+            displayAnim("\nthat account does not exist! use 'signup' to sign up with a new account!", 7);
         }
-
-
-
-
     } else if (argCommand == "signup") {
         // sign up
         var mmm = argComm(commandInit);
-        var ooo = argComm(commandInit);
-
-        let rawaccountregistry = localStorage.getItem("accounts");        
-
+        accountsregistry = JSON.parse(localStorage.getItem("accounts"));
         var inusername = mmm[1];
-        ooo.splice(0,2);
+        signup_username = inusername;
 
-        debubg(rawaccountregistry);
+        if (locked_accounts.indexOf(inusername) > -1) { // it's a locked account
+            displayAnim("\nsorry, that account is locked.", 7);    // youtuber apology video
+        } else if (accountsregistry[inusername]) {           // if it's in the custom account registry
+            displayAnim(`\nsorry, that account already exists. use 'login ${inusername}' to log into that account.`);
+        } else if (default_accounts[inusername]) {              // if it's in default account registry
+            displayAnim(`\nsorry, that account already exists. use 'login ${inusername}' to log into that account.`);
+        } else {                    // it literally just does not exist
+            displayAnim(`\nplease type in a password for new user '${inusername}'`);
+            askInput(() => {
+                
+                accountsregistry[signup_username] = ask_return;
 
-        var accountregistry = JSON.parse(`{${rawaccountregistry}}`);
+                localStorage.setItem("accounts", JSON.stringify(accountsregistry));
 
-        if (accountregistry[inusername] != undefined) {    // if account name exists in registry (agaim)
-            displayAnim("\nuser already exists in registry.", 10);
-        } else if (inusername == undefined || inusername == "" || inusername == null ) {
-
-            displayAnim("\nplease select a username!");
-
-        } else {
-            // yes
-            debubg("user does not exist in registry!!!! making!!!! tm!!!!");
-            let newRegistry = `${rawaccountregistry}, "${inusername}": "${ooo}"`;
-            localStorage.setItem("accounts", newRegistry);
-            setUser(inusername);
-            displayAnim(`\ncreated new account '${inusername}'.`);
-
+                displayAnim(`\nsuccessfully signed up and logged in as '${signup_username}'`, 10);
+                setUser(signup_username);
+            });
         }
-    }
-    
-    
-    else if (commandInit == "oh") {
+    } else if (commandInit == "oh") {
         displayAnim("\noh...", 20);
     } else if (commandInit == "OH") {
         displayAnim("\noH.............................................................................................................................................................................................................................................................", 20);
