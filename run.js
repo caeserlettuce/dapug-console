@@ -976,11 +976,23 @@ function parseCommand(command) {
 
                 displayAnim("\n");
                 var song_lyrics = songs[songname]["lyrics"];
-                setSongInfo(`${songname}`);
+
+
+                //var jeremy = new Audio(songs[songname]["audio"])
+
+
+
+                playMusic(songname);
+                if (song_err == false) {
+                    setSongInfo(`${songname}`);
+                }
+                
+
                 document.getElementById("songinfo").style.display = "";
                 
                 
-                playMusic(songname);
+
+
                 if (song_err == true) {
                     debubg("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa");
                 }
