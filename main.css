@@ -279,7 +279,7 @@ pre {
 .text-size-guide {
   position: absolute;
   z-index: 9000;
-  top: -20px;
-  left: -20px;
+  top: -200px;
+  left: -200px;
   margin: 0px;
 }

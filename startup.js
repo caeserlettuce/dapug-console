@@ -16,7 +16,11 @@ async function startBoot() {
     inputlock = false;
     debubg("input lock false.");
     localStorage.setItem("startup", true);
-
+    if (autocommand_wait == true) {
+        commang.push(`${pr_command}`);
+        displayUser(`${pr_command}`, "auto");
+        parseCommand(`${pr_command}`);
+    }
 }
 
 

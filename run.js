@@ -977,10 +977,7 @@ function parseCommand(command) {
                 displayAnim("\n");
                 var song_lyrics = songs[songname]["lyrics"];
 
-
-                //var jeremy = new Audio(songs[songname]["audio"])
-
-
+            
 
                 playMusic(songname);
                 if (song_err == false) {
