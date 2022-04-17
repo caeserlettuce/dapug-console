@@ -47,7 +47,7 @@ function parseCommand(command) {
     } else if (command == "help" || command == "help ") {
         displayAnim(`\n${help["main"]}`, 0.25);
     } else if (argCommand == "help") {
-        var page =  command.slice(5)
+        var page = command.slice(5)
         //page.slice(0, -5);
         
         if (help[page]) {

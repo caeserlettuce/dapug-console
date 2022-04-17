@@ -152,9 +152,6 @@ var autoscroll_buffer = 300;    // how many pixels up you have to scroll before 
 var cursor_pos = [0, 0];
 var cursor_hide_timer;
 var song_err = false;
-var caret_type = 1;
-
-
 debubg("variable init finished...");
 // local storage setup
 
@@ -791,7 +788,6 @@ function sizeCheck() {
         document.getElementById("regtext").style.fontSize = `${aspectratio * sizemod}vh`;
         document.getElementById("consoleinputstyle").style.fontSize = `${1.25 * aspectratio * sizemod}vh`;
         document.getElementById("consoleinput").style.fontSize = `${1.25 * aspectratio * sizemod}vh`;
-        document.getElementById("inputcursor").style.fontSize = `${1.25 * aspectratio * sizemod}vh`;
         document.getElementById("consy-height").innerHTML = `.consy { height: ${ windowHeight - ( document.getElementById("consoleinput").clientHeight + 35)}px; }`;
     } else if (windowWidth < windowHeight) {
         // if on portrait
@@ -801,9 +797,9 @@ function sizeCheck() {
         document.getElementById("regtext").style.fontSize = `${2 * aspectratio * sizemod}vw`;
         document.getElementById("consoleinputstyle").style.fontSize = `${2.25 * aspectratio * sizemod}vw`;
         document.getElementById("consoleinput").style.fontSize = `${2.25 * aspectratio * sizemod}vw`;
-        document.getElementById("inputcursor").style.fontSize = `${2.25 * aspectratio * sizemod}vw`;
         document.getElementById("consy-height").innerHTML = `.consy { height: ${ windowHeight - ( document.getElementById("consoleinput").clientHeight + 35)}px; }`;
     }
+
     debubg(orientation);
 
 
@@ -854,28 +850,6 @@ debubg("text scaling init finished...");
 //                           .MM %MM%.      IMM:    :MMI  MM             MM     MM    'MM.MM MM.     'MM                   
 //                   %MM%. .%MM% '%MMMMMMM :MM%      %MM: MM........ mmmmMMmmmm MM     'MMMM %MM%. .%MM%                   
 //                   '%MMMMMMM%'  '%MMMMMM :MM:      :MM: +MMMMMMMM% MMMMMMMMMM +M      'MM+ '%MMMMMMM%'                   
-
-
-
-
-
-
-
-
-
-
-
-function updateCaret() {
-    var caret = document.getElementById("inputcursor");
-    if (caret.clientWidth <= windowWidth) {
-        debubg("Hee Hee!");
-    } else {
-        debubg("no");
-    }
-}
-
-
-
 
 
 
@@ -3440,80 +3414,81 @@ setColour(textcolour, true, backcolour, true, accycolour, true);
 //
 //
 
-var elem = document.getElementById("consoleinput");
-    elem.onkeyup = function keyParse(e){
-        if (inputlock == false) {
-            if (starlock == false) {
-                if(e.keyCode == 13) {
-                    if (elem.value != "") {
-                        if (enterlock == false) {
-                            // stinky old code is gone!!!!
+shell.onkeyup = function keyParse(e){
+    if (inputlock == false) {
+        if (starlock == false) {
+            if(e.keyCode == 13) {
+                if (shell.value != "") {
+                    if (enterlock == false) {
+                        // stinky old code is gone!!!!
 
-                            // *crab rave*
-                            if (listening_input == true) {  // if its listening for a text input
-                                ask_return = elem.value;
-                                ask_do();
-                                listening_input = false;
-                                elem.value = "";
-                            } else {
-                                displayUser(`${elem.value}`, `${user}`);
-                                historyPush();
-                                parseCommand(elem.value);
-                                historyReset();
-                                elem.value = "";
-                                scrolly("consy");
-                            }
-                                
-                            //debubg(consoltext);
-                            //debubg(commang);
+                        // *crab rave*
+                        if (listening_input == true) {  // if its listening for a text input
+                            ask_return = shell.value;
+                            ask_do();
+                            listening_input = false;
+                            shell.value = "";
+                        } else {
+                            displayUser(`${shell.value}`, `${user}`);
+                            historyPush();
+                            parseCommand(shell.value);
+                            historyReset();
+                            shell.value = "";
+                            scrolly("consy");
                         }
-                    }
-                    boom();
-                } else if(e.keyCode == 37) {
-                    if (snakeinputs == true) {
-                        debubg("left arrow detected");
-                    }
-                } else if(e.keyCode == 38) {
-                    if (snakeinputs == true) {
-                        debubg("up arrow detected");
-
-                    } else if (commandhistorylock == false) {
-                        // get out of here old command history code, you stinky
-                        var indexed = historyIndex(1); // index history up by 1
-                        elem.value = `${indexed}`;
-
-                    }
-                    
-                } else if(e.keyCode == 39) {
-                    if (snakeinputs == true) {
-                        debubg("right arrow detected");
-                    }
-                } else if(e.keyCode == 40) {
-                    if (snakeinputs == true) {
-                        debubg("down arrow detected");
-
-                    } else if (commandhistorylock == false) {
-                        // SAME WITH YOU! get outta here you stinky old code!! make room for the new code! just kidding!
-                        // it uses up less space than you! ha!
-                        var indexed = historyIndex(-1); // index history up by 1
-                        elem.value = `${indexed}`;
-
-
-
-
-
-
+                            
+                        //debubg(consoltext);
+                        //debubg(commang);
                     }
                 }
-            } else if (starlock == true) {
-                if(e.keyCode == 27) {
-                    stars_status = false;
+                boom();
+            } else if(e.keyCode == 37) {
+                if (snakeinputs == true) {
+                    debubg("left arrow detected");
+                }
+            } else if(e.keyCode == 38) {
+                if (snakeinputs == true) {
+                    debubg("up arrow detected");
+
+                } else if (commandhistorylock == false) {
+                    // get out of here old command history code, you stinky
+                    var indexed = historyIndex(1); // index history up by 1
+                    shell.value = `${indexed}`;
+
+                }
+                
+            } else if(e.keyCode == 39) {
+                if (snakeinputs == true) {
+                    debubg("right arrow detected");
+                }
+            } else if(e.keyCode == 40) {
+                if (snakeinputs == true) {
+                    debubg("down arrow detected");
+
+                } else if (commandhistorylock == false) {
+                    // SAME WITH YOU! get outta here you stinky old code!! make room for the new code! just kidding!
+                    // it uses up less space than you! ha!
+                    var indexed = historyIndex(-1); // index history up by 1
+                    shell.value = `${indexed}`;
+
+
+
+
+
+
                 }
             }
-    
+        } else if (starlock == true) {
+            if(e.keyCode == 27) {
+                stars_status = false;
+            }
         }
+
     }
-        
+
+    
+}
+
 
 
 music.addEventListener('ended', (event) => {
@@ -3572,5 +3547,6 @@ consol.addEventListener('mousemove', (event) => {
         //debubg("the letter a");
     }, 2000);
 });
+
 
 debubg("listeners added...");
