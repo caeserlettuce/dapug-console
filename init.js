@@ -1,3 +1,18 @@
+//      ____   ___     ____   __  __ ______    __     ____   __        __ ______ ____   _   __ _____  ____   __     ______ 
+//     / __ \ /   |   / __ \ / / / // ____/   / /    / __ \ / /      _/_// ____// __ \ / | / // ___/ / __ \ / /    / ____/
+//    / / / // /| |  / /_/ // / / // / __    / /    / / / // /     _/_/ / /    / / / //  |/ / \__ \ / / / // /    / __/  
+//   / /_/ // ___ | / ____// /_/ // /_/ /_  / /___ / /_/ // /___ _/_/  / /___ / /_/ // /|  / ___/ // /_/ // /___ / /___ 
+//  /_____//_/  |_|/_/     \____/ \____/(_)/_____/ \____//_____//_/    \____/ \____//_/ |_/ /____/ \____//_____//_____/
+//                                                                                                                    
+//
+//  ITS THE DAPUG.LOL CONSOLE!!!!!
+//
+//
+//
+//  yes
+//
+//
+
 function debubg(message) {
     if (debug_time == true) {
         var dat = new Date();
@@ -130,6 +145,15 @@ var star_runtime = 0;
 var star_running = false;
 var starlock = false;
 var starTimers = 0;
+var touchtonetm = true;
+var autoscrolling = false;
+var scroll_bottom = true;
+var autoscroll_buffer = 300;    // how many pixels up you have to scroll before autoscroll turns off
+var cursor_pos = [0, 0];
+var cursor_hide_timer;
+var song_err = false;
+var caret_type = 1;
+
 
 debubg("variable init finished...");
 // local storage setup
@@ -737,10 +761,23 @@ function copyArr(arr) {
 }
 
 debubg("window scale init finished...");
-function scrolly(elf) {
-    mom = document.getElementById(elf);
+
+function scrollDifference(parmesan) {
     //console.log(mom.scrollTop, mom.scrollHeight);
-    mom.scrollTop = mom.scrollHeight;
+    var scrolltop = parmesan.scrollTop;
+    var scoll = scrolltop + vis_consyheight - 10;
+    var diff = parmesan.scrollHeight - scoll;
+    return diff
+}
+
+
+function scrolly(elf, force) {
+    mom = document.getElementById(elf);
+    var diff = scrollDifference(mom);
+    if (diff <= autoscroll_buffer || force == true) {
+        mom.scrollTop = mom.scrollHeight;
+    }
+    // jesse figure it out
 };
 debubg("scrolly init finished...");
 
@@ -754,6 +791,7 @@ function sizeCheck() {
         document.getElementById("regtext").style.fontSize = `${aspectratio * sizemod}vh`;
         document.getElementById("consoleinputstyle").style.fontSize = `${1.25 * aspectratio * sizemod}vh`;
         document.getElementById("consoleinput").style.fontSize = `${1.25 * aspectratio * sizemod}vh`;
+        document.getElementById("inputcursor").style.fontSize = `${1.25 * aspectratio * sizemod}vh`;
         document.getElementById("consy-height").innerHTML = `.consy { height: ${ windowHeight - ( document.getElementById("consoleinput").clientHeight + 35)}px; }`;
     } else if (windowWidth < windowHeight) {
         // if on portrait
@@ -763,6 +801,7 @@ function sizeCheck() {
         document.getElementById("regtext").style.fontSize = `${2 * aspectratio * sizemod}vw`;
         document.getElementById("consoleinputstyle").style.fontSize = `${2.25 * aspectratio * sizemod}vw`;
         document.getElementById("consoleinput").style.fontSize = `${2.25 * aspectratio * sizemod}vw`;
+        document.getElementById("inputcursor").style.fontSize = `${2.25 * aspectratio * sizemod}vw`;
         document.getElementById("consy-height").innerHTML = `.consy { height: ${ windowHeight - ( document.getElementById("consoleinput").clientHeight + 35)}px; }`;
     }
     debubg(orientation);
@@ -817,6 +856,47 @@ debubg("text scaling init finished...");
 //                   '%MMMMMMM%'  '%MMMMMM :MM:      :MM: +MMMMMMMM% MMMMMMMMMM +M      'MM+ '%MMMMMMM%'                   
 
 
+
+
+
+
+
+
+
+
+
+function updateCaret() {
+    var caret = document.getElementById("inputcursor");
+    if (caret.clientWidth <= windowWidth) {
+        debubg("Hee Hee!");
+    } else {
+        debubg("no");
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//  .M.              mmmmmmmmmm +MM.      M+ +MMMMMMM%. MM       MM %MMMMMMMM%              .%MMMMMM MM       MM +MMMMMMM%. .%MMMMMMM%. .%MMMMMMM%. +MMMMMMM%.             .%MMMMMMM%. %MMMMMMMM% MM       MM +MMMMMMMMI +MMMMMMMMI              .M.  
+// .M'M.             MMMMMMMMMM MMMM.     MM MM+'  '+M% MM       MM %MMMMMMMM%             .%MMMMMMM MM       MM MM+'  '+M% %MM%' '%MM% %MM%' '%MM% MM+'  '+M%             %MM%' '%MM% %MMMMMMMM% MM       MM MMMMMMMMMI MMMMMMMMMI             .M'M. 
+// M' 'M                 MM     MM'MM.    MM MM      MM MM       MM     MM                 %MM%'     MM       MM MM      MM MM'         MM'     'MM MM      MM             MM'             MM     MM       MM MM+        MM+                    M' 'M 
+//                       MM     MM 'MM.   MM MM+.  .+M% MM       MM     MM                 MMM'      MM       MM MM+.  .+M% MM%.......  MM       MM MM+.  .+M%             MM%.......      MM     MM       MM MM........ MM........                   
+//                       MM     MM  'MM.  MM MMMMMMMM%' MM       MM     MM                 MMM       MM       MM MMMMMMMM%'  %MMMMMMM%. MM       MM MMMMMMMM%'              %MMMMMMM%.     MM     MM       MM MMMMMMMMMM MMMMMMMMMM                   
+//                       MM     MM   'MM. MM MM         MM       MM     MM                 MMM.      MM       MM MM  'MM.     ''''''%MM MM       MM MM  'MM.                 ''''''%MM     MM     MM       MM MM'''''''' MM''''''''                   
+//                       MM     MM    'MM.MM MM         MM       MM     MM                 %MM%.     MM       MM MM   'MM.          .MM MM.     .MM MM   'MM.                      .MM     MM     MM       MM MM         MM                           
+//                   mmmmMMmmmm MM     'MMMM MM         %MM%   %MM%     MM                 '%MMMMMMM %MM%   %MM% MM    'MM. %MM%. .%MM% %MM%. .%MM% MM    'MM.             %MM%. .%MM%     MM     %MM%   %MM% MM         MM                           
+//                   MMMMMMMMMM +M      'MM+ +M          %MMMMMMM%      MM                  '%MMMMMM  %MMMMMMM%  +M     'MM '%MMMMMMM%' '%MMMMMMM%' +M     'MM             '%MMMMMMM%'     MM      %MMMMMMM%  MM         MM                           
 
 
 
@@ -2653,6 +2733,7 @@ function isUrl(string) {
 }
 
 function setSongInfo(internal_name) {
+    song_err = false;
     var songArt = document.getElementById("song-art");
     var songName = document.getElementById("song-name");
     var songArtist = document.getElementById("song-artist");
@@ -2956,6 +3037,7 @@ function parseStars() {
                 stars_parse[y][x] = `<span id="CON_${key}" style="opacity: ${opacity * 0.01};">${stars_save[key]["t"]}</span>`;
             } catch (err) {
                 debubg("oopy");
+                delete stars_save[key];
             }
             //stars_parse[x]
         }
@@ -3433,7 +3515,6 @@ var elem = document.getElementById("consoleinput");
     }
         
 
-debubg("key input init finished...");
 
 music.addEventListener('ended', (event) => {
     document.getElementById("songinfo").style.display = "none";
@@ -3451,7 +3532,8 @@ music.addEventListener('ended', (event) => {
         document.getElementById("songinfomouse").style.backgroundColor = "#1e1e1e";
         document.getElementById("songinfomouse").style.color = "white";
         document.getElementById("songinfo").style.borderColor = "#1e1e1e";
-        document.getElementById("songinfo").style.backgroundColor = og_backcolour;
+        d
+        ocument.getElementById("songinfo").style.backgroundColor = og_backcolour;
     } else if (credits_playing == true) {
         credits_playing = false;
         inputlock = false;
@@ -3471,9 +3553,6 @@ music.addEventListener('play', (event) => {
 
 window.onresize = sizeCheck;
 
-
-debubg("music info hide thingy init finished...");
-
 function closeDebuG() {
     if (debug == true) {
         debug_win.close();
@@ -3481,5 +3560,17 @@ function closeDebuG() {
     }
 }
 
-
 window.onclose = closeDebuG;
+
+
+consol.addEventListener('mousemove', (event) => {
+    consol.style.cursor = "auto";
+    cursor_pos = [event.pageX + 1, event.pageY];     // sets the current pos (not needed for this system but may be useful in the future)
+    clearTimeout(cursor_hide_timer);
+    cursor_hide_timer = setTimeout(function timer() {
+        consol.style.cursor = "none";
+        //debubg("the letter a");
+    }, 2000);
+});
+
+debubg("listeners added...");

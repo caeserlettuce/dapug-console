@@ -978,8 +978,13 @@ function parseCommand(command) {
                 var song_lyrics = songs[songname]["lyrics"];
                 setSongInfo(`${songname}`);
                 document.getElementById("songinfo").style.display = "";
+                
+                
                 playMusic(songname);
-
+                if (song_err == true) {
+                    debubg("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa");
+                }
+                
                 lyr_disp = song_lyrics; // set the current lyrics
 
             } else {                    // hello gordon
@@ -1209,6 +1214,7 @@ function parseCommand(command) {
         debubg("playing credits!!! thank you for using this silly little website!");
         parseCommand("music play meal thyme");
         lyr_disp = site_credits;
+        credits_playing = true;
     } else if (command == "theme" || command == "theme " || command == "theme import" || command == "theme import " || command == "theme install" || command == "theme install " || command == "theme export" || command == "theme export " || command == "theme share" || command == "theme share ") {                 // show theme manpage
         parseCommand("man theme");
     } else if (command == "themes" || command == "themes " || command == "themelist" || command == "themelist " || command == "theme list" || command == "theme list ") {      // show list of themes
@@ -1271,6 +1277,12 @@ function parseCommand(command) {
         var nametm = eee.join(" ");
 
         var actualname = nametm;
+        
+        var lastChar = nametm[nametm.length -1];
+
+        if (lastChar == " ") {
+            nametm = nametm.slice(0, -1);
+        }
 
         nametm = nametm.replaceAll("-", "");
     
