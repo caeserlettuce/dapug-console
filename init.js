@@ -151,7 +151,9 @@ var scroll_bottom = true;
 var autoscroll_buffer = 300;    // how many pixels up you have to scroll before autoscroll turns off
 var cursor_pos = [0, 0];
 var cursor_hide_timer;
-var song_err = false;
+
+
+
 debubg("variable init finished...");
 // local storage setup
 
@@ -3520,11 +3522,15 @@ music.addEventListener('ended', (event) => {
 
 music.addEventListener('play', (event) => {
     if (music.currentTime == 0) { // if it has just started tm
-        displayLyrics(lyr_disp);
+        if (song_err == false) {
+            displayLyrics(lyr_disp);
+        }
     }
-
 });
 
+music.addEventListener('error', function heehee() {
+    song_err = true;
+});
 
 window.onresize = sizeCheck;
 

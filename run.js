@@ -1042,11 +1042,18 @@ function parseCommand(command) {
 
                 displayNewline();
                 var song_lyrics = songs[songname]["lyrics"];
-                setSongInfo(`${songname}`);
+
+                playMusic(songname);
+                if (song_err == false) {
+                    setSongInfo(`${songname}`);
+                }
+                
+
                 document.getElementById("songinfo").style.display = "";
                 
                 
-                playMusic(songname);
+
+
                 if (song_err == true) {
                     debubg("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa");
                 }

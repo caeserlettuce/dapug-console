@@ -3804,7 +3804,7 @@ function updateLyrics() {       // this will be called every time the song is pl
             "artist": "Jack Stauber",
             "album": "Shop: A Pop Opera",
             "art": "https://cdn.discordapp.com/attachments/960729059829096580/960813263434682368/shop_pop.png",
-            "audio": "https://cdn.discordapp.com/attachments/960729059829096580/960812517880373248/Jack_Stauber_-_MILK.mp3",
+            "audio": "https://cdn.discordapp.com/attachments/9607290598f29096580/960812517880373248/Jack_Stauber_-_MILK.mp3",
             "volume": 1,
             "lyrics": [
                 {"text": "\nWhat kind of milk were you?", "dur": [579, 3939]},

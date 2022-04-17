@@ -7,11 +7,25 @@ function playMusic(internal_name) {
     if (songs[internal_name]) {
         var url = songs[internal_name]["audio"];
         var vol = songs[internal_name]["volume"];
-        music.src = `${url}`;
-        music.currentTime = 0;
-        music.volume = vol;
-        music.play();
-        music_playing = true;
+
+        var src_good = true;
+        song_err = false;
+
+        
+        
+        try {
+            music.src = `${url}`;
+        } catch (error) {
+            song_err = true;
+        }
+        
+        if (song_err == false) {
+            music.currentTime = 0;
+            music.volume = vol;
+            music.play();
+            music_playing = true;    
+        }
+
     }
 }
 
