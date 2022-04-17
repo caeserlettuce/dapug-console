@@ -16,9 +16,9 @@ but this repo is where i'll have the nightly versions of it because i'm getting 
 
 ____as best reviewed by tech experts from around the world____
 
-> *"what can i say except you're welcome"* <br>
+> *"im gonna break everything"* <br>
 > 
-> *-18_gallons, after inputting over 1000 characters into the command prompt and breaking the site while i watch in sadness* 
+> *-18_gallons, after being granted contributor permissions* 
 
 <br> also happy 2 month of working on this project! (for me)<br>
 though this project had not *started* on github, the `info` command on the site provides the date i started it on (january 24, 2022)<br>

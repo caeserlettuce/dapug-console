@@ -1934,7 +1934,7 @@ var snakemenu = [
 ];
 
 
-var apertureLogo = [
+var apertureLogo = [ " ",
     "              .,-:;//;:=,",
     "         . :H@@@MM@M#H/.,+%;,",
     "      ,/X+ +M@@M@MM%=,-%HMMM@X/,",
@@ -1957,7 +1957,7 @@ var apertureLogo = [
     "               =++%%%%+/:-."
 ];
 
-var cake = [
+var cake = [ " ",
     "    ,:/+/-",
     "    /M/              .,-=;//;-",
     ".:/= ;MH/,    ,=/+%$XH@MM#@:",
@@ -1980,7 +1980,7 @@ var cake = [
     "      ,.:=-."
 ];
 
-var amogus = [
+var amogus = [ " ",
 "                   .%MMMMMMMMMMM%.",
 "               .%MMMMMMMMMMMMMMMMMM%.",
 "              %MM%'            '%MMMM%.",
@@ -2028,7 +2028,7 @@ var lovejoy = [
 "                           ''    '%MMM%'",
 ];
 
-var cheese = [
+var cheese = [ " ",
 "          ..::MMMMMMMMMMMMMMMMMM..",
 "     .:MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM.",
 "   .MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM.",
@@ -2047,7 +2047,7 @@ var cheese = [
 "                    :HHHHHHHHHH''"
 ];
 
-var pebblebrain = [
+var pebblebrain = [ " ",
     `..........................................................`,
     `..........................................................`,
     `................................................,,........`,
@@ -2080,7 +2080,7 @@ var pebblebrain = [
 
 ]
 
-var benson = [
+var benson = [ " ",
 "      .,MMMMMMMM,.",
 "    .MMMMMMMMMMMMMMM.",
 "   %MMMMMMMMMMMMMMMMMM.",
@@ -2320,7 +2320,7 @@ clear -cache    | clears site cache (all saved data)
 }
 
 
-var hlepart = [
+var hlepart = [ " ",
     "ART HELP PAGE",
     "aperture",
     "cake",
@@ -2331,7 +2331,7 @@ var hlepart = [
     "benson",
 ];
 
-var hlepdev = [
+var hlepdev = [" ",
     "HELP DEV PAGE",
     "test | my initial test command to test things haehhahhe",
     "debug | toggles a little fancy debig window",
@@ -2340,7 +2340,7 @@ var hlepdev = [
     "cinfo | returns the integer value of a character"
 ];
 
-var cpoylist = [
+var cpoylist = [ " ",
     "[THIS LIST IS NOW OUTDATED]",
     "help",
     "ascii",
@@ -2659,7 +2659,7 @@ var man = {
         "multiplies text size by the entered value",
         " ",
         "USAGE:",
-        "`zoom [number]`"
+        "'zoom [number]'"
     ],
     "theme": [
         "THEME MANPAGE",
@@ -2683,13 +2683,22 @@ var man = {
         "'theme use git'",
         "'theme export portal2'",
         "'theme install Cola Soda-caeserlettuce-#fdfdfd-#c70015-#43190e'"
+    ],
+    "asciigame": [
+        "ASCIIGAME MANPAGE",
+        "play a fun little text adventure game",
+        " ",
+        "USAGE:",
+        "'asciigame'",
+        " ",
+        "every screen will give you a list of options, just enter the one you wish to do and it will happen",
     ]
 
 
 }
 
 
-var listy = [
+var listy = [ " ",
     "info",
     "eef",
     "echo",
@@ -2781,18 +2790,19 @@ var listy = [
     "theme export",
     "theme import",
     "theme install",
+    "asciigame",
 
 
     
     "* command is currently in-development and may break the site."
 ]; 
 
-var fomb = [
+var fomb = [ " ",
     "default / def / d",
     "slant / sla / s",
 ];
 
-var convertlist = [
+var convertlist = [ " ",
     "UNIT CONVERSION LIST",
     "entries on the left is the unit abbreviation you use in the command",
     "entries on the right are the full unit names (for convenience)",
@@ -5846,22 +5856,22 @@ var themes = {      // console colour themes
         "back colour": "#FFFFFF",
         "accy colour": "#55CDFC"
     },
-    "pan": {
-        "name": "Pan",
+    "catseye": {
+        "name": "Catseye",
         "author": "caeserlettuce",
         "text colour": "#fd208a",
         "back colour": "#fcd400",
         "accy colour": "#21adfc"
     },
-    "bi": {
-        "name": "Bi",
+    "both": {
+        "name": "Both",
         "author": "caeserlettuce",
         "text colour": "#0038a8",
         "back colour": "#9b4f96",
         "accy colour": "#d60270"
     },
-    "ace": {
-        "name": "Ace",
+    "tanzanite": {
+        "name": "Tanzanite",
         "author": "caeserlettuce",
         "text colour": "#ffffff",
         "back colour": "#800080",
@@ -5916,8 +5926,35 @@ var themes = {      // console colour themes
         "back colour": "#a15606",
         "accy colour": "#f68309"
     },
+    "soft": {
+        "name": "Soft",
+        "author": "18gallons",
+        "text colour": "#363636",
+        "back colour": "#acacac",
+        "accy colour": "#7c7c7c"
+    },
+    "matcha": {
+        "name": "Matcha",
+        "author": "18gallons",
+        "text colour": "#ccdca4",
+        "back colour": "#11360d",
+        "accy colour": "#274b21"
+    },
+    "cozy": {
+        "name": "Cozy",
+        "author": "18gallons",
+        "text colour": "#463239",
+        "back colour": "#e2d4b7",
+        "accy colour": "#83775d"
+    },
 }
-
+/*"": {
+    "name": "",
+    "author": "18gallons",
+    "text colour": "",
+    "back colour": "",
+    "accy colour": ""
+},*/ //this is for ease of themecrafting
 var custom_themes = {
     "custom": {
         "name": "Custom",
