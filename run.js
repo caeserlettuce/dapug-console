@@ -1286,12 +1286,24 @@ function parseCommand(command) {
                 // custom themes is first so that way if someone has a custom theme named, say, 'rose', and then we make a theme called rose, they can still access their theme
                 var tem = custom_themes[lowname]; // HOI IM TEMMIE!!!!!!!
                 setColour(tem["text colour"], true, tem["back colour"], true, tem["accy colour"], true);
+
+                if (tem["font"]) {  // if theme has a font
+                    setFont(tem["font"]);
+                }
+
+
                 displayAnim(`\nusing theme '${lowname}'!`, 7);
 
             } else if (themes[lowname]) {   // if it exists in the default themes
                 debubg("theme exists as a default theme!!");
                 var tem = themes[lowname]; // HOI IM TEMMIE!!!!!!!
                 setColour(tem["text colour"], true, tem["back colour"], true, tem["accy colour"], true);
+
+
+                if (tem["font"]) {  // if theme has a font
+                    setFont(tem["font"]);
+                }
+
                 displayAnim(`\nusing theme '${lowname}'!`, 7);
 
             } else {
@@ -1426,9 +1438,7 @@ function parseCommand(command) {
 
     } else if (command == "stars" || command == "stars ") {
         stars();
-    }
-
-    else if (command == "asciigame") {
+    } else if (command == "asciigame") {
         displayAnim("\nyou know the rules", 13);
         setTimeout(() => {
 
@@ -1437,9 +1447,11 @@ function parseCommand(command) {
             }, 534);
         setTimeout(() => {
 
-            window.open("https://www.youtube.com/watch?v=-AXetJvTfU0")
+            window.open("https://www.youtube.com/watch?v=-AXetJvTfU0");
             
             }, 1000);  
+    } else if (command == "caffy") {
+        displayAnim(caffy, 0.5);
     }
 
     else {

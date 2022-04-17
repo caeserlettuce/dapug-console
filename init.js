@@ -166,6 +166,14 @@ var locked_accounts = [
 ]
 var login_username;
 var signup_username;
+var in_tentris = false;
+var tentris_lock = false;
+var tentris_save = new Array();
+var tentris_position = [5, 0];
+var tentris_shape = 0;
+var tentris_timer;
+var tentris_orientation = 0;
+var tentris_bounding = [0,0];
 
 
 
@@ -567,7 +575,7 @@ function debugWindow(bool) {
             <style id="scroll-text-style">::-webkit-scrollbar-thumb { background: ${accycolour}; }</style>
             <style id="scroll-back-style">::-webkit-scrollbar-track { background: ${backcolour}; } ::-webkit-scrollbar-corner { background: #000000 }</style>
             <style id="back-style">body { background-color: ${backcolour};}</style>
-            <style id="text-style">body { color: ${textcolour};}</style>
+            <style id="text-style">@font-face { font-family: COURIERPRIME; src: url(CourierPrime-Regular.ttf);} body { color: ${textcolour}; font-family: COURIERPRIME, monospace;} pre { font-family: COURIERPRIME, monospace;}</style>
             <title>CONSOLE DEBUG</title>
             <link rel="icon" href="icon.png">`);
             debug_win.document.write('<pre id="aaa" class="eee"></pre>'); 
@@ -2046,6 +2054,11 @@ function setTextColour(colourcode, save) {
 //                    '%MMMMMM '%MMMMMMM%' +MMMMMMMM% '%MMMMMMM%'  %MMMMMMM%  +M     'MM             '%MMMMMMM%' +MMMMMMMMI     MM                       
 
 
+
+
+
+
+
 function setUser(inuser) {
     user = inuser;
     localStorage.setItem("currentaccount", inuser);
@@ -3037,6 +3050,20 @@ function stars() {
 
 
 
+
+function askInput(scooby_doo, end) {   // ask for a text input from console thing
+    listening_input = true;
+    ask_do = scooby_doo;
+}
+// example!!
+
+//askInput(() => { displayAnim(`your name is ${ask_return}!!`, 7); } );
+
+
+
+
+
+
 //  .M.              %MMMMMMMM% .%MMMMMMM%. .%MMMMMMM%. +M                     +MMMMMMMMI MM       MM +MM.      M+  .%MMMMMM %MMMMMMMM% mmmmmmmmmm .%MMMMMMM%. +MM.      M+ .%MMMMMMM%.              .M.  
 // .M'M.             %MMMMMMMM% %MM%' '%MM% %MM%' '%MM% MM                     MMMMMMMMMI MM       MM MMMM.     MM .%MMMMMMM %MMMMMMMM% MMMMMMMMMM %MM%' '%MM% MMMM.     MM %MM%' '%MM%             .M'M. 
 // M' 'M                 MM     MM'     'MM MM'     'MM MM                     MM+        MM       MM MM'MM.    MM %MM%'         MM         MM     MM'     'MM MM'MM.    MM MM'                     M' 'M 
@@ -3216,28 +3243,12 @@ debubg("async command functions init finished...");
 
 
 
-function askInput(scooby_doo, end) {   // ask for a text input from console thing
-    listening_input = true;
-    ask_do = scooby_doo;
-}
-// example!!
-
-//askInput(() => { displayAnim(`your name is ${ask_return}!!`, 7); } );
 
 
 
 
 
 
-//  .M.                  :MMMM:     .%MMMMMMM%. +M   .M%             mmmmmmmmmm +MM.      M+ +MMMMMMM%. MM       MM %MMMMMMMM%             +MMMMMMMMI MM       MM +MM.      M+  .%MMMMMM %MMMMMMMM% mmmmmmmmmm .%MMMMMMM%. +MM.      M+ .%MMMMMMM%.              .M.  
-// .M'M.                :MMMMMM:    %MM%' '%MM% MM  .M%'             MMMMMMMMMM MMMM.     MM MM+'  '+M% MM       MM %MMMMMMMM%             MMMMMMMMMI MM       MM MMMM.     MM .%MMMMMMM %MMMMMMMM% MMMMMMMMMM %MM%' '%MM% MMMM.     MM %MM%' '%MM%             .M'M. 
-// M' 'M                IMM::MMI    MM'         MM .M%'                  MM     MM'MM.    MM MM      MM MM       MM     MM                 MM+        MM       MM MM'MM.    MM %MM%'         MM         MM     MM'     'MM MM'MM.    MM MM'                     M' 'M 
-//                     :MM:  :MM:   MM%.......  MM.M%'                   MM     MM 'MM.   MM MM+.  .+M% MM       MM     MM                 MM........ MM       MM MM 'MM.   MM MMM'          MM         MM     MM       MM MM 'MM.   MM MM%.......                    
-//                     IMM:  :MMI    %MMMMMMM%. MMMX                     MM     MM  'MM.  MM MMMMMMMM%' MM       MM     MM                 MMMMMMMMMM MM       MM MM  'MM.  MM MMM           MM         MM     MM       MM MM  'MM.  MM  %MMMMMMM%.                   
-//                    :MMMMMMMMMM:    ''''''%MM MM'M%.                   MM     MM   'MM. MM MM         MM       MM     MM                 MM'''''''' MM       MM MM   'MM. MM MMM.          MM         MM     MM       MM MM   'MM. MM   ''''''%MM                   
-//                    IMM:    :MMI          .MM MM 'M%.                  MM     MM    'MM.MM MM         MM       MM     MM                 MM         MM       MM MM    'MM.MM %MM%.         MM         MM     MM.     .MM MM    'MM.MM         .MM                   
-//                   :MM%      %MM: %MM%. .%MM% MM  'M%.             mmmmMMmmmm MM     'MMMM MM         %MM%   %MM%     MM                 MM         %MM%   %MM% MM     'MMMM '%MMMMMMM     MM     mmmmMMmmmm %MM%. .%MM% MM     'MMMM %MM%. .%MM%                   
-//                   :MM:      :MM: '%MMMMMMM%' +M   'M%             MMMMMMMMMM +M      'MM+ +M          %MMMMMMM%      MM                 MM          %MMMMMMM%  +M      'MM+  '%MMMMMM     MM     MMMMMMMMMM '%MMMMMMM%' +M      'MM+ '%MMMMMMM%'                   
 
 
 
@@ -3304,74 +3315,77 @@ setColour(textcolour, true, backcolour, true, accycolour, true);
 
 shell.onkeyup = function keyParse(e){
     if (inputlock == false) {
-        if (starlock == false) {
-            if(e.keyCode == 13) {
-                if (shell.value != "") {
-                    if (enterlock == false) {
-                        // stinky old code is gone!!!!
+        if (tentris_lock == false) {
+            if (starlock == false) {
+                if(e.keyCode == 13) {
+                    if (shell.value != "") {
+                        if (enterlock == false) {
+                            // stinky old code is gone!!!!
 
-                        // *crab rave*
-                        if (listening_input == true) {  // if its listening for a text input
-                            ask_return = shell.value;
-                            ask_do();
-                            listening_input = false;
-                            shell.value = "";
-                        } else {
-                            displayUser(`${shell.value}`, `${user}`);
-                            historyPush();
-                            parseCommand(shell.value);
-                            historyReset();
-                            shell.value = "";
-                            scrolly("consy");
+                            // *crab rave*
+                            if (listening_input == true) {  // if its listening for a text input
+                                ask_return = shell.value;
+                                ask_do();
+                                listening_input = false;
+                                shell.value = "";
+                            } else {
+                                displayUser(`${shell.value}`, `${user}`);
+                                historyPush();
+                                parseCommand(shell.value);
+                                historyReset();
+                                shell.value = "";
+                                scrolly("consy");
+                            }
+                                
+                            //debubg(consoltext);
+                            //debubg(commang);
                         }
-                            
-                        //debubg(consoltext);
-                        //debubg(commang);
+                    }
+                    boom();
+                } else if(e.keyCode == 37) {
+                    if (snakeinputs == true) {
+                        debubg("left arrow detected");
+                    }
+                } else if(e.keyCode == 38) {
+                    if (snakeinputs == true) {
+                        debubg("up arrow detected");
+
+                    } else if (commandhistorylock == false) {
+                        // get out of here old command history code, you stinky
+                        var indexed = historyIndex(1); // index history up by 1
+                        shell.value = `${indexed}`;
+
+                    }
+                    
+                } else if(e.keyCode == 39) {
+                    if (snakeinputs == true) {
+                        debubg("right arrow detected");
+                    }
+                } else if(e.keyCode == 40) {
+                    if (snakeinputs == true) {
+                        debubg("down arrow detected");
+
+                    } else if (commandhistorylock == false) {
+                        // SAME WITH YOU! get outta here you stinky old code!! make room for the new code! just kidding!
+                        // it uses up less space than you! ha!
+                        var indexed = historyIndex(-1); // index history up by 1
+                        shell.value = `${indexed}`;
+
+
+
+
+
+
                     }
                 }
-                boom();
-            } else if(e.keyCode == 37) {
-                if (snakeinputs == true) {
-                    debubg("left arrow detected");
-                }
-            } else if(e.keyCode == 38) {
-                if (snakeinputs == true) {
-                    debubg("up arrow detected");
-
-                } else if (commandhistorylock == false) {
-                    // get out of here old command history code, you stinky
-                    var indexed = historyIndex(1); // index history up by 1
-                    shell.value = `${indexed}`;
-
-                }
-                
-            } else if(e.keyCode == 39) {
-                if (snakeinputs == true) {
-                    debubg("right arrow detected");
-                }
-            } else if(e.keyCode == 40) {
-                if (snakeinputs == true) {
-                    debubg("down arrow detected");
-
-                } else if (commandhistorylock == false) {
-                    // SAME WITH YOU! get outta here you stinky old code!! make room for the new code! just kidding!
-                    // it uses up less space than you! ha!
-                    var indexed = historyIndex(-1); // index history up by 1
-                    shell.value = `${indexed}`;
-
-
-
-
-
-
+            } else if (starlock == true) {
+                if(e.keyCode == 27) {
+                    stars_status = false;
                 }
             }
-        } else if (starlock == true) {
-            if(e.keyCode == 27) {
-                stars_status = false;
-            }
+        } else if (tentris_lock == true) {
+            
         }
-
     }
 
     
