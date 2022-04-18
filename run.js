@@ -23,6 +23,13 @@ function parseCommand(command) {
     commandInit = command;
     command = command.toLowerCase();
     argCommand = command.split(" ")[0];
+
+    var commandsplit = command.split("")
+
+    if (commandsplit[commandsplit.length - 1] == " ") {
+        commandsplit.pop();
+        command = commandsplit.join("");
+    }
     
     //debubg(command);
     //debubg(command);
@@ -152,7 +159,153 @@ function parseCommand(command) {
         displayAnim(listy, 5);
     } else if (command == "colour text" || command == "colour text " || command == "colour back" || command == "colour back ") {
         displayAnim("\nplease input a proper colour code.", 10);
-    } else if (command.split(" ")[0] == "color" || command.split(" ")[0] == "colour") {
+    } else if (argCommand == "color" || argCommand == "colour") {
+        // check colours here
+
+        var mmm = argComm(commandInit);
+
+        var place = mmm[1];
+        var colour = mmm[2];
+
+        if (colour == "reset") {
+            if (place == "text") {
+
+            } else if (place == "background")
+        }
+        
+
+        var code_wo_hash_test = /^[0-9A-F]{6}$/i.test(colour);      // i hate regex
+        var code_w_hash_test = /^#[0-9A-F]{6}$/i.test(colour);
+
+        debubg(`valid colour code but has no hash: ${code_wo_hash_test}`);
+        debubg(`valid colour code that has hash: ${code_w_hash_test}`);
+
+        debubg(`processing colour: ${colour}`);
+
+        if (code_wo_hash_test == true || code_w_hash_test == true) {
+            // if its either a valid colour code with or without hash
+            var in_colour = colour;
+            var contrast = true;
+            var set_place = 0;
+            var err_msg = "error: something has gone wrong and it didn't even set an error message, so something is DEFINITELY wrong";
+            if (code_wo_hash_test == true) { // if it doesnt have a hash
+                in_colour = `#${colour}`;   // add a hash
+            }
+
+            if (place == "text") {                                  // change text
+                set_place = 1;
+            } else if (place == "background" || place == "back") {  // change background
+                set_place = 2;
+            } else if (place == "accent") {                         // change accent
+                set_place = 3;
+            } else if (place == "reset") {
+
+            }
+            debubg(`set place: ${set_place}`);
+
+            var in_rgb = hexToRgb(in_colour);       // get rgb values of the stuff
+            var text_rgb = hexToRgb(textcolour);
+            var back_rgb = hexToRgb(backcolour);
+            var accy_rgb = hexToRgb(accycolour);
+
+            /*
+                time to do some teting in gimp to get data on the minimal rgb value change thats legible (tm)
+                
+                52 is the magic value
+            */
+
+
+            debubg("checking contrast values...");
+            if (set_place == 1) {       // text
+                var back_diff = {
+                    "r": Math.abs(back_rgb.r - in_rgb.r),
+                    "g": Math.abs(back_rgb.g - in_rgb.g),
+                    "b": Math.abs(back_rgb.b - in_rgb.b)
+                }
+                console.log(back_diff);
+                if (back_diff.r < 52 && back_diff.g < 52 && back_diff.b < 52) {
+                    debubg("contrast is not contrasty enough to have the text be legible!!");
+                    contrast = false;
+                }
+            } else if (set_place == 2) {     // background
+                var text_diff = {
+                    "r": Math.abs(text_rgb.r - in_rgb.r),
+                    "g": Math.abs(text_rgb.g - in_rgb.g),
+                    "b": Math.abs(text_rgb.b - in_rgb.b)
+                }
+                console.log(text_diff);
+                if (text_diff.r < 52 && text_diff.g < 52 && text_diff.b < 52) {
+                    debubg("contrast is not contrasty enough to have the text be legible!!");
+                    contrast = false;
+                }
+            } else if (set_place == -1) {
+                contrast = false;
+            }
+            
+
+
+
+            if (contrast == true && set_place > 0) {
+                // check  the places (tm)
+                if (set_place == 1) {
+                    setTextColour(in_colour, true);
+                } else if (set_place == 2) {
+                    setBackColour(in_colour, true);
+                } else if (set_place == 3) {
+                    setAccyColour(in_colour, true);
+                }
+                displayAnim(`\n${place} colour has been set.`)
+
+            } else {
+                if (set_place == -1) {
+                    displayAnim("\ninvalid argument. use either 'text', 'background', or 'accent'!", 7);
+                } else {
+                    // ask if you want to set it even if the contrast is low (REMEMBER TO MENTION TYPING 'RESET' TO RESET CONSOLE!!);
+                    var yaya = "";
+                    var tata = "";
+
+                    if (set_place = 1) {
+                        yaya = "text";
+                        tata = "background";
+                    } else {
+                        yaya = "background";
+                        tata = "text";
+                    }
+                    
+                    displayAnim(`\nuh oh! the ${yaya} colour you would like to set is very close to the ${tata} colour, and you may not be able to see any text on the console. \nare you sure you would like to set the text colour? \n(type yes or no) \n(only do this if you know what you're doing!)`, 5);
+                    cur_set_colour = in_colour;
+                    cur_set_place = set_place;
+                    askInput(() => {
+                        if (ask_return == "yes" || ask_return == "y") {
+                            // set the colour anyways
+                            if (cur_set_place == 1) {
+                                setTextColour(cur_set_colour, true);
+                            } else if (cur_set_place == 2) {
+                                setBackColour(cur_set_colour, true);
+                            }
+                        } else {
+                            // dont
+                            displayAnim("\ncolour set has been cancelled!", 7);
+                        }
+                    });
+                }
+            }
+
+
+        } else {
+            
+            async function invalid() {
+                await displayAnim("\ninvalid colour code. if you are having trouble, try copying the HEX colour code from this ", 7);    
+                await displayAnim("colour picker", 7, "inherit", "https://htmlcolorcodes.com/");
+                await displayAnim(".", 7);
+            }
+            invalid();
+            
+
+        }
+
+        
+        /*
         if (commandInit.split(" ")[1] == "text") {
             var colour = commandInit.split(" ")[2];
             debubg(`\nsetting text colour to ${colour}`);
@@ -161,7 +314,7 @@ function parseCommand(command) {
                 setColour(colour, true, null, true, null, true);
                 displayAnim(`\nsetting text colour to ${colour}`, 15);
             } else if (iffy == false && colour.toLowerCase() == "reset") {
-                setColour("#7cfc00", true, "#000000", true, "#1e1e1e", true);
+                
                 displayAnim(`\nresetting text colour`, 15);
             } else if (iffy == false) {
                 displayAnim("\ninvalid colour code.", 10);
@@ -215,6 +368,8 @@ function parseCommand(command) {
             displayAnim("\ninvalid argument. use either 'text', 'background', 'accent', or check the manpage.", 7);
         }
     
+        */
+
     } else if (command == "sus" || command == "among us" || command == "amogus" || command == "amongus" || command == "amon gus" || command == "sussy") {
         displayAnim(amogus, 1);
     } else if (command == "lovejoy") {
@@ -699,6 +854,7 @@ function parseCommand(command) {
         mmm.shift();
         var incommand = mmm.join(" ");
 
+        updateMan();
 
         debubg(`[MAN] queueing command ${incommand}.`);
         
@@ -1454,6 +1610,37 @@ function parseCommand(command) {
         displayAnim(caffy, 0.5);
     } else if (command == "dog") {
         startDog();
+    } else if (command == "manlist") {
+        var manlist_tm = "\nALL EXISTING MANPAGES:";
+
+        for (keys in man) {         // loop for every key entry in man
+            manlist_tm += `\n${keys}`;  // add command name (tm)
+        }
+
+        displayAnim(manlist_tm, 0.25);
+    } else if (command == "accounts") {
+        // lists all the accounts
+        
+        var accounts = "\nBuilt-in accounts:\n";
+
+        for (keys in default_accounts) {
+            accounts += `\n${keys}`;
+        }
+        accounts += "\n\nYour accounts:\n";
+
+        if (typeof accountsregistry == 'object') {
+            for (keys in accountsregistry) {
+                accounts += `\n${keys}`;
+            }
+        } else if (typeof accountsregistry == 'string') {
+            for (keys in JSON.parse(accountsregistry)) {
+                accounts += `\n${keys}`;
+            }
+        }
+        
+
+        displayAnim(accounts, 1);
+
     }
 
     else {

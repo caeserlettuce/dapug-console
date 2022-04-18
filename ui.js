@@ -2218,11 +2218,12 @@ git     | shows the link to the github page for this project
 USERS HELP PAGE
 
 below are commands to use for logging in/out of users
-(note: accounts are not actual online accounts)
+(note: accounts are not actual online accounts, they just change your display name)
 
 login       | type login, your username, and log into your account!
 signup      | type signup, a username, and then you have made a new account!
 logout      | log out to the generic user
+accounts    | lists all available accounts
 `,
     "visuals": `
 VISUALS HELP PAGE
@@ -2340,647 +2341,688 @@ var hlepdev = [" ",
     "cinfo | returns the integer value of a character"
 ];
 
-var man = {
-    "help": [
-        "HELP MANPAPGE:",
-        "help will show you the general help page.",
-        "USAGE:",
-        "'help [option]'",
-        " ",
-        "OPTIONS:",
-        "having an option is optional (haha)",
-        "-art | shows you all the art commands",
-        "-dev | shows you all the commands for development",
-        " ",
-        "USAGE:",
-        "'help'",
-        "'help -art'",
-        "'help -dev'",
-    ],
-    "man":  [
-        "MAN MANPAGE:",
-        "shows you an in-depth help page for a specific command.",
-        "USAGE:",
-        "'man [command]'",
-        " ",
-        "USAGE:",
-        "'man echo'"
-    ],
-    "clear": [
-        "CLEAR MANPAPGE:",
-        "clears the console",
-        "USAGE:",
-        "'clear'",
-        "'clear [option]'",
-        "OPTIONS:",
-        " -cache | clears the local page cache",
-        "-ignore | (only works after -cache) will ignore the popup and just clear cache"
-    ],
-    "echo": [
-        "ECHO MANPAPGE:",
-        "echo will repeat any text inputter",
-        "USAGE:",
-        "'echo [message]'",
-        " ",
-        "EXAMPLE:",
-        "'echo hello world!'"
-    ],
-    "ls": [
-        "LS MANPAPGE:",
-        "lists all the existing commands in the console",
-        "USAGE:",
-        "'ls'",
-    ],
-    "login": [
-        "LOGIN MANPAPGE:",
-        "logs you into another user on the system",
-        "USAGE:",
-        "'login [username]'",
-        " ",
-        "EXAMPLE:",
-        "'login admin'"
-    ],
-    "signup": [
-        "SIGNUP MANPAPGE:",
-        "signs you up with a new account",
-        "USAGE:",
-        "'signup [username]'",
-        " ",
-        "EXAMPLE:",
-        "'signup tubbo''"
-    ],
-    "colour": [
-        "COLOUR MANPAPGE:",
-        "changes the colour of different elements in the console.",
-        "USAGE:",
-        "'colour [text/background] [#hex]'",
-        " ",
-        "OPTIONS:",
-        "text/background >",
-        "            text | changes the colour of the text",
-        "      background | changes the colour of the background",
-        "          accent | changes the colour of the window accents",
-        '            #hex | any valid hex colour code, or "reset" to reset it',
-        " ",
-        "EXAMPLE:",
-        "'colour text #ffffff'",
-        "'colour background #ffffff'",
-        "'colour text teset'",
-    ],
-    "color": [
-        "COLOR MANPAPGE:",
-        "changes the colour of different elements in the console.",
-        "USAGE:",
-        "'color [text/background/reset] [#hex]'",
-        " ",
-        "OPTIONS:",
-        "text/background >",
-        "            text | changes the colour of the text",
-        "      background | changes the colour of the background",
-        "          accent | changes the colour of the window accents",
-        "           reset | resets all the colours ack to default",
-        '            #hex | any valid hex colour code, or "reset" to reset it',
-        " ",
-        "EXAMPLE:",
-        "'color text #ffffff'",
-        "'color background #ffffff'",
-        "'color text reset'",
-        "'colour reset'",
-    ],
-    "comment": [
-        "COMMENT MANPAGE:",
-        "adds a comment to a list of comments, and will store them on your local cache",
-        " ",
-        "USAGE:",
-        "'comment [option] <comment>'",
-        " ",
-        "OPTIONS:",
-        "   add | adds comment to database",
-        "-clear | clears all comments from database",
-        "  list | lists all comments",
-        " ",
-        "EXAMPLE:",
-        "'comment add hello world!'",
-        "'comment list'",
-        " ",
-        "NOTE: <comment> section is only supported for the 'add' option."
-    ],
-    "ascii": [
-        "ASCII MANPAGE:",
-        "generates an ASCII text art of any sentence",
-        "if you want to copy the output of this command, check the manpage for 'copy'",
-        " ",
-        "USAGE:",
-        "'ascii [font] [sentence]'",
-        " ",
-        "OPTIONS:",
-        "font | the ascii font to use, check 'font list' to see the list of fonts",
-        "sentence | the sentence you want put into ascii art",
-        " ",
-        "EXAMPLE:",
-        "'ascii default Hello, World!'",
-    ],
-    "copy": [
-        "COPY MANPAGE:",
-        "copy is a command you put in front of another command to copy its output.",
-        "(not all commands are supported, so check 'copylist' for a list of supported commands.",
-        " ",
-        "USAGE:",
-        "'copy [command]'",
-        " ",
-        "EXAMPLE:",
-        "'copy ascii d Hello, World!'",
-        " ",
-        "NOTES:",
-        "to have the output automatically commented out for coding, use the command 'copycomm' (check the manpage for it)",
-    ],
-    "copycomm": [
-        "COPYCOMM MANPAGE:",
-        "automatically comment out the copied output of your command",
-        " ",
-        "USAGE:",
-        "'copycomm [comment string]'",
-        " ",
-        "OPTIONS:",
-        "comment string | a string that will appear at the beginning of every line of the copied text.",
-        " ",
-        "EXAMPLE:",
-        "'copycomm //' <-- the comment character for javascript",
-        "'copycomm none' <-- this will reset the comment to nothing"
-    ],
-    "convert": [
-        "CONVERT MANPAGE:",
-        "convert one unit into another unit",
-        " ",
-        "USAGE:",
-        "'convert [unit type] [amount] [from unit] [to unit]",
-        " ",
-        "OPTIONS:",
-        "unit type | if the unit measures length, volume, weight, etc. (check 'convert -list' for all unit types)",
-        "   amount | the input amount you want to convert",
-        "from unit | the unit you're converting from (in, km, etc.) check 'convert -list' for all the units.",
-        "  to unit | the unit you're converting to (mi, cm, etc.) check 'convert -list' for all the units.",
-        " ",
-        "EXAMPLE:",
-        "'convert -l 100 in ft'",
-        "'convert -l 5 km m'",
-    ],
-    "share": [
-        "SHARE MANPAGE",
-        " ",
-        "[THIS PAGE MAY BE OUTDATED, AND SOME THINGS MAY NOT WORK]",
-        " ",
-        "will generate and copy a link to your clipboard with all the supported shareable options.",
-        " ",
-        "USAGE:",
-        " ",
-        "'share'",
-        " ",
-        "URL OPTIONS: (advanced)",
-        " ",
-        "| url option  | value     | description",
-        "?debug        true/false  the debug menu will automatically be open or not open",
-        "?debugvar     true/false  the variable debug menu will also automatically be either open or not",
-        "?suggestion   string      the string will show up in the command input on page load",
-        "?command      string      the string will be automatically run as a command on page load",
-        "?textcolour   hex code    will set the text colour to whatever hex code used (without the # at the beginning)",
-        "?backcolour   hex code    same as textcolour but it sets the background colour",
-    ],
-    "": [
-        "MAN MANPAGE:",
-        "shows you an in-depth help page for a specific command.",
-        "USAGE:",
-        "'man [command]'",
-        " ",
-        "EXAMPLE:",
-        "'man echo'"
-    ],
-    "worble": [
-        "WORBLE MANPAGE",
-        "basically just like wordle but more intense",
-        " ",
-        "USAGE",
-        " ",
-        "'worble [option] <word>'",
-        " ",
-        "OPTIONS",
-        " ",
-        "            | explains more about how to play worble",
-        "      start | start a new worble game",
-        "    restart | restart the worble game",
-        "colourblind | toggles colourblind mode",
-        "       info | shows infor about your current game",
-        "      guess | guess the mystery word",
-        "      share | share your game progress",
-        "      stats | shows your worble statistics",
-        //"   download | downloads all your worble data",
-        "      reset | resets all of your worble data",
-        " ",
-        "NOTES:",
-        "<word> is only supported for the 'guess' option.",
-        " ",
-        "EXAMPLES:",
-        "'worble'",
-        "'worble start'",
-        "'worble guess house'",
-        "'worble info'",
-    ],
-    "uwu": [
-        "UWU MANPAGE (simon i blame you for this)",
-        "translates any text into uwu speak",
-        " ",
-        "USAGE:",
-        "'uwu [text]'",
-        " ",
-        "EXAMPLE:",
-        "'uwu hello there!'",
-    ],
-    "music": [
-        "MUSIC MANPAGE",
-        "displays main page for the music player",
-        " ",
-        "NOTES:",
-        "use 'songlist' to get the list of supported songs!",
-        " ",
-        "USAGE:",
-        "'music'",
-        " ",
-        "OPTIONS:",
-        "play [song id] | plays any supported song",
-        "          play | plays paused music",
-        "         pause | pauses currently playing music",
-        "volume [level] | sets the music volume to a percentage of original volume (value 0-100)",
-        "   stop / skip | skips current song",
-        " ",
-        "EXAMPLES:",
-        "'music play milk'",
-        "'music pause'",
-        "'music play'",
-        "'music volume 50'"
-    ],
-    "music play": [
-        "MUSIC PLAY MANPAGE",
-        "plays any supported song, or unpauses paused music",
-        " ",
-        "USAGE:",
-        "'music play [song id]'",
-        "'music play'"
-    ],
-    "music pause": [
-        "MUSIC PAUSE MANPAGE:",
-        "pauses currently playing music",
-        " ",
-        "USAGE:",
-        "'music pause'"
-    ],
-    "music volume": [
-        "MUSIC VOLUME MANPAGE",
-        "changes the music's volume to a percentage of original volume",
-        " ",
-        "USAGE:",
-        "music volume [volume]",
-        " ",
-        "EXAMPLE:",
-        "'music volume 50'"
-    ],
-    "music skip": [
-        "MUSIC SKIP MANPAGE:",
-        "skips current song",
-        " ",
-        "USAGE:",
-        "'music skip'"
-    ],
-    "zoom": [
-        "ZOOM MANPAGE",
-        "multiplies text size by the entered value",
-        " ",
-        "USAGE:",
-        "'zoom [number]'"
-    ],
-    "theme": [
-        "THEME MANPAGE",
-        "change the colour scheme within one command",
-        " ",
-        "USAGE:",
-        "'theme [option] [name/save]'",
-        " ",
-        "<name> is a name of a theme from the list of themes or a new name (run 'themes' to get a list of themes)",
-        "<save> is an exported theme save. <save> is only used when using the 'install' opeion. all other theme options use a theme name.",
-        " ",
-        "OPTIONS:",
-        " ",
-        "    use | use a theme from the list of themes",
-        "   save | saves your current colour scheme to your list of custom themes",
-        " export | copies the theme save to your clipboard to share with friends",
-        "install | install a theme from the previously mentioned theme save",
-        " ",
-        "EXAMPLES:",
-        " ",
-        "'theme use git'",
-        "'theme export portal2'",
-        "'theme install Cola Soda-caeserlettuce-#fdfdfd-#c70015-#43190e'"
-    ],
-    "asciigame": [
-        "ASCIIGAME MANPAGE",
-        "play a fun little text adventure game",
-        " ",
-        "USAGE:",
-        "'asciigame'",
-        " ",
-        "every screen will give you a list of options, just enter the one you wish to do and it will happen",
-    ],
-    "info": [
-        "INFO MANPAGE",
-        "tells some info about the site",
-        " ",
-        "USAGE:",
-        "'info'",
-    ],
-    "eef":[
-        "EEF MANPAGE",
-        "lime",
-        " ",
-        "USAGE:",
-        "'eef'"
-    ],
-    "oh":[
-        "OH MANPAGE",
-        "...,.,,,.,.,...,.,.,,.,..,.,.,....,,.;;,.:,.;,.,.;,,.",
-        " ",
-        "USAGE:",
-        "oh",
-        "OH",
-        " ",
-        "ö̴̖͙̜̳̲̺̗̰̠̙̺͓͚̲̼͚̗͔̺́̍̈́̑͌͐̊̚ͅh̸̡̬͔͍̲̥̑͐̈̃̿͐́̒͝ͅ.̶̧̛̻̟̻͇̯͇̗̗̼̝̙͈̜̯͔̠͙̥̤͓͈̲̬̲̠̖̭̳̗̜̭̜́̂́̓͑̓̍͐̍̄̅͌̈́͋̇̀̓̓́͋́̽̈́͊̈́͑̚̕͝ͅ.̷̨̨̧͕͔͕̟͇̭̰̻͈̙̯͎̲̟͖̼͉̱͓̝̱͎̟͕̲͍̙̯͖͒͒̑̈͐̐̋̒͛͂̓͊̀̍̏̒͌̽͘̚͜͝,̶̢̡̛̟͉̩͇͕̩̦̺̺͓̮͚͈͍̺̜̦̙͕͉̦̫̝̝̫͇̜͉̣̦͇̗̠̥̠̮͙̫̣͍̲̲̓̊̀͋͐͛̿̊͆͗́̇̌͋͐̔̇͆͌͐̄͋̈́̅͑̂̓̀̈́́̇̊̓͋͑̑̽̀͘͜͝͠ͅ.̶̢̨̜̟̖͉̙̫͇͚̟̮̟̦̹̗͇̜̘̜̭͉̞̣̬̲̥͖͓͍̼̤̦͓̰͓̓̂̀̅̚͝͝,̵̢̦̲̳̣̱̲͖̼͓̠͎͍̭̯͈̟͕̤̘̻̜̬̖̲̆͂̔̏̐͋́̽̓́̾̇͛̔̊̑̈́̏̾͌̓̅̀̇͋̇͒͊̑̀̐̅͂͗̌̂̕͝͠.̴̱̤͓̘̜̋͊,̷̧̧̨̡̤̗̤̳̠̮͇̲̺̮͖̪̝̗̣͙̣̲͓̖̪̤̼͚̲̫̞̝̥̣̣͑͋̊͑͆͒͆̌̅͒̇͋̄̈́̈́̓̓̚̚͜ͅͅ,̸̨̧̧̛̳̯͇̻̮̮̼̬̜̟͎̣̺̠̱͎̱͔̟̟̙͇̙̲͍̦̯̽̋̌̈́̋̓͒̇͐͌̒͒̈͗͂̾̓̋̑͋͑͌͌͌̿͌̃̐̽̈́̓̐̐̕͘̕͘͜͝͝,̷̨̧̧̨̢̢̥͙̼̫̯̤̙̹͚̪͉̠͉͎̰̥͓͖̝̠̭̳̥̜̭̫͈̯́̒̀̐͂̉͐̽̈́̀̀̔̈́̐́͂̅̈͑̀͐̈́̽̚̚̚͝ͅ.̴͓̲̮̌̐̉̀̏̃̀̒̂̄̽̊̎̓̌͋̇͊̈́̉̓̓̈̄̓̚̚̕͝͝,̸͓̺̰̱͔̩̯͉̳̲̉.̸̨̧̤̺̤̠̲̤̙̻̩͙̘̙̩̹͇̲̒̒̾̉̐̽̏͌͋͂͗̽̌́̅̑̅́͑̃͆̋̒͑͛̈̅̑͑̆͗̒͘̚̕͠͝͠ͅͅ,̷̧̨̧̡̡̢̩͚̣̼̺̝͙̤̟͚̙̼͖̪̺̖̝͈͖̦̮͔͔͇̯̠̞̭͈̦̻̙̹͖͚̮̘̫̤̋̐̉̑͗̂͆̓̈́̑̎̂̍́̂͌͗̋̈͂͘͘͘͘̕̚͠ͅͅͅ.̷̗͙̼̳̭̯̻̬̫̥͙͖̪̤͚̜̥̻̜̟͍̀̏͊̒̇͆̇͛̾́̿.̷̞̲̥̘̗̲̯̖̦̣̖̼̩̑̍͆̈́͠.̸̧̢̛̼͇͖̙̞̣̬͕̹̳͉̲̺̠̝̞̩̥̳̣̖̫̝͚̹͕̥̙̗̎͗̃̏͂͊̅̂̀̆̈́̑͐́̿̐̿͛́̌̔͐̀̀͌̊̐͐̑̓̇̀̓͂̀́̍̋̔͆̚͝͝͝͝ͅ,̶̧̢̡̧͚̬͙͇͚͉̳̱̯͖̩͙̟͉̼̳̺̬̭͓͙̼̰͚̦̻͕̲̹̯̰̗̲̠͔͈͔̺͖͓͎̘̤͚͂̅͆̋̈́̀̈̑͐̊̾͜͜͝.̴̢̨̡̡̠̩̪̦̙̭̰̯̖͓̱̣̣͕̮̯̣̮̙͎͕͙̙̙̪̹̫̺̮̭̥̮̈́̌̂̄̂̾̓̊̎̊͗̉̍́͒̆̈́̀̑̏͒͂̓͒̆̾̽̓̂̌̂̀̽́̎̔̄̍͂̇͋̈̂̎͘͘͝͝͠,̷̨̢̡̧̢̧̡̛̛̳̳͙̯̮̼̼͈̺̬̳͈̳͈̜͔̹͕̘̪̠͓͍͎̻̘̪̭̬̰̥͇͙̫̭̬͈̦̝̳̪͋͒̄̏̍̋̀̿̔̍́́͛̕͜͜͝͝͠.̸͓͛̈́̋̆͊̈̃̑́͌͐̈́̅̂̐̈́̄̇̂̀̂̈͑̿̔̾̓̉͛̒̀̏̋̿̽͆̄̌͋̆͌̕͘͝͝͝͝,̷̡̛͕̣̯̬͎̻̩̫̙̳̦̠̹̹̟̭͓̜͍͗͌̉̀͑̓̊͂̾̉́̈̓͊̊ͅ.̵̛̛̿̑̔͐̀̀̇̑̃͂̉͌̅̊͛̒̒̈́̏̏̎̊̔̽͑͋͌͗̌̕͘̚͝͝͝͝ͅ,̵̨̢̨̡̛̻͙̱̠̯̫̠̖̻̠̥͇͍̲̲̠̖͚̯͎̟̗̱̩̓̈́͒͑̀̆͐̅͒̊̏̄̉͂̀̾͘͝.̴̡̧̧̛̛̩̭̹̹̩̟̬̗̜̼̭̺̱͔̻̟̞̰̣̪̤̹̩͙̠̩̱̣͉͕̘̹͙̱̣̠̠̠̗̩̝͖́̆̒̒̐̈͒͛͒́̌͗̂͌̇͂͌̀̃̓̅̂̋̑̏̃̕̚͘͜͜͠͠͝͝ͅ,̸̛̛͓̺̝̮̭̘̭̖̬̝̈́͑͒̌̅͐̾̉͒̇͋̀͋͊̿͌͑̐́͂́̋̚͝͝.̷̡̧̨̢̨̧̨̥̣͔̗̠̲̖͈̮͍͔͍̭̠͍̩̯̯͍̱̟̦͇͕̺̳̯͎̟̤͒͒̈́̽́͋̈́̾̿͂̈̏̈̓̇̎̓̾̽͋̀̒̄̈́́̄͐̕̚̕͜͝͠ͅ,̶̨̡̛̺̬͍̟̪̭̯̈́́̎͛̾͛́̎͋͌̐̽͂̃̉̇̏̔̃́̋̄̈̉̓͋̍̒̌́̈́̓̕̚͠͝ͅ.̴̡̬̠̭̭̖̬̖̮̰̹̟̦̻̮̪͋̎͛̃̐͂͊͑̈́̍̈́̀̓̓̕͜͜͝ͅͅ.̶̢̛̠̮̞͌̅̾͆͗̑̏̋̀̀̊̿͒̐͂̈́̑̀̽͆̒̊̾̿̉̒͊̀̃͌̐͑̈́̅͆͘̚̕̚͘͠.̴̛̺̟̳̺̲͍̹̼̘͚͖͔̭̏̀̾̀̎̊̅͐̄͛̓̀̀̀̊̽̂̃́̕͘͘̚ͅͅ.̴̨̘͕̹̙̯̦̞̳͓̺͕̺͚͆̄͐̄͊́̽̽̈́̈́͗̀̈̽͛̕̚̕͜͠,̵̧̨̧̧̢̢̡̛̛̛̛͔̰͎̜͈͓̩̖͍̱̹̻̯̖̙̫̥͍͓̰͖̩̣̣̮̯͖͕̘͎̲̻̻͈͓̼̥̻̳́͗͋̉̌̽̅͛͋̋̿̅͐̏̂̂̓̀̀̂̄͆̇̓̆͌̆̔̀̽͐̆͒͛̓̂̎̊͠͝ͅͅͅ.̴̛̭͇̇̔̉̀̑̀̿̂̂̍̃̉̀̋̊͌̓́͒͂̀̚͘̚͠͝,̸̡̛͇̫͇̤̩͖̪̼̖̯̖̣̹̠̮̟̭̯͎͈͓̣͔̗͖̲̐̾̈͛̐̿̃̂̃̈́̂̐̑͆̿́̾̈̐́́̈́̐̾͑̄͂̔̓̎͘͜͝͠͝͝ͅ.̴̧̡̡̨͙̼͎̯̖͔̣̩̲͉̜͚̙̦͈̖͕͎̰̬͉̞͕̹͍̹̦̯̓̿̐͋͒͆͛̽̒̈̐̽̈́͜͝ͅ,̷̡͙͈͇̜͉͇̯͓̮̤̤̦̲̞͕̤̱̯̦̝̥̿̆̄̑̈́̍̐͊̒̀̎̓̾̈́́̈̆̄̇̉̾̓̔̌̓͋̌̿̂͊͐́̀͗̈́̚̚͘̕͝͝͝͝͠,̸̨͇͈̩͙͍͙͍̯̖͓̻͚̝̙̗̜̱̫̩͕̣̹̦̮̣̟̍͋̊̿̆̉̀̀̔̋̚͘ͅͅ.̶̛̛̺̳̬̣̩͓̟̱͔̒̈́̔͂̑̈́̑͗̈͂͗̓̊͊͗̽̃̐͑̕͝",
-    ],
-    "hack":[
-        "HACK MANPAGE",
-        "neil ciciriega needs your help to continue making music! just give him your credit card number, expiration date, and the three MAGIC little numbers on the back!",
-        " ",
-        "USAGE",
-        "'hack'",
-    ],
-    "aperture":[
-        "APERTURE MANPAGE",
-        "for science",
-        "you monster",
-        " ",
-        "USAGE:",
-        "'aperture'",
-    ],
-    "secrets":[
-        "scp-████ is a ████████████████████████████████████████████████████████",
-        "██████████████████████████████████████████████████████████████████████",
-        "██████████████████████████████████████████████████████████████████████",
-        "foundation staff █████████████████████████████████████████████████████",
-        "██████████████████████████████████████████████████████████████████████",
-        "██████████████████████████████████████████████████████████████████████",
-        "██████████████████████████████████████████████████████████████████████",
-        "█████████████████████████████████████████████████████████████████     ",
-        "███████████████████████████████████████████████████████████████ D-3819",
-        "██████████████████████████████████████████████████████████████████████",
-        "██████████████████████████████████████████████████████████████████████",
-        "████████████████████████████████████████████████████ among us ████████",
-        "██████████████████████████████████████████████████████████████████████",
-        "██████████████████████████████████████████████████████████████████████",
-        "███████████████████████████████████████████████████████               ",
-        "██████████████████████████████████████████████████████████████████████",
-        "██████████████████████████████████████████████████████████████████████",
-        "████████████████████████████████████████████ genitals were obliterated",
-        "██████████████████████████████████████████████████████████████████████",
-        "██████████████████████████████████████████████████████████████████████",
-        "███████████████████████████████████████                               ",
-        " ",
-        "USAGE:",
-        "secrets",
-    ],
-    "cake":[
-        "CAKE MANPAGE",
-        "yum",
-        " ",
-        "USAGE:",
-        "'cake'",
-    ],
-    "about":[
-        "ABOUT MANPAGE",
-        "learn about the console",
-        " ",
-        "USAGE:",
-        "'about'"
-    ],
-    "ae394":[
-        "dont",
-    ],
-    "doe":[
-        "DOE MANPAGE",
-        " ",
-        "USAGE:",
-        "'doe'",
-    ],
-    "logout":[
-        "LOGOUT MANPAGE",
-        "logs you out",
-        " ",
-        "USAGE",
-        "'logout'",
-    ],
-    "meaning of life":[
-        "mostly harmless",
-        " ",
-        "USAGE",
-        "'meaning of life'",
-    ],
-    "sus":[
-        "SUS MANPAGE",
-        "s-stop being such a sussy baka user-kun >//////<",
-        " ",
-        "USAGE:",
-        "'sus'",
-        "'amogus'",
-        "'among us'",
-    ],
-    "lovejoy":[
-        "LOVEJOY MANPAGE",
-        "just use it lmao",
-        " ",
-        "USAGE:",
-        "'lovejoy'",
-    ],
-    "arg-test" :[
-        "ARG-TEST MANPAGE",
-        "outdated command from when we were testing argument implementation",
-        " ",
-        "USAGE:",
-        "'arg-test [literally anything] [literally anything]'",
-    ],
-    "debug":[
-        "DEBUG MANPAGE",
-        "pulls up a window to display helpful information for testing purposes",
-        " ",
-        "USAGE:",
-        "'debug'",
-        "'debug -v'",
-    ],
-    "reboot":[
-        "REBOOT MANPAGE",
-        "reboots the terminal",
-        "i.e., refreshes the page",
-        " ",
-        "USAGE:",
-        "'reboot'",
-    ],
-    "cheese":[
-        "CHEESE MANPAGE",
-        "did you hear about the explosion in the cheese factory in france",
-        "debris was everywhere",
-        " ",
-        "USAGE:",
-        "cheese",
-    ],
-    "snake":[
-        "SNAKE MANPAGE",
-        "play snake",
-        "NOTE: THIS IS CURRENTLY NOT IMPLEMENTED, IT DOES NOT DO ANYTHING",
-        "USAGE:",
-        "'snake'",
-    ],
-    "cinfo":[
-        "CINFO MANPAGE",
-        "gives you the internal id of a character",
-        " ",
-        "USAGE:",
-        "'cinfo [character]",
-    ],
-    "history":[
-        "HISTORY MANPAGE",
-        "displays all of the commands you have entered that are stored in the local storage",
-        "newest entries go at the top of the list",
-        " ",
-        "USAGE:",
-        "'history'",
-    ],
-    "pebblebrain":[
-        "almbu",
-        " ",
-        "USAGE:",
-        "'pebblebrain'",
-        "'pebblebrain'",
-    ],
-    "benson":[
-        "duk",
-        " ",
-        "USAGE:",
-        "'benson'",
-    ],
-    "github":[
-        "GITHUB MANPAGE",
-        "displays github information and provides a link",
-        " ",
-        "USAGE:",
-        "'github'",
-        "'git'",
-    ],
-    "reset":[
-        "RESET MANPAGE",
-        "clears local storage, and restarts the page as it would for the initial launch",
-        " ",
-        "USAGE:",
-        "'reset'",
-    ],
-    "fitness":[
-        "FITNESS GRAM PACER TEST MANPAGE",
-        "gives you a multistage aerobic capacity test that progressively gets more difficult as it continues",
-        " ",
-        "USAGE:",
-        "'fitness'",
-        "'fitness gram'",
-        "'fitness gram pacer'",
-        "'fitness gram pacer test'",
-    ],
-    "issue":[
-        "ISSUE MANPAGE",
-        "prints your complaint and burns it",
-        " ",
-        "USAGE",
-        "'issue'",
-        "'error'",
-    ],
-    "songlist":[
-        "SONGLIST MANPAGE",
-        "like going to a candy store as a child and seeing they're sold out of almost everything, but with music",
-        " ", //^ in case you can't tell, i've written around 20 manpages in a row so far
-        "USAGE",
-        "'songlist'",
-    ],
-    "portal":[
-        "PORTAL MANPAGE",
-        "'           '",
-        "-chell",
-        "probably also important to note that this locks your input, just suck it up and deal with it",
-        " ",
-        "USAGE:",
-        "'portal'",
-        "'portal1'",
-    ],
-    "portal2":[
-        "PORTAL2 MANPAGE",
-        "this is the part where he kills you",
-        " ",
-        "USAGE:",
-        "'portal2'",
-    ],
-    "egg":[
-        "EGG MANPAGE",
-        "⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠊⠉⠉⢉⠏⠻⣍⠑⢲⠢⠤⣄⣀⠀⠀⠀⠀⠀⠀⠀",
-        "⠀⠀⠀⠀⠀⠀⠀⠀⣻⣿⢟⣽⠿⠯⠛⡸⢹⠀⢹⠒⣊⡡⠜⠓⠢⣄⠀⠀⠀⠀",
-        "⠀⠀⠀⠀⠀⠀⢀⡜⣿⣷⣽⠓⠀⢠⢂⣣⠋⠂⣾⠼⢌⠳⢄⢀⡠⠜⣣⡀⠀⠀",
-        "⠀⠀⠀⠀⠀⢠⢻⢱⣭⠷⠤⢅⠴⣡⡻⠃⠀⢠⠁⠀⢀⡱⠜⠍⢔⠊⠀⠹⡄⠀",
-        "⠀⠀⠀⠀⢀⣷⠌⠚⠷⠆⠠⠶⠭⢒⣁⠀⣤⠃⣀⢔⢋⡤⠊⠑⣄⠳⣄⠀⣧⠀",
-        "⠀⠀⠀⠀⠀⠑⠦⣀⡤⣄⠄⢄⣀⣠⣒⢦⡄⠩⠷⠦⠊⠀⠀⠀⠈⠣⡏⠢⣿⠀",
-        "⠀⠀⠀⠀⠀⠀⣸⢫⠟⣝⠞⣼⢲⡞⣞⠋⠋⠉⠋⠓⡄⠀⠀⠀⠀⠀⣨⠂⢸⡅",
-        "⠀⠀⠀⠀⠀⣰⠃⡨⠊⢀⡠⡌⢘⢇⠞⠀⠀⠀⠀⠂⠡⡄⠀⠀⢀⠞⢁⠔⢹⡇",
-        "⠀⠀⠀⠀⣰⣣⠞⢀⠔⢡⢢⠇⡘⠌⠀⠀⠀⠀⠀⠀⠠⡌⠢⡔⢁⡴⠁⠀⢸⠃",
-        "⠀⠀⠀⢠⠟⠁⠠⢊⠔⣡⢸⠀⠃⠁⠀⠀⠀⠀⠀⠀⠀⣯⠂⡀⢪⡀⠀⠀⢸⠀",
-        "⠀⢀⠔⣁⠐⠨⠀⠀⠈⠀⢄⠘⡀⠀⠈⢆⠀⠀⠀⠀⡠⢁⠜⠙⢦⠙⣦⠀⢸⠀",
-        "⡴⠁⠘⡁⣀⡡⠀⠀⠴⠒⠗⠋⠉⠉⡆⠀⠆⠄⠄⠘⠀⡎⠀⠀⠀⠑⢅⠑⢼⡀",
-        "⢯⣉⣓⠒⠒⠤⠤⣄⣀⣀⣀⣀⡀⠐⠁⠀⠀⠀⠒⠀⢀⡀⠀⠀⠀⠀⠀⠑⣌⣇",
-        "⠀⠈⢳⠄⠈⠀⠤⢄⣀⠀⢈⣉⡹⠯⡟⠁⠀⠀⠀⠀⢸⠀⠀⠂⠀⠀⡠⠚⣡⡿",
-        "⠀⢠⣋⣀⣀⣀⣀⠤⠭⢛⡩⠄⠒⠩⠂⢀⠄⠀⠀⠀⠈⢢⡀⠀⡠⠋⡩⠋⠀⢳",
-        "⠀⢹⠤⠬⠤⠬⠭⣉⣉⢃⠀⠀⣀⣀⠀⠁⠀⠀⠀⠀⡞⢺⡈⠋⡢⠊⠀⠀⠀⢸",
-        "⠀⠈⡆⠁⢀⠀⠀⠀⠉⠋⠉⠓⠂⠤⣀⡀⠀⠀⠀⠀⡧⠊⡠⠦⡈⠳⢄⠀⠀⠈",
-        "⠀⠀⢹⡜⠀⠁⠀⠀⠒⢤⡄⠤⠔⠶⠒⠛⠧⠀⠀⡼⡠⠊⠀⠀⠙⢦⡈⠳⡄⠀",
-        "⠀⠀⢸⠆⠀⠈⠀⠠⠀⠈⠀⠀⠀⠀⠀⠀⠀⠀⡜⢸⠀⠀⠀⠀⠀⠀⠑⢄⠈⢲",
-        "⠀⠀⢸⢀⠇⠀⠀⠀⠀⢀⠀⠀⠀⠀⠀⠀⡄⠊⢠⠃⠀⠀⠀⠀⠀⠀⠀⠈⡢⣸",
-        "⠀⠀⠈⠳⣤⣄⡀⠀⠀⠀⠈⠉⠉⠁⠒⠁⠀⠠⣏⠀⠀⠀⠀⠀⠀⢀⣔⠾⡿⠃",
-        "⠀⠀⠀⠀⠀⠉⠙⠛⠒⠤⠤⣤⣄⣀⣀⣀⣔⣢⣀⣉⣂⣀⣀⣠⠴⠿⠛⠋⠀",
-        " ",
-        "USAGE:",
-        "'egg'",
-    ],
-    "credits":[
-        "CREDITS MANPAGE",
-        "all credit goes to 18gallons, because they are the superior combatant",
-        " ",
-        "USAGE:",
-        "'credits'",
-    ],
-    "themes":[
-        "THEMELIST MANPAGE",
-        "a carefullly curated, thoughtfully crafted (almost entirely made by 18gallons) selection of themes for if the default green doesn't please ones eyes",
-        " ",
-        "USAGE:",
-        "'themelist'",
-        "'themes'",
-    ],
-    "themelist":[
-        "THEMELIST MANPAGE",
-        "a carefullly curated, thoughtfully crafted (almost entirely made by 18gallons) selection of themes for if the default green doesn't please ones eyes",
-        " ",
-        "USAGE:",
-        "'themelist'",
-        "'themes'",
-    ],
+var man = new Array();
+
+function updateMan() {
+    man = {
+        "help": [
+            "HELP MANPAPGE:",
+            "help will show you the general help page.",
+            "USAGE:",
+            "'help [option]'",
+            " ",
+            "OPTIONS:",
+            "having an option is optional (haha)",
+            "-art | shows you all the art commands",
+            "-dev | shows you all the commands for development",
+            " ",
+            "USAGE:",
+            "'help'",
+            "'help -art'",
+            "'help -dev'",
+        ],
+        "man":  [
+            "MAN MANPAGE:",
+            "shows you an in-depth help page for a specific command.",
+            "USAGE:",
+            "'man [command]'",
+            " ",
+            "USAGE:",
+            "'man echo'"
+        ],
+        "clear": [
+            "CLEAR MANPAPGE:",
+            "clears the console",
+            "USAGE:",
+            "'clear'",
+            "'clear [option]'",
+            "OPTIONS:",
+            " -cache | clears the local page cache",
+            "-ignore | (only works after -cache) will ignore the popup and just clear cache"
+        ],
+        "echo": [
+            "ECHO MANPAPGE:",
+            "echo will repeat any text inputter",
+            "USAGE:",
+            "'echo [message]'",
+            " ",
+            "EXAMPLE:",
+            "'echo hello world!'"
+        ],
+        "ls": [
+            "LS MANPAPGE:",
+            "lists all the existing commands in the console",
+            "USAGE:",
+            "'ls'",
+        ],
+        "login": [
+            "LOGIN MANPAPGE:",
+            "logs you into another user on the system",
+            "USAGE:",
+            "'login [username]'",
+            " ",
+            "EXAMPLE:",
+            "'login admin'"
+        ],
+        "signup": [
+            "SIGNUP MANPAPGE:",
+            "signs you up with a new account",
+            "USAGE:",
+            "'signup [username]'",
+            " ",
+            "EXAMPLE:",
+            "'signup tubbo''"
+        ],
+        "colour": [
+            "COLOUR MANPAPGE:",
+            "changes the colour of different elements in the console.",
+            "USAGE:",
+            "'colour [text/background] [#hex]'",
+            " ",
+            "OPTIONS:",
+            "text/background >",
+            "            text | changes the colour of the text",
+            "      background | changes the colour of the background",
+            "          accent | changes the colour of the window accents",
+            '            #hex | any valid hex colour code, or "reset" to reset it',
+            " ",
+            "EXAMPLE:",
+            "'colour text #ffffff'",
+            "'colour background #ffffff'",
+            "'colour text teset'",
+        ],
+        "color": [
+            "COLOR MANPAPGE:",
+            "changes the colour of different elements in the console.",
+            "USAGE:",
+            "'color [text/background/reset] [#hex]'",
+            " ",
+            "OPTIONS:",
+            "text/background >",
+            "            text | changes the colour of the text",
+            "      background | changes the colour of the background",
+            "          accent | changes the colour of the window accents",
+            "           reset | resets all the colours ack to default",
+            '            #hex | any valid hex colour code, or "reset" to reset it',
+            " ",
+            "EXAMPLE:",
+            "'color text #ffffff'",
+            "'color background #ffffff'",
+            "'color text reset'",
+            "'colour reset'",
+        ],
+        "comment": [
+            "COMMENT MANPAGE:",
+            "adds a comment to a list of comments, and will store them on your local cache",
+            " ",
+            "USAGE:",
+            "'comment [option] <comment>'",
+            " ",
+            "OPTIONS:",
+            "   add | adds comment to database",
+            "-clear | clears all comments from database",
+            "  list | lists all comments",
+            " ",
+            "EXAMPLE:",
+            "'comment add hello world!'",
+            "'comment list'",
+            " ",
+            "NOTE: <comment> section is only supported for the 'add' option."
+        ],
+        "ascii": [
+            "ASCII MANPAGE:",
+            "generates an ASCII text art of any sentence",
+            "if you want to copy the output of this command, check the manpage for 'copy'",
+            " ",
+            "USAGE:",
+            "'ascii [font] [sentence]'",
+            " ",
+            "OPTIONS:",
+            "font | the ascii font to use, check 'font list' to see the list of fonts",
+            "sentence | the sentence you want put into ascii art",
+            " ",
+            "EXAMPLE:",
+            "'ascii default Hello, World!'",
+        ],
+        "copy": [
+            "COPY MANPAGE:",
+            "copy is a command you put in front of another command to copy its output.",
+            "(not all commands are supported, so check 'copylist' for a list of supported commands.",
+            " ",
+            "USAGE:",
+            "'copy [command]'",
+            " ",
+            "EXAMPLE:",
+            "'copy ascii d Hello, World!'",
+            " ",
+            "NOTES:",
+            "to have the output automatically commented out for coding, use the command 'copycomm' (check the manpage for it)",
+        ],
+        "copycomm": [
+            "COPYCOMM MANPAGE:",
+            "automatically comment out the copied output of your command",
+            " ",
+            "USAGE:",
+            "'copycomm [comment string]'",
+            " ",
+            "OPTIONS:",
+            "comment string | a string that will appear at the beginning of every line of the copied text.",
+            " ",
+            "EXAMPLE:",
+            "'copycomm //' <-- the comment character for javascript",
+            "'copycomm none' <-- this will reset the comment to nothing"
+        ],
+        "convert": [
+            "CONVERT MANPAGE:",
+            "convert one unit into another unit",
+            " ",
+            "USAGE:",
+            "'convert [unit type] [amount] [from unit] [to unit]",
+            " ",
+            "OPTIONS:",
+            "unit type | if the unit measures length, volume, weight, etc. (check 'convert -list' for all unit types)",
+            "   amount | the input amount you want to convert",
+            "from unit | the unit you're converting from (in, km, etc.) check 'convert -list' for all the units.",
+            "  to unit | the unit you're converting to (mi, cm, etc.) check 'convert -list' for all the units.",
+            " ",
+            "EXAMPLE:",
+            "'convert -l 100 in ft'",
+            "'convert -l 5 km m'",
+        ],
+        "share": [
+            "SHARE MANPAGE",
+            " ",
+            "[THIS PAGE MAY BE OUTDATED, AND SOME THINGS MAY NOT WORK]",
+            " ",
+            "will generate and copy a link to your clipboard with all the supported shareable options.",
+            " ",
+            "USAGE:",
+            " ",
+            "'share'",
+            " ",
+            "URL OPTIONS: (advanced)",
+            " ",
+            "| url option  | value     | description",
+            "?debug        true/false  the debug menu will automatically be open or not open",
+            "?debugvar     true/false  the variable debug menu will also automatically be either open or not",
+            "?suggestion   string      the string will show up in the command input on page load",
+            "?command      string      the string will be automatically run as a command on page load",
+            "?textcolour   hex code    will set the text colour to whatever hex code used (without the # at the beginning)",
+            "?backcolour   hex code    same as textcolour but it sets the background colour",
+        ],
+        "": [
+            "MAN MANPAGE:",
+            "shows you an in-depth help page for a specific command.",
+            "USAGE:",
+            "'man [command]'",
+            " ",
+            "EXAMPLE:",
+            "'man echo'"
+        ],
+        "worble": [
+            "WORBLE MANPAGE",
+            "basically just like wordle but more intense",
+            " ",
+            "USAGE",
+            " ",
+            "'worble [option] <word>'",
+            " ",
+            "OPTIONS",
+            " ",
+            "            | explains more about how to play worble",
+            "      start | start a new worble game",
+            "    restart | restart the worble game",
+            "colourblind | toggles colourblind mode",
+            "       info | shows infor about your current game",
+            "      guess | guess the mystery word",
+            "      share | share your game progress",
+            "      stats | shows your worble statistics",
+            //"   download | downloads all your worble data",
+            "      reset | resets all of your worble data",
+            " ",
+            "NOTES:",
+            "<word> is only supported for the 'guess' option.",
+            " ",
+            "EXAMPLES:",
+            "'worble'",
+            "'worble start'",
+            "'worble guess house'",
+            "'worble info'",
+        ],
+        "uwu": [
+            "UWU MANPAGE (simon i blame you for this)",
+            "translates any text into uwu speak",
+            " ",
+            "USAGE:",
+            "'uwu [text]'",
+            " ",
+            "EXAMPLE:",
+            "'uwu hello there!'",
+        ],
+        "music": [
+            "MUSIC MANPAGE",
+            "displays main page for the music player",
+            " ",
+            "NOTES:",
+            "use 'songlist' to get the list of supported songs!",
+            " ",
+            "USAGE:",
+            "'music'",
+            " ",
+            "OPTIONS:",
+            "play [song id] | plays any supported song",
+            "          play | plays paused music",
+            "         pause | pauses currently playing music",
+            "volume [level] | sets the music volume to a percentage of original volume (value 0-100)",
+            "   stop / skip | skips current song",
+            " ",
+            "EXAMPLES:",
+            "'music play milk'",
+            "'music pause'",
+            "'music play'",
+            "'music volume 50'"
+        ],
+        "music play": [
+            "MUSIC PLAY MANPAGE",
+            "plays any supported song, or unpauses paused music",
+            " ",
+            "USAGE:",
+            "'music play [song id]'",
+            "'music play'"
+        ],
+        "music pause": [
+            "MUSIC PAUSE MANPAGE:",
+            "pauses currently playing music",
+            " ",
+            "USAGE:",
+            "'music pause'"
+        ],
+        "music volume": [
+            "MUSIC VOLUME MANPAGE",
+            "changes the music's volume to a percentage of original volume",
+            " ",
+            "USAGE:",
+            "music volume [volume]",
+            " ",
+            "EXAMPLE:",
+            "'music volume 50'"
+        ],
+        "music skip": [
+            "MUSIC SKIP MANPAGE:",
+            "skips current song",
+            " ",
+            "USAGE:",
+            "'music skip'"
+        ],
+        "zoom": [
+            "ZOOM MANPAGE",
+            "multiplies text size by the entered value",
+            " ",
+            "USAGE:",
+            "'zoom [number]'"
+        ],
+        "theme": [
+            "THEME MANPAGE",
+            "change the colour scheme within one command",
+            " ",
+            "USAGE:",
+            "'theme [option] [name/save]'",
+            " ",
+            "<name> is a name of a theme from the list of themes or a new name (run 'themes' to get a list of themes)",
+            "<save> is an exported theme save. <save> is only used when using the 'install' opeion. all other theme options use a theme name.",
+            " ",
+            "OPTIONS:",
+            " ",
+            "    use | use a theme from the list of themes",
+            "   save | saves your current colour scheme to your list of custom themes",
+            " export | copies the theme save to your clipboard to share with friends",
+            "install | install a theme from the previously mentioned theme save",
+            " ",
+            "EXAMPLES:",
+            " ",
+            "'theme use git'",
+            "'theme export portal2'",
+            "'theme install Cola Soda-caeserlettuce-#fdfdfd-#c70015-#43190e'"
+        ],
+        "asciigame": [
+            "ASCIIGAME MANPAGE",
+            "play a fun little text adventure game",
+            " ",
+            "USAGE:",
+            "'asciigame'",
+            " ",
+            "every screen will give you a list of options, just enter the one you wish to do and it will happen",
+        ],
+        "info": [
+            "INFO MANPAGE",
+            "tells some info about the site",
+            " ",
+            "USAGE:",
+            "'info'",
+        ],
+        "eef":[
+            "EEF MANPAGE",
+            "lime",
+            " ",
+            "USAGE:",
+            "'eef'"
+        ],
+        "oh":[
+            "OH MANPAGE",
+            "...,.,,,.,.,...,.,.,,.,..,.,.,....,,.;;,.:,.;,.,.;,,.",
+            " ",
+            "USAGE:",
+            "oh",
+            "OH",
+            " ",
+            "ö̴̖͙̜̳̲̺̗̰̠̙̺͓͚̲̼͚̗͔̺́̍̈́̑͌͐̊̚ͅh̸̡̬͔͍̲̥̑͐̈̃̿͐́̒͝ͅ.̶̧̛̻̟̻͇̯͇̗̗̼̝̙͈̜̯͔̠͙̥̤͓͈̲̬̲̠̖̭̳̗̜̭̜́̂́̓͑̓̍͐̍̄̅͌̈́͋̇̀̓̓́͋́̽̈́͊̈́͑̚̕͝ͅ.̷̨̨̧͕͔͕̟͇̭̰̻͈̙̯͎̲̟͖̼͉̱͓̝̱͎̟͕̲͍̙̯͖͒͒̑̈͐̐̋̒͛͂̓͊̀̍̏̒͌̽͘̚͜͝,̶̢̡̛̟͉̩͇͕̩̦̺̺͓̮͚͈͍̺̜̦̙͕͉̦̫̝̝̫͇̜͉̣̦͇̗̠̥̠̮͙̫̣͍̲̲̓̊̀͋͐͛̿̊͆͗́̇̌͋͐̔̇͆͌͐̄͋̈́̅͑̂̓̀̈́́̇̊̓͋͑̑̽̀͘͜͝͠ͅ.̶̢̨̜̟̖͉̙̫͇͚̟̮̟̦̹̗͇̜̘̜̭͉̞̣̬̲̥͖͓͍̼̤̦͓̰͓̓̂̀̅̚͝͝,̵̢̦̲̳̣̱̲͖̼͓̠͎͍̭̯͈̟͕̤̘̻̜̬̖̲̆͂̔̏̐͋́̽̓́̾̇͛̔̊̑̈́̏̾͌̓̅̀̇͋̇͒͊̑̀̐̅͂͗̌̂̕͝͠.̴̱̤͓̘̜̋͊,̷̧̧̨̡̤̗̤̳̠̮͇̲̺̮͖̪̝̗̣͙̣̲͓̖̪̤̼͚̲̫̞̝̥̣̣͑͋̊͑͆͒͆̌̅͒̇͋̄̈́̈́̓̓̚̚͜ͅͅ,̸̨̧̧̛̳̯͇̻̮̮̼̬̜̟͎̣̺̠̱͎̱͔̟̟̙͇̙̲͍̦̯̽̋̌̈́̋̓͒̇͐͌̒͒̈͗͂̾̓̋̑͋͑͌͌͌̿͌̃̐̽̈́̓̐̐̕͘̕͘͜͝͝,̷̨̧̧̨̢̢̥͙̼̫̯̤̙̹͚̪͉̠͉͎̰̥͓͖̝̠̭̳̥̜̭̫͈̯́̒̀̐͂̉͐̽̈́̀̀̔̈́̐́͂̅̈͑̀͐̈́̽̚̚̚͝ͅ.̴͓̲̮̌̐̉̀̏̃̀̒̂̄̽̊̎̓̌͋̇͊̈́̉̓̓̈̄̓̚̚̕͝͝,̸͓̺̰̱͔̩̯͉̳̲̉.̸̨̧̤̺̤̠̲̤̙̻̩͙̘̙̩̹͇̲̒̒̾̉̐̽̏͌͋͂͗̽̌́̅̑̅́͑̃͆̋̒͑͛̈̅̑͑̆͗̒͘̚̕͠͝͠ͅͅ,̷̧̨̧̡̡̢̩͚̣̼̺̝͙̤̟͚̙̼͖̪̺̖̝͈͖̦̮͔͔͇̯̠̞̭͈̦̻̙̹͖͚̮̘̫̤̋̐̉̑͗̂͆̓̈́̑̎̂̍́̂͌͗̋̈͂͘͘͘͘̕̚͠ͅͅͅ.̷̗͙̼̳̭̯̻̬̫̥͙͖̪̤͚̜̥̻̜̟͍̀̏͊̒̇͆̇͛̾́̿.̷̞̲̥̘̗̲̯̖̦̣̖̼̩̑̍͆̈́͠.̸̧̢̛̼͇͖̙̞̣̬͕̹̳͉̲̺̠̝̞̩̥̳̣̖̫̝͚̹͕̥̙̗̎͗̃̏͂͊̅̂̀̆̈́̑͐́̿̐̿͛́̌̔͐̀̀͌̊̐͐̑̓̇̀̓͂̀́̍̋̔͆̚͝͝͝͝ͅ,̶̧̢̡̧͚̬͙͇͚͉̳̱̯͖̩͙̟͉̼̳̺̬̭͓͙̼̰͚̦̻͕̲̹̯̰̗̲̠͔͈͔̺͖͓͎̘̤͚͂̅͆̋̈́̀̈̑͐̊̾͜͜͝.̴̢̨̡̡̠̩̪̦̙̭̰̯̖͓̱̣̣͕̮̯̣̮̙͎͕͙̙̙̪̹̫̺̮̭̥̮̈́̌̂̄̂̾̓̊̎̊͗̉̍́͒̆̈́̀̑̏͒͂̓͒̆̾̽̓̂̌̂̀̽́̎̔̄̍͂̇͋̈̂̎͘͘͝͝͠,̷̨̢̡̧̢̧̡̛̛̳̳͙̯̮̼̼͈̺̬̳͈̳͈̜͔̹͕̘̪̠͓͍͎̻̘̪̭̬̰̥͇͙̫̭̬͈̦̝̳̪͋͒̄̏̍̋̀̿̔̍́́͛̕͜͜͝͝͠.̸͓͛̈́̋̆͊̈̃̑́͌͐̈́̅̂̐̈́̄̇̂̀̂̈͑̿̔̾̓̉͛̒̀̏̋̿̽͆̄̌͋̆͌̕͘͝͝͝͝,̷̡̛͕̣̯̬͎̻̩̫̙̳̦̠̹̹̟̭͓̜͍͗͌̉̀͑̓̊͂̾̉́̈̓͊̊ͅ.̵̛̛̿̑̔͐̀̀̇̑̃͂̉͌̅̊͛̒̒̈́̏̏̎̊̔̽͑͋͌͗̌̕͘̚͝͝͝͝ͅ,̵̨̢̨̡̛̻͙̱̠̯̫̠̖̻̠̥͇͍̲̲̠̖͚̯͎̟̗̱̩̓̈́͒͑̀̆͐̅͒̊̏̄̉͂̀̾͘͝.̴̡̧̧̛̛̩̭̹̹̩̟̬̗̜̼̭̺̱͔̻̟̞̰̣̪̤̹̩͙̠̩̱̣͉͕̘̹͙̱̣̠̠̠̗̩̝͖́̆̒̒̐̈͒͛͒́̌͗̂͌̇͂͌̀̃̓̅̂̋̑̏̃̕̚͘͜͜͠͠͝͝ͅ,̸̛̛͓̺̝̮̭̘̭̖̬̝̈́͑͒̌̅͐̾̉͒̇͋̀͋͊̿͌͑̐́͂́̋̚͝͝.̷̡̧̨̢̨̧̨̥̣͔̗̠̲̖͈̮͍͔͍̭̠͍̩̯̯͍̱̟̦͇͕̺̳̯͎̟̤͒͒̈́̽́͋̈́̾̿͂̈̏̈̓̇̎̓̾̽͋̀̒̄̈́́̄͐̕̚̕͜͝͠ͅ,̶̨̡̛̺̬͍̟̪̭̯̈́́̎͛̾͛́̎͋͌̐̽͂̃̉̇̏̔̃́̋̄̈̉̓͋̍̒̌́̈́̓̕̚͠͝ͅ.̴̡̬̠̭̭̖̬̖̮̰̹̟̦̻̮̪͋̎͛̃̐͂͊͑̈́̍̈́̀̓̓̕͜͜͝ͅͅ.̶̢̛̠̮̞͌̅̾͆͗̑̏̋̀̀̊̿͒̐͂̈́̑̀̽͆̒̊̾̿̉̒͊̀̃͌̐͑̈́̅͆͘̚̕̚͘͠.̴̛̺̟̳̺̲͍̹̼̘͚͖͔̭̏̀̾̀̎̊̅͐̄͛̓̀̀̀̊̽̂̃́̕͘͘̚ͅͅ.̴̨̘͕̹̙̯̦̞̳͓̺͕̺͚͆̄͐̄͊́̽̽̈́̈́͗̀̈̽͛̕̚̕͜͠,̵̧̨̧̧̢̢̡̛̛̛̛͔̰͎̜͈͓̩̖͍̱̹̻̯̖̙̫̥͍͓̰͖̩̣̣̮̯͖͕̘͎̲̻̻͈͓̼̥̻̳́͗͋̉̌̽̅͛͋̋̿̅͐̏̂̂̓̀̀̂̄͆̇̓̆͌̆̔̀̽͐̆͒͛̓̂̎̊͠͝ͅͅͅ.̴̛̭͇̇̔̉̀̑̀̿̂̂̍̃̉̀̋̊͌̓́͒͂̀̚͘̚͠͝,̸̡̛͇̫͇̤̩͖̪̼̖̯̖̣̹̠̮̟̭̯͎͈͓̣͔̗͖̲̐̾̈͛̐̿̃̂̃̈́̂̐̑͆̿́̾̈̐́́̈́̐̾͑̄͂̔̓̎͘͜͝͠͝͝ͅ.̴̧̡̡̨͙̼͎̯̖͔̣̩̲͉̜͚̙̦͈̖͕͎̰̬͉̞͕̹͍̹̦̯̓̿̐͋͒͆͛̽̒̈̐̽̈́͜͝ͅ,̷̡͙͈͇̜͉͇̯͓̮̤̤̦̲̞͕̤̱̯̦̝̥̿̆̄̑̈́̍̐͊̒̀̎̓̾̈́́̈̆̄̇̉̾̓̔̌̓͋̌̿̂͊͐́̀͗̈́̚̚͘̕͝͝͝͝͠,̸̨͇͈̩͙͍͙͍̯̖͓̻͚̝̙̗̜̱̫̩͕̣̹̦̮̣̟̍͋̊̿̆̉̀̀̔̋̚͘ͅͅ.̶̛̛̺̳̬̣̩͓̟̱͔̒̈́̔͂̑̈́̑͗̈͂͗̓̊͊͗̽̃̐͑̕͝",
+        ],
+        "hack":[
+            "HACK MANPAGE",
+            "neil ciciriega needs your help to continue making music! just give him your credit card number, expiration date, and the three MAGIC little numbers on the back!",
+            " ",
+            "USAGE",
+            "'hack'",
+        ],
+        "aperture":[
+            "APERTURE MANPAGE",
+            "for science",
+            "you monster",
+            " ",
+            "USAGE:",
+            "'aperture'",
+        ],
+        "secrets":[
+            "scp-████ is a ████████████████████████████████████████████████████████",
+            "██████████████████████████████████████████████████████████████████████",
+            "██████████████████████████████████████████████████████████████████████",
+            "foundation staff █████████████████████████████████████████████████████",
+            "██████████████████████████████████████████████████████████████████████",
+            "██████████████████████████████████████████████████████████████████████",
+            "██████████████████████████████████████████████████████████████████████",
+            "█████████████████████████████████████████████████████████████████     ",
+            "███████████████████████████████████████████████████████████████ D-3819",
+            "██████████████████████████████████████████████████████████████████████",
+            "██████████████████████████████████████████████████████████████████████",
+            "████████████████████████████████████████████████████ among us ████████",
+            "██████████████████████████████████████████████████████████████████████",
+            "██████████████████████████████████████████████████████████████████████",
+            "███████████████████████████████████████████████████████               ",
+            "██████████████████████████████████████████████████████████████████████",
+            "██████████████████████████████████████████████████████████████████████",
+            "██████████████████████████████████████████████enitals were obliterated",
+            "██████████████████████████████████████████████████████████████████████",
+            "██████████████████████████████████████████████████████████████████████",
+            "███████████████████████████████████████                               ",
+            " ",
+            "USAGE:",
+            "secrets",
+        ],
+        "cake":[
+            "CAKE MANPAGE",
+            "yum",
+            " ",
+            "USAGE:",
+            "'cake'",
+        ],
+        "about":[
+            "ABOUT MANPAGE",
+            "learn about the console",
+            " ",
+            "USAGE:",
+            "'about'"
+        ],
+        "ae394":[
+            "dont",
+        ],
+        "doe":[
+            "DOE MANPAGE",
+            " ",
+            "USAGE:",
+            "'doe'",
+        ],
+        "logout":[
+            "LOGOUT MANPAGE",
+            "logs you out",
+            " ",
+            "USAGE",
+            "'logout'",
+        ],
+        "meaning of life":[
+            "mostly harmless",
+            " ",
+            "USAGE",
+            "'meaning of life'",
+        ],
+        "sus":[
+            "SUS MANPAGE",
+            `s-stop being such a sussy baka ${user}-kun >//////<`,
+            " ",
+            "USAGE:",
+            "'sus'",
+            "'amogus'",
+            "'among us'",
+        ],
+        "lovejoy":[
+            "LOVEJOY MANPAGE",
+            "she's always asking 'Are You Alright?'",
+            " ",
+            "USAGE:",
+            "'lovejoy'",
+        ],
+        "arg-test":[
+            "ARG-TEST MANPAGE",
+            "outdated command from when we were testing argument implementation",
+            " ",
+            "USAGE:",
+            "'arg-test [literally anything] [literally anything]'",
+        ],
+        "debug":[
+            "DEBUG MANPAGE",
+            "pulls up a window to display helpful information for testing purposes",
+            " ",
+            "USAGE:",
+            "'debug'",
+            "'debug -v'",
+        ],
+        "reboot":[
+            "REBOOT MANPAGE",
+            "reboots the terminal",
+            "i.e., refreshes the page",
+            " ",
+            "USAGE:",
+            "'reboot'",
+        ],
+        "cheese":[
+            "CHEESE MANPAGE",
+            "did you hear about the explosion in the cheese factory in france",
+            "debris was everywhere",
+            " ",
+            "USAGE:",
+            "cheese",
+        ],
+        "snake":[
+            "SNAKE MANPAGE",
+            "play snake",
+            "NOTE: THIS IS CURRENTLY NOT IMPLEMENTED, IT DOES NOT DO ANYTHING",
+            "USAGE:",
+            "'snake'",
+        ],
+        "cinfo":[
+            "CINFO MANPAGE",
+            "gives you the internal id of a character",
+            " ",
+            "USAGE:",
+            "'cinfo [character]",
+        ],
+        "history":[
+            "HISTORY MANPAGE",
+            "displays all of the commands you have entered that are stored in the local storage",
+            "newest entries go at the top of the list",
+            " ",
+            "USAGE:",
+            "'history'",
+        ],
+        "pebblebrain":[
+            "almbu",
+            " ",
+            "USAGE:",
+            "'pebblebrain'",
+            "'pebblebrain'",
+        ],
+        "benson":[
+            "benson my beloved <3",
+            " ",
+            "USAGE:",
+            "'benson'",
+        ],
+        "github":[
+            "GITHUB MANPAGE",
+            "displays github information and provides a link",
+            " ",
+            "USAGE:",
+            "'github'",
+            "'git'",
+        ],
+        "reset":[
+            "RESET MANPAGE",
+            "clears local storage, and restarts the page as it would for the initial launch",
+            " ",
+            "USAGE:",
+            "'reset'",
+        ],
+        "fitness":[
+            "FITNESS GRAM PACER TEST MANPAGE",
+            "gives you a multistage aerobic capacity test that progressively gets more difficult as it continues",
+            " ",
+            "USAGE:",
+            "'fitness'",
+            "'fitness gram'",
+            "'fitness gram pacer'",
+            "'fitness gram pacer test'",
+        ],
+        "issue":[
+            "ISSUE MANPAGE",
+            "prints your complaint and burns it",
+            " ",
+            "USAGE",
+            "'issue'",
+            "'error'",
+        ],
+        "songlist":[
+            "SONGLIST MANPAGE",
+            "like going to a candy store as a child and seeing they're sold out of almost everything, but with music",
+            " ",
+            "CAFFY WROTE THIS. WE HAVE LEMON DEMON. LOTS OF LEMON DEMON.",
+            " ", //^ in case you can't tell, i've written around 20 manpages in a row so far
+            "USAGE",
+            "'songlist'",
+        ],
+        "portal":[
+            "PORTAL MANPAGE",
+            '"           "',
+            "-chell",
+            "probably also important to note that this locks your input, just suck it up and deal with it",
+            " ",
+            "USAGE:",
+            "'portal'",
+            "'portal1'",
+        ],
+        "portal2":[
+            "PORTAL2 MANPAGE",
+            "this is the part where he kills you",
+            " ",
+            "USAGE:",
+            "'portal2'",
+        ],
+        "egg":[
+            "EGG MANPAGE",
+            "⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠊⠉⠉⢉⠏⠻⣍⠑⢲⠢⠤⣄⣀⠀⠀⠀⠀⠀⠀⠀",
+            "⠀⠀⠀⠀⠀⠀⠀⠀⣻⣿⢟⣽⠿⠯⠛⡸⢹⠀⢹⠒⣊⡡⠜⠓⠢⣄⠀⠀⠀⠀",
+            "⠀⠀⠀⠀⠀⠀⢀⡜⣿⣷⣽⠓⠀⢠⢂⣣⠋⠂⣾⠼⢌⠳⢄⢀⡠⠜⣣⡀⠀⠀",
+            "⠀⠀⠀⠀⠀⢠⢻⢱⣭⠷⠤⢅⠴⣡⡻⠃⠀⢠⠁⠀⢀⡱⠜⠍⢔⠊⠀⠹⡄⠀",
+            "⠀⠀⠀⠀⢀⣷⠌⠚⠷⠆⠠⠶⠭⢒⣁⠀⣤⠃⣀⢔⢋⡤⠊⠑⣄⠳⣄⠀⣧⠀",
+            "⠀⠀⠀⠀⠀⠑⠦⣀⡤⣄⠄⢄⣀⣠⣒⢦⡄⠩⠷⠦⠊⠀⠀⠀⠈⠣⡏⠢⣿⠀",
+            "⠀⠀⠀⠀⠀⠀⣸⢫⠟⣝⠞⣼⢲⡞⣞⠋⠋⠉⠋⠓⡄⠀⠀⠀⠀⠀⣨⠂⢸⡅",
+            "⠀⠀⠀⠀⠀⣰⠃⡨⠊⢀⡠⡌⢘⢇⠞⠀⠀⠀⠀⠂⠡⡄⠀⠀⢀⠞⢁⠔⢹⡇",
+            "⠀⠀⠀⠀⣰⣣⠞⢀⠔⢡⢢⠇⡘⠌⠀⠀⠀⠀⠀⠀⠠⡌⠢⡔⢁⡴⠁⠀⢸⠃",
+            "⠀⠀⠀⢠⠟⠁⠠⢊⠔⣡⢸⠀⠃⠁⠀⠀⠀⠀⠀⠀⠀⣯⠂⡀⢪⡀⠀⠀⢸⠀",
+            "⠀⢀⠔⣁⠐⠨⠀⠀⠈⠀⢄⠘⡀⠀⠈⢆⠀⠀⠀⠀⡠⢁⠜⠙⢦⠙⣦⠀⢸⠀",
+            "⡴⠁⠘⡁⣀⡡⠀⠀⠴⠒⠗⠋⠉⠉⡆⠀⠆⠄⠄⠘⠀⡎⠀⠀⠀⠑⢅⠑⢼⡀",
+            "⢯⣉⣓⠒⠒⠤⠤⣄⣀⣀⣀⣀⡀⠐⠁⠀⠀⠀⠒⠀⢀⡀⠀⠀⠀⠀⠀⠑⣌⣇",
+            "⠀⠈⢳⠄⠈⠀⠤⢄⣀⠀⢈⣉⡹⠯⡟⠁⠀⠀⠀⠀⢸⠀⠀⠂⠀⠀⡠⠚⣡⡿",
+            "⠀⢠⣋⣀⣀⣀⣀⠤⠭⢛⡩⠄⠒⠩⠂⢀⠄⠀⠀⠀⠈⢢⡀⠀⡠⠋⡩⠋⠀⢳",
+            "⠀⢹⠤⠬⠤⠬⠭⣉⣉⢃⠀⠀⣀⣀⠀⠁⠀⠀⠀⠀⡞⢺⡈⠋⡢⠊⠀⠀⠀⢸",
+            "⠀⠈⡆⠁⢀⠀⠀⠀⠉⠋⠉⠓⠂⠤⣀⡀⠀⠀⠀⠀⡧⠊⡠⠦⡈⠳⢄⠀⠀⠈",
+            "⠀⠀⢹⡜⠀⠁⠀⠀⠒⢤⡄⠤⠔⠶⠒⠛⠧⠀⠀⡼⡠⠊⠀⠀⠙⢦⡈⠳⡄⠀",
+            "⠀⠀⢸⠆⠀⠈⠀⠠⠀⠈⠀⠀⠀⠀⠀⠀⠀⠀⡜⢸⠀⠀⠀⠀⠀⠀⠑⢄⠈⢲",
+            "⠀⠀⢸⢀⠇⠀⠀⠀⠀⢀⠀⠀⠀⠀⠀⠀⡄⠊⢠⠃⠀⠀⠀⠀⠀⠀⠀⠈⡢⣸",
+            "⠀⠀⠈⠳⣤⣄⡀⠀⠀⠀⠈⠉⠉⠁⠒⠁⠀⠠⣏⠀⠀⠀⠀⠀⠀⢀⣔⠾⡿⠃",
+            "⠀⠀⠀⠀⠀⠉⠙⠛⠒⠤⠤⣤⣄⣀⣀⣀⣔⣢⣀⣉⣂⣀⣀⣠⠴⠿⠛⠋⠀",
+            " ",
+            "USAGE:",
+            "'egg'",
+        ],
+        "credits":[
+            "CREDITS MANPAGE",
+            "all credit goes to 18gallons, because they are the superior combatant",
+            " ",
+            "USAGE:",
+            "'credits'",
+        ],
+        "themes":[
+            "THEMES MANPAGE",
+            "a carefullly curated, thoughtfully crafted (almost entirely made by 18gallons) selection of themes for if the default green doesn't please one's eyes",
+            " ",
+            "USAGE:",
+            "'themelist'",
+            "'themes'",
+        ],
+        "themelist":[
+            "THEMELIST MANPAGE",
+            "a carefullly curated, thoughtfully crafted (almost entirely made by 18gallons) selection of themes for if the default green doesn't please ones eyes",
+            " ",
+            "USAGE:",
+            "'themelist'",
+            "'themes'",
+        ],
+        "dog":[
+            "DOG MANPAGE",
+        `
+      ▄▀▄▄▀▄
+     █░░░░░░▀▀▀▄      ▄
+    █░░▀░░▀░░░░░▀▄▄  █░█
+    █░▄░█▀░▄░░░░░░░▀▀░░█
+    █░░▀▀▀▀░░░░░░░░░░░░█
+    █░░░░░░░░░░░░░░░░░░█
+    █░░░░░░░░░░░░░░░░░░█
+     █░░▄▄░░▄▄▄▄░░▄▄░░█
+     █░▄▀█░▄▀  █░▄▀█░▄▀
+      ▀   ▀     ▀   ▀`,
+            " ",
+            "USAGE:",
+            "'dog'"
+        ],
+        "manlist":[
+            "MANLIST MANPAGE",
+            " ",
+            "displays a list of all existing manpages",
+            " ",
+            "USAGE:",
+            "'manlist'"
+        ],
+        "accounts":[
+            "ACCOUNTS MANPAGE",
+            " ",
+            "lists all available accounts",
+            " ",
+            "USAGE:",
+            "'accounts'"
+        ]
+    }
 }
+
+updateMan();
 
 
 var listy = [ " ",
@@ -3073,7 +3115,8 @@ var listy = [ " ",
     "theme install",
     "asciigame",
     "dog",
-
+    "manlist",
+    "accounts",
     
     "* command is currently in-development and may break the site."
 ]; 
@@ -5528,7 +5571,7 @@ var site_credits = [
 ▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒░
  ░░░░░░░░░░░░░░░░░░░░░░░░
 `, "dur": [16577, 17582]},
-{"text": "\n caeserlettuce - lead developer", "dur": [17582, 18418]},
+{"text": "\n caeserlettuce - lead developer - css - javascript - html", "dur": [17582, 18418]},
 {"text": `⠀${"\n".repeat(display_charsize[1])}`, "dur": [19426, 19877]},
 {"text": `
                 ░░   ░
@@ -5560,32 +5603,21 @@ var site_credits = [
 ▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓
  ▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓
     ▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓`, "dur": [19877, 20918]},
-    {"text": "\n\n 18gallons - developer / bug testing / themes", "dur": [20918, 21717]},
+    {"text": "\n\n 18gallons - developer / bug testing / visuals / manpages", "dur": [20918, 21717]},
     {"text": `⠀${"\n".repeat(display_charsize[1])}`, "dur": [22743, 23186]},
-    {"text": "\nSPECIAL THANKS TO:\n\nGitHub\nVisual Studio Code\nStack Overflow\n\n\n", "dur": [23153, 27931]},
+    {"text": "\nSPECIAL THANKS TO:\n\nGitHub\nVisual Studio Code\nStack Overflow\nValve - Portal & Portal 2, which inspired me to make this\n\n\n\n", "dur": [23153, 27931]},
     {"text": `
-             .,-:;//;:=,
-         . :H@@@MM@M#H/.,+%;,
-      ,/X+ +M@@M@MM%=,-%HMMM@X/,
-     -+@MM; $M@@MH+-,;XMMMM@MMMM@+-
-    ;@M@@M- XM@X;. -+XXXXXHHH@M@M#@/.
-  ,%MM@@MH ,@%=            .---=-=:=,.
-  -@#@@@MX .,              -%HX$$%%%+;
- =-./@M@M$                  .;@MMMM@MM:
- X@/ -$MM/                    .+MM@@@M$
-,@M@H: :@:                    . -X#@@@@-
-,@@@MMX, .                    /H- ;@M@M=
-.H@@@@M@+,                    %MM+..%#$.
- /MMMM@MMH/.                  XM@MH; -;
-  /%+%$XHH@$=              , .H@@@@MX,
-   .=--------.           -%H.,@@@@@MX,
-   .%MM@@@HHHXX$$$%+- .:$MMX -M@@MM%.
-     =XMMM@MM@MM#H;,-+HMM@M+ /MMMX=
-       =%@M@M#@$-.=$@MM@@@M; %M%=
-         ,:+$+-,/H#MMMMMMM@- -,
-               =++%%%%+/:-.
-    `, "dur": [29777, 30832]},
-    {"text": "\n\n Valve - Portal 1 & 2 for inspiring me to make this", "dur": [30832, 31653]},
+    ▄▀▄▄▀▄
+   █░░░░░░▀▀▀▄      ▄
+  █░░▀░░▀░░░░░▀▄▄  █░█
+  █░▄░█▀░▄░░░░░░░▀▀░░█
+  █░░▀▀▀▀░░░░░░░░░░░░█
+  █░░░░░░░░░░░░░░░░░░█
+  █░░░░░░░░░░░░░░░░░░█
+   █░░▄▄░░▄▄▄▄░░▄▄░░█
+   █░▄▀█░▄▀  █░▄▀█░▄▀
+    ▀   ▀     ▀   ▀`, "dur": [29777, 30832]},
+    {"text": "\n\n 'Annoying Dog' & Music in 'dog' by Toby Fox", "dur": [30832, 31653]},
     {"text": `⠀${"\n".repeat(display_charsize[1])}`, "dur": [33071, 34152]},
     {"text": "[insert more credits when i need them]", "dur": [34152, 36152]},
 
@@ -6869,6 +6901,8 @@ var puppy = {
 "normal": {
 
 "idle":`
+
+
       ▄▀▄▄▀▄
      █░░░░░░▀▀▀▄      ▄
     █░░▀░░▀░░░░░▀▄▄  █░█
@@ -6882,6 +6916,8 @@ var puppy = {
 
 "wag": [
 `
+
+
       ▄▀▄▄▀▄
      █░░░░░░▀▀▀▄       ▄▄
     █░░▀░░▀░░░░░▀▄▄  ▄▀░█
@@ -6893,6 +6929,8 @@ var puppy = {
      █░▄▀█░▄▀  █░▄▀█░▄▀
       ▀   ▀     ▀   ▀`,
  `
+
+
       ▄▀▄▄▀▄
      █░░░░░░▀▀▀▄
     █░░▀░░▀░░░░░▀▄▄   ▄▄▀█
@@ -6904,6 +6942,8 @@ var puppy = {
      █░▄▀█░▄▀  █░▄▀█░▄▀
       ▀   ▀     ▀   ▀`,
 `
+
+
       ▄▀▄▄▀▄
      █░░░░░░▀▀▀▄
     █░░▀░░▀░░░░░▀▄▄
@@ -6915,6 +6955,8 @@ var puppy = {
      █░▄▀█░▄▀  █░▄▀█░▄▀
       ▀   ▀     ▀   ▀`,
 `
+
+
       ▄▀▄▄▀▄
      █░░░░░░▀▀▀▄
     █░░▀░░▀░░░░░▀▄▄   ▄▄▀█
@@ -6926,6 +6968,8 @@ var puppy = {
      █░▄▀█░▄▀  █░▄▀█░▄▀
       ▀   ▀     ▀   ▀`,
 `
+
+
       ▄▀▄▄▀▄
      █░░░░░░▀▀▀▄       ▄▄
     █░░▀░░▀░░░░░▀▄▄  ▄▀░█
@@ -6937,6 +6981,8 @@ var puppy = {
      █░▄▀█░▄▀  █░▄▀█░▄▀
       ▀   ▀     ▀   ▀`,
 `
+
+
       ▄▀▄▄▀▄
      █░░░░░░▀▀▀▄      ▄▖
     █░░▀░░▀░░░░░▀▄▄  ▞░▟
@@ -7055,32 +7101,46 @@ var puppy = {
 }
 
 
+/*
+▓▒░
+▗▖▝▘▟▙▜▛▚▞█▀
+▉▊▋▌▍▎▏
+▇▆▅▄▃▂▁
 
-//▓▒░
-//▗▖▝▘▟▙▜▛▚▞█▀
-//▉▊▋▌▍▎▏
-//▇▆▅▄▃▂▁
-//
-//│┴┬├─┤┼┌┐└┘
-//┃┻┳┣━┫╋┏┓┗┛
-//║╩╦╠═╣╬╔╗╚╝
-// ╨╤╟ ╡╪╓╖╙╜
-// ╧╥╞ ╢╫╒╕╘╛
-//╿┸┯┞ ┦╀┍┑┖┚
-//╽┷┰┟ ┧╁┎┒┕┙
-// ┵┭┠╾┥┽╭╮╯╰
-// ┶┮┝╼┨┾
-// ┹┱┡ ┩╇
-// ┺┲┢ ┪╈
-//╹   ╸ ╃
-//╻   ╺ ╄
-//╵   ╴ ╅
-//╷   ╶ ╆
-//    ╳ ╉
-//    ╱ ╊
-//    ╲ ┿
-//      ╂
-//          ↖
+│┴┬├─┤┼┌┐└┘
+┃┻┳┣━┫╋┏┓┗┛
+║╩╦╠═╣╬╔╗╚╝
+ ╨╤╟ ╡╪╓╖╙╜
+ ╧╥╞ ╢╫╒╕╘╛
+╿┸┯┞ ┦╀┍┑┖┚
+╽┷┰┟ ┧╁┎┒┕┙
+ ┵┭┠╾┥┽╭╮╯╰
+ ┶┮┝╼┨┾
+ ┹┱┡ ┩╇
+ ┺┲┢ ┪╈
+╹   ╸ ╃
+╻   ╺ ╄
+╵   ╴ ╅
+╷   ╶ ╆
+    ╳ ╉
+    ╱ ╊
+    ╲ ┿
+      ╂
+          ↖
+
+⡀⡁⡂⡃⡄⡅⡆⡇⡈⡉⡊⡋⡌⡍⡎⡏
+⡐⡑⡒⡓⡔⡕⡖⡗⡘⡙⡚⡛⡜⡝⡞⡟
+⡠⡡⡢⡣⡤⡥⡦⡧⡨⡩⡪⡫⡬⡭⡮⡯
+⡰⡱⡲⡳⡴⡵⡶⡷⡸⡹⡺⡻⡼⡽⡾⡿
+⢀⢁⢂⢃⢄⢅⢆⢇⢈⢉⢊⢋⢌⢍⢎⢏
+⢐⢑⢒⢓⢔⢕⢖⢗⢘⢙⢚⢛⢜⢝⢞⢟
+⢠⢡⢢⢣⢤⢥⢦⢧⢨⢩⢪⢫⢬⢭⢮⢯
+⢰⢱⢲⢳⢴⢵⢶⢷⢸⢹⢺⢻⢼⢽⢾⢿
+⣀⣁⣂⣃⣄⣅⣆⣇⣈⣉⣊⣋⣌⣍⣎⣏
+⣐⣑⣒⣓⣔⣕⣖⣗⣘⣙⣚⣛⣜⣝⣞⣟
+⣠⣡⣢⣣⣤⣥⣦⣧⣨⣩⣪⣫⣬⣭⣮⣯
+⣰⣱⣲⣳⣴⣵⣶⣷⣸⣹⣺⣻⣼⣽⣾⣿
+*/
 
 
 var caffy = `

@@ -178,6 +178,8 @@ var dog_anim_len = 0;
 var dog_anim_go = false;
 var dogtime = 0;
 var dog_outfit = "normal";
+var cur_set_colour = "";
+var cur_set_place = 0;
 
 
 
@@ -798,7 +800,7 @@ function displayAppend(message, in_id, hide, colour, link) {
         console_colour_history[in_id] = `${colour}`;        // append to value
     } else {                                                // else
         //debubg("NO EXIST");
-        if (colour) {
+        if (typeof colour == 'string') {
             console_colour_history[in_id] = `${colour}`;        // append to value
         } else {
             console_colour_history[in_id] = `inherit`;                                                  // just set value
