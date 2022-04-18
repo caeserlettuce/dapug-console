@@ -166,14 +166,18 @@ var locked_accounts = [
 ]
 var login_username;
 var signup_username;
-var in_tentris = false;
-var tentris_lock = false;
-var tentris_save = new Array();
-var tentris_position = [5, 0];
-var tentris_shape = 0;
-var tentris_timer;
-var tentris_orientation = 0;
-var tentris_bounding = [0,0];
+var doglock = false;
+var dog = false;
+var dog_pets = 0;
+var dog_timer;
+var dog_speed = 50;
+var dog_elem;
+var dog_petelem;
+var dog_anim_index = 0;
+var dog_anim_len = 0;
+var dog_anim_go = false;
+var dogtime = 0;
+var dog_outfit = "normal";
 
 
 
@@ -1181,7 +1185,6 @@ async function displayLyrics(lyrics) {
     var lyr_len = lyrics.length;
     musicTimeouts = 0;
     var timeouts = 0;
-    updateLyrics();
     
     // timeout var template:
 
@@ -3059,6 +3062,156 @@ function askInput(scooby_doo, end) {   // ask for a text input from console thin
 
 //askInput(() => { displayAnim(`your name is ${ask_return}!!`, 7); } );
 
+/*
+
+24.606947	29.421663	\mHour hand's gone from two to three, now four
+30.214505	31.929928	You barely slept all night
+
+↖
+*/
+
+/*
+HOW TO DO THE FANCY LYRICS:
+
+go into audacity, bring in the audio track, make a new label track, add all the labels in the correct lyric places, and then go to file > export > label tracks, export the .txt file to DONT_PUSH/
+then copy the contents of that into test_lyr, go to the inspect menu console, then paste this:
+
+setTimeout(() => {compileLyrics();}, 2000);
+
+press enter, and swap back to the page within 2 seconds so it'll actually copy it to your clipboard, then boom you have your lyrics (tm)
+
+    ALSO USE \\n FOR NEWLIENS!!!
+
+*/
+
+
+var test_lyr = ``;
+
+
+function compileLyrics() {
+
+    var final = "";
+
+    var spit = test_lyr.split("\n");
+
+    final += "[";
+
+    for (i in spit) {
+        var lyr_lin = spit[i];
+        console.log("lyric line: ", lyr_lin);
+        var lyr_spit = lyr_lin.split("\t");
+        var time1 = lyr_spit[0].split(".");
+        var time1_1 = `${time1[1]}`.slice(0, -3)
+        var time1_final = `${time1[0]}${time1_1}`;
+        var time2 = lyr_spit[1].split(".");
+        var time2_1 = `${time2[1]}`.slice(0, -3)
+        var time2_final = `${time2[0]}${time2_1}`;
+        var line = `{"text": "${lyr_spit[2]}", "dur": [${time1_final}, ${time2_final}]},`;
+        final += `
+`;
+        final += line;
+    }
+
+    final += `
+`;
+    final += "]";    
+
+    copyclip(final);
+    return final
+}
+
+
+function dogEscape() {      // used to exit dog (how could you??)
+    doglock = false;
+    dog = false;
+    shell.value = "";
+    clearScreen();
+    clearInterval(dog_timer);
+    if (dog_pets == 1) {
+        displayAnim(`you pet the dog ${dog_pets} time!`);
+    } if (dog_pets == 0) {
+        displayAnim(`you didnt pet the dog at all :(`);
+    } else if (dog_pets != 1 && dog_pets != 0) {
+        displayAnim(`you pet the dog ${dog_pets} time(s)!`);
+    }
+    
+}
+
+
+
+function dogInteract() {    // function that is run every time the dog is interacted with
+    doggy();
+    dog_pets += 1;
+
+    var divy = `${dog_pets / 100}`;
+
+    console.log(divy);
+
+    if (divy.replace(".", "") == divy) {    // IS divisible because there are no decimal points
+        doggy(true);
+    } else if (dog_pets == 20 || dog_pets == 50) {
+        doggy(true);
+    }
+
+    if (dog_pets >= 100) {
+        dog_outfit = "sombrero";
+    }
+
+    if (dog_pets == 1) {
+        dog_petelem.innerHTML = `${dog_pets} pet`;
+    } else {
+        dog_petelem.innerHTML = `${dog_pets} pets`;
+    }
+    // random chance of a wag
+
+    var rand = getRandomInt(1,5);
+
+    //rand = 1;
+    if (rand == 1) {
+        dog_anim_index = 0;
+        dog_anim_len = puppy[dog_outfit]["wag"].length;
+        dog_anim_go = true;
+    }
+
+}
+
+
+function startDog() {
+    // DOG!!!!
+    doglock = true;
+    dog = true;
+    consol.innerHTML = `<span id="dog">hehe</span><br><span id="pets">no pets</span>`;
+    dog_elem = document.getElementById("dog");
+    dog_petelem = document.getElementById("pets");
+    dogtime = 0;
+    dog_pets = 0;
+
+    dog_elem.innerHTML = puppy[dog_outfit]["idle"];
+
+    dog_timer = setInterval(() => {
+        // dog animations here
+        console.log("current time in game: ", dogtime);
+        shell.value = "press SPACE or ENTER to pet! press ESC to exit!";
+
+        if (dog_anim_go == true) {
+            if (dog_anim_index < dog_anim_len) {
+                dog_elem.innerHTML = puppy[dog_outfit]["wag"][dog_anim_index];
+                dog_anim_index += 1;
+            }
+        }
+
+
+        dogtime += dog_speed;
+    }, dog_speed);
+
+
+}
+
+
+
+
+
+
 
 
 
@@ -3315,7 +3468,7 @@ setColour(textcolour, true, backcolour, true, accycolour, true);
 
 shell.onkeyup = function keyParse(e){
     if (inputlock == false) {
-        if (tentris_lock == false) {
+        if (doglock == false) {
             if (starlock == false) {
                 if(e.keyCode == 13) {
                     if (shell.value != "") {
@@ -3383,8 +3536,15 @@ shell.onkeyup = function keyParse(e){
                     stars_status = false;
                 }
             }
-        } else if (tentris_lock == true) {
+        } else if (doglock == true) {
             
+            if (e.keyCode == 32 || e.keyCode == 13) {   // either enter or space
+                dogInteract();
+            } else if (e.keyCode == 27) {               // escape
+                dogEscape();
+            }
+
+
         }
     }
 

@@ -1,7 +1,7 @@
 var music = new Audio();
 var music_playing = false;
 var touchtonetelly = new Audio();
-
+var dogsong = new Audio("Dogsong.mp3");
 
 function playMusic(internal_name) {
     if (songs[internal_name]) {
@@ -64,4 +64,22 @@ async function touchtone(char, speeb) {
             
         }
     }
+}
+
+
+function doggy(too) {
+    var variants = [
+        "dog1.mp3",
+        "dog2.mp3",
+        "dog3.mp3",
+    ]
+
+    var doggysounds = new Audio();
+    if (too == true) {
+        doggysounds.src = "leveldog.mp3";
+    } else {
+        var hehe = variants[Math.floor(Math.random()* variants.length)];
+        doggysounds.src = hehe;
+    }
+    doggysounds.play();
 }

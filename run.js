@@ -1452,6 +1452,8 @@ function parseCommand(command) {
             }, 1000);  
     } else if (command == "caffy") {
         displayAnim(caffy, 0.5);
+    } else if (command == "dog") {
+        startDog();
     }
 
     else {
