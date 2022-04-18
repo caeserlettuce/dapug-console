@@ -161,27 +161,30 @@ function parseCommand(command) {
         displayAnim("\nplease input a proper colour code.", 10);
     } else if (argCommand == "color" || argCommand == "colour") {
         // check colours here
-
+        // text: 7cfc00
+        // background: 000000
+        // accent: 1e1e1e
         var mmm = argComm(commandInit);
-
         var place = mmm[1];
         var colour = mmm[2];
-
         if (colour == "reset") {
             if (place == "text") {
-
-            } else if (place == "background")
+                colour = "#7cfc00";
+            } else if (place == "background") {
+                colour = "#000000";
+            } else if (place == "accent") {
+                colour = "#1e1e1e";
+            }
         }
-        
-
+        if (place == "reset") {
+            set_place = -10;
+            colour = "#000000";
+        }
         var code_wo_hash_test = /^[0-9A-F]{6}$/i.test(colour);      // i hate regex
         var code_w_hash_test = /^#[0-9A-F]{6}$/i.test(colour);
-
         debubg(`valid colour code but has no hash: ${code_wo_hash_test}`);
         debubg(`valid colour code that has hash: ${code_w_hash_test}`);
-
         debubg(`processing colour: ${colour}`);
-
         if (code_wo_hash_test == true || code_w_hash_test == true) {
             // if its either a valid colour code with or without hash
             var in_colour = colour;
@@ -191,7 +194,6 @@ function parseCommand(command) {
             if (code_wo_hash_test == true) { // if it doesnt have a hash
                 in_colour = `#${colour}`;   // add a hash
             }
-
             if (place == "text") {                                  // change text
                 set_place = 1;
             } else if (place == "background" || place == "back") {  // change background
@@ -199,22 +201,18 @@ function parseCommand(command) {
             } else if (place == "accent") {                         // change accent
                 set_place = 3;
             } else if (place == "reset") {
-
+                set_place = -10;
             }
             debubg(`set place: ${set_place}`);
-
             var in_rgb = hexToRgb(in_colour);       // get rgb values of the stuff
             var text_rgb = hexToRgb(textcolour);
             var back_rgb = hexToRgb(backcolour);
             var accy_rgb = hexToRgb(accycolour);
-
             /*
                 time to do some teting in gimp to get data on the minimal rgb value change thats legible (tm)
                 
                 52 is the magic value
             */
-
-
             debubg("checking contrast values...");
             if (set_place == 1) {       // text
                 var back_diff = {
@@ -241,10 +239,6 @@ function parseCommand(command) {
             } else if (set_place == -1) {
                 contrast = false;
             }
-            
-
-
-
             if (contrast == true && set_place > 0) {
                 // check  the places (tm)
                 if (set_place == 1) {
@@ -255,15 +249,16 @@ function parseCommand(command) {
                     setAccyColour(in_colour, true);
                 }
                 displayAnim(`\n${place} colour has been set.`)
-
+            } else if (set_place == -10) {
+                setColour("#7cfc00", true, "#000000", true, "#1e1e1e", true);
+                displayAnim("\nall colours have been reset.", 7);
             } else {
                 if (set_place == -1) {
                     displayAnim("\ninvalid argument. use either 'text', 'background', or 'accent'!", 7);
                 } else {
                     // ask if you want to set it even if the contrast is low (REMEMBER TO MENTION TYPING 'RESET' TO RESET CONSOLE!!);
                     var yaya = "";
-                    var tata = "";
-
+                    var tata = "";  // i didnt mention reset, it's fine
                     if (set_place = 1) {
                         yaya = "text";
                         tata = "background";
@@ -271,7 +266,6 @@ function parseCommand(command) {
                         yaya = "background";
                         tata = "text";
                     }
-                    
                     displayAnim(`\nuh oh! the ${yaya} colour you would like to set is very close to the ${tata} colour, and you may not be able to see any text on the console. \nare you sure you would like to set the text colour? \n(type yes or no) \n(only do this if you know what you're doing!)`, 5);
                     cur_set_colour = in_colour;
                     cur_set_place = set_place;
@@ -290,86 +284,14 @@ function parseCommand(command) {
                     });
                 }
             }
-
-
         } else {
-            
             async function invalid() {
                 await displayAnim("\ninvalid colour code. if you are having trouble, try copying the HEX colour code from this ", 7);    
                 await displayAnim("colour picker", 7, "inherit", "https://htmlcolorcodes.com/");
                 await displayAnim(".", 7);
             }
             invalid();
-            
-
         }
-
-        
-        /*
-        if (commandInit.split(" ")[1] == "text") {
-            var colour = commandInit.split(" ")[2];
-            debubg(`\nsetting text colour to ${colour}`);
-            var iffy = /^#[0-9A-F]{6}$/i.test(colour);
-            if (iffy == true) {
-                setColour(colour, true, null, true, null, true);
-                displayAnim(`\nsetting text colour to ${colour}`, 15);
-            } else if (iffy == false && colour.toLowerCase() == "reset") {
-                
-                displayAnim(`\nresetting text colour`, 15);
-            } else if (iffy == false) {
-                displayAnim("\ninvalid colour code.", 10);
-            }
-            else {
-                displayAnim("\ninvalid colour code.", 20);
-            }
-        } else if (commandInit.split(" ")[1] == "accent") {
-            var colour = commandInit.split(" ")[2];
-            debubg(`setting accent colour to ${colour}`);
-            var iffy = /^#[0-9A-F]{6}$/i.test(colour);
-            if (iffy == true) {
-                setColour(null, true, null, true, colour, true);
-                displayAnim(`\nsetting accent colour to ${colour}`, 15);
-            } else if (iffy == false && colour.toLowerCase() == "reset") {
-                setColour(null, true, null, true, "#1e1e1e", true);
-                displayAnim(`\nresetting accent colour`, 15);
-            } else if (iffy == false) {
-                displayAnim("\ninvalid colour code.", 10);
-            }
-            else {
-                displayAnim("invalid colour code.", 20);
-            }
-        } else if (commandInit.split(" ")[1] == "background") {
-            var colour = commandInit.split(" ")[2];
-            debubg(`\nsetting text colour to ${colour}`);
-            var iffy = /^#[0-9A-F]{6}$/i.test(colour);
-            if (iffy == true) {
-                setColour(null, true, colour, true, null, true);
-                displayAnim(`\nsetting background colour to ${colour}`, 15);
-            } else if (iffy == false && colour.toLowerCase() == "reset") {
-                setColour(null, true, "#000000", true, null, true);
-                displayAnim(`\nresetting background colour`, 15);
-            } else if (iffy == false) {
-                displayAnim("\ninvalid colour code.", 5);
-            }
-            else {
-                displayAnim("\ninvalid colour code.", 20);
-            }
-        } else if (commandInit.split(" ")[1] == "reset") {
-
-            //setTextColour("#7cfc00");
-            //setBackColour("#000000");
-            //setAccyColour("#1e1e1e");
-            setColour("#7cfc00", true, "#000000", true, "#1e1e1e", true);
-            displayAnim("\ncolours have been reset", 5);
-
-        } else if (command == "color" || command == "color " || command == "colour" || command == "colour "){
-            displayAnim("\ninvalid colour. check the help page", 20);
-        } else {
-            displayAnim("\ninvalid argument. use either 'text', 'background', 'accent', or check the manpage.", 7);
-        }
-    
-        */
-
     } else if (command == "sus" || command == "among us" || command == "amogus" || command == "amongus" || command == "amon gus" || command == "sussy") {
         displayAnim(amogus, 1);
     } else if (command == "lovejoy") {
