@@ -181,17 +181,9 @@ var dog_anim_len = 0;
 var dog_anim_go = false;
 var dogtime = 0;
 var dog_outfit = "normal";
-<<<<<<< Updated upstream
-var cur_set_colour = "";
-var cur_set_place = 0;
-=======
-<<<<<<< Updated upstream
-=======
 var cur_set_colour = "";
 var cur_set_place = 0;
 var textadventures_saves = new Object();
->>>>>>> Stashed changes
->>>>>>> Stashed changes
 
 
 
