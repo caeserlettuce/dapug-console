@@ -1589,6 +1589,21 @@ function parseCommand(command) {
             await displayAnim(generateTable(int_col), 0.5);
         }
         infotm();
+    } else if (command == "adventure list") {
+        
+        displayAnim("the list (when i implement it", 5);
+
+    } else if (argCommand == "adventure") {
+
+
+        
+        if (adventures[adventure]) {    // if it exists
+            debubg("adventure does exists!!");
+        } else {
+            debubg("¡HOLA SOY DORA! ¿PUEDE ENCONTRAR MI VOLUNTAD DE USAR JAVASCRIPT?");
+            displayAnim("sorry, but that adventure could not be found. use 'adventure list' to get a list of adventures!", 5);
+        }
+
     }
 
     else {

@@ -14,11 +14,10 @@
 //
 
 function debubg(message) {
-    if (debug_time == true) {
-        var dat = new Date();
-        var tim = `${dat.getHours()}:${dat.getMinutes()}:${dat.getSeconds()}:${dat.getMilliseconds()}`;
-        message = `[${tim}]: ${message}`;
-    }
+    var dat = new Date();
+    var tim = `${dat.getHours()}:${dat.getMinutes()}:${dat.getSeconds()}:${dat.getMilliseconds()}`;
+    message = `[${tim}]: ${message}`;
+
 
     console.log(message);
     if (debug == true) {
@@ -26,7 +25,24 @@ function debubg(message) {
         //texty = pogchamp.innerHTML;
         //pogchamp.innerHTML = `${texty}<br>${message}`;
         //debug_win.document.write('<pre>HEHE</pre>');
-        debug_win.document.getElementById("aaa").innerHTML += `${message}\n`;
+        debug_win.document.getElementById("aaa").innerHTML += `<p style="margin: 0px; padding: 0px; border: 0px;">${message}</p>`;
+        mom = debug_win.document.getElementById("aaa");
+        mom.scrollTop = mom.scrollHeight;
+    }
+}
+
+function erry(message) {
+    var dat = new Date();
+    var tim = `${dat.getHours()}:${dat.getMinutes()}:${dat.getSeconds()}:${dat.getMilliseconds()}`;
+
+
+    console.error(`[${tim}]: ${message}`);
+    if (debug == true) {
+        //var pogchamp = debug_win.body;
+        //texty = pogchamp.innerHTML;
+        //pogchamp.innerHTML = `${texty}<br>${message}`;
+        //debug_win.document.write('<pre>HEHE</pre>');
+        debug_win.document.getElementById("aaa").innerHTML += `<p style="color: #ff8080; width: auto; margin: 0px; padding: 0px; border: 1px #ff000020 solid; background-color: #ff000040;">[${tim}]: ${message}</p>`;;
         mom = debug_win.document.getElementById("aaa");
         mom.scrollTop = mom.scrollHeight;
     }
@@ -184,7 +200,6 @@ var dog_outfit = "normal";
 var cur_set_colour = "";
 var cur_set_place = 0;
 var textadventures_saves = new Object();
-
 
 
 debubg("variable init finished...");
@@ -582,11 +597,12 @@ function debugWindow(bool) {
         debug_win = window.open("", "Title", "directories=0,titlebar=0,toolbar=0,location=0,status=0,menubar=0,scrollbars=no,resizable=no,width=400,height=350,top="+(screen.height-400)+",left="+(screen.width-840));
         try {
             debug_win.document.write(`
-            <style>::-webkit-scrollbar {width: 10px;height: 10px;} body {overflow: hidden;} .eee {overflow: scroll; width: calc(100vw - 10px); height: calc(100vh - 10px);}</style>
+            <style>::-webkit-scrollbar {width: 10px;height: 10px;} .eee { width: 100vw; height: calc(100vh - 10px);}</style>
             <style id="scroll-text-style">::-webkit-scrollbar-thumb { background: ${accycolour}; }</style>
             <style id="scroll-back-style">::-webkit-scrollbar-track { background: ${backcolour}; } ::-webkit-scrollbar-corner { background: #000000 }</style>
             <style id="back-style">body { background-color: ${backcolour};}</style>
             <style id="text-style">@font-face { font-family: COURIERPRIME; src: url(CourierPrime-Regular.ttf);} body { color: ${textcolour}; font-family: COURIERPRIME, monospace;} pre { font-family: COURIERPRIME, monospace;}</style>
+            <style id="window-resize"> body {width: 100px;}</style>
             <title>CONSOLE DEBUG</title>
             <link rel="icon" href="icon.png">`);
             debug_win.document.write('<pre id="aaa" class="eee"></pre>'); 
@@ -606,6 +622,7 @@ function debugWindow(bool) {
                     }
                 }
             }, 250);
+
             </script>`);
         } catch (err) {
             console.log("oh crap i think the popup got blocked or smth");
