@@ -167,6 +167,9 @@ function parseCommand(command) {
         var mmm = argComm(commandInit);
         var place = mmm[1];
         var colour = mmm[2];
+        colour = `${colour}`.toLowerCase();  // for user easybility ™
+        place = `${place}`.toLowerCase();
+        console.log(colour)
         if (colour == "reset") {
             if (place == "text") {
                 colour = "#7cfc00";
@@ -185,14 +188,17 @@ function parseCommand(command) {
         debubg(`valid colour code but has no hash: ${code_wo_hash_test}`);
         debubg(`valid colour code that has hash: ${code_w_hash_test}`);
         debubg(`processing colour: ${colour}`);
-        if (code_wo_hash_test == true || code_w_hash_test == true) {
+        if (code_wo_hash_test == true || code_w_hash_test == true || inColourReg(colour) == true) { // if it's a valid colour code with OR without hash at beginning, or if it's in the colour registry
             // if its either a valid colour code with or without hash
             var in_colour = colour;
+            if (inColourReg(colour) == true) {
+                in_colour = internal_colours[colour];
+            }
             var contrast = true;
-            var set_place = 0;
+            var set_place = -1;
             var err_msg = "error: something has gone wrong and it didn't even set an error message, so something is DEFINITELY wrong";
-            if (code_wo_hash_test == true) { // if it doesnt have a hash
-                in_colour = `#${colour}`;   // add a hash
+            if (code_wo_hash_test == true) {    // if it doesnt have a hash
+                in_colour = `#${colour}`;       // add a hash
             }
             if (place == "text") {                                  // change text
                 set_place = 1;
@@ -1506,8 +1512,6 @@ function parseCommand(command) {
                 debubg("theme does not exist");
                 displayAnim(`\ntheme '${nametm}' does not exist! check 'themelist' for a list of available themes.`, 7);
             }
-
-
         } else if (operation == "clear") {
             
         } else {
@@ -1562,7 +1566,29 @@ function parseCommand(command) {
         
 
         displayAnim(accounts, 1);
-
+ 
+    } else if (command == "colours" || command == "colors") {
+        // list colours tm tm mtt mtm mtm mt mtmmt mt mtm ma,maafrajhfakl;ahfha;laaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+        var cons_col = [
+            { "name": "element", "contents": [ "text", "background", "accent" ] },
+            { "name": "current", "contents": [ `${textcolour}`, `${backcolour}`, `${accycolour}` ] },
+            { "name": "default", "contents": [ `${def_textcolour}`, `${def_backcolour}`, `${def_accycolour}` ] } 
+        ]
+        var int_col = [
+            { "name": "colour name", "contents": [] },
+            { "name": "hex value", "contents": [] }
+        ]
+        for (key in internal_colours) {
+            int_col[0]["contents"].push(key);                   // push colour name
+            int_col[1]["contents"].push(internal_colours[key]); // push colour key
+        }
+        async function infotm() {   // async printing of colours tmtmtmtmmtmt mtm mt m
+            await displayAnim("\nCONSOLE COLOUR INFO:\n\n", 4);
+            await displayAnim(generateTable(cons_col), 0.5);
+            await displayAnim("\n\nINTERNAL COLOUR INFO:\n(this means all colours you can use in place of any hex values, \nexample being the colour command; you can type 'colour text red' and\nit will set the text colour to red.)\n\n", 1)
+            await displayAnim(generateTable(int_col), 0.5);
+        }
+        infotm();
     }
 
     else {
