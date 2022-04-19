@@ -1595,15 +1595,26 @@ function parseCommand(command) {
 
     } else if (argCommand == "adventure") {
 
+        var mmm = argComm(commandInit);
 
-        
+        var adventure = [...mmm];
+        adventure.shift();
+        adventure = adventure.join(" ");
+
+        debubg(`adventure: '${adventure}'`);
+
         if (adventures[adventure]) {    // if it exists
             debubg("adventure does exists!!");
+            adventure_lock = true;
+            cur_ta = `${adventure}`;
+            eval(`adventure_exe = ta_${adventure}`);   // sets the function name
+            clearScreen();
+            eval(`ta_start_${adventure}();`);   // sets the function name
         } else {
             debubg("¡HOLA SOY DORA! ¿PUEDE ENCONTRAR MI VOLUNTAD DE USAR JAVASCRIPT?");
-            displayAnim("sorry, but that adventure could not be found. use 'adventure list' to get a list of adventures!", 5);
+            displayAnim("\nsorry, but that adventure could not be found. use 'adventure list' to get a list of adventures!", 5);
         }
-
+    
     }
 
     else {

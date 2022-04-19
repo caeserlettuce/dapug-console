@@ -200,6 +200,11 @@ var dog_outfit = "normal";
 var cur_set_colour = "";
 var cur_set_place = 0;
 var textadventures_saves = new Object();
+var cur_ta = "";
+var ta_input = "";
+var ta_key = "";
+var adventure_lock = "";
+var adventure_exe;
 
 
 debubg("variable init finished...");
@@ -3243,7 +3248,9 @@ function inColourReg(colour) {  // checks if a colour is in the colour registry
     }
 }
 
-
+function ta_save() {
+    localStorage.setItem("text adventures", JSON.stringify(textadventures_saves));
+}
 
 
 
@@ -3502,83 +3509,90 @@ setColour(textcolour, true, backcolour, true, accycolour, true);
 
 shell.onkeyup = function keyParse(e){
     if (inputlock == false) {
-        if (doglock == false) {
-            if (starlock == false) {
-                if(e.keyCode == 13) {
-                    if (shell.value != "") {
-                        if (enterlock == false) {
-                            // stinky old code is gone!!!!
+        if (adventure_lock == false) {
+            if (doglock == false) {
+                if (starlock == false) {
+                    if(e.keyCode == 13) {
+                        if (shell.value != "") {
+                            if (enterlock == false) {
+                                // stinky old code is gone!!!!
 
-                            // *crab rave*
-                            if (listening_input == true) {  // if its listening for a text input
-                                ask_return = shell.value;
-                                ask_do();
-                                listening_input = false;
-                                shell.value = "";
-                            } else {
-                                displayUser(`${shell.value}`, `${user}`);
-                                historyPush();
-                                parseCommand(shell.value);
-                                historyReset();
-                                shell.value = "";
-                                scrolly("consy");
+                                // *crab rave*
+                                if (listening_input == true) {  // if its listening for a text input
+                                    ask_return = shell.value;
+                                    ask_do();
+                                    listening_input = false;
+                                    shell.value = "";
+                                } else {
+                                    displayUser(`${shell.value}`, `${user}`);
+                                    historyPush();
+                                    parseCommand(shell.value);
+                                    historyReset();
+                                    shell.value = "";
+                                    scrolly("consy");
+                                }
+                                    
+                                //debubg(consoltext);
+                                //debubg(commang);
                             }
-                                
-                            //debubg(consoltext);
-                            //debubg(commang);
+                        }
+                        boom();
+                    } else if(e.keyCode == 37) {
+                        if (snakeinputs == true) {
+                            debubg("left arrow detected");
+                        }
+                    } else if(e.keyCode == 38) {
+                        if (snakeinputs == true) {
+                            debubg("up arrow detected");
+
+                        } else if (commandhistorylock == false) {
+                            // get out of here old command history code, you stinky
+                            var indexed = historyIndex(1); // index history up by 1
+                            shell.value = `${indexed}`;
+
+                        }
+                        
+                    } else if(e.keyCode == 39) {
+                        if (snakeinputs == true) {
+                            debubg("right arrow detected");
+                        }
+                    } else if(e.keyCode == 40) {
+                        if (snakeinputs == true) {
+                            debubg("down arrow detected");
+
+                        } else if (commandhistorylock == false) {
+                            // SAME WITH YOU! get outta here you stinky old code!! make room for the new code! just kidding!
+                            // it uses up less space than you! ha!
+                            var indexed = historyIndex(-1); // index history up by 1
+                            shell.value = `${indexed}`;
+
+
+
+
+
+
                         }
                     }
-                    boom();
-                } else if(e.keyCode == 37) {
-                    if (snakeinputs == true) {
-                        debubg("left arrow detected");
-                    }
-                } else if(e.keyCode == 38) {
-                    if (snakeinputs == true) {
-                        debubg("up arrow detected");
-
-                    } else if (commandhistorylock == false) {
-                        // get out of here old command history code, you stinky
-                        var indexed = historyIndex(1); // index history up by 1
-                        shell.value = `${indexed}`;
-
-                    }
-                    
-                } else if(e.keyCode == 39) {
-                    if (snakeinputs == true) {
-                        debubg("right arrow detected");
-                    }
-                } else if(e.keyCode == 40) {
-                    if (snakeinputs == true) {
-                        debubg("down arrow detected");
-
-                    } else if (commandhistorylock == false) {
-                        // SAME WITH YOU! get outta here you stinky old code!! make room for the new code! just kidding!
-                        // it uses up less space than you! ha!
-                        var indexed = historyIndex(-1); // index history up by 1
-                        shell.value = `${indexed}`;
-
-
-
-
-
-
+                } else if (starlock == true) {
+                    if(e.keyCode == 27) {
+                        stars_status = false;
                     }
                 }
-            } else if (starlock == true) {
-                if(e.keyCode == 27) {
-                    stars_status = false;
+            } else if (doglock == true) {
+                
+                if (e.keyCode == 32 || e.keyCode == 13) {   // either enter or space
+                    dogInteract();
+                } else if (e.keyCode == 27) {               // escape
+                    dogEscape();
                 }
-            }
-        } else if (doglock == true) {
-            
-            if (e.keyCode == 32 || e.keyCode == 13) {   // either enter or space
-                dogInteract();
-            } else if (e.keyCode == 27) {               // escape
-                dogEscape();
-            }
 
 
+            }
+        } else if (adventure_lock == true) {
+
+            ta_input = shell.value;
+            ta_key = e.key;             // https://keycode.info/
+            adventure_exe();
         }
     }
 
