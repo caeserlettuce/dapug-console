@@ -29,3 +29,4 @@ display_charsize[1] = Math.floor( vis_consyheight / display_textsize[1]);
 
 
 var song_err = false;
+var user = "user";

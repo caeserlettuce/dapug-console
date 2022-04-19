@@ -68,6 +68,9 @@ var snaketick = 0;
 var textcolour = "#7cfc00";
 var backcolour = "#000000";
 var accycolour = "#1e1e1e";
+var def_textcolour = textcolour;
+var def_backcolour = backcolour;
+var def_accycolour = accycolour;
 var autocommand = false;
 var startup = false; // REMEMBER TO SET TO TRUE LATER (haha now its automatic);
 var autocommand_wait = false;
@@ -178,6 +181,8 @@ var dog_anim_len = 0;
 var dog_anim_go = false;
 var dogtime = 0;
 var dog_outfit = "normal";
+var cur_set_colour = "";
+var cur_set_place = 0;
 
 
 
@@ -798,7 +803,7 @@ function displayAppend(message, in_id, hide, colour, link) {
         console_colour_history[in_id] = `${colour}`;        // append to value
     } else {                                                // else
         //debubg("NO EXIST");
-        if (colour) {
+        if (typeof colour == 'string') {
             console_colour_history[in_id] = `${colour}`;        // append to value
         } else {
             console_colour_history[in_id] = `inherit`;                                                  // just set value
@@ -1752,49 +1757,23 @@ function argComm(incommand) {
 // you know the text ascii art for the about page??
 // make a function that will go and print those for you without having to make the ui element every time
 // YES.
-function asciiText(font, text) { //eamon here, for some reason this is brokey when just inputting "ascii" and nothing else
-    var fontlow = font.toLowerCase()
-    if (fontlow == "" || fontlow == "default" || fontlow == "def" || fontlow == "d") {
-        var textArr = text.split("");
-        debubg(textArr);
-        debubg(text);
-        textLen = textArr.length;
-        textHeight = 9; // the height of the ascii font 
-        var finalText = []; // the final text variable itll return
-        var currentLine = ""; // the current line it's appending to
-        for (let i = 0; i < textHeight; i++) {
-            // repeat for every line of the character
-            currentLine = "";
-            for (let e = 0; e < textLen - 1; e++) {
-                // mmmmmmmm   .charCodeAt(0);
-                var letter = textArr[e];
-                var lettID = letter.charCodeAt(0);
-                var lala = asciifont[lettID][i];
-                debubg(`${i} ${e}: ${letter} ${lettID}: ${lala}`);
-                currentLine = `${currentLine}${lala} `
-            }
-            debubg(`CURRENT: ${currentLine}`);
-            //displayNewline();
-            finalText.push(currentLine);
-            // its appending the lines twice for some reason
-            //found it
-            // i wasnt clearing currentLine before the next line so itd just append onto the last line
-            // YES
-            // IT WORKS
-        }
-        debubg(currentLine);
-        debubg(finalText);
-        return finalText
-
-
-
+function asciiText(font, text) {
+    var fontlow = font.toLowerCase();
+    var finalText = []; // the final text variable itll return
+    var in_font = font;
+    if (fontlow == "" || fontlow == "default" || fontlow == "def" || fontlow == "d") {  // any other variations for font names, set up an if statement here for all the variations, then set in_font to be the name in the internal font JSON
+        in_font = "default";
     } else if (fontlow == "slant" || fontlow == "s" || fontlow == "sla") {
+        in_font = "slant";
+    }
+
+
+    if (in_font == "slant") {                   // if statements for fonts that require extra code
         var textArr = text.split("");
         debubg(textArr);
         debubg(text);
         textLen = textArr.length;
-        textHeight = 6; // the height of the ascii font 
-        var finalText = []; // the final text variable itll return
+        textHeight = ascii_fonts[in_font][0].length; // the height of the ascii font 
         var currentLine = ""; // the current line it's appending to
 
 
@@ -1815,12 +1794,12 @@ function asciiText(font, text) { //eamon here, for some reason this is brokey wh
                 var lettID = letter.charCodeAt(0);
 
 
-                var lala = asciifontslant[lettID][i];
-                var lalar = `${asciifontslant[lettID][i]}`.split("");
+                var lala = ascii_fonts[in_font][lettID][i];
+                var lalar = `${ascii_fonts[in_font][lettID][i]}`.split("");
 
 
                 debubg(`${i} ${e}: ${letter} ${lettID}: ${lala}`);
-
+ 
                 var lalabeg = lalar.slice(0,1);
                 var lalaend = lala.substr(1);
 
@@ -1851,13 +1830,59 @@ function asciiText(font, text) { //eamon here, for some reason this is brokey wh
             // IT WORKS
         }
         debubg(currentLine);
-        debubg(finalText);
-        return finalText
+
+    } else if (ascii_fonts[in_font]) {              // add any other fonts that require custom code before this if statement
+
+                                        // for any other normal fonts
+        var textArr = text.split("");
+        debubg(textArr);
+        debubg(text);
+        textLen = textArr.length;
+        textHeight = ascii_fonts[in_font][0].length; // the height of the ascii font
+
+        var currentLine = ""; // the current line it's appending to
+        for (let i = 0; i < textHeight; i++) {
+            // repeat for every line of the character
+            currentLine = "";
+            for (let e = 0; e < textLen - 1; e++) {
+                // mmmmmmmm   .charCodeAt(0);
+                var letter = textArr[e];
+                var lettID = letter.charCodeAt(0);
+                var lala = ascii_fonts[in_font][lettID][i];
+                debubg(`${i} ${e}: ${letter} ${lettID}: ${lala}`);
+                currentLine = `${currentLine}${lala} `
+            }
+            debubg(`CURRENT: ${currentLine}`);
+            //displayNewline();
+            finalText.push(currentLine);
+            // its appending the lines twice for some reason
+            //found it
+            // i wasnt clearing currentLine before the next line so itd just append onto the last line
+            // YES
+            // IT WORKS
+        }
+        debubg(currentLine);
+
+
 
     } else {
-        return ['please select a font. to get a full list of fonts, run "font list"'];
+        finalText = "please select a valid font. to get a full list of fonts, run 'font list'";
     }
+
+    debubg(finalText);
+    return finalText
 }
+
+/*
+var fontlow = font.toLowerCase();
+    var finalText = []; // the final text variable itll return
+    var in_font = font;
+    if (fontlow == "" || fontlow == "default" || fontlow == "def" || fontlow == "d") {  // any other variations for font names, set up an if statement here for all the variations, then set in_font to be the name in the internal font JSON
+        in_font = "default";
+    } else if (fontlow == "slant" || fontlow == "s" || fontlow == "sla") {
+        in_font = "slant"
+    }
+    */
 
 //  .M.                  :MMMM:     .%MMMMMMM%.  .%MMMMMM mmmmmmmmmm mmmmmmmmmm              .M.  
 // .M'M.                :MMMMMM:    %MM%' '%MM% .%MMMMMMM MMMMMMMMMM MMMMMMMMMM             .M'M. 
@@ -2742,7 +2767,7 @@ function generateTable(table, theme) {
         var cur_col = table[i];
         var col_con = cur_col["contents"];
         var cur_rows = 0;
-        var curWid = 0;
+        var curWid = cur_col["name"].length;
         columns += 1;
         for (i in col_con) {            // for every row in the column
             var enty = col_con[i];
@@ -3062,6 +3087,7 @@ function askInput(scooby_doo, end) {   // ask for a text input from console thin
 
 //askInput(() => { displayAnim(`your name is ${ask_return}!!`, 7); } );
 
+
 /*
 
 24.606947	29.421663	\mHour hand's gone from two to three, now four
@@ -3084,18 +3110,12 @@ press enter, and swap back to the page within 2 seconds so it'll actually copy i
 
 */
 
-
 var test_lyr = ``;
 
-
 function compileLyrics() {
-
     var final = "";
-
     var spit = test_lyr.split("\n");
-
     final += "[";
-
     for (i in spit) {
         var lyr_lin = spit[i];
         console.log("lyric line: ", lyr_lin);
@@ -3111,14 +3131,23 @@ function compileLyrics() {
 `;
         final += line;
     }
-
     final += `
 `;
-    final += "]";    
-
+    final += "]";
     copyclip(final);
     return final
 }
+
+//  .M.               .%MMMMMM .%MMMMMMM%. +MM.    .MM+ +MMMMMMM%. mmmmmmmmmm +M         +MMMMMMMMI             +M         MM    MM +MMMMMMM%. mmmmmmmmmm  .%MMMMMM .%MMMMMMM%.              .M.  
+// .M'M.             .%MMMMMMM %MM%' '%MM% MMMM.  .MMMM MM+'  '+M% MMMMMMMMMM MM         MMMMMMMMMI             MM         MM.  .MM MM+'  '+M% MMMMMMMMMM .%MMMMMMM %MM%' '%MM%             .M'M. 
+// M' 'M             %MM%'     MM'     'MM MM'MM  MM'MM MM      MM     MM     MM         MM+                    MM         'MM  MM' MM      MM     MM     %MM%'     MM'                     M' 'M 
+//                   MMM'      MM       MM MM MM..MM MM MM+.  .+M%     MM     MM         MM........             MM          MM..MM  MM+.  .+M%     MM     MMM'      MM%.......                    
+//                   MMM       MM       MM MM 'MMMM' MM MMMMMMMM%'     MM     MM         MMMMMMMMMM             MM          'MMMM'  MMMMMMMM%'     MM     MMM        %MMMMMMM%.                   
+//                   MMM.      MM       MM MM  'MM'  MM MM             MM     MM         MM''''''''             MM           'MM'   MM  'MM.       MM     MMM.        ''''''%MM                   
+//                   %MM%.     MM.     .MM MM        MM MM             MM     MM         MM+                    MM            MM    MM   'MM.      MM     %MM%.             .MM                   
+//                   '%MMMMMMM %MM%. .%MM% MM        MM MM         mmmmMMmmmm MM........ MMMMMMMMMI             MM........    MM    MM    'MM. mmmmMMmmmm '%MMMMMMM %MM%. .%MM%                   
+//                    '%MMMMMM '%MMMMMMM%' +M        M+ +M         MMMMMMMMMM +MMMMMMMM% +MMMMMMMMI             +MMMMMMMM%    MM    +M     'MM MMMMMMMMMM  '%MMMMMM '%MMMMMMM%'                   
+
 
 
 function dogEscape() {      // used to exit dog (how could you??)
@@ -3133,46 +3162,33 @@ function dogEscape() {      // used to exit dog (how could you??)
         displayAnim(`you didnt pet the dog at all :(`);
     } else if (dog_pets != 1 && dog_pets != 0) {
         displayAnim(`you pet the dog ${dog_pets} time(s)!`);
-    }
-    
+    }    
 }
-
-
-
 function dogInteract() {    // function that is run every time the dog is interacted with
     doggy();
     dog_pets += 1;
-
     var divy = `${dog_pets / 100}`;
-
-    console.log(divy);
-
     if (divy.replace(".", "") == divy) {    // IS divisible because there are no decimal points
         doggy(true);
     } else if (dog_pets == 20 || dog_pets == 50) {
         doggy(true);
     }
-
     if (dog_pets >= 100) {
         dog_outfit = "sombrero";
-    }
-
+    }                                                   // add if statements here for other level-ups
     if (dog_pets == 1) {
         dog_petelem.innerHTML = `${dog_pets} pet`;
     } else {
         dog_petelem.innerHTML = `${dog_pets} pets`;
     }
     // random chance of a wag
-
     var rand = getRandomInt(1,5);
-
     //rand = 1;
     if (rand == 1) {
         dog_anim_index = 0;
         dog_anim_len = puppy[dog_outfit]["wag"].length;
         dog_anim_go = true;
     }
-
 }
 
 
@@ -3185,29 +3201,28 @@ function startDog() {
     dog_petelem = document.getElementById("pets");
     dogtime = 0;
     dog_pets = 0;
-
     dog_elem.innerHTML = puppy[dog_outfit]["idle"];
-
     dog_timer = setInterval(() => {
         // dog animations here
-        console.log("current time in game: ", dogtime);
+        debubg("current time in game: ", dogtime);
         shell.value = "press SPACE or ENTER to pet! press ESC to exit!";
-
         if (dog_anim_go == true) {
             if (dog_anim_index < dog_anim_len) {
                 dog_elem.innerHTML = puppy[dog_outfit]["wag"][dog_anim_index];
                 dog_anim_index += 1;
             }
         }
-
-
         dogtime += dog_speed;
     }, dog_speed);
-
-
 }
 
-
+function inColourReg(colour) {  // checks if a colour is in the colour registry
+    if (internal_colours[colour]) {
+        return true
+    } else {
+        return false
+    }
+}
 
 
 
