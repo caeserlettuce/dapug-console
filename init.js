@@ -181,8 +181,17 @@ var dog_anim_len = 0;
 var dog_anim_go = false;
 var dogtime = 0;
 var dog_outfit = "normal";
+<<<<<<< Updated upstream
 var cur_set_colour = "";
 var cur_set_place = 0;
+=======
+<<<<<<< Updated upstream
+=======
+var cur_set_colour = "";
+var cur_set_place = 0;
+var textadventures_saves = new Object();
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
 
 
 
@@ -313,6 +322,7 @@ worble_stats_restarts = parseInt(worble_stats_restarts);
 worble_word_id = local_storage("worble_word_id", 0);
 worble_word_id = parseInt(worble_word_id);
 custom_themes = JSON.parse(local_storage("themes", JSON.stringify(custom_themes)));
+textadventures_saves = JSON.parse(local_storage("text adventures", JSON.stringify("{}")));
 
 
 /*
