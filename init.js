@@ -205,6 +205,16 @@ var ta_input = "";
 var ta_key = "";
 var adventure_lock = "";
 var adventure_exe;
+var music_loading = false;
+var TMO_push = new Array();
+var LYR_push = new Array();
+var adventures = {                  // text adventures info
+    "test": {
+        "name": "Test",
+        "author": "caeserlettuce",
+        "description": "a test text adventure to test the feature"
+    }
+}
 
 
 debubg("variable init finished...");
@@ -334,7 +344,10 @@ worble_stats_restarts = parseInt(worble_stats_restarts);
 worble_word_id = local_storage("worble_word_id", 0);
 worble_word_id = parseInt(worble_word_id);
 custom_themes = JSON.parse(local_storage("themes", JSON.stringify(custom_themes)));
-textadventures_saves = JSON.parse(local_storage("text adventures", JSON.stringify("{}")));
+textadventures_saves = JSON.parse(local_storage("text adventures", "{}"));
+console.log(textadventures_saves);
+//textadventures_saves = textadventures_saves);
+//console.log(textadventures_saves);
 
 
 /*
@@ -615,6 +628,8 @@ function debugWindow(bool) {
             var toot = false;
             setInterval(function() {                    // loop this every quarter second
                 toot = false;
+                mom = window.document.body;
+                mom.scrollTop = mom.scrollHeight;
                 try {
                     if (window.opener.debug != true) {      // if debug is false
                         window.close();                     // close window
@@ -1025,7 +1040,7 @@ async function displaySingleLine(message, speed, colour, link) {
         var use_id = console_id + 1;        // the current id that's being used
         console_id += 1;                    // update console id
         for (let i = 0; i < messageyLength; i++) {
-            setTimeout(function timer() {
+            TMO_push.push(setTimeout(function timer() {
                 var mess = messagey[i];
                 scrolly("consy");
                 if (messagey[i] == " " || messagey[i] == "\n") {
@@ -1037,7 +1052,7 @@ async function displaySingleLine(message, speed, colour, link) {
                     scrolly("consy");
                 }
                 
-            }, i * speed);
+            }, i * speed));
         }
     });
 }
@@ -1232,10 +1247,17 @@ async function displayLyrics(lyrics) {
 
         debubg(`i: ${i}, startdur: ${startdur}, enddur: ${enddur}, fulldur: ${fulldur}`);
 
-        var evalStr = `TMO_${musicTimeouts} = new LyricTimer(function() { lyrFunc(${lyr_len}, cur_lyrics, ${i}); lyr_status[${i}] = true; boom(); if (lyr_exec != false) { ${lyr_exec} } }, startdur);`;
+        LYR_push.push(
+            new LyricTimer(
+                function() { lyrFunc(lyr_len, cur_lyrics, i);
+                lyr_status[i] = true;
+                boom();
+                if (lyr_exec != false) {
+                    lyr_exec;
+                }
+            }, startdur)
+        )
 
-        console.log(evalStr);
-        eval(evalStr);
         musicTimeouts += 1;
 
     }
@@ -1244,11 +1266,21 @@ async function displayLyrics(lyrics) {
 
 function skipLyrics() {
     // skip those dum lyrics i dont want em
-    music.currentTime = music.duration - 1; // put it at the end so it ends the song (tm)
-    
+    music.currentTime = music.duration - 0.5; // put it at the end so it ends the song (tm)
+    /*
     for (let i = 0; i < musicTimeouts; i++) {   // for every music timeout
     
-        eval(`TMO_${i}.skip();`);
+        eval(`clearTimeout(TMO_${i}); delete TMO_${i};`);
+    }
+*/
+
+    for (i in TMO_push) {
+        clearTimeout(TMO_push[i]);
+    }
+
+    for (i in LYR_push) {
+        clearTimeout(LYR_push[i]);
+        LYR_push[i].skip()
     }
 }
 
@@ -1256,11 +1288,11 @@ function pauseLyrics() {
     // skip those dum lyrics i dont want em
     music.pause();
     
-    for (let i = 0; i < musicTimeouts; i++) {   // for every music timeout
+    for (i in LYR_push) {
         if (lyr_status[i]) { // if it exists (basically means its true)
             
         } else {
-            eval(`TMO_${i}.pause();`);
+            LYR_push[i].pause;
         }
 
         
@@ -1271,11 +1303,11 @@ function resumeLyrics() {
     // skip those dum lyrics i dont want em
     music.play();
     
-    for (let i = 0; i < musicTimeouts; i++) {   // for every music timeout
+    for (i in LYR_push) {
         if (lyr_status[i]) { // if it exists (basically means its true)
             
         } else {
-            eval(`TMO_${i}.resume();`);
+            LYR_push[i].resume();;
         }
     }
 }
@@ -3134,7 +3166,54 @@ press enter, and swap back to the page within 2 seconds so it'll actually copy i
 
 */
 
-var test_lyr = ``;
+var test_lyr = `35.558662	36.519577	\\nI tire
+36.921154	38.733030	 of your mind games,
+38.733030	39.435789	\\nI'm sick
+39.918637	41.615777	 of playing 'Don't Wake Daddy'
+41.596654	42.552789	\\nGood sir,
+42.930463	45.758962	 no more Rock Paper Scissors for me
+47.591621	48.586001	\\nBut wait!
+49.116656	53.593869	\\nAre we not civilised gentlemen here?
+54.357601	55.831476	\\nI challenge you:
+55.831476	58.064399	 to a battle of knifes!
+58.438821	59.237007	\\n \\nKnife fight!
+59.399546	61.808617	\\nYou're gonna fight for your life!
+61.405170	62.177234	\\nKnife fight!
+62.380408	64.789478	\\nYou're gonna fight with a knife!
+64.383129	65.274195	\\nKnife fight!
+65.416417	66.281361	\\nA really, really,
+66.472925	66.783492	 really
+66.832834	68.269569	 sharp knife!
+68.269569	70.376780	\\n(Yeah, knife fight!)
+69.889161	70.388390	\\nI'm a
+70.431927	71.201088	 crazy,
+71.224308	71.862857	\\n(Crazy!)
+71.891882	73.189297	\\nSon of a bitch!
+73.189297	74.335782	\\nI'ma cut you!
+74.260317	74.922086	\\n(Cut you!)
+74.881451	75.688345	\\nSwish swish!
+75.708662	77.368889	\\nIn a knife fight!
+77.148299	77.885533	\\n(Knife fight!)
+77.871020	79.461587	\\n(Knife fight, knife fight!)
+77.871020	79.113288	\\nKnife fight!
+79.438367	80.973787	\\nKnife fight, knife fight!
+92.923259	93.194172	\\n
+93.309105	94.195731	\\nLet me tell you something:
+94.639043	95.574926	 I can't be beat1
+95.574926	96.469308	\\nOh yeah?
+96.420862	96.949116	Yeah!
+97.033288	98.266848	 'cause I'm the king of the streets!
+98.313288	99.703583	\\nWelll guess what man?
+99.703583	101.566984	 I'll pin you to the wall!
+101.581497	102.275193	\\nOh yeah?
+102.275193	102.492880	\\nYeah,
+102.492880	104.626213	 your knife is way too small!
+104.626213	106.271927	\\nHEY! My knife is super sharp,
+106.283537	107.952472	 and that's what counts
+108.151870	110.699444	\\nI'm gonna make you bleed copious amounts!
+110.639347	114.136933	\\nYeah, Well I'll be sure to thank you right after I shank you!\
+114.087676	114.506360	\\nPunk!
+114.506360	115.384776	\\nDweeb!`;
 
 function compileLyrics() {
     var final = "";
@@ -3252,7 +3331,21 @@ function ta_save() {
     localStorage.setItem("text adventures", JSON.stringify(textadventures_saves));
 }
 
+function ta_point(point) {
+    textadventures_saves[cur_ta].point = `${point}`;
+}
 
+
+
+function setShell(text) {
+    if (text) {
+        shell.value = `${text}`;
+        return `${text}`;
+    } else {
+        shell.value = "";
+        return "";
+    }
+}
 
 
 
@@ -3285,7 +3378,7 @@ debubg("jQuery functions init finished...");
 //                            MM MM       MM MM       MM MM'''''''' MM  'MM.     'MM'               MM'''''''' MM       MM MM   'MM. MM MMM.          MM         MM     MM       MM MM   'MM. MM   ''''''%MM                   
 //                            MM MM.    MMMM MM       MM MM+        MM   'MM.     MM                MM         MM       MM MM    'MM.MM %MM%.         MM         MM     MM.     .MM MM    'MM.MM         .MM                   
 //                   %MM%   %MM% %MM%.  %MM% %MM%   %MM% MMMMMMMMMI MM    'MM.    MM                MM         %MM%   %MM% MM     'MMMM '%MMMMMMM     MM     mmmmMMmmmm %MM%. .%MM% MM     'MMMM %MM%. .%MM%                   
-//                    %MMMMMMM%  '%MMMMMMM%M  %MMMMMMM%  +MMMMMMMMI +M     'MM    MM                MM          %MMMMMMM%  +M      'MM+  '%MMMMMM     MM     MMMMMMMMMM '%MMMMMMM%' +M      'MM+ '%MMMMMMM%'                   
+//                    %M;MMMMMM%  '%MMMMMMM%M  %MMMMMMM%  +MMMMMMMMI +M     'MM    MM                MM          %MMMMMMM%  +M      'MM+  '%MMMMMM     MM     MMMMMMMMMM '%MMMMMMM%' +M      'MM+ '%MMMMMMM%'                   
 
 
 
@@ -3628,12 +3721,12 @@ music.addEventListener('ended', (event) => {
     boom();
 });
 
-music.addEventListener('play', (event) => {
-    if (music.currentTime == 0) { // if it has just started tm
+music.addEventListener('canplaythrough', (event) => {
+    //if (music.currentTime == 0) { // if it has just started tm
         if (song_err == false) {
             displayLyrics(lyr_disp);
         }
-    }
+    //}
 });
 
 
