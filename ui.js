@@ -3029,7 +3029,39 @@ function updateMan() {
             " ",
             "USAGE:",
             "'colours'"
-        ]
+        ],
+        "colors":[
+            "COLOURS MANPAGE",
+            " ",
+            "displays basic colour information, including current console colours,",
+            "a list of all internally recognised colour names, etc.",
+            " ",
+            "USAGE:",
+            "'colours'"
+        ],
+        "adventure":[
+            "ADVENTURE MANPAGE",
+            " ",
+            "play text-based adventure games within console!",
+            " ",
+            "",
+            "USAGE:",
+            "'adventure [adventure]'",
+            " ",
+            "OPTIONS:",
+            "adventure | any valid adventure (check 'adventures' for a list of adventures)",
+            " ",
+            "EXAMPLE:",
+            "'adventure test'"
+        ],
+        "adventures":[
+            "ADVENTURES MANPAGE",
+            " ",
+            "displays a list of all valid adventures",
+            " ",
+            "USAGE:",
+            "'adventures'"
+        ],
     }
 }
 
@@ -3129,6 +3161,9 @@ var listy = [ " ",
     "manlist",
     "accounts",
     "colours",
+    "colors",
+    "adventure *",
+    "adventures",
     
     "* command is currently in-development and may break the site."
 ]; 

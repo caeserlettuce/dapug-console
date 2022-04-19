@@ -208,6 +208,13 @@ var adventure_exe;
 var music_loading = false;
 var TMO_push = new Array();
 var LYR_push = new Array();
+var adventures = {                  // text adventures info
+    "test": {
+        "name": "Test",
+        "author": "caeserlettuce",
+        "description": "a test text adventure to test the feature"
+    }
+}
 
 
 debubg("variable init finished...");
@@ -337,7 +344,10 @@ worble_stats_restarts = parseInt(worble_stats_restarts);
 worble_word_id = local_storage("worble_word_id", 0);
 worble_word_id = parseInt(worble_word_id);
 custom_themes = JSON.parse(local_storage("themes", JSON.stringify(custom_themes)));
-textadventures_saves = JSON.parse(local_storage("text adventures", JSON.stringify("{}")));
+textadventures_saves = JSON.parse(local_storage("text adventures", "{}"));
+console.log(textadventures_saves);
+//textadventures_saves = textadventures_saves);
+//console.log(textadventures_saves);
 
 
 /*
@@ -3322,6 +3332,16 @@ function ta_save() {
 }
 
 
+function setShell(text) {
+    if (text) {
+        shell.value = `${text}`;
+        return `${text}`;
+    } else {
+        shell.value = "";
+        return "";
+    }
+    
+}
 
 
 
@@ -3354,7 +3374,7 @@ debubg("jQuery functions init finished...");
 //                            MM MM       MM MM       MM MM'''''''' MM  'MM.     'MM'               MM'''''''' MM       MM MM   'MM. MM MMM.          MM         MM     MM       MM MM   'MM. MM   ''''''%MM                   
 //                            MM MM.    MMMM MM       MM MM+        MM   'MM.     MM                MM         MM       MM MM    'MM.MM %MM%.         MM         MM     MM.     .MM MM    'MM.MM         .MM                   
 //                   %MM%   %MM% %MM%.  %MM% %MM%   %MM% MMMMMMMMMI MM    'MM.    MM                MM         %MM%   %MM% MM     'MMMM '%MMMMMMM     MM     mmmmMMmmmm %MM%. .%MM% MM     'MMMM %MM%. .%MM%                   
-//                    %MMMMMMM%  '%MMMMMMM%M  %MMMMMMM%  +MMMMMMMMI +M     'MM    MM                MM          %MMMMMMM%  +M      'MM+  '%MMMMMM     MM     MMMMMMMMMM '%MMMMMMM%' +M      'MM+ '%MMMMMMM%'                   
+//                    %M;MMMMMM%  '%MMMMMMM%M  %MMMMMMM%  +MMMMMMMMI +M     'MM    MM                MM          %MMMMMMM%  +M      'MM+  '%MMMMMM     MM     MMMMMMMMMM '%MMMMMMM%' +M      'MM+ '%MMMMMMM%'                   
 
 
 

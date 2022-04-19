@@ -1592,9 +1592,26 @@ function parseCommand(command) {
             await displayAnim(generateTable(int_col), 0.5);
         }
         infotm();
-    } else if (command == "adventure list") {
+    } else if (command == "adventures") {
+
+        var adv_tab = [
+            { "name": "internal name", "contents": [] },
+            { "name": "name", "contents": [] },
+            { "name": "author", "contents": [] },
+            { "name": "description", "contents": [] }
+        ]
+
+
+        for (keys in adventures) {
+            adv_tab[0]["contents"].push(`${keys}`);
+            adv_tab[1]["contents"].push(`${adventures[keys]["name"]}`);
+            adv_tab[2]["contents"].push(`${adventures[keys]["author"]}`);
+            adv_tab[3]["contents"].push(`${adventures[keys]["description"]}`);
+        }
+        //console.log(adv_tab);
+
         
-        displayAnim("the list (when i implement it", 5);
+        displayAnim(`\n${generateTable(adv_tab)}`, 0.25);
 
     } else if (argCommand == "adventure") {
 
