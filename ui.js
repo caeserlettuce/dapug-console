@@ -3029,7 +3029,39 @@ function updateMan() {
             " ",
             "USAGE:",
             "'colours'"
-        ]
+        ],
+        "colors":[
+            "COLOURS MANPAGE",
+            " ",
+            "displays basic colour information, including current console colours,",
+            "a list of all internally recognised colour names, etc.",
+            " ",
+            "USAGE:",
+            "'colours'"
+        ],
+        "adventure":[
+            "ADVENTURE MANPAGE",
+            " ",
+            "play text-based adventure games within console!",
+            " ",
+            "",
+            "USAGE:",
+            "'adventure [adventure]'",
+            " ",
+            "OPTIONS:",
+            "adventure | any valid adventure (check 'adventures' for a list of adventures)",
+            " ",
+            "EXAMPLE:",
+            "'adventure test'"
+        ],
+        "adventures":[
+            "ADVENTURES MANPAGE",
+            " ",
+            "displays a list of all valid adventures",
+            " ",
+            "USAGE:",
+            "'adventures'"
+        ],
     }
 }
 
@@ -3129,6 +3161,9 @@ var listy = [ " ",
     "manlist",
     "accounts",
     "colours",
+    "colors",
+    "adventure *",
+    "adventures",
     
     "* command is currently in-development and may break the site."
 ]; 
@@ -5484,9 +5519,66 @@ songs = {
             {"text": "\nBuh buh buhdada duh,", "dur": [257010, 258801]},
             {"text": " buh buh buh", "dur": [259252, 260263]},
             {"text": " bum", "dur": [260263, 261150]},
-            ]
-        }        
+        ]
+    },
+    "knife fight": {
+        "name": "Knife Fight",
+        "artist": "Lemon Demon",
+        "album": "View-Monster",
+        "art": "https://media.discordapp.net/attachments/960729059829096580/965876237866250260/view_monster.jpg?width=655&height=655",
+        "audio": "https://cdn.discordapp.com/attachments/960729059829096580/965876191468859462/Lemon_Demon_-_Knife_Fight.mp3",
+        "volume": 1,
+        "lyrics": [
+            {"text": "\nI tire", "dur": [35558, 36519]},
+            {"text": " of your mind games,", "dur": [36921, 38733]},
+            {"text": "\nI'm sick", "dur": [38733, 39435]},
+            {"text": " of playing 'Don't Wake Daddy'", "dur": [39918, 41615]},
+            {"text": "\nGood sir,", "dur": [41596, 42552]},
+            {"text": " no more Rock Paper Scissors for me", "dur": [42930, 45758]},
+            {"text": "\nBut wait!", "dur": [47591, 48586]},
+            {"text": "\nAre we not civilised gentlemen here?", "dur": [49116, 53593]},
+            {"text": "\nI challenge you:", "dur": [54357, 55831]},
+            {"text": " to a battle of knifes!", "dur": [55831, 58064]},
+            {"text": "\n \nKnife fight!", "dur": [58438, 59237]},
+            {"text": "\nYou're gonna fight for your life!", "dur": [59399, 61808]},
+            {"text": "\nKnife fight!", "dur": [61405, 62177]},
+            {"text": "\nYou're gonna fight with a knife!", "dur": [62380, 64789]},
+            {"text": "\nKnife fight!", "dur": [64383, 65274]},
+            {"text": "\nA really, really,", "dur": [65416, 66281]},
+            {"text": " really", "dur": [66472, 66783]},
+            {"text": " sharp knife!", "dur": [66832, 68269]},
+            {"text": "\n(Yeah, knife fight!)", "dur": [68269, 70376]},
+            {"text": "\nI'm a", "dur": [69889, 70388]},
+            {"text": " crazy,", "dur": [70431, 71201]},
+            {"text": "\n(Crazy!)", "dur": [71224, 71862]},
+            {"text": "\nSon of a bitch!", "dur": [71891, 73189]},
+            {"text": "\nI'ma cut you!", "dur": [73189, 74335]},
+            {"text": "\n(Cut you!)", "dur": [74260, 74922]},
+            {"text": "\nSwish swish!", "dur": [74881, 75688]},
+            {"text": "\nIn a knife fight!", "dur": [75708, 77368]},
+            {"text": "\n(Knife fight!)", "dur": [77148, 77885]},
+            {"text": "\n(Knife fight, knife fight!)", "dur": [77871, 79461]},
+            {"text": "\nKnife fight!", "dur": [77871, 79113]},
+            {"text": "\nKnife fight, knife fight!", "dur": [79438, 80973]},
+            {"text": "\n", "dur": [92923, 93194]},
+            {"text": "\nLet me tell you something:", "dur": [93309, 94195]},
+            {"text": " I can't be beat1", "dur": [94639, 95574]},
+            {"text": "\nOh yeah?", "dur": [95574, 96469]},
+            {"text": "Yeah!", "dur": [96420, 96949]},
+            {"text": " 'cause I'm the king of the streets!", "dur": [97033, 98266]},
+            {"text": "\nWelll guess what man?", "dur": [98313, 99703]},
+            {"text": " I'll pin you to the wall!", "dur": [99703, 101566]},
+            {"text": "\nOh yeah?", "dur": [101581, 102275]},
+            {"text": "\nYeah,", "dur": [102275, 102492]},
+            {"text": " your knife is way too small!", "dur": [102492, 104626]},
+            {"text": "\nHEY! My knife is super sharp,", "dur": [104626, 106271]},
+            {"text": " and that's what counts", "dur": [106283, 107952]},
+            {"text": "\nI'm gonna make you bleed copious amounts!", "dur": [108151, 110699]},
+            {"text": "\nYeah, Well I'll be sure to thank you right after I shank you!114.087676", "dur": [110639, 114136]},
+            {"text": "\nDweeb!", "dur": [114506, 115384]},
+        ]
     }
+}
 
 // spirit phone: https://media.discordapp.net/attachments/960729059829096580/960838302561353738/spiritphone.png?width=655&height=655
 /*
@@ -6568,10 +6660,31 @@ var themes = {      // console colour themes
     },
     "spirit phone": {
         "name": "Spirit Phone",
-        "author": "caeserlettuce",
+        "author": "caeserlettuce & Lemon Demon",
         "text colour": "#ffffff",
         "back colour": "#030202",
         "accy colour": "#df3b25"
+    },
+    "dinosaurchestra": {
+        "name": "Dinosaurchestra",
+        "author": "caeserlettuce & Lemon Demon",
+        "text colour": "#fe9c3e",
+        "back colour": "#038793",
+        "accy colour": "#c3361a"
+    },
+    "view monster": {
+        "name": "View-Monster",
+        "author": "caeserlettuce & Lemon Demon",
+        "text colour": "#c92a30",
+        "back colour": "#000000",
+        "accy colour": "#1e4499"
+    },
+    "nature tapes": {
+        "name": "Nature Tapes",
+        "author": "caeserlettuce & Lemon Demon",
+        "text colour": "#a71e2e",
+        "back colour": "#1d1c1c",
+        "accy colour": "#150d1a"
     },
     "vscode": {
         "name": "VSCode",
