@@ -1,3 +1,10 @@
+async function adventure_welcome() {
+    
+
+    await displayAnim(asciiText("slant", "TEST ADVENTURE!!"), 0.25);
+    await displayAnim("\n\nThis is an adventure that you use for testing!! use '-help' to get help, and '-quit' to quit!   \n\npress ENTER to start!", 5);
+}
+
 
 function ta_start_test() {
     // this function is run whenever you enter the game
@@ -14,8 +21,7 @@ function ta_start_test() {
         textadventures_saves[cur_ta] = {};              // set the save to be an empty JSON object
         save = textadventures_saves[cur_ta];    // set the save
         
-        save.point = "first start";                               // set the variable "point" to "start" since because the savefile is empty, you're starting a game
-        save.stopoff = "first start";
+        save.point = "asking for name";                               // set the variable "point" to "start" since because the savefile is empty, you're starting a game
     }
 
     console.log("current adventure save data:", save);  // debug purposes
@@ -33,30 +39,10 @@ function ta_start_test() {
 
     if this is confusing, ask me (tm)
 */
+    adventure_welcome();
 
     save.start_screen = true;
-    async function welcomeScreen() {
-        /*
-            if you want to run multiple functions in a row, but linearly (the next function runs after the first one finishes)
-            you can define a function inside of the adventure function, and it will only be accessible inside of said function
-            (ex. this welcomeScreen() function can only be run from inside of the function ta_start_test(), since it was defined
-            inside of ta_start_test)
-
-            and to make it run things linearly, just add 'async' in front of 'function', and then put 'await' before any function you want it to wait for.
-            (example below)
-
-            just remember to call the defined function after its defined for it to actually run
-
-        */
-
-       await displayAnim(asciiText("slant", "TEST ADVENTURE!!"), 0.25);
-       await displayAnim("\n\nThis is an adventure that you use for testing!! use '-help' to get help, and '-quit' to quit!", 5);
-       await setTimeout(() => {displayAnim("\n\npress ENTER to start!"), 5}, 500)
-
-    }
-
-    welcomeScreen();
-
+    
     ta_save();                                          // saves the JSON save variable to local storage so that on page reload you don't lose your progress
 }
 
@@ -95,14 +81,15 @@ function ta_test() {
     }
     var save = textadventures_saves[cur_ta];    // set the save
 
-    debubg(`adventure: '${cur_ta}'\npoint: '${save.point}'\nprev point: '${save.prev_point}'\ninput: '${ta_input}'\nkey: '${ta_key}'`);
-
+    
     var ta_low = ta_input.toLowerCase();        // this is literally because probably most of your commands dont require capitalization and it gets tiring having to set each if statement to lowercase so this is just the input text but all lowecase for ease of coding™
-
+    var just_started = false;
     var input = false;
     if (ta_input != "") {
-        input == true ;
+        input = true;
     }
+
+    debubg(`adventure: '${cur_ta}'\npoint: '${save.point}'\ninput: '${ta_input}'\nkey: '${ta_key}'`);
 
 
     
@@ -110,33 +97,45 @@ function ta_test() {
 
         if (save.start_screen == true) {    // if it's started, clear the screen and set the start screen status to false
             save.start_screen = false;
-            save.pg_loaded = true;
+            just_started = true;
             clearScreen();
         }
 
-        //if ( ( save.point == "first start" ) || ( save.point == "asking for name" && save.pg_loaded == true) ) {  // if it's your first start of the game
+        
 
-        if ( save.point == "first start" || save.stopoff == "asking for name" ) {  // if the save point was at first start or if the last save you stopped off at is asking for name
-            save.point = "asking for name";
-            save.stopoff = "asking for name";
-            displayAnim("\nwhat is your name");
+
+
+        if (save.point == "asking for name" && input == false) {
+
+            displayAnim("\nwhat is your name?");
+
+
         
-        
-        } else if (save.point == "asking for name" || save.stopoff == "greeting wheatley") {        // probably make them else statements so that it wont go through the hoards of other if statements
-            if (input == true) {                // if theres something in the text field
+        } else if ( (save.point == "asking for name" && input == true) || (save.point == "greeting wheatley") ) {
+            save.point = "greeting wheatley";
+            if (!save.name) {
                 save.name = `${ta_input}`;
-                save.point = "greeting wheatley";
-                save.stopoff = "greeting wheatley";
-
-                displayAnim(`[WHEATLEY]: Hello, ${save.name}!        \n\ntype 'hello' to respond!`, 5);
-
             }
+            setShell();     // clear input box
+
+            if (ta_low == "hello") {
+
+                
+                alert("hallo ig idk");
+
+
+            } else {
+                displayAnim(`\n[WHEATLEY]: Hello, ${save.name}!        \n\ntype 'hello' to respond!`, 5);
+            }
+
+            
+
+            
             
         }
 
 
 
-        save.pg_loaded = true;          // if it was loaded from file instead of loaded from brand new
         ta_save();                      // save to localStorage
     } else if (enterkey == false) {
 

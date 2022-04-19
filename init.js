@@ -3331,6 +3331,11 @@ function ta_save() {
     localStorage.setItem("text adventures", JSON.stringify(textadventures_saves));
 }
 
+function ta_point(point) {
+    textadventures_saves[cur_ta].point = `${point}`;
+}
+
+
 
 function setShell(text) {
     if (text) {
@@ -3340,7 +3345,6 @@ function setShell(text) {
         shell.value = "";
         return "";
     }
-    
 }
 
 
