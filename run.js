@@ -1006,6 +1006,7 @@ function parseCommand(command) {
     } else if (command == "music skip" || command == "music skip ") {       // skipping music
         if (music_playing == true) {
             skipLyrics();
+            lyr_disp = new Object();
         } else {
             displayAnim(`\nthere is no current song playing!`, 7);
         }
@@ -1043,7 +1044,7 @@ function parseCommand(command) {
                 var song_lyrics = songs[songname]["lyrics"];
 
             
-
+                music_loading = true;
                 playMusic(songname);
                 if (song_err == false) {
                     setSongInfo(`${songname}`);
@@ -1083,6 +1084,8 @@ function parseCommand(command) {
                 //displayAnim("\nplease enter a valid volume between 0 and 100.", 7);
                 displayAnim(`\nto change volume, please enter a valid number between 0 and 100. \ncurrent volume is ${music.volume * 100}`)
             }
+        } else {
+            displayAnim("\ninvalid music operation. check 'man music' for help.", 7);
         }
     } else if (command == "songlist") {
         var songlist = new Array();
