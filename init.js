@@ -1115,7 +1115,7 @@ async function displayUser(message, userin) {
     } else {
         userfor = `${user}`;
     }
-
+    
     displayNewline();
     displayAdd(`${userfor}@dapug.lol> ${message}`);
     scrolly("consy");
@@ -1128,14 +1128,20 @@ async function displayAnim(message, speed, colour, link) {      // fancy anim
     }
     //console.log(`[displayanim] ${message}, ${speed}, ${type}`);
     //debubg(`[displayAnim]   message: ${message}  speed: ${speed}   colour: ${colour}   link: ${link}`);
-    if (typeof message == "string") {           // if it's a string
-        await displaySingleLine(message, speed, colour, link);
-    } else if (typeof message == "object") {    // if it's an object (copyArr only works with arrays though, but typeof's definition says object so if it breaks, it breaks.)
-        await displayMultilineAnim(message, speed, 1);
+    var egg_white = "";
+
+    console.log(message);
+
+    if (typeof message == "object") {
+        egg_white = message.join("\n");
     } else {
-        var poo = typeof message;
-        debubg(`variable type "${poo}" not suppored for smart anim. supported var types are "string" and "object".`);
+        egg_white = message;
     }
+
+    
+    await displaySingleLine(egg_white, speed, colour, link);
+    
+    
 }
 
 function displayTimeAnim(message, durat) {    // duration in ms
@@ -1905,8 +1911,9 @@ function asciiText(font, text) {
                 var letter = textArr[e];
                 var lettID = letter.charCodeAt(0);
                 var lala = ascii_fonts[in_font][lettID][i];
+                var spac = ascii_fonts[in_font][0][i];
                 debubg(`${i} ${e}: ${letter} ${lettID}: ${lala}`);
-                currentLine = `${currentLine}${lala} `
+                currentLine = `${currentLine}${lala}${spac}`;
             }
             debubg(`CURRENT: ${currentLine}`);
             //displayNewline();
