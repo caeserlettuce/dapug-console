@@ -1046,6 +1046,7 @@ function parseCommand(command) {
             
                 music_loading = true;
                 playMusic(songname);
+                displayLyrics(songname);
                 if (song_err == false) {
                     setSongInfo(`${songname}`);
                 }

@@ -215,7 +215,8 @@ var adventures = {                  // text adventures info
         "description": "a test text adventure to test the feature"
     }
 }
-
+var lyric_interval;
+var processed_times = new Array();
 
 debubg("variable init finished...");
 // local storage setup
@@ -1229,7 +1230,7 @@ function lyrFunc(lyr_len, lyrics, i, resolve) {
     }
 }
 
-
+/*
 async function displayLyrics(lyrics) {
     lyr_status = new Array();
     var lyr_len = lyrics.length;
@@ -1269,6 +1270,61 @@ async function displayLyrics(lyrics) {
     }
 
 }
+*/
+
+
+function displayLyrics(lyrics) {
+    
+    // new lyric function!!!!!
+    process_lyrics(lyrics);
+    
+
+
+    lyric_interval = setInterval(function() {
+        if (music_playing == true) {
+
+        
+            var tim = music.currentTime;
+            var tim_proc = `${tim}`;
+            tim_split = tim_proc.split(".");
+            console.log("split: ", tim_split);
+            var tim2 = `${tim_split[1]}`.slice(0, 3);
+            console.log("tim1: ", tim2);
+            var tim1 = `${tim_split[0]}`;
+            if (tim1 == "0") {
+                tim1 = "";
+            }
+            tim_proc = parseInt(`${tim1}${tim2}`);
+            console.log("checking time: ", tim_proc);
+            if (processed_times.indexOf(tim_proc) > -1) {
+                console.log("there is supposed to be a lyric here!!! at ", tim_proc);
+            }
+        } else if (music_playing == false) {
+            clearInterval(lyric_interval);
+        }
+    }, 0.5);
+
+    
+    // interval shall run every millisecond, and shall check if there are lyrics to be printed™
+    // i wonder if i can have all the printing code inside of it as well, or if having it call a function would be faster
+    // probably calling a function would be faster, so i'll do that
+    //
+    // it won't hurt
+
+
+
+
+}
+
+function process_lyrics(name) {     // process the lyrics to get the list of times
+    processed_lyrics = new Array(); // reset the object
+    for (i in songs[name]["lyrics"]) {  // goes through every lyric
+        processed_lyrics.push(songs[name]["lyrics"][i]["dur"][0]);     // adds the beginning duration to the object
+    }
+}
+
+
+
 
 function skipLyrics() {
     // skip those dum lyrics i dont want em
@@ -3817,6 +3873,7 @@ music.addEventListener('ended', (event) => {
     boom();
 });
 
+/*                                              old lyric crap
 music.addEventListener('canplaythrough', (event) => {
     //if (music.currentTime == 0) { // if it has just started tm
         if (song_err == false) {
@@ -3824,7 +3881,7 @@ music.addEventListener('canplaythrough', (event) => {
         }
     //}
 });
-
+*/
 
 window.onresize = sizeCheck;
 
@@ -3848,5 +3905,11 @@ consol.addEventListener('mousemove', (event) => {
     }, 2000);
 });
 
+/*
+
+music.addEventListener('timeupdate', (event) => {
+    console.log(music.currentTime);
+});
+*/
 
 debubg("listeners added...");
