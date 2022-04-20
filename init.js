@@ -1279,7 +1279,7 @@ function displayLyrics(lyrics) {
     process_lyrics(lyrics);
     
 
-
+/*
     lyric_interval = setInterval(function() {
         if (music_playing == true) {
 
@@ -1303,8 +1303,10 @@ function displayLyrics(lyrics) {
             clearInterval(lyric_interval);
         }
     }, 0.5);
+*/
 
     
+
     // interval shall run every millisecond, and shall check if there are lyrics to be printed™
     // i wonder if i can have all the printing code inside of it as well, or if having it call a function would be faster
     // probably calling a function would be faster, so i'll do that
