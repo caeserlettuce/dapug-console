@@ -1115,7 +1115,7 @@ async function displayUser(message, userin) {
     } else {
         userfor = `${user}`;
     }
-
+    
     displayNewline();
     displayAdd(`${userfor}@dapug.lol> ${message}`);
     scrolly("consy");
@@ -1128,14 +1128,20 @@ async function displayAnim(message, speed, colour, link) {      // fancy anim
     }
     //console.log(`[displayanim] ${message}, ${speed}, ${type}`);
     //debubg(`[displayAnim]   message: ${message}  speed: ${speed}   colour: ${colour}   link: ${link}`);
-    if (typeof message == "string") {           // if it's a string
-        await displaySingleLine(message, speed, colour, link);
-    } else if (typeof message == "object") {    // if it's an object (copyArr only works with arrays though, but typeof's definition says object so if it breaks, it breaks.)
-        await displayMultilineAnim(message, speed, 1);
+    var egg_white = "";
+
+    console.log(message);
+
+    if (typeof message == "object") {
+        egg_white = message.join("\n");
     } else {
-        var poo = typeof message;
-        debubg(`variable type "${poo}" not suppored for smart anim. supported var types are "string" and "object".`);
+        egg_white = message;
     }
+
+    
+    await displaySingleLine(egg_white, speed, colour, link);
+    
+    
 }
 
 function displayTimeAnim(message, durat) {    // duration in ms
@@ -1905,8 +1911,9 @@ function asciiText(font, text) {
                 var letter = textArr[e];
                 var lettID = letter.charCodeAt(0);
                 var lala = ascii_fonts[in_font][lettID][i];
+                var spac = ascii_fonts[in_font][0][i];
                 debubg(`${i} ${e}: ${letter} ${lettID}: ${lala}`);
-                currentLine = `${currentLine}${lala} `
+                currentLine = `${currentLine}${lala}${spac}`;
             }
             debubg(`CURRENT: ${currentLine}`);
             //displayNewline();
@@ -3156,9 +3163,7 @@ function askInput(scooby_doo, end) {   // ask for a text input from console thin
 HOW TO DO THE FANCY LYRICS:
 
 go into audacity, bring in the audio track, make a new label track, add all the labels in the correct lyric places, and then go to file > export > label tracks, export the .txt file to DONT_PUSH/
-then copy the contents of that into test_lyr, go to the inspect menu console, then paste this:
-
-setTimeout(() => {compileLyrics();}, 2000);
+then copy the contents of that into test_lyr, go to the inspect menu console, then run compileLyrics();,
 
 press enter, and swap back to the page within 2 seconds so it'll actually copy it to your clipboard, then boom you have your lyrics (tm)
 
@@ -3171,11 +3176,11 @@ var test_lyr = `35.558662	36.519577	\\nI tire
 38.733030	39.435789	\\nI'm sick
 39.918637	41.615777	 of playing 'Don't Wake Daddy'
 41.596654	42.552789	\\nGood sir,
-42.930463	45.758962	 no more Rock Paper Scissors for me
-47.591621	48.586001	\\nBut wait!
-49.116656	53.593869	\\nAre we not civilised gentlemen here?
-54.357601	55.831476	\\nI challenge you:
-55.831476	58.064399	 to a battle of knifes!
+42.930463	45.207126	 no more Rock Paper Scissors for me
+47.591621	48.314583	\\nBut wait!
+49.240436	52.539449	\\nAre we not civilised gentlemen here?
+54.357601	55.529845	\\nI challenge you:
+55.960845	58.064399	 to a battle of knifes!
 58.438821	59.237007	\\n \\nKnife fight!
 59.399546	61.808617	\\nYou're gonna fight for your life!
 61.405170	62.177234	\\nKnife fight!
@@ -3199,9 +3204,9 @@ var test_lyr = `35.558662	36.519577	\\nI tire
 79.438367	80.973787	\\nKnife fight, knife fight!
 92.923259	93.194172	\\n
 93.309105	94.195731	\\nLet me tell you something:
-94.639043	95.574926	 I can't be beat1
+94.639043	95.574926	 I can't be beat!
 95.574926	96.469308	\\nOh yeah?
-96.420862	96.949116	Yeah!
+96.420862	96.949116	\\nYeah!
 97.033288	98.266848	 'cause I'm the king of the streets!
 98.313288	99.703583	\\nWelll guess what man?
 99.703583	101.566984	 I'll pin you to the wall!
@@ -3211,34 +3216,122 @@ var test_lyr = `35.558662	36.519577	\\nI tire
 104.626213	106.271927	\\nHEY! My knife is super sharp,
 106.283537	107.952472	 and that's what counts
 108.151870	110.699444	\\nI'm gonna make you bleed copious amounts!
-110.639347	114.136933	\\nYeah, Well I'll be sure to thank you right after I shank you!\
-114.087676	114.506360	\\nPunk!
-114.506360	115.384776	\\nDweeb!`;
+110.639347	114.136933	\\nYeah, Well I'll be sure to thank you right after I shank you!
+114.087676	114.476029	\\nPunk!
+114.506360	115.384776	\\nDweeb!
+115.440951	116.237603	\\n \\nKnife fight!
+116.397986	118.651223	\\nYou're gonna fight for your life!
+118.461919	119.200729	\\nKnife fight!
+119.555673	121.732663	\\nYou're gonna fight with a knife!
+121.448708	122.177001	\\nKnife fight!
+122.395225	124.022710	\\nA really, really, really, really
+124.051631	124.979398	 sharp knife!
+125.245295	127.196172	\\n(Yeah, knife fight!)
+127.038419	128.124285	\\nI'm a crazy
+128.250488	128.936713	\\n(Crazy!)
+128.902533	130.069904	\\nSon of a bitch!
+130.140893	131.213613	\\nI'ma cut you
+131.213613	131.957681	\\n(Cut you!)
+131.899838	132.812176	\\nSwish swish!
+132.833210	134.342379	\\nIn a knife fight!
+134.216177	138.007505	\\n(Knife fight, knife fight, knife fight, knife fight, knife fight!)
+134.952357	136.109212	Knife fight!
+136.461527	136.996448	\\nKnife
+137.169380	137.914318	fight!
+150.131715	151.616271	\\n \\nI'm gonna slice you up!
+151.637555	153.068901	\\nI'm gonna cut you down!
+153.084864	154.611988	\\nI'll put you in your place!
+154.641253	156.088562	\\nI'll put you underground!
+156.120488	157.621007	\\nThis is the END for you,
+157.655594	159.113545	 you got a crawling cur?
+159.126847	160.574156	\\nI've got a TIP for you,
+160.632687	161.385607	 get the POINT?
+161.401570	162.058712	\\nYeah, sure
+162.125225	163.631065	\\nIt's time to face the music!
+163.785373	165.073053	\\nTime to face the facts!
+165.131584	166.626782	\\nTime to bite the bullet!
+166.839621	168.332159	\\nTime to pay the tax!
+168.156566	169.861943	\\nI've got a blade of fury!
+169.678369	171.293289	\\nI am a ball of rage!
+171.138981	172.160611	\\nYou ready, sucka?
+172.062172	172.852339	\\nBorn ready!
+172.982704	173.900574	\\nENGAGE!
+187.798998	188.368344	\\n \\nKNIFE!
+190.076382	190.555271	\\nFIGHT!
+192.327160	192.747519	\\nCUT!
+194.370420	194.992976	\\nSTAB!
+196.764866	197.190545	\\nKNIFE!
+199.095459	199.600953	\\nOW!
+201.293027	201.814484	\\nPOKE!
+203.538485	204.049300	KNIFE!
+206.933276	207.486659	\\n \\nHEY!
+207.503952	208.832869	 wait a minute here!
+208.388567	209.588450	\\nOh, what is it.?
+209.471388	210.801635	\\nKnifes are dangerous,
+210.801635	211.671617	 we could get hurt!
+212.347383	212.765081	\\nHurt?
+214.116612	215.037143	 I don't wanna get hurt...
+215.212736	216.149230	\\nWho does?
+216.239687	216.942057	\\nOkay, well...
+217.053798	218.219095	In.. In that case,
+218.644774	219.876583	 I challenge you,
+219.998966	220.629503	 to a:
+221.127015	222.523775	\\nTICKLE FIGHT!!!
+221.132336	222.522278	\\nTICKLE FIGHT!!!
+222.789824	223.699714	\\n \\nTickle fight,
+223.750263	224.910239	 it's a tickle fight,
+225.035282	227.472295	\\nDon't bring no knife to a tickle fight!
+227.594678	228.956851	\\nJust bring your fingers,
+229.015382	230.180679	 and bring a feather,
+230.303061	232.580445	\\nAnd everyone can sing together,
+232.681544	232.942272	 now
+232.984840	234.171421	\\nTickle fight!
+234.256557	235.262224	 tickle fight!
+235.522952	236.794668	\\nLaa-dee-da dum dum
+236.821273	237.672632	\\nTickle fight!
+238.061064	238.827286	\\nTickle fight!
+239.354064	240.253312	\\nTickle fight!
+240.678991	241.860250	\\nWhoopy-doo zig zag
+241.956028	242.780782	Tickle fight!
+243.222424	244.467535	\\nDing dong doogly,
+244.504782	245.739252	\\nKnick knack noodly,
+245.781820	247.479215	\\nFee fi fo fum kitten﻿
+247.521783	248.266722	 kaboodly!
+248.314610	249.245784	\\nTickle fight!
+249.522475	250.576031	 Tickle fight!
+250.788870	252.167007	\\nTickle, tickle, tickle
+252.262785	252.832130	 fight!
+252.635254	253.662205	\\nHey!
+254.279440	254.896674	 yay...
+255.019057	255.748033	 that's fun..
+256.524897	257.344329	 where's my knife?`;
 
 function compileLyrics() {
-    var final = "";
-    var spit = test_lyr.split("\n");
-    final += "[";
-    for (i in spit) {
-        var lyr_lin = spit[i];
-        console.log("lyric line: ", lyr_lin);
-        var lyr_spit = lyr_lin.split("\t");
-        var time1 = lyr_spit[0].split(".");
-        var time1_1 = `${time1[1]}`.slice(0, -3)
-        var time1_final = `${time1[0]}${time1_1}`;
-        var time2 = lyr_spit[1].split(".");
-        var time2_1 = `${time2[1]}`.slice(0, -3)
-        var time2_final = `${time2[0]}${time2_1}`;
-        var line = `{"text": "${lyr_spit[2]}", "dur": [${time1_final}, ${time2_final}]},`;
+    setTimeout(() => {
+        var final = "";
+        var spit = test_lyr.split("\n");
+        final += "[";
+        for (i in spit) {
+            var lyr_lin = spit[i];
+            console.log("lyric line: ", lyr_lin);
+            var lyr_spit = lyr_lin.split("\t");
+            var time1 = lyr_spit[0].split(".");
+            var time1_1 = `${time1[1]}`.slice(0, -3)
+            var time1_final = `${time1[0]}${time1_1}`;
+            var time2 = lyr_spit[1].split(".");
+            var time2_1 = `${time2[1]}`.slice(0, -3)
+            var time2_final = `${time2[0]}${time2_1}`;
+            var line = `{"text": "${lyr_spit[2]}", "dur": [${time1_final}, ${time2_final}]},`;
+            final += `
+`;
+            final += line;
+        }
         final += `
 `;
-        final += line;
-    }
-    final += `
-`;
-    final += "]";
-    copyclip(final);
-    return final
+        final += "]";
+        copyclip(final);
+        return final
+    }, 2000);
 }
 
 //  .M.               .%MMMMMM .%MMMMMMM%. +MM.    .MM+ +MMMMMMM%. mmmmmmmmmm +M         +MMMMMMMMI             +M         MM    MM +MMMMMMM%. mmmmmmmmmm  .%MMMMMM .%MMMMMMM%.              .M.  
@@ -3257,6 +3350,7 @@ function dogEscape() {      // used to exit dog (how could you??)
     doglock = false;
     dog = false;
     shell.value = "";
+    dogsong.pause();
     clearScreen();
     clearInterval(dog_timer);
     if (dog_pets == 1) {
@@ -3317,6 +3411,8 @@ function startDog() {
         }
         dogtime += dog_speed;
     }, dog_speed);
+    dogsong.currentTime = 0;
+    dogsong.play();
 }
 
 function inColourReg(colour) {  // checks if a colour is in the colour registry

@@ -134,11 +134,11 @@ function parseCommand(command) {
     } else if (command == "secret") {
         displayAnim("\nthere are no secrets.", 20);
     } else if (command == "aperture") {
-        displayAnim(`\n${apertureLogo}`, 1);                                                                                
+        displayAnim(apertureLogo, 1);                                                                                
     } else if (command == "secrets") {
         displayAnim("\nthere is not a secret.js file.", 20);
     } else if (command == "cake") {
-        displayAnim(`${cake}`, 1);
+        displayAnim(cake, 1);
     } else if (command == "info" || command == "about") {
         aboutPage();
     } else if (command == "ae394") {
@@ -301,7 +301,7 @@ function parseCommand(command) {
     } else if (command == "sus" || command == "among us" || command == "amogus" || command == "amongus" || command == "amon gus" || command == "sussy") {
         displayAnim(amogus, 1);
     } else if (command == "lovejoy") {
-        displayAnim(`\n${lovejoy}`, 1);
+        displayAnim(lovejoy, 1);
     } else if (argCommand == "arg-test") {
         var mmm = argComm(commandInit);
         var inbo = [

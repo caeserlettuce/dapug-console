@@ -2,6 +2,8 @@ var music = new Audio();
 var music_playing = false;
 var touchtonetelly = new Audio();
 var dogsong = new Audio("Dogsong.mp3");
+dogsong.volume = 0.5;
+dogsong.loop = true;
 
 function playMusic(internal_name) {
     if (songs[internal_name]) {
