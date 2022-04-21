@@ -8095,9 +8095,18 @@ var internal_colours = {     // a catalogue of internal default colour codes, us
     "rose": "#ff007f",
     "pink": "#ffbec8",
     "purple": "#9319c4"
-    
 }
 
+var ciphers = {
+    "test": {
+        "name": "Test",
+        "author": "caeserlettuce",
+        "code": {
+            "a": "b",
+            "b": "c"
+        }
+    }
+}
 
 if (true) {
     var dat = new Date();

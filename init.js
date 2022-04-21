@@ -28,6 +28,14 @@ function debubg(message) {
         debug_win.document.getElementById("aaa").innerHTML += `<p style="margin: 0px; padding: 0px; border: 0px;">${message}</p>`;
         mom = debug_win.document.getElementById("aaa");
         mom.scrollTop = mom.scrollHeight;
+        
+        dod = debug_win.document.body;
+        var diff = scrollDifference(dod);
+        if (diff <= autoscroll_buffer) {
+            dod.scrollTop = dod.scrollHeight;
+        }
+        
+        //dod.scrollTop = dod.scrollHeight;
     }
 }
 
@@ -45,6 +53,12 @@ function erry(message) {
         debug_win.document.getElementById("aaa").innerHTML += `<p style="color: #ff8080; width: auto; margin: 0px; padding: 0px; border: 1px #ff000020 solid; background-color: #ff000040;">[${tim}]: ${message}</p>`;;
         mom = debug_win.document.getElementById("aaa");
         mom.scrollTop = mom.scrollHeight;
+
+        dod = debug_win.document.body;
+        var diff = scrollDifference(dod);
+        if (diff <= autoscroll_buffer) {
+            dod.scrollTop = dod.scrollHeight;
+        }
     }
 }
 
@@ -128,8 +142,9 @@ var console_id = 0;
 var console_group_id = 0;
 var musicTimeouts = 0; // number of timeouts in the current song
 var cur_lyrics = new Object();
+var cur_lyr = 0;
 var paused_lyrics = true;
-var lyr_status = new Array();
+var lyr_status = new Object();
 var portal_playing = false;
 var portal_type = 1;
 var og_textcolour = textcolour;
@@ -616,7 +631,7 @@ function debugWindow(bool) {
         debug_win = window.open("", "Title", "directories=0,titlebar=0,toolbar=0,location=0,status=0,menubar=0,scrollbars=no,resizable=no,width=400,height=350,top="+(screen.height-400)+",left="+(screen.width-840));
         try {
             debug_win.document.write(`
-            <style>::-webkit-scrollbar {width: 10px;height: 10px;} .eee { width: 100vw; height: calc(100vh - 10px);}</style>
+            <style>::-webkit-scrollbar {width: 10px;height: 10px;} .eee { width: 100vw; }</style>
             <style id="scroll-text-style">::-webkit-scrollbar-thumb { background: ${accycolour}; }</style>
             <style id="scroll-back-style">::-webkit-scrollbar-track { background: ${backcolour}; } ::-webkit-scrollbar-corner { background: #000000 }</style>
             <style id="back-style">body { background-color: ${backcolour};}</style>
@@ -629,8 +644,6 @@ function debugWindow(bool) {
             var toot = false;
             setInterval(function() {                    // loop this every quarter second
                 toot = false;
-                mom = window.document.body;
-                mom.scrollTop = mom.scrollHeight;
                 try {
                     if (window.opener.debug != true) {      // if debug is false
                         window.close();                     // close window
@@ -1215,7 +1228,8 @@ var LyricTimer = function(callback, delay) {
 
 
 
-function lyrFunc(lyr_len, lyrics, i, resolve) {
+function lyrFunc(lyrics, i) {
+    debubg(`lyric: "${lyrics[i]["text"].replaceAll("\n", "")}"`);
     var lyr_exec = false;
     if (lyrics[i]["exec"]) {
         lyr_exec = lyrics[i]["exec"];
@@ -1224,10 +1238,11 @@ function lyrFunc(lyr_len, lyrics, i, resolve) {
     if (lyrics[i]["text"] != false) {
         displayTimeAnim(lyrics[i]["text"], (lyrics[i]["dur"][1] - lyrics[i]["dur"][0]));
     }
-    
+    /*
     if (i == lyr_len - 1) { 
         scrolly("consy");
     }
+    */
 }
 
 /*
@@ -1270,7 +1285,48 @@ async function displayLyrics(lyrics) {
     }
 
 }
+
+
+if (music_playing == true) {
+
+        
+            var tim = music.currentTime;
+            
+            console.log("checking time: ", tim_proc);
+            console.log("indexof: ", processed_times.indexOf(tim_proc));
+            if (processed_times.indexOf(tim_proc) > -1) {
+                console.log("there is supposed to be a lyric here!!! at ", tim_proc);
+                displayAnim("A!!!", 1);
+            }
+        } else if (music_playing == false) {
+            clearInterval(lyric_interval);
+        }
+
+
+
+
 */
+
+function tim_parse(tim) {
+    var tim_proc = `${tim}`;
+    tim_split = tim_proc.split(".");
+    //console.log("split: ", tim_split);
+    var tim2 = `${tim_split[1]}`.slice(0, 3);
+    //console.log("tim1: ", tim2);
+    var tim1 = `${tim_split[0]}`;
+    if (tim1 == "0") {
+        tim1 = "";
+    }
+    tim_proc = parseInt(`${tim1}${tim2}`);
+    return tim_proc
+}
+
+function tim_dur(lyr) {
+    var startdur = lyr[i]["dur"][0];
+    var enddur = lyr[i]["dur"][1];
+    var fulldur = enddur - startdur;
+    return fulldur
+}
 
 
 function displayLyrics(lyrics) {
@@ -1279,33 +1335,30 @@ function displayLyrics(lyrics) {
     process_lyrics(lyrics);
     
 
-/*
     lyric_interval = setInterval(function() {
-        if (music_playing == true) {
 
-        
-            var tim = music.currentTime;
-            var tim_proc = `${tim}`;
-            tim_split = tim_proc.split(".");
-            console.log("split: ", tim_split);
-            var tim2 = `${tim_split[1]}`.slice(0, 3);
-            console.log("tim1: ", tim2);
-            var tim1 = `${tim_split[0]}`;
-            if (tim1 == "0") {
-                tim1 = "";
+        if (music_playing == true) {
+            var timmy = tim_parse(music.currentTime);
+            //console.log(timmy);
+            for (i in songs[lyrics]["lyrics"]) {
+                var door = songs[lyrics]["lyrics"][i]["dur"];
+                if (!lyr_status[i]) {                           // if the lyric hasnt been done before
+                    if ( (timmy >= door[0] && timmy < door[1] ) || (door[0] == door[1] && timmy >= door[0]) ) {  // if it's at least somewhere within the lyric time, and for the function eval ones, if both duration 1 and duration two are the same, and its after that
+                        //displayAnim("AA!!!", 1);
+                        lyrFunc(songs[lyrics]["lyrics"], i);
+                        lyr_status[i] = true;
+                    }
+                }
+                
             }
-            tim_proc = parseInt(`${tim1}${tim2}`);
-            console.log("checking time: ", tim_proc);
-            if (processed_times.indexOf(tim_proc) > -1) {
-                console.log("there is supposed to be a lyric here!!! at ", tim_proc);
-            }
-        } else if (music_playing == false) {
+
+        } else {
             clearInterval(lyric_interval);
         }
-    }, 0.5);
-*/
 
-    
+    }, 1);
+
+   
 
     // interval shall run every millisecond, and shall check if there are lyrics to be printed™
     // i wonder if i can have all the printing code inside of it as well, or if having it call a function would be faster
@@ -1319,9 +1372,11 @@ function displayLyrics(lyrics) {
 }
 
 function process_lyrics(name) {     // process the lyrics to get the list of times
-    processed_lyrics = new Array(); // reset the object
+    processed_times = new Array(); // reset the object
     for (i in songs[name]["lyrics"]) {  // goes through every lyric
-        processed_lyrics.push(songs[name]["lyrics"][i]["dur"][0]);     // adds the beginning duration to the object
+        var door = songs[name]["lyrics"][i]["dur"];
+        console.log(door);
+        processed_times.push([door[0], door[1]]);
     }
 }
 
@@ -3652,6 +3707,7 @@ async function musicPage() {
     displayNewline();
     var musictext = asciiText("slant", `MUSIC!`);
     await displayAnim(musictext, 2);
+    await displayAnim("\n", 1);
     await displayAnim(musicText, 4);
 }
 
@@ -3851,6 +3907,8 @@ shell.onkeyup = function keyParse(e){
 music.addEventListener('ended', (event) => {
     document.getElementById("songinfo").style.display = "none";
     music_playing = false;
+    clearInterval(lyric_interval);
+    lyr_status = new Object();
     if (portal_playing == true) {
         portal_playing = false;
         //setTextColour(og_textcolour);
@@ -3864,8 +3922,7 @@ music.addEventListener('ended', (event) => {
         document.getElementById("songinfomouse").style.backgroundColor = "#1e1e1e";
         document.getElementById("songinfomouse").style.color = "white";
         document.getElementById("songinfo").style.borderColor = "#1e1e1e";
-        d
-        ocument.getElementById("songinfo").style.backgroundColor = og_backcolour;
+        document.getElementById("songinfo").style.backgroundColor = og_backcolour;
     } else if (credits_playing == true) {
         credits_playing = false;
         inputlock = false;
@@ -3884,6 +3941,8 @@ music.addEventListener('canplaythrough', (event) => {
     //}
 });
 */
+
+
 
 window.onresize = sizeCheck;
 

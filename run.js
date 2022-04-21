@@ -983,7 +983,7 @@ function parseCommand(command) {
     } else if (command == "music play" || command == "music play ") {       // playing (resuming) music
         if (music_playing == true) {
             if (paused_lyrics == true) {   // go and unpause the lyrics
-                resumeLyrics();
+                music.play();
                 paused_lyrics = false;
             } else {
                 displayAnim(`\nmusic is already playing!`, 7);
@@ -994,7 +994,7 @@ function parseCommand(command) {
     } else if (command == "music pause" || command == "music pause ") {     // pausing music
         if (music_playing == true) {
             if (paused_lyrics == false) {   // go and pause the lyrics
-                pauseLyrics();
+                music.pause()
                 displayAnim(`\nmusic has been paused.`, 7);
                 paused_lyrics = true
             } else {
@@ -1005,7 +1005,7 @@ function parseCommand(command) {
         }
     } else if (command == "music skip" || command == "music skip ") {       // skipping music
         if (music_playing == true) {
-            skipLyrics();
+            music.currentTime = music.duration - 0.5; // put it at the end so it ends the song (tm)
             lyr_disp = new Object();
         } else {
             displayAnim(`\nthere is no current song playing!`, 7);
@@ -1036,7 +1036,8 @@ function parseCommand(command) {
             
             if (existent == true) {     // song is in the system!!! yay!!!!11!1!11!
                 if (music_playing == true) {
-                    skipLyrics();
+                    clearInterval(lyric_interval);
+                    lyr_status = new Object();
                 }
 
 
@@ -1362,7 +1363,7 @@ function parseCommand(command) {
             nametm = nametm.slice(0, -1);
         }
 
-        nametm = nametm.replaceAll("-", "");
+        nametm = nametm.replaceAll("-", " ");
     
         var lowname = nametm.toLowerCase();
 
@@ -1636,6 +1637,26 @@ function parseCommand(command) {
             displayAnim("\nsorry, but that adventure could not be found. use 'adventure list' to get a list of adventures!", 5);
         }
     
+    } else if (argCommand == "encrypt") {
+        
+        var mmm = argComm(commandInit);
+
+        var hehehaha = [...mmm];
+
+        hehehaha.shift();
+
+        hehehaha = hehehaha.join(" ");
+
+        console.log(hehehaha);
+
+        if (ciphers[hehehaha]) {
+            // it egg
+        } else {
+            // no egg :'(
+
+            displayAnim(`\ni'm sorry, the cipher '${hehehaha}'`, 7);
+        }
+
     }
 
     else {
