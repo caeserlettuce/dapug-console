@@ -1651,6 +1651,12 @@ function parseCommand(command) {
 
         if (ciphers[hehehaha]) {
             // it egg
+            
+            //for (key in )
+            
+            
+            
+            
         } else {
             // no egg :'(
 
