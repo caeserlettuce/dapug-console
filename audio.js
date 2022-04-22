@@ -14,7 +14,7 @@ function playMusic(internal_name) {
         song_err = false;
 
         
-        
+        cur_lyr = 0;
         
         music.src = `${url}`;
         

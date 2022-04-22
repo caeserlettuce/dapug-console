@@ -2836,7 +2836,7 @@ var aboot2 = [
     "HAVE FUN."
 ];
 
-var hlep = [
+var hlep = [                                // the old yucky help page
     "HELP PAGE",
     "info / about | info about this page",
     "github / git | info about the github page for this",
@@ -2986,6 +2986,9 @@ different useful tools n stuff you can use on here
 
 convert         | type in convert, along with a unit type, a number, from unit, and to unit
 convert -list   | lists all the units and unit types
+encrypt         | encrypts text into any supported cipher
+decrypt         | decrypts an encrypted string of text back into readable text
+ciphers         | lists all supported ciphers
 `,
     "dev": `
 DEV HELP PAGE
@@ -3753,6 +3756,42 @@ function updateMan() {
             "USAGE:",
             "'adventures'"
         ],
+        "encrypt":[
+            "ENCRYPT MANPAGE",
+            " ",
+            "asks you for a string of text and encrypts it to the inputted cipher",
+            " ",
+            "USAGE:",
+            "'encrypt [cipher]'",
+            " ",
+            "OPTIONS:",
+            "cipher | any supported cipher (use 'ciphers' to get a list of all supported ciphers)",
+            " ",
+            "EXAMPLE:",
+            "'encrypt caesar'"
+        ],
+        "decrypt":[
+            "DECRYPT MANPAGE",
+            " ",
+            "asks you for an encrypted string of text and decrypts it to readable text",
+            " ",
+            "USAGE:",
+            "'decrypt [cipher]'",
+            " ",
+            "OPTIONS:",
+            "cipher | any supported cipher (use 'ciphers' to get a list of all supported ciphers)",
+            " ",
+            "EXAMPLE:",
+            "'decrypt caesar'"
+        ],
+        "ciphers":[
+            "CIPHERS MANPAGE",
+            " ",
+            "gives you a list of all the supported ciphers",
+            " ",
+            "USAGE:",
+            "'ciphers'"
+        ]
     }
 }
 
@@ -3855,6 +3894,10 @@ var listy = [ " ",
     "colors",
     "adventure *",
     "adventures",
+    "encrypt",
+    "decrypt",
+    "ciphers",
+    "cipher list",
     
     "* command is currently in-development and may break the site."
 ]; 
@@ -8095,8 +8138,204 @@ var internal_colours = {     // a catalogue of internal default colour codes, us
     "rose": "#ff007f",
     "pink": "#ffbec8",
     "purple": "#9319c4"
-    
 }
+
+var ciphers = {
+    "test": {
+        "name": "Test",
+        "author": "caeserlettuce",
+        "code": {
+            "dog":"cat",
+            "cat":"dog",
+            "c":"d"
+        }
+    },
+    "caesar": {
+        "name": "Caesar Cipher",
+        "author": "Juilius Caesar",
+        "code": {
+            "a": "d",
+            "b": "e",
+            "c": "f",
+            "d": "g",
+            "e": "h",
+            "f": "i",
+            "g": "j",
+            "h": "k",
+            "i": "l",
+            "j": "m",
+            "k": "n",
+            "l": "o",
+            "m": "p",
+            "n": "q",
+            "o": "r",
+            "p": "s",
+            "q": "t",
+            "r": "u",
+            "s": "v",
+            "t": "w",
+            "u": "x",
+            "v": "y",
+            "w": "z",
+            "x": "a",
+            "y": "b",
+            "z": "c"
+        }
+    },
+    "oob": {
+        "name": "Oob",
+        "author": "Caeserlettuce",
+        "code": {
+            "a": "aoob",
+            "b": "boob",
+            "c": "coob",
+            "d": "doob",
+            "e": "eoob",
+            "f": "foob",
+            "g": "goob",
+            "h": "hoob",
+            "i": "ioob",
+            "j": "joob",
+            "k": "koob",
+            "l": "loob",
+            "m": "moob",
+            "n": "noob",
+            "o": "ooob",
+            "p": "poob",
+            "q": "qoob",
+            "r": "roob",
+            "s": "soob",
+            "t": "toob",
+            "u": "uoob",
+            "v": "voob",
+            "w": "woob",
+            "x": "xoob",
+            "y": "yoob",
+            "z": "zoob"
+        }
+    },
+    "numbers": {
+        "name": "Numbers",
+        "author": "caeserlettuce",
+        "code": {
+            " ": "0;",
+            "a": "1;",
+            "b": "2;",
+            "c": "3;",
+            "d": "4;",
+            "e": "5;",
+            "f": "6;",
+            "g": "7;",
+            "h": "8;",
+            "i": "9;",
+            "j": "10;",
+            "k": "11;",
+            "l": "12;",
+            "m": "13;",
+            "n": "14;",
+            "o": "15;",
+            "p": "16;",
+            "q": "17;",
+            "r": "18;",
+            "s": "19;",
+            "t": "20;",
+            "u": "21;",
+            "v": "22;",
+            "w": "23;",
+            "x": "24;",
+            "y": "25;",
+            "z": "26;",
+            "0": "27;",
+            "1": "28;",
+            "2": "29;",
+            "3": "30;",
+            "4": "31;",
+            "5": "32;",
+            "6": "33;",
+            "7": "34;",
+            "8": "35;",
+            "9": "36;"
+        }
+    },
+}
+/*
+    "": {
+        "name": "",
+        "author": "",
+        "code": {
+            "a": "",
+            "b": "",
+            "c": "",
+            "d": "",
+            "e": "",
+            "f": "",
+            "g": "",
+            "h": "",
+            "i": "",
+            "j": "",
+            "k": "",
+            "l": "",
+            "m": "",
+            "n": "",
+            "o": "",
+            "p": "",
+            "q": "",
+            "r": "",
+            "s": "",
+            "t": "",
+            "u": "",
+            "v": "",
+            "w": "",
+            "x": "",
+            "y": "",
+            "z": ""
+        }
+    },
+    "": {
+        "name": "",
+        "author": "",
+        "code": {
+            "a": "",
+            "b": "",
+            "c": "",
+            "d": "",
+            "e": "",
+            "f": "",
+            "g": "",
+            "h": "",
+            "i": "",
+            "j": "",
+            "k": "",
+            "l": "",
+            "m": "",
+            "n": "",
+            "o": "",
+            "p": "",
+            "q": "",
+            "r": "",
+            "s": "",
+            "t": "",
+            "u": "",
+            "v": "",
+            "w": "",
+            "x": "",
+            "y": "",
+            "z": "",
+            "0": "",
+            "1": "",
+            "2": "",
+            "3": "",
+            "4": "",
+            "5": "",
+            "6": "",
+            "7": "",
+            "8": "",
+            "9": ""
+        }
+    },
+*/
+
+
 
 
 if (true) {

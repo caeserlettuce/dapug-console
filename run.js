@@ -983,7 +983,7 @@ function parseCommand(command) {
     } else if (command == "music play" || command == "music play ") {       // playing (resuming) music
         if (music_playing == true) {
             if (paused_lyrics == true) {   // go and unpause the lyrics
-                resumeLyrics();
+                music.play();
                 paused_lyrics = false;
             } else {
                 displayAnim(`\nmusic is already playing!`, 7);
@@ -994,7 +994,7 @@ function parseCommand(command) {
     } else if (command == "music pause" || command == "music pause ") {     // pausing music
         if (music_playing == true) {
             if (paused_lyrics == false) {   // go and pause the lyrics
-                pauseLyrics();
+                music.pause()
                 displayAnim(`\nmusic has been paused.`, 7);
                 paused_lyrics = true
             } else {
@@ -1005,7 +1005,7 @@ function parseCommand(command) {
         }
     } else if (command == "music skip" || command == "music skip ") {       // skipping music
         if (music_playing == true) {
-            skipLyrics();
+            music.currentTime = music.duration - 0.5; // put it at the end so it ends the song (tm)
             lyr_disp = new Object();
         } else {
             displayAnim(`\nthere is no current song playing!`, 7);
@@ -1036,7 +1036,8 @@ function parseCommand(command) {
             
             if (existent == true) {     // song is in the system!!! yay!!!!11!1!11!
                 if (music_playing == true) {
-                    skipLyrics();
+                    clearInterval(lyric_interval);
+                    lyr_status = new Object();
                 }
 
 
@@ -1046,6 +1047,7 @@ function parseCommand(command) {
             
                 music_loading = true;
                 playMusic(songname);
+                displayLyrics(songname);
                 if (song_err == false) {
                     setSongInfo(`${songname}`);
                 }
@@ -1361,7 +1363,7 @@ function parseCommand(command) {
             nametm = nametm.slice(0, -1);
         }
 
-        nametm = nametm.replaceAll("-", "");
+        nametm = nametm.replaceAll("-", " ");
     
         var lowname = nametm.toLowerCase();
 
@@ -1635,6 +1637,80 @@ function parseCommand(command) {
             displayAnim("\nsorry, but that adventure could not be found. use 'adventure list' to get a list of adventures!", 5);
         }
     
+    } else if (argCommand == "encrypt") {
+        
+        var mmm = argComm(commandInit);
+
+        var hehehaha = [...mmm];
+
+        hehehaha.shift();
+
+        hehehaha = accspace(hehehaha.join(" "));
+
+        console.log(hehehaha);
+
+        var result = "";
+
+        if (ciphers[hehehaha]) {
+            // it egg
+            cur_cipher = hehehaha;
+            displayAnim("\nwhat text would you like to encrypt?", 7);
+            askInput(() => {
+                var res = crypt("en", ask_return, cur_cipher);
+                copyclip(res);
+                displayAnim("\nyour encrypted text has been copied to clipboard.", 7);
+            });
+            debubg(result);            
+        } else {
+            // no egg :'(
+            displayAnim(`\ni'm sorry, the cipher '${hehehaha}' cannot be found. use 'ciphers' to get a list of ciphers`, 7);
+        }
+
+    } else if (argCommand == "decrypt") {
+        
+        var mmm = argComm(commandInit);
+
+        var hehehaha = [...mmm];
+
+        hehehaha.shift();
+
+        hehehaha = hehehaha.join(" ");
+
+        console.log(hehehaha);
+
+        var result = "";
+
+        if (ciphers[hehehaha]) {
+            // it egg
+            cur_cipher = hehehaha;
+            displayAnim("\nwhat text would you like to decrypt?", 7);
+            askInput(() => {
+                var res = crypt("de", ask_return, cur_cipher);
+                copyclip(res);
+                displayAnim("\nyour decrypted text has been copied to clipboard.", 7);
+            });
+            debubg(result);            
+        } else {
+            // no egg :'(
+            displayAnim(`\ni'm sorry, the cipher '${hehehaha}' cannot be found. use 'ciphers' to get a list of ciphers`, 7);
+        }
+
+    } else if (command == "ciphers" || command == "cipher list") {
+        var cip_tab = [
+            { "name": "internal name", "contents": [] },
+            { "name": "name", "contents": [] },
+            { "name": "author", "contents": [] }
+        ]
+        for (key in ciphers) {
+            cip_tab[0]["contents"].push(key);
+            cip_tab[1]["contents"].push(ciphers[key]["name"]);
+            cip_tab[2]["contents"].push(ciphers[key]["author"]);
+        }
+        async function infotm() {   // async printing of colours tmtmtmtmmtmt mtm mt m
+            await displayAnim("\nCIPHERS:\n\n", 4);
+            await displayAnim(generateTable(cip_tab), 0.5);
+        }
+        infotm();
     }
 
     else {
