@@ -233,6 +233,7 @@ var adventures = {                  // text adventures info
 var lyric_interval;
 var processed_times = new Array();
 var cur_cipher = "";
+var img_canvas = document.getElementById("image-canvas");
 
 
 
@@ -1181,6 +1182,27 @@ function displayScreen(array) {
 
 }
 
+async function displayImage(image, speed) {
+    //debubg(`[displaySingleLine]   message: ${message}  speed: ${speed}   colour: ${colour}   link: ${link}`);
+    return new Promise((resolve,reject)=>{
+        //here our function should be implemented 
+        var messageyLength = image.length;
+        var use_id = console_id + 1;        // the current id that's being used
+        console_id += 1;                    // update console id
+        for (let i = 0; i < messageyLength; i++) {
+            TMO_push.push(setTimeout(function timer() {
+                var mess = image[i];
+                scrolly("consy");
+                displayAppend(image[i], use_id, false);
+                if (i == messageyLength - 1) { 
+                    resolve();
+                    scrolly("consy");
+                }
+                
+            }, i * speed));
+        }
+    });
+}
 
 
 
@@ -3624,6 +3646,136 @@ function accspace(text) {
     }
     return final
 }
+
+function drawURIOnCanvas(strDataURI, canvas) {
+    "use strict";
+    var img = new window.Image();
+    img.addEventListener("load", function () {
+        canvas.getContext("2d").drawImage(img, 0, 0);
+    });
+    img.setAttribute("src", strDataURI);
+}
+
+
+// generate_image("colour_test.png", "exact", {"width": 50, "height": 50}, [true])
+
+// displayImage(process_raw_image(test_image), 20);
+
+
+// so you generate image, plug the generated image into process raw image, then plug the processed image into displayImage and the boom!!
+
+
+function generate_image(url, interpol, scale, shade) {
+    /*
+    interpol: either 'exact' or 'fit'
+        'exact' means that 1 pixel in the image will be 1 unicode block character
+        'fit' means that since each block character is twice as tall as is wide, then each character will count as 2 pixels high
+    url: the image url
+    scale: a JSON object for width and height.
+        'width'  is... the image width
+        'height' is the image height
+        
+        if it's just one of those, for example, only 'width', then it will automatically calculate the height, using the same aspect ratio as the initial image.
+        if both of them are declared, it will do the custom aspect ratio of whatever width and height ™
+    shade: an array
+        shade[0]: if it should use ░
+        shade[1]: if it should use ▒
+        shade[2]: if it should use ▓
+    */
+
+    // variable setup
+
+    var img = new Image;
+    var ctx = img_canvas.getContext('2d');
+    var img_og_width = 0;
+    var img_og_height = 0;
+    var img_width = 0;
+    var img_height = 0;
+    var img_og_aspectratio = 1;
+    var img_aspectratio = 1;
+
+
+    ctx.drawImage(img,0,0); // Or at whatever offset you like
+
+
+    
+    img.src = url;
+
+    img.onload = () => {                // when the image finishes loading then run all this stoof
+        img_og_width = img.width;
+        img_og_height = img.height;
+        img_width = img.width;          // set all the heights n stuff
+        img_height = img.height;
+
+        // calculate aspect ratio
+
+        img_og_aspectratio = img_og_width / img_og_height
+        
+
+
+        // set the fancy widths n stuff
+
+        if (scale["width"] && scale["height"]) {            // if they set both the width and height
+            img_width = scale["width"];
+            img_height = scale["height"];
+        } else if (scale["width"] && !scale["height"]) {    // just width
+            img_width = scale["width"];
+            img_height = img_width / img_og_aspectratio;
+        } else if (!scale["width"] && scale["height"]) {    // juts height
+            img_height = scale["height"];
+            img_width = img_height * img_og_aspectratio;
+        } else {                                            // it makey the oopsy
+            img_width = 20;
+            img_height = 20;
+        }
+
+        img_aspectratio = img_width / img_height;           // get new aspect ratio
+
+        debubg(`IMG INFO:\nog width: ${img_og_width}\nog height: ${img_og_height}\nwidth: ${img_width}\nheight: ${img_height}\nog aspect ratio: ${img_og_aspectratio}\naspect ratio: ${img_aspectratio}`);
+
+        /*
+            now i need to figure out:
+             - [ ] how to re-scale the image
+             - [ ] how to get all the pixel colours and put them into an array
+
+
+        */
+
+
+
+
+
+    }
+    
+
+    
+    
+    
+    
+    
+
+
+}
+
+
+function process_raw_image(raw_image) {
+    var final_html = new Array();
+
+    for (i in raw_image) {
+        for (e in raw_image[i]) {
+            var pixel = raw_image[i][e];
+
+            final_html.push(`<span style="color: ${pixel["c"]};">${pixel["s"]}</span>`);
+        }
+        final_html.push("\n");
+    }
+
+    return final_html
+}
+
+
+
+
 
 
 //  .M.              %MMMMMMMM% .%MMMMMMM%. .%MMMMMMM%. +M                     +MMMMMMMMI MM       MM +MM.      M+  .%MMMMMM %MMMMMMMM% mmmmmmmmmm .%MMMMMMM%. +MM.      M+ .%MMMMMMM%.              .M.  
