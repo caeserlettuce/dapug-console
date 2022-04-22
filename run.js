@@ -1645,24 +1645,72 @@ function parseCommand(command) {
 
         hehehaha.shift();
 
+        hehehaha = accspace(hehehaha.join(" "));
+
+        console.log(hehehaha);
+
+        var result = "";
+
+        if (ciphers[hehehaha]) {
+            // it egg
+            cur_cipher = hehehaha;
+            displayAnim("\nwhat text would you like to encrypt?", 7);
+            askInput(() => {
+                var res = crypt("en", ask_return, cur_cipher);
+                copyclip(res);
+                displayAnim("\nyour encrypted text has been copied to clipboard.", 7);
+            });
+            debubg(result);            
+        } else {
+            // no egg :'(
+            displayAnim(`\ni'm sorry, the cipher '${hehehaha}' cannot be found. use 'ciphers' to get a list of ciphers`, 7);
+        }
+
+    } else if (argCommand == "decrypt") {
+        
+        var mmm = argComm(commandInit);
+
+        var hehehaha = [...mmm];
+
+        hehehaha.shift();
+
         hehehaha = hehehaha.join(" ");
 
         console.log(hehehaha);
 
+        var result = "";
+
         if (ciphers[hehehaha]) {
             // it egg
-            
-            //for (key in )
-            
-            
-            
-            
+            cur_cipher = hehehaha;
+            displayAnim("\nwhat text would you like to decrypt?", 7);
+            askInput(() => {
+                var res = crypt("de", ask_return, cur_cipher);
+                copyclip(res);
+                displayAnim("\nyour decrypted text has been copied to clipboard.", 7);
+            });
+            debubg(result);            
         } else {
             // no egg :'(
-
-            displayAnim(`\ni'm sorry, the cipher '${hehehaha}'`, 7);
+            displayAnim(`\ni'm sorry, the cipher '${hehehaha}' cannot be found. use 'ciphers' to get a list of ciphers`, 7);
         }
 
+    } else if (command == "ciphers" || command == "cipher list") {
+        var cip_tab = [
+            { "name": "internal name", "contents": [] },
+            { "name": "name", "contents": [] },
+            { "name": "author", "contents": [] }
+        ]
+        for (key in ciphers) {
+            cip_tab[0]["contents"].push(key);
+            cip_tab[1]["contents"].push(ciphers[key]["name"]);
+            cip_tab[2]["contents"].push(ciphers[key]["author"]);
+        }
+        async function infotm() {   // async printing of colours tmtmtmtmmtmt mtm mt m
+            await displayAnim("\nCIPHERS:\n\n", 4);
+            await displayAnim(generateTable(cip_tab), 0.5);
+        }
+        infotm();
     }
 
     else {

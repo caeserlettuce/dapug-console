@@ -232,6 +232,10 @@ var adventures = {                  // text adventures info
 }
 var lyric_interval;
 var processed_times = new Array();
+var cur_cipher = "";
+
+
+
 
 debubg("variable init finished...");
 // local storage setup
@@ -3556,8 +3560,70 @@ function setShell(text) {
     }
 }
 
+function keyval(object, value) {
+    return Object.keys(object).find(key => object[key] === value);
+}
+
+function check_case(letter) {
+    if (letter == letter.toUpperCase()) {
+        return "upper"
+    } else if (letter == letter.toLowerCase()) {
+        return "lower"
+    } else {
+        return undefined
+    }
+}
 
 
+function crypt(direction, text, cipher) {
+    
+    
+    var maptm_og = new Object();
+    var str = `${text}`;
+    var maptm = new Object();
+
+    if (direction == "de") {
+        maptm_og = ciphers[cipher]["code"];
+        for (i in maptm_og) {
+            var val = maptm_og[i];
+            maptm[val] = i;
+        }
+    } else {
+        maptm = ciphers[cipher]["code"];
+    }
+
+    console.log(maptm);
+
+    var re = new RegExp(Object.keys(maptm).join("|"),"gi");         // dont even ask because i don't know either
+    str = str.replace(re, function(matched){
+        debubg(matched);
+        var first = matched.split("")[0];
+        debubg(first);
+        var case_tm = check_case(first);
+
+        var result = "";
+
+        if (case_tm == 'upper') {                                   // support for any case
+            result = `${maptm[matched.toLowerCase()]}`.toUpperCase();
+        } else {
+            result = maptm[matched];
+        }
+        return result
+    });
+
+    return str
+
+}
+
+function accspace(text) {
+    var textsplit = text.split("");
+    var final = `${text}`;
+    if (textsplit[textsplit.length - 1] == " ") {
+        textsplit.pop();
+        final = textsplit.join("");
+    }
+    return final
+}
 
 
 //  .M.              %MMMMMMMM% .%MMMMMMM%. .%MMMMMMM%. +M                     +MMMMMMMMI MM       MM +MM.      M+  .%MMMMMM %MMMMMMMM% mmmmmmmmmm .%MMMMMMM%. +MM.      M+ .%MMMMMMM%.              .M.  
