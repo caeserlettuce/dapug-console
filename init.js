@@ -234,8 +234,9 @@ var lyric_interval;
 var processed_times = new Array();
 var cur_cipher = "";
 var img_canvas = document.getElementById("image-canvas");
-
-
+var music_queue = new Array();
+var in_queue = false;
+var custom_queues = new Object();
 
 
 debubg("variable init finished...");
@@ -366,6 +367,7 @@ worble_word_id = local_storage("worble_word_id", 0);
 worble_word_id = parseInt(worble_word_id);
 custom_themes = JSON.parse(local_storage("themes", JSON.stringify(custom_themes)));
 textadventures_saves = JSON.parse(local_storage("text adventures", "{}"));
+custom_queues = JSON.parse(local_storage("queues", "{}"));
 console.log(textadventures_saves);
 //textadventures_saves = textadventures_saves);
 //console.log(textadventures_saves);
@@ -3587,10 +3589,14 @@ function keyval(object, value) {
 }
 
 function check_case(letter) {
-    if (letter == letter.toUpperCase()) {
-        return "upper"
-    } else if (letter == letter.toLowerCase()) {
-        return "lower"
+    if (typeof letter == 'string') {
+        if (letter == letter.toUpperCase()) {
+            return "upper"
+        } else if (letter == letter.toLowerCase()) {
+            return "lower"
+        } else {
+            return undefined
+        }
     } else {
         return undefined
     }
@@ -3616,20 +3622,22 @@ function crypt(direction, text, cipher) {
 
     console.log(maptm);
 
+    console.log(`STIRR'${str}'`);
+
     var re = new RegExp(Object.keys(maptm).join("|"),"gi");         // dont even ask because i don't know either
     str = str.replace(re, function(matched){
         debubg(matched);
-        var first = matched.split("")[0];
-        debubg(first);
-        var case_tm = check_case(first);
-
+        //debubg(first);
+        
         var result = "";
 
-        if (case_tm == 'upper') {                                   // support for any case
-            result = `${maptm[matched.toLowerCase()]}`.toUpperCase();
+        if (maptm[matched]) {
+            result = `${maptm[`${matched}`.toLowerCase()]}`.toUpperCase();
         } else {
-            result = maptm[matched];
+            result = matched;
         }
+
+        debubg(result)
         return result
     });
 
@@ -3647,14 +3655,6 @@ function accspace(text) {
     return final
 }
 
-function drawURIOnCanvas(strDataURI, canvas) {
-    "use strict";
-    var img = new window.Image();
-    img.addEventListener("load", function () {
-        canvas.getContext("2d").drawImage(img, 0, 0);
-    });
-    img.setAttribute("src", strDataURI);
-}
 
 
 // generate_image("colour_test.png", "exact", {"width": 50, "height": 50}, [true])
@@ -3664,28 +3664,28 @@ function drawURIOnCanvas(strDataURI, canvas) {
 
 // so you generate image, plug the generated image into process raw image, then plug the processed image into displayImage and the boom!!
 
-
+/*
 function generate_image(url, interpol, scale, shade) {
-    /*
-    interpol: either 'exact' or 'fit'
-        'exact' means that 1 pixel in the image will be 1 unicode block character
-        'fit' means that since each block character is twice as tall as is wide, then each character will count as 2 pixels high
-    url: the image url
-    scale: a JSON object for width and height.
-        'width'  is... the image width
-        'height' is the image height
-        
-        if it's just one of those, for example, only 'width', then it will automatically calculate the height, using the same aspect ratio as the initial image.
-        if both of them are declared, it will do the custom aspect ratio of whatever width and height ™
-    shade: an array
-        shade[0]: if it should use ░
-        shade[1]: if it should use ▒
-        shade[2]: if it should use ▓
-    */
+    
+    //interpol: either 'exact' or 'fit'
+    //    'exact' means that 1 pixel in the image will be 1 unicode block character
+    //    'fit' means that since each block character is twice as tall as is wide, then each character will count as 2 pixels high
+    //url: the image url
+    //scale: a JSON object for width and height.
+    //    'width'  is... the image width
+    //    'height' is the image height
+    //    
+    //    if it's just one of those, for example, only 'width', then it will automatically calculate the height, using the same aspect ratio as the initial image.
+    //    if both of them are declared, it will do the custom aspect ratio of whatever width and height ™
+    //shade: an array
+    //    shade[0]: if it should use ░
+    //    shade[1]: if it should use ▒
+    //    shade[2]: if it should use ▓
+    
 
     // variable setup
 
-    var img = new Image;
+    var img = document.getElementById("image-load");
     var ctx = img_canvas.getContext('2d');
     var img_og_width = 0;
     var img_og_height = 0;
@@ -3693,11 +3693,7 @@ function generate_image(url, interpol, scale, shade) {
     var img_height = 0;
     var img_og_aspectratio = 1;
     var img_aspectratio = 1;
-
-
-    ctx.drawImage(img,0,0); // Or at whatever offset you like
-
-
+    img.setAttribute('crossOrigin', '');
     
     img.src = url;
 
@@ -3733,29 +3729,20 @@ function generate_image(url, interpol, scale, shade) {
 
         debubg(`IMG INFO:\nog width: ${img_og_width}\nog height: ${img_og_height}\nwidth: ${img_width}\nheight: ${img_height}\nog aspect ratio: ${img_og_aspectratio}\naspect ratio: ${img_aspectratio}`);
 
-        /*
-            now i need to figure out:
-             - [ ] how to re-scale the image
-             - [ ] how to get all the pixel colours and put them into an array
+        img_canvas.width = img_width;
+        img_canvas.height = img_height;
 
+        //new thumbnailer(canvas, img, 188, 3);
 
-        */
-
-
+        ctx.imageSmoothingEnabled = false;
+        ctx.drawImage(img, 0, 0, img_width, img_height); // Or at whatever offset you like
 
 
 
+        dada = ctx.getImageData(0, 0, img_width, img_height);
     }
-    
-
-    
-    
-    
-    
-    
-
-
-}
+   
+} */
 
 
 function process_raw_image(raw_image) {
@@ -4127,6 +4114,19 @@ music.addEventListener('ended', (event) => {
     music_playing = false;
     clearInterval(lyric_interval);
     lyr_status = new Object();
+    
+    if (in_queue == true) {
+        music_queue.shift();
+        if (music_queue[0]) {
+            in_queue = false;
+            parseCommand(`music play ${music_queue[0]}`);
+            in_queue = true;
+        } else {
+            in_queue = false;
+            displayAnim("\nqueue ended!", 7);
+        }
+    }
+
     if (portal_playing == true) {
         portal_playing = false;
         //setTextColour(og_textcolour);

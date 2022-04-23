@@ -1018,10 +1018,10 @@ function parseCommand(command) {
         eee.shift();
         eee.shift();
 
-        if (mmm[1] == "play") {                                             // you wanna play a song? hm? you wanna? wanna play a song???? try it??!?? bet you can't!! HM!!!
+        if (mmm[1].toLowerCase() == "play") {                                             // you wanna play a song? hm? you wanna? wanna play a song???? try it??!?? bet you can't!! HM!!!
             var songname = eee.join(' ');
             songname = songname.toLowerCase();
-            var songname = `${songname}`.replaceAll('"', "");
+            var songname = `${songname}`.replaceAll('"', "").replaceAll("-", " ").replaceAll("'", "");
             
             debubg(`[SONG™] queueing song ${songname}.`);
             
@@ -1035,41 +1035,46 @@ function parseCommand(command) {
             }
             
             if (existent == true) {     // song is in the system!!! yay!!!!11!1!11!
-                if (music_playing == true) {
-                    clearInterval(lyric_interval);
-                    lyr_status = new Object();
+                
+                if (in_queue == false) {
+
+                    if (music_playing == true) {
+                        clearInterval(lyric_interval);
+                        lyr_status = new Object();
+                    }
+
+
+                    displayAnim("\n");
+                    var song_lyrics = songs[songname]["lyrics"];
+
+                
+                    music_loading = true;
+                    playMusic(songname);
+                    displayLyrics(songname);
+                    if (song_err == false) {
+                        setSongInfo(`${songname}`);
+                    }
+                    
+
+                    document.getElementById("songinfo").style.display = "";
+                    
+                    
+
+
+                    if (song_err == true) {
+                        debubg("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa");
+                    }
+                    
+                    lyr_disp = song_lyrics; // set the current lyrics
+                } else {
+                    displayAnim("\nyou're in a music queue! use 'queue leave' to leave the queue, and try again!", 7);
                 }
-
-
-                displayAnim("\n");
-                var song_lyrics = songs[songname]["lyrics"];
-
-            
-                music_loading = true;
-                playMusic(songname);
-                displayLyrics(songname);
-                if (song_err == false) {
-                    setSongInfo(`${songname}`);
-                }
-                
-
-                document.getElementById("songinfo").style.display = "";
-                
-                
-
-
-                if (song_err == true) {
-                    debubg("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa");
-                }
-                
-                lyr_disp = song_lyrics; // set the current lyrics
-
             } else {                    // hello gordon
                 displayAnim(`\nsong is not in registry. please use 'songlist' to get the list of songs supported.`, 10);
             }
 
 
-        } else if (mmm[1] == "volume") {
+        } else if (mmm[1].toLowerCase() == "volume") {
             var volum = mmm[2];
             volum = parseInt(volum);
             debubg(volum);
@@ -1367,6 +1372,8 @@ function parseCommand(command) {
     
         var lowname = nametm.toLowerCase();
 
+        operation = operation.toLowerCase();
+
         debubg(`theme command has been called. parsed: operation: ${operation}, name: ${nametm}`);
 
         if (operation == "use") {
@@ -1482,13 +1489,13 @@ function parseCommand(command) {
                 displayAnim("\nplease enter a valid theme name!", 7)
             } else if (themes[lowname]) {   // if it exists in the default themes
                 debubg("theme exists as a default theme!!");
-                var share = `${themes[nametm]["name"]}-${themes[nametm]["author"]}-${themes[nametm]["text colour"]}-${themes[nametm]["back colour"]}-${themes[nametm]["accy colour"]}`;
+                var share = `${themes[lowname]["name"]}-${themes[lowname]["author"]}-${themes[lowname]["text colour"]}-${themes[lowname]["back colour"]}-${themes[lowname]["accy colour"]}`;
                 debubg(`exported theme: ${share}`);
                 copyclip(share);
                 displayAnim("\nexported theme copied to clipboard. import it again by using 'theme import [exported theme]'");
             } else if (custom_themes[lowname]) { // if it exists in the custom themes
                 debubg("theme exists as a custom theme!!"); // airport customs
-                var share = `${custom_themes[nametm]["name"]}-${custom_themes[nametm]["author"]}-${custom_themes[nametm]["text colour"]}-${custom_themes[nametm]["back colour"]}-${custom_themes[nametm]["accy colour"]}`;
+                var share = `${custom_themes[lowname]["name"]}-${custom_themes[lowname]["author"]}-${custom_themes[lowname]["text colour"]}-${custom_themes[lowname]["back colour"]}-${custom_themes[lowname]["accy colour"]}`;
                 debubg(`exported theme: ${share}`);
                 copyclip(share);
                 displayAnim("\nexported theme copied to clipboard. import it again by using 'theme import [exported theme]'");
@@ -1525,7 +1532,7 @@ function parseCommand(command) {
 
     } else if (command == "stars" || command == "stars ") {
         stars();
-    } else if (command == "asciigame") {
+    } else if (command == "asciigame") {            // thank you caffy, for this beautiful command
         displayAnim("\nyou know the rules", 13);
         setTimeout(() => {
 
@@ -1656,7 +1663,7 @@ function parseCommand(command) {
             cur_cipher = hehehaha;
             displayAnim("\nwhat text would you like to encrypt?", 7);
             askInput(() => {
-                var res = crypt("en", ask_return, cur_cipher);
+                var res = crypt("en", ask_return.toLowerCase(), cur_cipher);
                 copyclip(res);
                 displayAnim("\nyour encrypted text has been copied to clipboard.", 7);
             });
@@ -1711,6 +1718,126 @@ function parseCommand(command) {
             await displayAnim(generateTable(cip_tab), 0.5);
         }
         infotm();
+    } else if (command == "queue") {
+
+        var que_tab = [
+            { "name": "place", "contents": [] },
+            { "name": "name", "contents": [] },
+            { "name": "artist", "contents": [] },
+            { "name": "album", "contents": [] }
+        ]
+
+        if (music_queue[0]) {
+            for (i in music_queue) {
+                var somg = music_queue[i];
+                que_tab[0]["contents"].push(i);
+                que_tab[1]["contents"].push(songs[somg]["name"]);
+                que_tab[2]["contents"].push(songs[somg]["artist"]);
+                que_tab[3]["contents"].push(songs[somg]["album"]);
+            }
+            async function infotm() {   // async printing of colours tmtmtmtmmtmt mtm mt m
+                await displayAnim("\nQUEUE:\n\n", 4);
+                await displayAnim(generateTable(que_tab), 0.5);
+            }
+            infotm();
+
+
+
+        } else {
+            displayAnim("\nsorry, there's no music in the queue! use 'queue add [song]' to add a song to the queue!", 7);
+        }
+
+        
+
+    } else if (command == "queue add") {
+        displayAnim("\nplease input a song to add to the queue!", 7);
+    } else if (command == "queue remove") {
+        displayAnim("\nplease input a place in the queue to remove!", 7);
+    } else if (command == "queues") {
+        // lis tqueues
+        var que_tab = [
+            { "name": "name", "contents": [] },
+            { "name": "artist", "contents": [] }
+        ]
+        for (i in queues) {
+            var que = queues[i];
+            que_tab[0]["contents"].push(que["name"]);
+            que_tab[1]["contents"].push(que["artist"]);
+        }
+        async function infotm() {   // async printing of colours tmtmtmtmmtmt mtm mt m
+            await displayAnim("\nPRE-MADE QUEUES:\n\n", 4);
+            await displayAnim(generateTable(que_tab), 0.5);
+        }
+        infotm();
+
+    } else if (argCommand == "queue") {
+
+        var mmm = argComm(commandInit);
+        var eee = [...mmm];
+        eee.shift();
+        eee.shift();
+        var input = eee.join(" ");
+
+        var operation = mmm[1].toLowerCase();
+
+
+
+        if (operation == "add") {  // adding song to queue
+            debubg(`adding song '${input}' to queue`);
+
+            if (songs[input]) { // if song exists
+                debubg("song exists!!");
+
+                music_queue.push(input);                
+
+                //in_queue = true;
+                displayAnim(`\nadded '${input}' to queue!`, 7);
+
+            } else {
+                displayAnim("\nsorry, that song does not exist! please use 'songlist' to get a list of songs!", 7)
+            }
+        } else if (operation == "leave") {
+            if (in_queue == true) {
+                in_queue = false;
+                music_queue = new Array();
+                displayAnim("\nleft queue!", 7);
+            } else {
+                displayAnim("\nyou aren't in a queue", 7);
+            }
+            
+        } else if (operation == "play") {
+            parseCommand(`music play ${music_queue[0]}`);
+            in_queue = true;
+        } else if (operation == "remove") {
+            // remove music from queue
+            var inny = parseInt(input);
+
+            if (typeof inny == 'number') {  //valid number
+
+                if (music_queue[inny]) {    // valid spot
+                    music_queue.splice(inny, 1);
+                    displayAnim(`track in position ${inny} has been removed.`, 7);
+                } else {
+                    displayAnim(`'${inny}' is not a valid spot in the queue!`, 7);
+                }
+            } else {
+                displayAnim("\nplease enter a valid number!", 7)
+            }
+        } else if (operation == "clear") {
+            in_queue = false;
+            music_queue = new Array();
+        } else if (operation == "use") {
+
+            var intm = input.replaceAll("-", " ");
+            if (queues[input]) {    // if the premade queue exists
+                music_queue = queues[intm]["contents"];
+                displayAnim(`\nqueue set to '${input}'`, 7);
+            } else {
+                displayAnim(`\noops! the queue '${input}' doesn't exist! use 'queues' to get a list of all pre-made queues!`, 7);
+            }
+        }
+
+
     }
 
     else {

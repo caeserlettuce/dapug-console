@@ -3791,6 +3791,65 @@ function updateMan() {
             " ",
             "USAGE:",
             "'ciphers'"
+        ],
+        "queue":[
+            "QUEUE MANPAGE",
+            " ",
+            "lists all the songs in the current queue, or does different operations on the queue",
+            " ",
+            "USAGE:",
+            "'queue (operation)'",
+            " ",
+            "OPTIONS:",
+            "(note: for more information on these operations, check their individual manpages!)",
+            "   add | adds a song to the queue",
+            "remove | removes a song from the queue",
+            "  play | plays the current queue",
+            " clear | clears the queue"
+        ],
+        "queue add":[
+            "QUEUE ADD MANPAGE",
+            " ",
+            "adds a song to the queue",
+            " ",
+            "USAGE:",
+            "'queue add [song]'",
+            " ",
+            "OPTIONS:",
+            "song | any available song in 'songlist'",
+            " ",
+            "EXAMPLE:",
+            "'queue add eighth wonder'"
+        ],
+        "queue remove":[
+            "QUEUE REMOVE MANPAGE",
+            " ",
+            "removes a song from the queue",
+            " ",
+            "USAGE:",
+            "'queue remove [place]",
+            " ",
+            "OPTIONS:",
+            "place | whatever number place the song is at in the queue (use 'queue' to check)",
+            " ",
+            "EXAMPLE:",
+            "'queue remove 2'"
+        ],
+        "queue play":[
+            "QUEUE PLAY MANPAGE:",
+            " ",
+            "plays the current queue",
+            " ",
+            "USAGE:",
+            "'queue play'"
+        ],
+        "queue clear":[
+            "QUEUE CLEAR MANPAGE",
+            " ",
+            "clears the whole queue",
+            " ",
+            "USAGE:",
+            "'queue clear'"
         ]
     }
 }
@@ -3898,6 +3957,10 @@ var listy = [ " ",
     "decrypt",
     "ciphers",
     "cipher list",
+    "queue",
+    "queue add",
+    "queue remove",
+    "queue play",
     
     "* command is currently in-development and may break the site."
 ]; 
@@ -7570,10 +7633,19 @@ var themes = {      // console colour themes
         "back colour": "#e2d4b7",
         "accy colour": "#83775d"
     },
+    "commodore": {
+        "name": "Commodore",
+        "author": "DrasticAce",
+        "text colour": "#83b533",
+        "back colour": "#4a7801",
+        "accy colour": "#54ab16"
+    },
 }
-/*"": {
+
+/*
+"": {
     "name": "",
-    "author": "18gallons",
+    "author": "",
     "text colour": "",
     "back colour": "",
     "accy colour": ""
@@ -8257,8 +8329,83 @@ var ciphers = {
             "9": "36;"
         }
     },
+    "corrupted": {
+        "name": "Corrupted",
+        "author": "caeserlettuce",
+        "code": {
+            " ": "♻",
+            "a": "█",
+            "b": "┛",
+            "c": "⡇",
+            "d": "┟",
+            "e": "⛾",
+            "f": "✧",
+            "g": "╬",
+            "h": "▁",
+            "i": "░",
+            "j": "╮",
+            "k": "╳",
+            "l": "⣮",
+            "m": "⣏",
+            "n": "╛",
+            "o": "╱",
+            "p": "┱",
+            "q": "▅",
+            "r": "▟",
+            "s": "⛤",
+            "t": "▗",
+            "u": "▓",
+            "v": "╴",
+            "w": "▒",
+            "x": "┿",
+            "y": "╵",
+            "z": "▊",
+            "0": "⣗",
+            "1": "ⵠ",
+            "2": "⛿",
+            "3": "⡿",
+            "4": "◣",
+            "5": "⓾",
+            "6": "⩒",
+            "7": "⬕",
+            "8": "⛇",
+            "9": "⮉",
+            "`": "⻱",
+            "~": "⛕",
+            "!": "⧌",
+            "@": "⛸",
+            "#": "ⓖ",
+            "%": "ⴹ",
+            "^": "∉",
+            "&": "⪣",
+            "\\\*": "➂",
+            "(": "⛴",
+            ")": "⼠",
+            "-": "ⷈ",
+            "_": "⧪",
+            "=": "┙",
+            "[": "⟼",
+            "]": "ⶾ",
+            "{": "⛁",
+            "}": "⍐",
+            "\\\\": "➋",
+            "\\\|": "Ⱓ",
+            ";": "⭓",
+            ":": "⨻",
+            "'": "⚣",
+            '"': "⛍",
+            "“": "⮋",
+            ",": "™",
+            ".": "⛃",
+            "<": "ⲃ",
+            ">": "◿",
+            "\\\/": "⎝",
+            "\\\?": "⋛"
+        }
+    },
 }
 /*
+
     "": {
         "name": "",
         "author": "",
@@ -8333,6 +8480,79 @@ var ciphers = {
             "9": ""
         }
     },
+    "": {
+        "name": "",
+        "author": "",
+        "code": {
+            "a": "",
+            "b": "",
+            "c": "",
+            "d": "",
+            "e": "",
+            "f": "",
+            "g": "",
+            "h": "",
+            "i": "",
+            "j": "",
+            "k": "",
+            "l": "",
+            "m": "",
+            "n": "",
+            "o": "",
+            "p": "",
+            "q": "",
+            "r": "",
+            "s": "",
+            "t": "",
+            "u": "",
+            "v": "",
+            "w": "",
+            "x": "",
+            "y": "",
+            "z": "",
+            "0": "",
+            "1": "",
+            "2": "",
+            "3": "",
+            "4": "",
+            "5": "",
+            "6": "",
+            "7": "",
+            "8": "",
+            "9": "",
+            "`": "",
+            "~": "",
+            "!": "",
+            "@": "",
+            "#": "",
+            "%": "",
+            "^": "",
+            "&": "",
+            "\\\*": "",
+            "(": "",
+            ")": "",
+            "-": "",
+            "_": "",
+            "=": "",
+            "[": "",
+            "]": "",
+            "{": "",
+            "}": "",
+            "\\\\": "",
+            "\\\|": "",
+            ";": "",
+            ":": "",
+            "'": "",
+            '"': "",
+            ",": "",
+            ".": "",
+            "<": "",
+            ">": "",
+            "\\\/": "",
+            "\\\?": ""
+        }
+    },
+    
 */
 
 
@@ -8346,6 +8566,77 @@ var test_image = [
 ]
 
 
+var queues = {
+    "memory hoarder": {
+        "name": "MEMORY HOARDER",
+        "artist": "dough emergency",
+        "contents": [
+            "packet bread",
+            "refrigerator jury",
+            "meal thyme",
+            "possible holiday",
+            "goat miracle",
+            "theory coffee",
+            "broccolli drama",
+            "bed obligation",
+            "sleep button"
+        ]
+    },
+    "spirit phone": {
+        "name": "Spirit Phone",
+        "artist": "Lemon Demon",
+        "contents": [
+            "cabinet man",
+            "eighth wonder",
+            "soft fuzzy man",
+            "sweet bod bonus track",
+        ]
+    },
+    "nature tapes": {
+        "name": "Nature Tapes",
+        "artist": "Lemon Demon",
+        "contents": [
+            "everybody loves raymond",
+        ]
+    },
+    "view monster": {
+        "name": "View-Monster",
+        "artist": "Lemon Demon",
+        "contents": [
+            "knife fight",
+        ]
+    },
+    "dinosaurchestra": {
+        "name": "Dinosaurchestra",
+        "artist": "Lemon Demon",
+        "contents": [
+            "your imaginary friend",
+            "archaeopteryx"
+        ]
+    },
+    "fump": {
+        "name": "FuMP",
+        "artist": "many",
+        "contents": [
+            "ive got some falling to do",
+            "toy food"
+        ]
+    },
+}
+/*
+    "": {
+        "name": "",
+        "artist": "",
+        "contents": [
+            "",
+        ]
+    },
+
+
+
+
+
+*/
 
 
 if (true) {
