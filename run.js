@@ -316,237 +316,6 @@ function parseCommand(command) {
         displayAnim(hlepart, 1);
     } else if (command == "help -dev") {
         displayAnim(hlepdev, 1);
-    } else if (argCommand == "comment") {
-        displayNewline();
-        if (command == "comment" || command == "comment ") {
-            displayAnim("please enter a valid argument.", 20);
-        } else {
-
-
-            var mmm = argComm(commandInit);
-
-            if (mmm[1].toLowerCase() == "add") {
-                // add comment
-                var eee = mmm;
-                eee.shift();
-                eee.shift();
-                var yaya = eee.length;
-                var tata = "";
-                for (let i = 0; i < yaya; i++) {
-                    tata = `${tata}${eee[i]} `;
-                }
-                
-
-
-                // fancy date stoof
-
-                const months = [
-                    'January',
-                    'February',
-                    'March',
-                    'April',
-                    'May',
-                    'June',
-                    'July',
-                    'August',
-                    'September',
-                    'October',
-                    'November',
-                    'December'
-                ]
-
-                // getting all the values
-
-                var today = new Date();
-                var td_year = today.getFullYear();
-                var td_month = today.getMonth();
-                var td_day = today.getDate();
-                var td_hour = today.getHours();
-                var td_minute = today.getMinutes();
-                var td_ampm = "UNPARSED";
-
-                debubg(`current date: ${td_day}-${td_month}-${td_year} at ${td_hour}:${td_minute} ${td_ampm}`);
-
-                // parsing of variables
-
-                td_month = months[td_month];
-
-    
-                // ====[ i stole this chunk from my vhs website lmao ]====
-
-                if (td_hour < 12) {
-                    // AMPM
-                    td_hour = td_hour + 1;
-                    td_ampm = "AM";
-                } else if (td_hour >= 12) {
-                    // PM
-                    td_hour = td_hour - 12;
-                    td_ampm = "PM";
-                }
-                // adding 0's to any number that is not in the double digits
-                if ( td_hour.toString().length == 1) {
-                    td_hour = `0${td_hour}`;
-                }
-                if ( td_minute.toString().length == 1) {
-                    td_minute = `0${td_minute}`;
-                }
-                // make sure all of this runs properly
-
-                // end of chunk stolen from myself
-
-
-
-                debubg(`parsed date: ${td_day}-${td_month}-${td_year} at ${td_hour}:${td_minute} ${td_ampm}`);
-
-                // var commentToPush = {
-                //     "comments" : [
-                //         [ "yes", "1", "2" , "3"],
-                //         [ "editors", "4", "5" , "6"],
-                //     ]
-                // }
-
-                // var commentToPush = {
-                //     "comments" : [
-                //         { "username": "johndoe", "comment": "this is cool"},
-                //         { "username": "johndoe2", "comment": "this is cool lol"}
-                //     ]
-                // }
-
-
-
-                // for (i in siteInfo .users) 
-                // {
-                //     for (j in siteInfo.users[i]) 
-                //     {
-                //         x = siteInfo.users[i][j];
-                //         console.log(x);
-                //     }
-                // }
-
-
-
-                var commentToPush = `, { "username": "${user}", "comment": "${tata}", "day": "${td_day}", "month": "${td_month}", "year": "${td_year}", "hour": "${td_hour}", "minute": "${td_minute}", "ampm": "${td_ampm}" }`;
-
-                debubg(commentToPush);
-
-                comments += commentToPush;
-
-                debubg(comments)
-
-                localStorage.setItem("comments", comments);
-
-                // MAKE IT PUSH JSON INSTEAD OF AN ARRAY
-                // THINGS TO MAKE IT PUSH:
-                // NAME
-                // COMMENT
-                // DATE
-                // TIME
-
-                // STRUCTURE:
-
-                // new structure idea from my father (thank you dad)
-
-                // json is dumb and im just gonna make it use a list because that's easier
-
-                // nevermind there's no easy way to parse a list from a string which is what i want
-
-                // thank you codegrepper.com for this
-                // 
-                // storing array in localStorage
-                // var colors = ["red","blue","green"];
-                // localStorage.setItem("my_colors", JSON.stringify(colors)); //store colors
-                // var storedColors = JSON.parse(localStorage.getItem("my_colors")); //get them back
-
-                // what i'll do so i can properly append to the json without needing to remove the ending json bits is:
-
-                // i'll just store the list part of the json in local storage and then when i need to actually display the stuff ill just have it get the list part, and then add the beginning and end parts of the json as needed
-
-
-
-                // DATABASE
-                //   |
-                //   +-COMMENTS
-                //   | |
-                //   | +-0
-                //   | | + name
-                //   | | + comment
-                //   | | + date
-                //   | | + time
-
-                displayAnim(`comment "${tata}" from user ${user} has been added.`, 15);
-            } else if (mmm[1].toLowerCase() == "list") {
-
-
-                debubg("retrieving comments from local storage...");
-                var rawJSON =  localStorage.getItem("comments");
-                debubg("data successfully retrieved");
-
-                debubg(`raw json: ${rawJSON}`);
-
-
-                var commentJSON = JSON.parse(`{ "comments": [ ${rawJSON} ] }`);
-
-                debubg(commentJSON);
-
-                // YES IT WORKS!!!!
-
-                // referebce
-
-                // var commentToPush = {
-                //     "comments" : [
-                //         { "username": "johndoe", "comment": "this is cool"},
-                //         { "username": "johndoe2", "comment": "this is cool lol"}
-                //     ]
-                // }
-
-                var allComments = [];
-
-                for (i in commentJSON["comments"]) {
-                    debubg(commentJSON["comments"][i]);
-                    if (i != 0) {
-                        var cm_user = commentJSON["comments"][i]["username"];
-                        var cm_comment = commentJSON["comments"][i]["comment"];
-                        var cm_day = commentJSON["comments"][i]["day"];
-                        var cm_month = commentJSON["comments"][i]["month"];
-                        var cm_year = commentJSON["comments"][i]["year"];
-                        var cm_hour = commentJSON["comments"][i]["hour"];
-                        var cm_minute = commentJSON["comments"][i]["minute"];
-                        var cm_ampm = commentJSON["comment"][i]["ampm"];
-
-                        
-                        allComments.push(` `);
-                        allComments.push(`${cm_user}@dapug.lol at ${cm_hour}:${cm_minute} ${cm_ampm} on ${cm_day} ${cm_month}, ${cm_year}:`);
-                        allComments.push(`${cm_comment}`);
-                        
-                    }
-                }
-
-                debubg(allComments);
-
-                displayAnim(allComments, 5);
-
-                // list comments
-                //displayAnim(comments, 5);
-            } else if (mmm[1].toLowerCase() == "-clear") {
-
-                if (confirm("WARNING: clearing comments will remove ALL comments. Are you sure?")) {
-                    localStorage.setItem("comments", '{ "why": "yes" }')
-                    debubg("comments cleared");
-                    displayAnim("comments cleared.", 20);
-                } else {
-                    displayNewline();
-                    displayAnim("comments have not been cleared.", 20);
-                    debubg("user thought about their decisions and did not clear the comments"); // i know i just copy pasted this from clear cache shoosh
-                }
-                
-            } else {
-                displayAnim("please enter a valid argument.", 20);
-            }
-        }
-  
-
-
-
     } else if (command == "clear -cache") {
 
         if (confirm("WARNING: clearing the cache will remove ALL DATA saved from your adventures on this site. Are you sure you want to clear the cache?")) {
@@ -1838,10 +1607,202 @@ function parseCommand(command) {
         }
 
 
+        // this section here is for any empty notes commands, what it should say when it's empty, etc.
+
+        /*
+
+            stoof
+
+
+
+        */
+
+
+
+    } else if (command == "note") {                                                                                     // fancy notes command start page and list page
+
+    } else if (command == "note list" || command == "notelist" || command == "notes") {                                 // notes list page
+
+        if (object_empty(notes) == true) {
+            displayAnim("\nthere are no notes! use 'note create [name] to create a note!", 7);
+        } else {
+
+            
+            var note_table = [
+                {"name": "title", "contents": []},
+                {"name": "author", "contents": []},
+                {"name": "date created", "contents": []},
+                {"name": "date modified", "contents": []},
+            ]
+
+            for (i in notes) {
+                var noT = notes[i];
+                note_table[0]["contents"].push(noT["name"]);
+                note_table[1]["contents"].push(noT["author"]);
+                note_table[2]["contents"].push(`${noT["date created"].day} ${noT["date created"].month} ${noT["date created"].year}, ${noT["date created"].hour}:${noT["date created"].minute} ${noT["date created"].ampm}`);
+                note_table[3]["contents"].push(`${noT["date modified"].day} ${noT["date modified"].month} ${noT["date modified"].year}, ${noT["date modified"].hour}:${noT["date modified"].minute} ${noT["date modified"].ampm}`);
+            }
+            async function infotm() {   // async printing of colours tmtmtmtmmtmt mtm mt m
+                await displayAnim("\nNotes:\n\n", 4);
+                await displayAnim(generateTable(note_table), 0.5);
+            }
+            infotm();
+        }
+        
+    } else if (command == "note add" || command == "note create") {                                                                    // add a note
+
+    } else if (command == "note remove" || command == "note kill" || command == "note murder" || command == "note delete") {         // remove a note
+
+    } else if (command == "note edit") {                                                                   // edit a note
+
+    } else if (command == "note clear") {                                                                  // clear all notes
+
+    } else if (command == "note export") {                                                                 // export a note
+
+    } else if (command == "note import") {                                                                 // import a note
+
+    } else if (command == "note view") {
+
+    } else if (argCommand == "note") {                                                                     // actual main notes command
+
+
+        var mmm = argComm(commandInit);
+        var eee = [...mmm];
+        eee.shift();
+        eee.shift();
+        var input = eee.join(" ");
+        eee.shift();
+        var input2 = eee.join(" ");
+
+        var operation = mmm[1].toLowerCase();
+        var operation2 = mmm[2].toLowerCase();
+
+
+        debubg(`command stuff:\noperation: '${operation}'\ninput: '${input}'\noperation2: '${operation2}'\ninput2: '${input2}'`);
+
+        if (operation == "add" || operation == "create") {           // add a note
+
+            // initially input a title with the command, and then it'll ask you for the contents of the note.
+
+            debubg(`title: '${input}'`);
+
+            if (notes[input]) {     // if that note already exists
+                displayAnim(`\nthe note '${input}' already exists! use 'note edit ${input}' to edit your already existing note, or use 'note create' with a different name!`, 7);
+            } else {
+                // if it doesnt exist
+                note_name = input.toLowerCase();
+                var dAT = parse_date();
+                
+                note_to_add = {
+                        "name": `${input}`,
+                        "author": `${user}`,
+                        "date created": dAT,
+                        "date modified": dAT,
+                        "contents": ""
+                    }
+                }
+                console.log(note_to_add);
+                displayAnim("\nwhat would you like to write in your note?", 7);
+                askInput(() => {
+                    // doing the thing
+                    note_to_add["contents"] = ask_return;
+                    notes[note_name] = note_to_add;
+                    localStorage.setItem("notes", `${JSON.stringify(notes)}`);
+                    displayAnim("\nadded note.", 7);
+                });
+
+
+        } else if (operation == "remove" || operation == "kill" || operation == "murder" || operation == "delete") {
+
+            note_name = input.toLowerCase();
+
+            if (notes[note_name]) {     // if that note exists
+                displayAnim(`\nare you sure you want to delete '${input}' forever? (a long time!)\n(y/n)`);
+                askInput(() => {
+                    // ask if theyre sure
+                    if (yes_no(ask_return) == true) {   // yes
+
+                        delete notes[note_name];
+                        localStorage.setItem("notes", `${JSON.stringify(notes)}`);
+                        displayAnim("\nnote deleted.", 7);
+
+                    } else {
+                        displayAnim("\noperation cancelled.", 7)
+                    }
+                });
+
+
+
+            } else {                    // if it doesn't exist
+                displayAnim("\nthat note doesn't exist! use 'notes' to get a list of all notes!", 7);
+            }
+
+        } else if (operation == "edit") {
+
+            // fun idea: when you're editing a note, it will do shell.value = `${current_note_contents}` and then you can literally *edit* it!!! woo!! ideas!!
+
+
+            
+        } else if (operation == "import") {
+            
+        } else if (operation == "export") {
+
+        } else if (operation == "view") {
+
+            note_name = input.toLowerCase();
+
+            if (notes[note_name]) {     // if that note exists
+
+                var nt = notes[note_name];
+                // view the note!!
+
+                var cre_date = `${nt["date created"].day} ${nt["date created"].month} ${nt["date created"].year}, ${nt["date created"].hour}:${nt["date created"].minute} ${nt["date created"].ampm}`
+                var mod_date = `${nt["date modified"].day} ${nt["date modified"].month} ${nt["date modified"].year}, ${nt["date modified"].hour}:${nt["date modified"].minute} ${nt["date modified"].ampm}`
+
+                var vw_title = [`${nt.name}`, `${cre_date}`];
+                var vw_title2 = [`${nt.author}`, `${mod_date}`];
+
+                
+                var widd = display_charsize[0] - 10;
+                var hidd = display_charsize[1];
+
+                //widd = widd - 20;
+
+                console.log(widd);
+
+                var t1_ln = `${nt.name} created @ ${cre_date}`.length;
+                var t2_ln = `${nt.author} modified @ ${mod_date}`.length;
+
+                var t1_sp = widd - t1_ln;
+                var t2_sp = widd - t2_ln;
+                if (t1_sp < 0) {
+                    t1_sp = 0;
+                }
+                if (t2_sp < 0) {
+                    t2_sp = 0;
+                }
+
+                var di_t1 = `${nt.name}${" ".repeat(t1_sp)} created @ ${cre_date}`;
+                var di_t2 = `${nt.author}${" ".repeat(t2_sp)} modified @ ${mod_date}`;
+
+                displayAnim(`\n${di_t1}\n${di_t2}`, 0.25);
+
+
+                
+
+            } else {
+                displayAnim("\nthat note doesn't exist! use 'note create' to create a note, or 'notes' to list all existing notes.", 7);
+            }
+
+
+        } else {
+            displayAnim("\nthat operation doesn't exist!! use 'man note' for help!", 7);
+        }
+
     }
 
     else {
-        displayAnim(`\ncommand error: ${commandInit} is not an existing command.`, 10);
+        displayAnim(`\ncommand error: ${commandInit} is not an existing command.`, 7);
     }
     coopy = false;
-} 
+}

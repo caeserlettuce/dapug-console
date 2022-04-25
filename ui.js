@@ -3147,6 +3147,12 @@ function updateMan() {
             "'color text reset'",
             "'colour reset'",
         ],
+        /*
+
+                rip in pepperonis old comment command
+
+                you will not be missed
+
         "comment": [
             "COMMENT MANPAGE:",
             "adds a comment to a list of comments, and will store them on your local cache",
@@ -3165,6 +3171,7 @@ function updateMan() {
             " ",
             "NOTE: <comment> section is only supported for the 'add' option."
         ],
+        */
         "ascii": [
             "ASCII MANPAGE:",
             "generates an ASCII text art of any sentence",
@@ -3909,7 +3916,6 @@ var listy = [ " ",
     "man *",
     "clear -cache",
     "clear -cache -ignore",
-    "comment -clear",
     "benson",
     "github",
     "git",
@@ -8632,11 +8638,38 @@ var queues = {
         ]
     },
 
-
-
-
-
 */
+
+var known_words = {
+    "yes": [
+        "yes",
+        "ye",
+        "y",
+        "ja",
+        "jawohl",
+        "do it",
+        "true",
+        "ya",
+        "yep",
+        "sure",
+        "yea",
+        "yay"
+    ],
+    "no": [
+        "no",
+        "nah",
+        "naw",
+        "nay",
+        "nono",
+        "absolutely not",
+        "false",
+        "stop",
+        "stop it",
+        "generic death threat"
+    ]
+}
+
+
 
 
 if (true) {

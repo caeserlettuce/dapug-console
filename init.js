@@ -71,7 +71,7 @@ var consoltext = "";
 var inputlock = false;
 var mainsys = true;
 var filesys = false;
-var comments = "";
+var comments = new Object();
 var debug = false;
 var debugvar = false;
 var debugHide = false;
@@ -237,38 +237,13 @@ var img_canvas = document.getElementById("image-canvas");
 var music_queue = new Array();
 var in_queue = false;
 var custom_queues = new Object();
+var notes = new Object();
+var note_to_add = new Object();
+var note_name = "";
 
 
 debubg("variable init finished...");
 // local storage setup
-
-
-function getCommentIter() {             // dont touch this until i redo how comments work
-
-    var commentIter = localStorage.getItem("commiter");
-
-    if (commentIter) {
-        // exists
-        debubg("local storage comment iteration does exist, skipping creation.");
-    } else {
-        // doesnt
-        debubg("local storage comment iteration doesn't exist. creating one.");
-        localStorage.setItem("commiter", 0);
-    }
-
-    var localComments = localStorage.getItem("comments");
-
-    if(localComments) {
-        // exists
-        debubg("local storage comments does exist, skipping creation.");
-    } else {
-        // doesnt
-        debubg("local storage comments doesn't exist. creating one.");
-        localStorage.setItem("comments", '{ "why": "yes" }');
-        comments = '{ "why": "yes" }';
-    }
-    return commentIter
-}
 
 
 function local_storage(name, default_tm, if_exists, if_doesnt) {
@@ -318,7 +293,11 @@ local_storage("account registry update", "true", function gromit(){             
         localStorage.setItem("accounts", JSON.stringify(new_registry));                     // set it as the new registry
     }
 });
-
+if (localStorage.getItem("comments")) {
+    // im sorry but your comments are being reset
+    // my condolences\
+    // NO IM TURNING THEM INTO NOTES NEVERMIND
+}
 
 textcolour = local_storage("text-colour", "#7cfc00");                   // colour localstorage
 backcolour = local_storage("back-colour", "#000000");
@@ -368,6 +347,7 @@ worble_word_id = parseInt(worble_word_id);
 custom_themes = JSON.parse(local_storage("themes", JSON.stringify(custom_themes)));
 textadventures_saves = JSON.parse(local_storage("text adventures", "{}"));
 custom_queues = JSON.parse(local_storage("queues", "{}"));
+notes = JSON.parse(local_storage("notes", "{}"));
 console.log(textadventures_saves);
 //textadventures_saves = textadventures_saves);
 //console.log(textadventures_saves);
@@ -409,7 +389,6 @@ function fixDevExploit() {
 
 
 fixDevExploit();
-getCommentIter();
 
 debubg("local storage init finished.");
 
@@ -1150,14 +1129,41 @@ async function displayAnim(message, speed, colour, link) {      // fancy anim
     //console.log(`[displayanim] ${message}, ${speed}, ${type}`);
     //debubg(`[displayAnim]   message: ${message}  speed: ${speed}   colour: ${colour}   link: ${link}`);
     var egg_white = "";
+    var egg_yolk = colour;
+    var egg_shell = link;
+
 
     console.log(message);
 
+/*
+    // old if statement
     if (typeof message == "object") {
         egg_white = message.join("\n");
     } else {
         egg_white = message;
     }
+*/
+    // new if statement
+
+    if (Array.isArray(message) == true) {
+        egg_white = message.join("\n");
+    } else if (typeof message == 'object') {
+        // if it's an object
+
+        var hehatm = {          // default 
+            "text": "hello!",
+            "speed": 7,
+            "colour": false,
+            "link": false
+        }
+        egg_yolk = message["colour"];
+        egg_shell = message["link"];
+
+
+    } else if (typeof message == 'string') {
+        egg_white = message;
+    }
+
 
     
     await displaySingleLine(egg_white, speed, colour, link);
@@ -3761,8 +3767,129 @@ function process_raw_image(raw_image) {
 }
 
 
+function num_2dig(number) {
+    if (`${number}`.length == 1) {
+        return `0${number}`
+    } else {
+        return `${number}`
+    }
+}
+
+function parse_date() {
+    // fancy date stoof
+
+    const months = [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December'
+    ]
+
+    // getting all the values
+
+    var today = new Date();
+    var td_year = today.getFullYear();
+    var td_month = today.getMonth();
+    var td_day = today.getDate();
+    var td_hour = today.getHours();
+    var td_minute = today.getMinutes();
+    var td_second = today.getSeconds();
+    var td_ampm = "UNPARSED";
+
+    debubg(`current date: ${td_day}-${td_month}-${td_year} at ${td_hour}:${td_minute}:${td_second} ${td_ampm}`);
+
+    // parsing of variables
+
+    td_month = months[td_month];
 
 
+    // ====[ i stole this chunk from my vhs website lmao ]====
+
+    if (td_hour < 12) {
+        // AMPM
+        if (td_hour == 0) {
+            td_hour = 12;
+        } else {
+            td_hour = td_hour;
+        }
+        td_ampm = "AM";
+    } else if (td_hour >= 12) {
+        // PM
+        td_hour = td_hour - 12;
+        td_ampm = "PM";
+    }
+    // end of chunk stolen from myself
+    
+    // adding 0's to any number that is not in the double digits
+    td_hour = num_2dig(td_hour);
+    td_minute = num_2dig(td_minute);
+    td_second = num_2dig(td_second);
+
+
+
+    
+
+
+
+    debubg(`parsed date: ${td_day}-${td_month}-${td_year} at ${td_hour}:${td_minute} ${td_ampm}`);
+
+    return {"day": `${td_day}`, "month": `${td_month}`, "year": `${td_year}`, "hour": `${td_hour}`, "minute": `${td_minute}`, "second": `${td_second}`, "ampm": `${td_ampm}`}
+}
+
+function yes_no(input) {            // check if it's a yes or no, using an advanced technology of different known words
+    if (known_words["yes"].indexOf(input) > -1) {   // it's yes
+        return true
+    } else if (known_words["no"].indexOf(input) > -1) {   // it's no
+        return false
+    } else {
+        return undefined
+    }
+}
+
+function object_empty(obj) {
+    if (Object.keys(obj).length == 0) {
+        return true
+    } else {
+        return false
+    }
+}
+
+function cut_string(str, wid) {
+    var obama = 0;  // current spot in array element
+    var jesus = 0;  // what array element youre in
+    var neilc = 0;  // current spot in original string
+    var fin = new Array();
+    var cur = "";
+    var spl = str.split("");
+    for (i in spl) {
+        var lety = spl[i];
+
+        console.log("obama: ", obama);
+        console.log("jesus: ", jesus);
+        console.log("neilc: ", neilc);
+        console.log("lety:  '")
+        if (obama > wid) {
+            jesus += 1;
+            obama = 0;
+            fin[jesus] += `${spl[neilc]}`;
+        } else {
+            fin[jesus] += `${spl[neilc]}`;
+            obama += 1
+        }
+
+        neilc += 1;
+    }
+
+    return fin
+}
 
 
 //  .M.              %MMMMMMMM% .%MMMMMMM%. .%MMMMMMM%. +M                     +MMMMMMMMI MM       MM +MM.      M+  .%MMMMMM %MMMMMMMM% mmmmmmmmmm .%MMMMMMM%. +MM.      M+ .%MMMMMMM%.              .M.  
