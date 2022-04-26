@@ -435,13 +435,13 @@ function parseCommand(command) {
         
         
     } else if (command == "debug -v") {
-        if (debugvar == false ) {
-            debugvar = true;
-            document.getElementById("debubvar").style.display = "";
-        } else {
-            debugvar = false;
-            document.getElementById("debubvar").style.display = "none";
-        }
+        debugvar = !debugvar;         // toggle it to be the opposite
+
+        debugVarWindow(debugvar);     // do whatever it needs to to the window
+    } else if (command == "debug -s") {
+        debugstat = !debugstat;         // toggle it to be the opposite
+
+        debugStatWindow(debugstat);     // do whatever it needs to to the window
     } else if (command == "convert -list") {
         displayAnim(convertlist, 1);
         

@@ -3001,6 +3001,7 @@ these are developer commands, so if they are confusing, that's fine
 
 debug
 debug -v
+debug -s
 cinfo
 `,
     "danger": `
@@ -3573,6 +3574,7 @@ function updateMan() {
             "USAGE:",
             "'debug'",
             "'debug -v'",
+            "'debug -s'"
         ],
         "reboot":[
             "REBOOT MANPAGE",
@@ -4123,6 +4125,7 @@ var listy = [ " ",
     "note export",
     "note import",
     "note view",
+    "debug -s",
 
     "* command is currently in-development and may break the site."
 ]; 

@@ -1,17 +1,28 @@
-//      ____   ___     ____   __  __ ______    __     ____   __        __ ______ ____   _   __ _____  ____   __     ______ 
-//     / __ \ /   |   / __ \ / / / // ____/   / /    / __ \ / /      _/_// ____// __ \ / | / // ___/ / __ \ / /    / ____/
-//    / / / // /| |  / /_/ // / / // / __    / /    / / / // /     _/_/ / /    / / / //  |/ / \__ \ / / / // /    / __/  
-//   / /_/ // ___ | / ____// /_/ // /_/ /_  / /___ / /_/ // /___ _/_/  / /___ / /_/ // /|  / ___/ // /_/ // /___ / /___ 
-//  /_____//_/  |_|/_/     \____/ \____/(_)/_____/ \____//_____//_/    \____/ \____//_/ |_/ /____/ \____//_____//_____/
-//                                                                                                                    
-//
-//  ITS THE DAPUG.LOL CONSOLE!!!!!
-//
-//
-//
-//  yes
-//
-//
+/*
+        ____   ___     ____   __  __ ______    __     ____   __        __ ______ ____   _   __ _____  ____   __     ______ 
+       / __ \ /   |   / __ \ / / / // ____/   / /    / __ \ / /      _/_// ____// __ \ / | / // ___/ / __ \ / /    / ____/
+      / / / // /| |  / /_/ // / / // / __    / /    / / / // /     _/_/ / /    / / / //  |/ / \__ \ / / / // /    / __/  
+     / /_/ // ___ | / ____// /_/ // /_/ /_  / /___ / /_/ // /___ _/_/  / /___ / /_/ // /|  / ___/ // /_/ // /___ / /___ 
+    /_____//_/  |_|/_/     \____/ \____/(_)/_____/ \____//_____//_/    \____/ \____//_/ |_/ /____/ \____//_____//_____/
+                                                                                                                    
+
+    ITS THE DAPUG.LOL CONSOLE!!!!!
+
+
+
+    yes
+
+    NOTE: for addind new external windows, i have put this text here:
+
+    // DEBUG WIN ADDITION POINT
+
+    at every point of which you need to add a new variable/function for the window
+
+    id suggest you let jesse add them (looking at you caffy) cause its a bit confusing for someone who didnt write those functions
+
+    im saying that like i even fully understand what they do
+
+  */
 
 function debubg(message) {
     var dat = new Date();
@@ -72,8 +83,11 @@ var inputlock = false;
 var mainsys = true;
 var filesys = false;
 var comments = new Object();
+// DEBUG WIN ADDITION POINT
 var debug = false;
 var debugvar = false;
+var debugstat = false;
+
 var debugHide = false;
 var debugHideVar = false;
 var debugHideSonginfo = false;
@@ -159,14 +173,24 @@ var modlist = [                                                                 
     "https://raw.githubusercontent.com/caeserlettuce/dapug-console/83165118e417052d21f49dedab18b381338079db/example_mod.js",
 ]
 var htmlmods = document.getElementById("mods");
+// DEBUG WIN ADDITION POINT
 var debug_win;
-var debugvar_win;
+var var_debug_win;
+var stat_debug_win;
+
+var debugwin_status = false;
+var var_debugwin_status = false;
+var stat_debugwin_status = false;
+
+var autodebugwin = false;
+var var_autodebugwin = false;
+var stat_autodebugwin = false;
+
+// continue with the rest of the code
 var credits_playing = false;
 var lyr_disp;
 var orientation = "what";
 var textheight = 20;
-var debugwin_status = false;
-var autodebugwin = false;
 var listening_input = false;
 var ask_do = function() {console.log("aaaaa!! im broken i think!!")};
 var ask_return = "";
@@ -504,6 +528,10 @@ if (pr_accycolour != null) {
 
 //}
 
+
+
+// i need to redo these some day because they're old and bad
+
 debubg("url params init finished...");
 
 //  .M.              MM       MM +MMMMMMM%. +M                     +MMMMMMM%.     :MMMM:     +MMMMMMM%.     :MMMM:     +MM.    .MM+ .%MMMMMMM%.              .M.  
@@ -529,6 +557,7 @@ document.getElementById("p2cred").style.display = "none";
 document.getElementById("p1cred").style.display = "none";
 document.getElementById("p1ascii").style.display = "none";
 
+/*
 function toggleHideDebug() {
     if (debugHide == false) {
         debugHide = true;
@@ -555,6 +584,7 @@ function toggleHideDebugVar() {
         document.getElementById("debubvar").style.height = "295px";
     }
 }
+*/
 function toggleHideSongInfo() {
     if (debugHideSonginfo == false) {
         debugHideSonginfo = true;
@@ -609,6 +639,9 @@ function toggleHideP1Ascii() {
 }
 
 
+
+// DEBUG WIN ADDITION POINT
+
 // new debug stuff
 
 function debugWindow(bool) {
@@ -660,6 +693,109 @@ function debugWindow(bool) {
         //debug_win.close();
     }
 }
+
+
+function debugVarWindow(bool) {
+    
+    if (bool == true) {     // if it open window
+        var_debugwin_status = true;
+        var_debug_win = window.open("", "Title", "directories=0,titlebar=0,toolbar=0,location=0,status=0,menubar=0,scrollbars=no,resizable=no,width=400,height=350,top="+(screen.height-400)+",left="+(screen.width-840));
+        try {
+            var_debug_win.document.write(`
+            <style>::-webkit-scrollbar {width: 10px;height: 10px;} .eee { width: 100vw; }</style>
+            <style id="scroll-text-style">::-webkit-scrollbar-thumb { background: ${accycolour}; }</style>
+            <style id="scroll-back-style">::-webkit-scrollbar-track { background: ${backcolour}; } ::-webkit-scrollbar-corner { background: #000000 }</style>
+            <style id="back-style">body { background-color: ${backcolour};}</style>
+            <style id="text-style">@font-face { font-family: COURIERPRIME; src: url(CourierPrime-Regular.ttf);} body { color: ${textcolour}; font-family: COURIERPRIME, monospace;} pre { font-family: COURIERPRIME, monospace;}</style>
+            <style id="window-resize"> body {width: 100px;}</style>
+            <title>CONSOLE DEBUG VAR</title>
+            <link rel="icon" href="icon.png">`);
+            var_debug_win.document.write('<pre id="aaa" class="eee"></pre>'); 
+            var_debug_win.document.write(`<script>
+            var toot = false;
+            setInterval(function() {                        // loop this every quarter second
+                toot = false;
+                try {
+                    if (window.opener.debugvar != true) {   // if debugvar is false
+                        window.close();                     // close window
+                    } else {
+                        toot = true;                        // else go and set it to true
+                    }
+                } catch (err) {                             // if it returns an error (like if the main console window is closed)
+                    if (toot == false) {
+                        window.close();                     // close this window
+                    }
+                }
+            }, 250);
+
+            </script>`);
+        } catch (err) {
+            console.log("oh crap i think the popup got blocked or smth");
+            displayAnim("\nUh oh! it seems that the debug window didn't open! Please make sure that popups are allowed on this site!", 7, "#ff0000");
+        }
+        var var_debug_check = setInterval(function() { 
+            if(var_debug_win.closed) {
+                clearInterval(var_debug_check);
+                debugvar = false;
+                debubg("debug var window closed!!");
+            }
+        }, 1000);
+    } else {
+        //var_debug_win.close();
+    }
+}
+
+
+function debugStatWindow(bool) {
+    
+    if (bool == true) {     // if it open window
+        stat_debugwin_status = true;
+        stat_debug_win = window.open("", "Title", "directories=0,titlebar=0,toolbar=0,location=0,status=0,menubar=0,scrollbars=no,resizable=no,width=400,height=350,top="+(screen.height-400)+",left="+(screen.width-840));
+        try {
+            stat_debug_win.document.write(`
+            <style>::-webkit-scrollbar {width: 10px;height: 10px;} .eee { width: 100vw; }</style>
+            <style id="scroll-text-style">::-webkit-scrollbar-thumb { background: ${accycolour}; }</style>
+            <style id="scroll-back-style">::-webkit-scrollbar-track { background: ${backcolour}; } ::-webkit-scrollbar-corner { background: #000000 }</style>
+            <style id="back-style">body { background-color: ${backcolour};}</style>
+            <style id="text-style">@font-face { font-family: COURIERPRIME; src: url(CourierPrime-Regular.ttf);} body { color: ${textcolour}; font-family: COURIERPRIME, monospace;} pre { font-family: COURIERPRIME, monospace;}</style>
+            <style id="window-resize"> body {width: 100px;}</style>
+            <title>CONSOLE DEBUG STAT</title>
+            <link rel="icon" href="icon.png">`);
+            stat_debug_win.document.write('<pre id="aaa" class="eee"></pre>'); 
+            stat_debug_win.document.write(`<script>
+            var toot = false;
+            setInterval(function() {                        // loop this every quarter second
+                toot = false;
+                try {
+                    if (window.opener.debugstat != true) {   // if debugvar is false
+                        window.close();                     // close window
+                    } else {
+                        toot = true;                        // else go and set it to true
+                    }
+                } catch (err) {                             // if it returns an error (like if the main console window is closed)
+                    if (toot == false) {
+                        window.close();                     // close this window
+                    }
+                }
+            }, 250);
+
+            </script>`);
+        } catch (err) {
+            console.log("oh crap i think the popup got blocked or smth");
+            displayAnim("\nUh oh! it seems that the debug window didn't open! Please make sure that popups are allowed on this site!", 7, "#ff0000");
+        }
+        var stat_debug_check = setInterval(function() { 
+            if(stat_debug_win.closed) {
+                clearInterval(stat_debug_check);
+                debugvar = false;
+                debubg("debug stat window closed!!");
+            }
+        }, 1000);
+    } else {
+        //var_debug_win.close();
+    }
+}
+
 
 debubg("debug window init finished...");
 
@@ -1553,6 +1689,8 @@ var end1 = true;
 //var appendy
 debubg("more variable init finished...");
 //intervalID1 = setInterval(animyOne, animSPEED);
+
+/*
 intervalVar = setInterval(bebu, 100);
 function bebu() {
     if (debugvar == true) {
@@ -1610,6 +1748,8 @@ worble_stats_biggeststreak: ${worble_stats_biggeststreak}
         console.log("binted.");
     }
 }
+
+*/
 function animyOne() {
     //debubg(end1);
     if (end1 == false) {
@@ -2119,9 +2259,9 @@ function coopyIf(output) {
         debubg("copy is not enabled. skipping.");
     }
 }
-function debugHidey() {
+/*function debugHidey() {
     var debubtoHide = document.getElementById()
-}
+}*/
 
 function varExists(variable) {
     var existy = false;
@@ -2194,8 +2334,17 @@ function setAccyColour(colour, save) {
         localStorage.setItem("accy-colour", colour);
         accycolour = `${colour}`;
     }
+
+
+    // DEBUG WIN ADDITION POINT
     if (debug == true) {
         debug_win.document.getElementById("scroll-text-style").innerHTML = `::-webkit-scrollbar-thumb { background: ${colour}; }`;
+    }
+    if (debugvar == true) {
+        var_debug_win.document.getElementById("scroll-text-style").innerHTML = `::-webkit-scrollbar-thumb { background: ${colour}; }`;
+    }
+    if (debugstat == true) {
+        stat_debug_win.document.getElementById("scroll-text-style").innerHTML = `::-webkit-scrollbar-thumb { background: ${colour}; }`;
     }
 }
 
@@ -2235,9 +2384,20 @@ function setBackColour(colour, save) {
     document.getElementById("debub").style.backgroundColor = colour;
     document.getElementById("debubvar").style.backgroundColor = colour;
     document.getElementById("songinfo").style.backgroundColor = colour;
+
+
+    // DEBUG WIN ADDITION POINT
     if (debug == true) {
         debug_win.document.getElementById("scroll-back-style").innerHTML = `::-webkit-scrollbar-track { background: ${colour}; } ::-webkit-scrollbar-corner { background: ${colour} }`;
         debug_win.document.getElementById("back-style").innerHTML = `body { background-color: ${colour};}`;
+    }
+    if (debugvar == true) {
+        var_debug_win.document.getElementById("scroll-back-style").innerHTML = `::-webkit-scrollbar-track { background: ${colour}; } ::-webkit-scrollbar-corner { background: ${colour} }`;
+        var_debug_win.document.getElementById("back-style").innerHTML = `body { background-color: ${colour};}`;
+    }
+    if (debugstat == true) {
+        stat_debug_win.document.getElementById("scroll-back-style").innerHTML = `::-webkit-scrollbar-track { background: ${colour}; } ::-webkit-scrollbar-corner { background: ${colour} }`;
+        stat_debug_win.document.getElementById("back-style").innerHTML = `body { background-color: ${colour};}`;
     }
     if (do_save == true) {
         localStorage.setItem("back-colour", colour);
@@ -2271,9 +2431,20 @@ function setTextColour(colourcode, save) {
     document.getElementById("debubvarmouse").style.color = colourcode;
     document.getElementById("songinfomouse").style.color = colourcode;
     
+
+
+    // DEBUG WIN ADDITION POINT
     if (debug == true) {
         // rip
         debug_win.document.getElementById("text-style").innerHTML = `body { color: ${colourcode};}`;
+    }
+    if (debugvar == true) {
+        // rip
+        var_debug_win.document.getElementById("text-style").innerHTML = `body { color: ${colourcode};}`;
+    }
+    if (debugstat == true) {
+        // rip
+        stat_debug_win.document.getElementById("text-style").innerHTML = `body { color: ${colourcode};}`;
     }
 
     if (do_save == true) {
@@ -4332,8 +4503,13 @@ window.onresize = sizeCheck;
 
 function closeDebuG() {
     if (debug == true) {
+        // DEBUG WIN ADDITION POINT
         debug_win.close();
+        var_debug_win.close();
+        stat_debug_win.close();
         debugwin_status = false;
+        var_debugwin_status = false;
+        stat_debugwin_status = false;
     }
 }
 
