@@ -1056,7 +1056,7 @@ function parseCommand(command) {
             }
 
         } else {
-            displayAnim("\nplease enter a valid number or check the man page!", 7);
+            displayAnim(`\nzoom level is at ${sizemod}, please enter a valid number or check the man page!`, 7);
         }
     } else if (command == "credits" || command == "credits ") {
         // display fancy credits
@@ -1413,7 +1413,7 @@ function parseCommand(command) {
             displayAnim("\nsorry, but that adventure could not be found. use 'adventure list' to get a list of adventures!", 5);
         }
     
-    } else if (argCommand == "encrypt") {
+    } else if (argCommand == "encode") {
         
         var mmm = argComm(commandInit);
 
@@ -1430,11 +1430,11 @@ function parseCommand(command) {
         if (ciphers[hehehaha]) {
             // it egg
             cur_cipher = hehehaha;
-            displayAnim("\nwhat text would you like to encrypt?", 7);
+            displayAnim("\nwhat text would you like to encode?", 7);
             askInput(() => {
                 var res = crypt("en", ask_return.toLowerCase(), cur_cipher);
                 copyclip(res);
-                displayAnim("\nyour encrypted text has been copied to clipboard.", 7);
+                displayAnim("\nyour encodeed text has been copied to clipboard.", 7);
             });
             debubg(result);            
         } else {
@@ -1442,7 +1442,7 @@ function parseCommand(command) {
             displayAnim(`\ni'm sorry, the cipher '${hehehaha}' cannot be found. use 'ciphers' to get a list of ciphers`, 7);
         }
 
-    } else if (argCommand == "decrypt") {
+    } else if (argCommand == "decode") {
         
         var mmm = argComm(commandInit);
 
@@ -1459,11 +1459,11 @@ function parseCommand(command) {
         if (ciphers[hehehaha]) {
             // it egg
             cur_cipher = hehehaha;
-            displayAnim("\nwhat text would you like to decrypt?", 7);
+            displayAnim("\nwhat text would you like to decode?", 7);
             askInput(() => {
                 var res = crypt("de", ask_return, cur_cipher);
                 copyclip(res);
-                displayAnim("\nyour decrypted text has been copied to clipboard.", 7);
+                displayAnim("\nyour decodeed text has been copied to clipboard.", 7);
             });
             debubg(result);            
         } else {
@@ -1608,7 +1608,6 @@ function parseCommand(command) {
 
 
         // this section here is for any empty notes commands, what it should say when it's empty, etc.
-
         /*
 
             stoof
@@ -1624,7 +1623,7 @@ function parseCommand(command) {
     } else if (command == "note list" || command == "notelist" || command == "notes") {                                 // notes list page
 
         if (object_empty(notes) == true) {
-            displayAnim("\nthere are no notes! use 'note create [name] to create a note!", 7);
+            displayAnim("\nthere are no notes! use 'note create [name]' to create a note!", 7);
         } else {
 
             
@@ -1650,19 +1649,31 @@ function parseCommand(command) {
         }
         
     } else if (command == "note add" || command == "note create") {                                                                    // add a note
-
+        displayAnim("\nplease use a valid note title!", 7);
     } else if (command == "note remove" || command == "note kill" || command == "note murder" || command == "note delete") {         // remove a note
-
+        displayAnim("\nplease use a valid note title! use 'notes' to get a list of notes!", 7);
     } else if (command == "note edit") {                                                                   // edit a note
+        displayAnim("\nplease use a valid note title! use 'notes' to get a list of notes!", 7);
+    } else if (command == "note rename") {                                                                   // rename a note
+        displayAnim("\nplease use a valid note title! use 'notes' to get a list of notes!", 7);
+    } else if (command == "note clear" || command == "note purge") {                                                                  // clear all notes
+        displayAnim("\nare you sure you want to clear all notes? this cannot be undone!\n\n(y/n)");
 
-    } else if (command == "note clear") {                                                                  // clear all notes
-
+        askInput(() => {
+            if (yes_no(ask_return) == true) {   // yes
+                notes = new Object();
+                localStorage.setItem("notes", `${JSON.stringify(notes)}`);
+                displayAnim("\nall notes deleted.", 7);
+            } else {
+                displayAnim("\noperation cancelled.", 7)
+            }
+        });
     } else if (command == "note export") {                                                                 // export a note
-
+        displayAnim("\nplease use a valid note title! use 'notes' to get a list of notes!", 7);
     } else if (command == "note import") {                                                                 // import a note
-
+        displayAnim("\nplease use a valid note title! use 'notes' to get a list of notes!", 7);
     } else if (command == "note view") {
-
+        displayAnim("\nplease use a valid note title! use 'notes' to get a list of notes!", 7);
     } else if (argCommand == "note") {                                                                     // actual main notes command
 
 
@@ -1740,61 +1751,68 @@ function parseCommand(command) {
         } else if (operation == "edit") {
 
             // fun idea: when you're editing a note, it will do shell.value = `${current_note_contents}` and then you can literally *edit* it!!! woo!! ideas!!
+            note_name = input.toLowerCase();
 
+            if (notes[note_name]) {     // if that note exists
+                
+                displayAnim(`${make_note_vis(note_name)}\n\nwhat would you like the note to be now?`, 0.5);     // show the whole note in its entirety™
+                setTimeout(() => {shell.value = notes[note_name]["contents"]}, 200);
+
+                askInput(() => {
+                    if (ask_return != notes[note_name]["contents"]) {
+                        notes[note_name]["contents"] = ask_return;
+                        notes[note_name]["date modified"] = parse_date();
+                        localStorage.setItem("notes", `${JSON.stringify(notes)}`);
+                    }
+                    displayAnim("\nnote saved.", 7)
+                });
+            
+                
 
             
-        } else if (operation == "import") {
-            
-        } else if (operation == "export") {
+            } else {
+                displayAnim("\nthat note does not exist! use 'note create [name]' to create a note!", 7);
+            }
 
-        } else if (operation == "view") {
+            
+        } else if (operation == "rename") {
 
             note_name = input.toLowerCase();
 
             if (notes[note_name]) {     // if that note exists
 
-                var nt = notes[note_name];
-                // view the note!!
+                displayAnim(`${make_note_vis(note_name)}\n\nwhat would you like it to be renamed to?`, 0.5);     // show the whole note in its entirety™
+                setTimeout(() => {shell.value = notes[note_name]["name"]}, 200);
 
-                var cre_date = `${nt["date created"].day} ${nt["date created"].month} ${nt["date created"].year}, ${nt["date created"].hour}:${nt["date created"].minute} ${nt["date created"].ampm}`
-                var mod_date = `${nt["date modified"].day} ${nt["date modified"].month} ${nt["date modified"].year}, ${nt["date modified"].hour}:${nt["date modified"].minute} ${nt["date modified"].ampm}`
-
-                var vw_title = [`${nt.name}`, `${cre_date}`];
-                var vw_title2 = [`${nt.author}`, `${mod_date}`];
-
-                
-                var widd = display_charsize[0] - 10;
-                var hidd = display_charsize[1];
-
-                //widd = widd - 20;
-
-                console.log(widd);
-
-                var t1_ln = `${nt.name} created @ ${cre_date}`.length;
-                var t2_ln = `${nt.author} modified @ ${mod_date}`.length;
-
-                var t1_sp = widd - t1_ln;
-                var t2_sp = widd - t2_ln;
-                if (t1_sp < 0) {
-                    t1_sp = 0;
-                }
-                if (t2_sp < 0) {
-                    t2_sp = 0;
-                }
-
-                var di_t1 = `${nt.name}${" ".repeat(t1_sp)} created @ ${cre_date}`;
-                var di_t2 = `${nt.author}${" ".repeat(t2_sp)} modified @ ${mod_date}`;
-
-                displayAnim(`\n${di_t1}\n${di_t2}`, 0.25);
+                askInput(() => {
+                    if (ask_return != notes[note_name]["name"]) {
+                        notes[ask_return] = notes[note_name];
+                        notes[ask_return]["name"] = ask_return;
+                        notes[ask_return]["date modified"] = parse_date();
+                        delete notes[note_name];
+                        localStorage.setItem("notes", `${JSON.stringify(notes)}`);
+                    }
+                    displayAnim("\nnote saved.", 7)
+                });
 
 
-                
+            
+            } else {
+                displayAnim("\nthat note does not exist! use 'note create [name]' to create a note!", 7);
+            }
 
+/*
+        } else if (operation == "import") {
+            
+        } else if (operation == "export") {
+*/
+        } else if (operation == "view") {
+            note_name = input.toLowerCase();
+            if (notes[note_name]) {     // if that note exists
+                displayAnim(make_note_vis(note_name), 0.5);
             } else {
                 displayAnim("\nthat note doesn't exist! use 'note create' to create a note, or 'notes' to list all existing notes.", 7);
             }
-
-
         } else {
             displayAnim("\nthat operation doesn't exist!! use 'man note' for help!", 7);
         }

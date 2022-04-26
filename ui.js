@@ -2986,9 +2986,11 @@ different useful tools n stuff you can use on here
 
 convert         | type in convert, along with a unit type, a number, from unit, and to unit
 convert -list   | lists all the units and unit types
-encrypt         | encrypts text into any supported cipher
-decrypt         | decrypts an encrypted string of text back into readable text
+encode          | encodes text into any supported cipher
+decode          | decodes an encodeed string of text back into readable text
 ciphers         | lists all supported ciphers
+note            | use this to get information about the note command!
+note create     | type this in followed with a name to create a note!
 `,
     "dev": `
 DEV HELP PAGE
@@ -3453,7 +3455,7 @@ function updateMan() {
             "███████████████████████████████████████████████████████               ",
             "██████████████████████████████████████████████████████████████████████",
             "██████████████████████████████████████████████████████████████████████",
-            "██████████████████████████████████████████████enitals were obliterated",
+            "████████████████████████████████████████████████itals were obliterated",
             "██████████████████████████████████████████████████████████████████████",
             "██████████████████████████████████████████████████████████████████████",
             "███████████████████████████████████████                               ",
@@ -3763,33 +3765,33 @@ function updateMan() {
             "USAGE:",
             "'adventures'"
         ],
-        "encrypt":[
-            "ENCRYPT MANPAGE",
+        "encode":[
+            "ENCODE MANPAGE",
             " ",
-            "asks you for a string of text and encrypts it to the inputted cipher",
+            "asks you for a string of text and encodes it to the inputted cipher",
             " ",
             "USAGE:",
-            "'encrypt [cipher]'",
+            "'encode [cipher]'",
             " ",
             "OPTIONS:",
             "cipher | any supported cipher (use 'ciphers' to get a list of all supported ciphers)",
             " ",
             "EXAMPLE:",
-            "'encrypt caesar'"
+            "'encode caesar'"
         ],
-        "decrypt":[
-            "DECRYPT MANPAGE",
+        "decode":[
+            "DECODE MANPAGE",
             " ",
-            "asks you for an encrypted string of text and decrypts it to readable text",
+            "asks you for an encodeed string of text and decodes it to readable text",
             " ",
             "USAGE:",
-            "'decrypt [cipher]'",
+            "'decode [cipher]'",
             " ",
             "OPTIONS:",
             "cipher | any supported cipher (use 'ciphers' to get a list of all supported ciphers)",
             " ",
             "EXAMPLE:",
-            "'decrypt caesar'"
+            "'decode caesar'"
         ],
         "ciphers":[
             "CIPHERS MANPAGE",
@@ -3959,15 +3961,32 @@ var listy = [ " ",
     "colors",
     "adventure *",
     "adventures",
-    "encrypt",
-    "decrypt",
+    "encode",
+    "decode",
     "ciphers",
     "cipher list",
     "queue",
     "queue add",
     "queue remove",
     "queue play",
-    
+    "note",
+    "notes",
+    "notelist",
+    "note list",
+    "note add",
+    "note create",
+    "note remove",
+    "note kill",
+    "note murder",
+    "note delete",
+    "note edit",
+    "note rename",
+    "note clear",
+    "note purge",
+    /*"note export",
+    "note import",*/
+    "note view",
+
     "* command is currently in-development and may break the site."
 ]; 
 

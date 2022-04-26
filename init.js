@@ -240,6 +240,7 @@ var custom_queues = new Object();
 var notes = new Object();
 var note_to_add = new Object();
 var note_name = "";
+var to_cut = "";
 
 
 debubg("variable init finished...");
@@ -3863,32 +3864,39 @@ function object_empty(obj) {
 }
 
 function cut_string(str, wid) {
-    var obama = 0;  // current spot in array element
-    var jesus = 0;  // what array element youre in
-    var neilc = 0;  // current spot in original string
-    var fin = new Array();
-    var cur = "";
-    var spl = str.split("");
-    for (i in spl) {
-        var lety = spl[i];
+    var in_sting = str.replaceAll(`"`, `\\"`);
+    return eval(`"${in_sting}".match(/.{1,${wid}}/g);`);
+}
 
-        console.log("obama: ", obama);
-        console.log("jesus: ", jesus);
-        console.log("neilc: ", neilc);
-        console.log("lety:  '")
-        if (obama > wid) {
-            jesus += 1;
-            obama = 0;
-            fin[jesus] += `${spl[neilc]}`;
-        } else {
-            fin[jesus] += `${spl[neilc]}`;
-            obama += 1
-        }
 
-        neilc += 1;
+function make_note_vis(note_name) {
+    var nt = notes[note_name];
+    // view the note!!
+    var cre_date = `${nt["date created"].day} ${nt["date created"].month} ${nt["date created"].year}, ${nt["date created"].hour}:${nt["date created"].minute} ${nt["date created"].ampm}`
+    var mod_date = `${nt["date modified"].day} ${nt["date modified"].month} ${nt["date modified"].year}, ${nt["date modified"].hour}:${nt["date modified"].minute} ${nt["date modified"].ampm}`
+
+    var vw_title = [`${nt.name}`, `${cre_date}`];
+    var vw_title2 = [`${nt.author}`, `${mod_date}`];
+
+    var widd = display_charsize[0] - 10;
+    var hidd = display_charsize[1];
+    //widd = widd - 20;
+    console.log(widd);
+    var t1_ln = `"${nt.name}" created @ ${cre_date}`.length;
+    var t2_ln = `by ${nt.author} modified @ ${mod_date}`.length;
+    var t1_sp = widd - t1_ln;
+    var t2_sp = widd - t2_ln;
+    if (t1_sp < 0) {
+        t1_sp = 0;
     }
-
-    return fin
+    if (t2_sp < 0) {
+        t2_sp = 0;
+    }
+    var di_t1 = `"${nt.name}"${" ".repeat(t1_sp)} created @ ${cre_date}`;
+    var di_t2 = `by ${nt.author}${" ".repeat(t2_sp)} modified @ ${mod_date}`;
+    var di_t3 = cut_string(nt.contents, widd).join("\n");
+    var note_full = `\n${"-".repeat(widd)}\n${di_t1}\n${di_t2}\n${"-".repeat(widd)}\n\n${di_t3}`;
+    return note_full
 }
 
 
