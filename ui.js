@@ -733,12 +733,12 @@ var ascii_fonts = {
         "       ",
         ],
         [
-        "  __   ",
-        "  / /_ ",
-        "  / __/",
-        "  / /_ ",
-        "   \\__/",
-        "       ",
+        " __   ",
+        " / /_ ",
+        " / __/",
+        " / /_ ",
+        "  \\__/",
+        "      ",
         ],
         [
         "        ",
@@ -2991,6 +2991,8 @@ decode          | decodes an encodeed string of text back into readable text
 ciphers         | lists all supported ciphers
 note            | use this to get information about the note command!
 note create     | type this in followed with a name to create a note!
+note list       | lists all notes
+note view       | type this in followed with a note name to view it!
 `,
     "dev": `
 DEV HELP PAGE
@@ -3387,8 +3389,50 @@ function updateMan() {
             " ",
             "'theme use git'",
             "'theme export portal2'",
-            "'theme install Cola Soda-caeserlettuce-#fdfdfd-#c70015-#43190e'"
+            "'theme install Git-18gallons-#b1d1d9-#0d1117-#238636'"
         ],
+        "theme use":[
+            "THEME USE MANPAGE",
+            "use a specific theme",
+            " ",
+            "USAGE:",
+            "'theme use [theme]'",
+            " ",
+            "EXAMPLE:",
+            "'theme use git'"
+        ],
+        "theme save":[
+            "THEME SAVE MANPAGE",
+            "saves your current colour theme to your theme list",
+            " ",
+            "USAGE:",
+            "'theme save [name]'",
+            " ",
+            "EXAMPLE:",
+            "'theme save rainbow'"
+        ],
+        "theme export":[
+            "THEME EXPORT MANPAGE",
+            "exports a theme to a string of text you can share with your friends!",
+            " ",
+            "USAGE:",
+            "'theme export [theme]'",
+            " ",
+            "EXAMPLE:",
+            "'theme export git'"
+        ],
+        "theme share": "theme export",
+        "theme install":[
+            "THEME INSTALL MANPAGE",
+            "installs a theme from an exported string of text",
+            " ",
+            "USAGE:",
+            "'theme install [exported theme]'",
+            " ",
+            "EXAMPLE:",
+            "'theme install Git-18gallons-#b1d1d9-#0d1117-#238636'"
+        ],
+        "theme import": "theme install",
         "asciigame": [
             "ASCIIGAME MANPAGE",
             "play a fun little text adventure game",
@@ -3675,22 +3719,15 @@ function updateMan() {
             "USAGE:",
             "'credits'",
         ],
-        "themes":[
-            "THEMES MANPAGE",
-            "a carefullly curated, thoughtfully crafted (almost entirely made by 18gallons) selection of themes for if the default green doesn't please one's eyes",
-            " ",
-            "USAGE:",
-            "'themelist'",
-            "'themes'",
-        ],
         "themelist":[
             "THEMELIST MANPAGE",
-            "a carefullly curated, thoughtfully crafted (almost entirely made by 18gallons) selection of themes for if the default green doesn't please ones eyes",
+            "a carefully curated, thoughtfully crafted (almost entirely made by 18gallons) selection of themes for if the default green doesn't please ones eyes",
             " ",
             "USAGE:",
             "'themelist'",
             "'themes'",
         ],
+        "themes": "themelist",
         "dog":[
             "DOG MANPAGE",
         `
@@ -3859,12 +3896,112 @@ function updateMan() {
             " ",
             "USAGE:",
             "'queue clear'"
-        ]
+        ],
+        "note":[
+            "NOTE MANPAGE",
+            " ",
+            "you can save & edit personal notes in console",
+            " ",
+            "USAGE:",
+            "'note [option] [title]",
+            " ",
+            "OPTIONS:",
+            "(note: not all options uses [title])",
+            "   list | lists all notes",
+            " create | creates a new note, [title]",
+            "   edit | edits the contents of a note, [title]",
+            "   view | views the contents of a note, [title]",
+            " rename | renames a note, [title]",
+            " remove | deletes a specific note, [title]",
+            " ",
+            "you can check the manpages for the individual options as well! ('man note edit')"
+        ],
+        "note list":[
+            "NOTE LIST MANPAGE",
+            "lists all notes",
+            " ",
+            "USAGE:",
+            "'note list'",
+        ],
+        "notes": "note list",
+        "notelist": "note list",
+        "note create":[
+            "NOTE CREATE MANPAGE",
+            "creates a note",
+            " ",
+            "USAGE:",
+            "'note create [title]'",
+            " ",
+            "EXAMPLE:",
+            "'note create hello'"
+        ],
+        "note add": "note create",
+        "note edit":[
+            "NOTE EDIT MANPAGE",
+            "edits a note",
+            " ",
+            "USAGE:",
+            "'note edit [title]'",
+            " ",
+            "EXAMPLE:",
+            " ",
+            "'note edit hello'"
+        ],
+        "note view":[
+            "NOTE VIEW MANPAGE",
+            "views a note",
+            " ",
+            "USAGE:",
+            "'note view [title]'",
+            " ",
+            "EXAMPLE:",
+            "'note view hello'"
+        ],
+        "note rename":[
+            "NOTE RENAME MANPAGE",
+            "renames a note",
+            " ",
+            "USAGE:",
+            "'note rename [title]'",
+            " ",
+            "EXAMPLE",
+            "'note rename hello'"
+        ],
+        "note remove":[
+            "NOTE REMOVE MANPAGE",
+            "removes a note",
+            " ",
+            "USAGE:",
+            "'note remove [title]'",
+            " ",
+            "EXAMPLE:",
+            "'note remove hello'"
+        ],
+        "note kill": "note remove",
+        "note murder": "note remove",
+        "note delete": "note remove",
+        "note clear":[
+            "NOTE CLEAR MANPAGE",
+            "clears all notes",
+            " ",
+            "USAGE:",
+            "'note clear'"
+        ],
+        "note purge": "note clear"
     }
 }
 
 updateMan();
 
+/*
+        "note ":[
+            "NOTE  MANPAGE",
+            "",
+            " ",
+            "USAGE:",
+            "'note '"
+        ],
+*/
 
 var listy = [ " ",
     "info",
@@ -3983,8 +4120,8 @@ var listy = [ " ",
     "note rename",
     "note clear",
     "note purge",
-    /*"note export",
-    "note import",*/
+    "note export",
+    "note import",
     "note view",
 
     "* command is currently in-development and may break the site."
@@ -8144,46 +8281,6 @@ var puppy = {
 }
 
 
-/*
-▓▒░
-▗▖▝▘▟▙▜▛▚▞█▀█
-▉▊▋▌▍▎▏
-▇▆▅▄▃▂▁
-
-│┴┬├─┤┼┌┐└┘
-┃┻┳┣━┫╋┏┓┗┛
-║╩╦╠═╣╬╔╗╚╝
- ╨╤╟ ╡╪╓╖╙╜
- ╧╥╞ ╢╫╒╕╘╛
-╿┸┯┞ ┦╀┍┑┖┚
-╽┷┰┟ ┧╁┎┒┕┙
- ┵┭┠╾┥┽╭╮╯╰
- ┶┮┝╼┨┾
- ┹┱┡ ┩╇
- ┺┲┢ ┪╈
-╹   ╸ ╃
-╻   ╺ ╄
-╵   ╴ ╅
-╷   ╶ ╆
-    ╳ ╉
-    ╱ ╊
-    ╲ ┿
-      ╂
-          ↖
-
-⡀⡁⡂⡃⡄⡅⡆⡇⡈⡉⡊⡋⡌⡍⡎⡏
-⡐⡑⡒⡓⡔⡕⡖⡗⡘⡙⡚⡛⡜⡝⡞⡟
-⡠⡡⡢⡣⡤⡥⡦⡧⡨⡩⡪⡫⡬⡭⡮⡯
-⡰⡱⡲⡳⡴⡵⡶⡷⡸⡹⡺⡻⡼⡽⡾⡿
-⢀⢁⢂⢃⢄⢅⢆⢇⢈⢉⢊⢋⢌⢍⢎⢏
-⢐⢑⢒⢓⢔⢕⢖⢗⢘⢙⢚⢛⢜⢝⢞⢟
-⢠⢡⢢⢣⢤⢥⢦⢧⢨⢩⢪⢫⢬⢭⢮⢯
-⢰⢱⢲⢳⢴⢵⢶⢷⢸⢹⢺⢻⢼⢽⢾⢿
-⣀⣁⣂⣃⣄⣅⣆⣇⣈⣉⣊⣋⣌⣍⣎⣏
-⣐⣑⣒⣓⣔⣕⣖⣗⣘⣙⣚⣛⣜⣝⣞⣟
-⣠⣡⣢⣣⣤⣥⣦⣧⣨⣩⣪⣫⣬⣭⣮⣯
-⣰⣱⣲⣳⣴⣵⣶⣷⣸⣹⣺⣻⣼⣽⣾⣿
-*/
 
 
 var caffy = `
@@ -8696,3 +8793,46 @@ if (true) {
     var tim = `${dat.getHours()}:${dat.getMinutes()}:${dat.getSeconds()}:${dat.getMilliseconds()}`;
     console.log(`[${tim}]: ui elements loaded.`);
 }
+
+/*
+▓▒░
+▗▖▝▘▟▙▜▛▚▞█▀█
+▉▊▋▌▍▎▏
+▇▆▅▄▃▂▁
+
+│┴┬├─┤┼┌┐└┘
+┃┻┳┣━┫╋┏┓┗┛
+║╩╦╠═╣╬╔╗╚╝
+ ╨╤╟ ╡╪╓╖╙╜
+ ╧╥╞ ╢╫╒╕╘╛
+╿┸┯┞ ┦╀┍┑┖┚
+╽┷┰┟ ┧╁┎┒┕┙
+ ┵┭┠╾┥┽╭╮╯╰
+ ┶┮┝╼┨┾
+ ┹┱┡ ┩╇
+ ┺┲┢ ┪╈
+╹   ╸ ╃
+╻   ╺ ╄
+╵   ╴ ╅
+╷   ╶ ╆
+    ╳ ╉
+    ╱ ╊
+    ╲ ┿
+      ╂
+          ↖
+
+whitespace: "⠀"
+
+⡀⡁⡂⡃⡄⡅⡆⡇⡈⡉⡊⡋⡌⡍⡎⡏
+⡐⡑⡒⡓⡔⡕⡖⡗⡘⡙⡚⡛⡜⡝⡞⡟
+⡠⡡⡢⡣⡤⡥⡦⡧⡨⡩⡪⡫⡬⡭⡮⡯
+⡰⡱⡲⡳⡴⡵⡶⡷⡸⡹⡺⡻⡼⡽⡾⡿
+⢀⢁⢂⢃⢄⢅⢆⢇⢈⢉⢊⢋⢌⢍⢎⢏
+⢐⢑⢒⢓⢔⢕⢖⢗⢘⢙⢚⢛⢜⢝⢞⢟
+⢠⢡⢢⢣⢤⢥⢦⢧⢨⢩⢪⢫⢬⢭⢮⢯
+⢰⢱⢲⢳⢴⢵⢶⢷⢸⢹⢺⢻⢼⢽⢾⢿
+⣀⣁⣂⣃⣄⣅⣆⣇⣈⣉⣊⣋⣌⣍⣎⣏
+⣐⣑⣒⣓⣔⣕⣖⣗⣘⣙⣚⣛⣜⣝⣞⣟
+⣠⣡⣢⣣⣤⣥⣦⣧⣨⣩⣪⣫⣬⣭⣮⣯
+⣰⣱⣲⣳⣴⣵⣶⣷⣸⣹⣺⣻⣼⣽⣾⣿
+*/

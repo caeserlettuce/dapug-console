@@ -562,7 +562,14 @@ function parseCommand(command) {
 
         if (man[incommand]) {   // if it exists
             debubg("command is in man registry.");
-            haha = man[incommand];
+
+            if (typeof man[incommand] == 'string') {
+                var hehe = man[incommand];
+                haha = man[hehe];
+            } else {
+                haha = man[incommand];
+            }
+            
         } else {
             debubg("command is not in man registry.")
             haha = "there is no current man page for this command.";
@@ -1202,8 +1209,13 @@ function parseCommand(command) {
             }
 
         } else if (operation == "import" || operation == "install") {
+            
+            /*      old code ™
+            
+            the reason why i'm redoing this is because, i ran into an issue with exporting themes of which their names include a "-". cause it makes a special string that has all the information of the theme in it, but since the themes use JSON, i can just stringify the JSON, and copy that to their clipboard.
+
             if (nametm != "" && nametm != undefined && nametm != null) {
-                
+            
                 console.log(nametm);
                 var teem = actualname.split("-");
 
@@ -1251,20 +1263,32 @@ function parseCommand(command) {
                 displayAnim("\nplease enter a valid theme! use 'theme export [theme name]' to export a theme!", 7);
             }
 
+            */
+
+
+
+
+
 
         } else if (operation == "export" || operation == "share") {
             // time to export theme
+            
+            
+            /*      old code ™
+            
+            the reason why i'm redoing this is because, i ran into an issue with exporting themes of which their names include a "-". cause it makes a special string that has all the information of the theme in it, but since the themes use JSON, i can just stringify the JSON, and copy that to their clipboard.
+
             if (nametm == "" || nametm == undefined || nametm == null) {
                 displayAnim("\nplease enter a valid theme name!", 7)
             } else if (themes[lowname]) {   // if it exists in the default themes
                 debubg("theme exists as a default theme!!");
-                var share = `${themes[lowname]["name"]}-${themes[lowname]["author"]}-${themes[lowname]["text colour"]}-${themes[lowname]["back colour"]}-${themes[lowname]["accy colour"]}`;
+                var share = `${themes[lowname]["name"].replaceAll("-", " ")}-${themes[lowname]["author"].replaceAll("-", " ")}-${themes[lowname]["text colour"]}-${themes[lowname]["back colour"]}-${themes[lowname]["accy colour"]}`;
                 debubg(`exported theme: ${share}`);
                 copyclip(share);
                 displayAnim("\nexported theme copied to clipboard. import it again by using 'theme import [exported theme]'");
             } else if (custom_themes[lowname]) { // if it exists in the custom themes
                 debubg("theme exists as a custom theme!!"); // airport customs
-                var share = `${custom_themes[lowname]["name"]}-${custom_themes[lowname]["author"]}-${custom_themes[lowname]["text colour"]}-${custom_themes[lowname]["back colour"]}-${custom_themes[lowname]["accy colour"]}`;
+                var share = `${custom_themes[lowname]["name"].replaceAll("-", " ")}-${custom_themes[lowname]["author"].replaceAll("-", " ")}-${custom_themes[lowname]["text colour"]}-${custom_themes[lowname]["back colour"]}-${custom_themes[lowname]["accy colour"]}`;
                 debubg(`exported theme: ${share}`);
                 copyclip(share);
                 displayAnim("\nexported theme copied to clipboard. import it again by using 'theme import [exported theme]'");
@@ -1272,6 +1296,8 @@ function parseCommand(command) {
                 debubg("theme does not exist");
                 displayAnim(`\ntheme '${nametm}' does not exist! check 'themelist' for a list of available themes.`, 7);
             }
+            */
+
 
         } else if (operation == "delete" || operation == "remove" || operation == "kill" || operation == "murder") {
             if (nametm == "" || nametm == undefined || nametm == null) {
@@ -1620,6 +1646,15 @@ function parseCommand(command) {
 
     } else if (command == "note") {                                                                                     // fancy notes command start page and list page
 
+        async function fancyPage() {
+            var texty = asciiText("slant", `notes!!`);
+            await displayAnim("\n", 1);
+            await displayAnim(texty, 0.25);
+            await displayAnim(`\n\nwelcome to notes! you can write, save, and share notes within console!\n\nuse 'note create [title]' to create a new note,
+'notes' to list all notes,\n'note view [note]' to view a note, and so much more!\n\nuse 'man note' to see all commands! `, 1);
+        }
+        fancyPage();
+
     } else if (command == "note list" || command == "notelist" || command == "notes") {                                 // notes list page
 
         if (object_empty(notes) == true) {
@@ -1801,11 +1836,148 @@ function parseCommand(command) {
                 displayAnim("\nthat note does not exist! use 'note create [name]' to create a note!", 7);
             }
 
-/*
+            //{"name":"test","author":"dev","date created":{"day":"26","month":"April","year":"2022","hour":"11","minute":"28","second":"21","ampm":"AM"},"date modified":{"day":"26","month":"April","year":"2022","hour":"11","minute":"28","second":"21","ampm":"AM"},"contents":"hehe!\\nhehe!"}
         } else if (operation == "import") {
+
+            var in_note = "";
+
+            var broken = false;
+
+            try {
+                var in_ = JSON.parse(input);                            // big ol' chunk of code to check that al the inputted JSON works and is correct. future jesse please make this a function somehow
+                /*
+
+                the function could probably use a JSON input, like this
+
+                check_json(note_input, {
+                    "name": true,
+                    "author": true,
+                    "date created": {
+                        "day": true,
+                        "month": true,
+                        "year": true,
+                        "hour": true,
+                        "minute": true,
+                        "second": true,
+                        "ampm": true
+                    },
+                    "date modified": {
+                        "day": true,
+                        "month": true,
+                        "year": true,
+                        "hour": true,
+                        "minute": true,
+                        "second": true,
+                        "ampm": true
+                    },
+                    "contents": true
+                })
+
+                
+                so it checks the first JSON to see if all keys in the second JSON exist in the first JSON.
+
+                hopefully
+
+                */
+                if (in_["name"] == undefined) {
+                    broken = true;
+                } else if (in_["author"] == undefined) {
+                    broken = true;
+                } else if (in_["date created"] == undefined) {
+                    broken = true;
+                } else if (in_["date created"]["day"] == undefined) {
+                    broken = true;
+                } else if (in_["date created"]["month"] == undefined) {
+                    broken = true;
+                } else if (in_["date created"]["year"] == undefined) {
+                    broken = true;
+                } else if (in_["date created"]["hour"] == undefined) {
+                    broken = true;
+                } else if (in_["date created"]["minute"] == undefined) {
+                    broken = true;
+                } else if (in_["date created"]["second"] == undefined) {
+                    broken = true;
+                } else if (in_["date created"]["ampm"] == undefined) {
+                    broken = true;
+                } else if (in_["date modified"] == undefined) {
+                    broken = true;
+                } else if (in_["date modified"]["day"] == undefined) {
+                    broken = true;
+                } else if (in_["date modified"]["month"] == undefined) {
+                    broken = true;
+                } else if (in_["date modified"]["year"] == undefined) {
+                    broken = true;
+                } else if (in_["date modified"]["hour"] == undefined) {
+                    broken = true;
+                } else if (in_["date modified"]["minute"] == undefined) {
+                    broken = true;
+                } else if (in_["date modified"]["second"] == undefined) {
+                    broken = true;
+                } else if (in_["date modified"]["ampm"] == undefined) {
+                    broken = true;
+                } else if (in_["contents"] == undefined) {
+                    broken = true;
+                }
+
+                if (broken == true) {
+                    throw new Error('aaaaaa!!!!!');
+                } else if (broken == false) {   // the rest of the import code
+                    var note_in = JSON.parse(input);
+                    var note_name = note_in["name"].toLowerCase();
+                    if (notes[note_name]) {
+                        // if that note already exists with that name
+
+                        displayAnim(`\nuh oh! the note with the name '${note_name}' already exists! what would you like to name this note?`, 4);
+                        askInput(() => {
+                            // get new name
+                            var nam = ask_return;
+                            var nam_low = nam.toLowerCase();
+
+                            if (notes[nam_low]) {
+                                displayAnim("\nthere is a note with that name also! please use 'notes' to get a list of all notes, and try again with a note name that is not taken!", 4);
+                                debubg("bruh this is the second time that you have chosen a note name that exists lmao try again nerd /lh");
+                            } else {
+                                // chose a good boy name that isnt taken ™
+
+                                note_in["name"] = nam;  // sets the JSON name to the name you inputted
+                                notes[nam_low] = note_in;   // set the note
+                                localStorage.setItem("notes", `${JSON.stringify(notes)}`);  // save the notes to localStorage
+                                displayAnim("\nnote saved.", 7);
+                            }
+                            
+                        });
+                    } else {    // if it doesn't exist in the notes already
+                        notes[note_name] = note_in;   // set the note
+                        localStorage.setItem("notes", `${JSON.stringify(notes)}`);  // save the notes to localStorage
+                        displayAnim("\nnote saved.", 7);
+                    }
+                }
+                
+
+            } catch (err) {
+                erry("A!!! the note JSON is invalid!!!");
+                displayAnim("\ninvalid note!", 7);
+            }
             
         } else if (operation == "export") {
-*/
+
+            note_name = input.toLowerCase();
+
+            if (notes[note_name]) {
+
+                var noty = notes[note_name];
+
+                var export_tm = JSON.stringify(noty);
+
+                copyclip(export_tm);
+
+                displayAnim("\nexported note copied to clipboard.");
+
+            } else {
+                displayAnim(`\nthat note doesn't exist! use 'notes' to list all notes`, 7);
+            }
+
+
         } else if (operation == "view") {
             note_name = input.toLowerCase();
             if (notes[note_name]) {     // if that note exists

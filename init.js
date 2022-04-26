@@ -50,7 +50,7 @@ function erry(message) {
         //texty = pogchamp.innerHTML;
         //pogchamp.innerHTML = `${texty}<br>${message}`;
         //debug_win.document.write('<pre>HEHE</pre>');
-        debug_win.document.getElementById("aaa").innerHTML += `<p style="color: #ff8080; width: auto; margin: 0px; padding: 0px; border: 1px #ff000020 solid; background-color: #ff000040;">[${tim}]: ${message}</p>`;;
+        debug_win.document.getElementById("aaa").innerHTML += `<p style="color: #ff8080; width: fit-content; margin: 0px; padding: 0px; border: 1px #ff000020 solid; background-color: #ff000040;">[${tim}]: eee${message}</p>`;;
         mom = debug_win.document.getElementById("aaa");
         mom.scrollTop = mom.scrollHeight;
 
