@@ -3091,15 +3091,9 @@ function saveTheme(nametm) {
     localStorage.setItem("themes", JSON.stringify(custom_themes));
 }
 
-function rawSaveTheme(nametm, author, text, back, accy) {
-    var lowname = nametm.toLowerCase();
-    custom_themes[lowname] = {
-        "name": `${nametm}`,
-        "author": `${author}`,
-        "text colour": `${text}`,
-        "back colour": `${back}`,
-        "accy colour": `${accy}`
-    }
+function rawSaveTheme(theme_tm) {
+    var lowname = theme_tm["name"].toLowerCase();
+    custom_themes[lowname] = theme_tm;
     localStorage.setItem("themes", JSON.stringify(custom_themes));
 }
 
@@ -3898,6 +3892,43 @@ function make_note_vis(note_name) {
     var note_full = `\n${"-".repeat(widd)}\n${di_t1}\n${di_t2}\n${"-".repeat(widd)}\n\n${di_t3}`;
     return note_full
 }
+
+// WIP CODE!!!!
+
+
+function check_json(in_json, template_json) {   // checks to see if in_json has the same structure as template_json
+    var out_obj = {
+        "valid": false,     // if it's valid json
+        "reason": "",       // if it's invalid, it'll say what's wrong with the JSON
+        "extra": false      // if there are any extra JSON keys
+    }
+
+    var crap = false;
+
+    function check_inner(chunk) {
+        for (key in chunk) { // for every key in json
+
+        }
+    }
+
+
+    for (key in in_json) { // for every key in main json
+        var chunk = in_json[key];
+
+        if (typeof chunk == 'object' && Array.isArray(chunk) == false) {    // if it's an object but not an array (if it's json)
+
+
+        }
+
+
+    }
+
+    return out_obj
+}
+
+
+
+
 
 
 //  .M.              %MMMMMMMM% .%MMMMMMM%. .%MMMMMMM%. +M                     +MMMMMMMMI MM       MM +MM.      M+  .%MMMMMM %MMMMMMMM% mmmmmmmmmm .%MMMMMMM%. +MM.      M+ .%MMMMMMM%.              .M.  

@@ -1210,60 +1210,86 @@ function parseCommand(command) {
 
         } else if (operation == "import" || operation == "install") {
             
-            /*      old code ™
+    
             
-            the reason why i'm redoing this is because, i ran into an issue with exporting themes of which their names include a "-". cause it makes a special string that has all the information of the theme in it, but since the themes use JSON, i can just stringify the JSON, and copy that to their clipboard.
 
             if (nametm != "" && nametm != undefined && nametm != null) {
             
                 console.log(nametm);
-                var teem = actualname.split("-");
 
-                console.log(teem);
-                if (teem.length == 5) {
-                    var nam = teem[0];
-                    var aut = teem[1];
-                    var txt = teem[2];
-                    var bac = teem[3];
-                    var acc = teem[4];
+                var broken = false;
+                // code redo (tm)
 
-                    function check(naaa) {
-                        var lowname = naaa.toLowerCase();
-                        if (themes[lowname]) {
-                            displayAnim("\nthere's already a default theme with that name! what would you like the theme to be named?", 5);
-                            askInput(() => {
-                                check(ask_return);
-                            });
-                        } else if (custom_themes[lowname]) {
-                            displayAnim(`\nthe theme '${lowname}' already exists. would you like to overwrite this theme? (y/n)`, 7);
-                            askInput(() => {
-                                if (ask_return == "y") {
-                                    rawSaveTheme(naaa, aut, txt, bac, acc);
-                                    displayAnim(`\nthe theme '${naaa}' has been saved. use 'theme use ${lowname}' to use the theme!`, 7);
-                                } else if (ask_return == "n") {
-                                    displayAnim(`\nplease replace the text before the first '-' with a new name and try again!`, 7);
-                                }
-                            });
-                        } else {
-                            rawSaveTheme(naaa, aut, txt, bac, acc);
-                            displayAnim(`\nthe theme '${naaa}' has been saved. use 'theme use ${lowname}' to use the theme!`, 7);
-                            listening_input = false;
-                        }
+                try {
+                    // {"name":"Git","author":"18gallons","text colour":"#b1d1d9","back colour":"#0d1117","accy colour":"#238636"}
+                    var in_ = JSON.parse(actualname);   // dont ask me why thats called actualname, because i don't know either, but it works so... ¯\_(ツ)_/¯
+
+                    if (in_["name"] == undefined) {
+                        broken = true;
+                    } else if (in_["author"] == undefined) {
+                        broken = true;
+                    } else if (in_["text colour"] == undefined) {
+                        broken = true;
+                    } else if (in_["back colour"] == undefined) {
+                        broken = true;
+                    } else if (in_["accy colour"] == undefined) {
+                        broken = true;
                     }
 
-                 
-                    check(nam);
+                    if (broken == true) {
+                        throw new Error('aaaaaa!!!!!'); // if one of those values are undefined, throw an error and say it's invalid
+                    } else if (broken == false) {
 
-                } else {
-                    displayAnim("invalid theme!", 7);
+                        var theme_in = JSON.parse(actualname);
+                        var theme_name = theme_in["name"].toLowerCase();
+                        if (themes[theme_name] || custom_themes[theme_name]) {
+                            // if that note already exists with that name
+    
+                            displayAnim(`\nuh oh! a theme with the name '${theme_name}' already exists! what would you like to name this theme?`, 4);
+                            askInput(() => {
+                                // get new name
+                                var nam = ask_return;
+                                var nam_low = nam.toLowerCase();
+    
+                                if (themes[nam_low] || custom_themes[theme_name]) {
+                                    displayAnim("\nthere is a theme with that name also! please use 'themes' to get a list of all themes, and try again with a theme name that is not taken!", 4);
+                                    debubg("bruh this is the second time that you have chosen a theme name that exists lmao try again nerd /lh");
+                                } else {
+                                    // chose a good boy name that isnt taken ™
+    
+                                    theme_in["name"] = nam;  // sets the JSON name to the name you inputted
+                                    
+                                    rawSaveTheme(theme_in);
+                                    
+                                    displayAnim("\ntheme saved.", 7);
+                                }
+                                        // i literally wrote this code like 7 minutes ago and i've already forgotten what half of it does
+                            });
+                        } else {    // if it doesn't exist in the notes already
+
+                            rawSaveTheme(theme_in);
+                            displayAnim("\ntheme saved.", 7);
+                        }
+
+                    }
+
+                } catch (err) {
+                    erry("A!!! the theme JSON is invalid!!!");
+                    displayAnim("\ninvalid theme!", 7);
                 }
+
+
+                /*
+                rawSaveTheme(naaa, aut, txt, bac, acc);
+                displayAnim(`\nthe theme '${naaa}' has been saved. use 'theme use ${lowname}' to use the theme!`, 7);
+                */       
 
 
             } else { // if it is bad
                 displayAnim("\nplease enter a valid theme! use 'theme export [theme name]' to export a theme!", 7);
             }
 
-            */
+            
 
 
 
@@ -1273,22 +1299,18 @@ function parseCommand(command) {
         } else if (operation == "export" || operation == "share") {
             // time to export theme
             
-            
-            /*      old code ™
-            
-            the reason why i'm redoing this is because, i ran into an issue with exporting themes of which their names include a "-". cause it makes a special string that has all the information of the theme in it, but since the themes use JSON, i can just stringify the JSON, and copy that to their clipboard.
-
-            if (nametm == "" || nametm == undefined || nametm == null) {
+          
+            if (nametm != "" && nametm != undefined && nametm != null) {
                 displayAnim("\nplease enter a valid theme name!", 7)
             } else if (themes[lowname]) {   // if it exists in the default themes
                 debubg("theme exists as a default theme!!");
-                var share = `${themes[lowname]["name"].replaceAll("-", " ")}-${themes[lowname]["author"].replaceAll("-", " ")}-${themes[lowname]["text colour"]}-${themes[lowname]["back colour"]}-${themes[lowname]["accy colour"]}`;
+                var share = JSON.stringify(themes[lowname]);
                 debubg(`exported theme: ${share}`);
                 copyclip(share);
                 displayAnim("\nexported theme copied to clipboard. import it again by using 'theme import [exported theme]'");
             } else if (custom_themes[lowname]) { // if it exists in the custom themes
                 debubg("theme exists as a custom theme!!"); // airport customs
-                var share = `${custom_themes[lowname]["name"].replaceAll("-", " ")}-${custom_themes[lowname]["author"].replaceAll("-", " ")}-${custom_themes[lowname]["text colour"]}-${custom_themes[lowname]["back colour"]}-${custom_themes[lowname]["accy colour"]}`;
+                var share = JSON.stringify(custom_themes[lowname]);
                 debubg(`exported theme: ${share}`);
                 copyclip(share);
                 displayAnim("\nexported theme copied to clipboard. import it again by using 'theme import [exported theme]'");
@@ -1296,8 +1318,7 @@ function parseCommand(command) {
                 debubg("theme does not exist");
                 displayAnim(`\ntheme '${nametm}' does not exist! check 'themelist' for a list of available themes.`, 7);
             }
-            */
-
+            
 
         } else if (operation == "delete" || operation == "remove" || operation == "kill" || operation == "murder") {
             if (nametm == "" || nametm == undefined || nametm == null) {
