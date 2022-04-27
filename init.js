@@ -276,6 +276,7 @@ var var_debug_check;
 var debugvar_size = 5;
 var debvar_first_time = false;
 var music_volume = 1;
+var console_visible = true;
 
 
 debubg("variable init finished...");
@@ -848,7 +849,8 @@ function debugVarWindow(bool) {
                     "cur_cipher": cur_cipher,
                     "in_queue": in_queue,
                     "debugvar_size": debugvar_size,
-                    "music_volume": music_volume
+                    "music_volume": music_volume,
+                    "console_visible": console_visible
                 }
             
                 if (JSON.stringify(to_pass) == to_pass_pre) {   // if its the same
@@ -4133,40 +4135,79 @@ function make_note_vis(note_name) {
 }
 
 // WIP CODE!!!!
-
-
 function check_json(in_json, template_json) {   // checks to see if in_json has the same structure as template_json
     var out_obj = {
         "valid": false,     // if it's valid json
         "reason": "",       // if it's invalid, it'll say what's wrong with the JSON
         "extra": false      // if there are any extra JSON keys
     }
-
     var crap = false;
-
     function check_inner(chunk) {
         for (key in chunk) { // for every key in json
-
         }
     }
-
-
     for (key in in_json) { // for every key in main json
         var chunk = in_json[key];
-
         if (typeof chunk == 'object' && Array.isArray(chunk) == false) {    // if it's an object but not an array (if it's json)
 
-
         }
-
-
     }
-
     return out_obj
 }
 
+function askNotificationPermission() {
+    // function to actually ask the permissions
+    function handlePermission(permission) {
+        // set the button to shown or hidden, depending on what the user answers
+        if(Notification.permission === 'denied' || Notification.permission === 'default') {
+            notificationBtn.style.display = 'block';
+        } else {
+            notificationBtn.style.display = 'none';
+        }
+    }
+  
+    // Let's check if the browser supports notifications
+    if (!('Notification' in window)) {
+        console.log("This browser does not support notifications.");
+    } else {
+        if(checkNotificationPromise()) {
+            Notification.requestPermission()
+            .then((permission) => {
+            handlePermission(permission);
+        })
+        } else {
+            Notification.requestPermission(function(permission) {
+                handlePermission(permission);
+            });
+        }
+    }
+}
+function checkNotificationPromise() {
+    try {
+        Notification.requestPermission().then();
+    } catch(e) {
+        return false;
+    }
 
+    return true;
+}
 
+function send_notif(in_json) {
+    if (in_json) {
+        if (!in_json.title) {
+            in_json.title = "CONSOLE";
+        }
+        if (!in_json.text) {
+            in_json.text = "this is a notification!!!";
+        }
+        if (!in_json.icon) {
+            in_json.icon = "icon.png";
+        }
+        var notification = new Notification(in_json.title, { body: in_json.text, icon: in_json.icon });
+    } else {
+        erry("you didnt input any notification json you idiot!!");
+    }
+}
 
 
 
@@ -4583,6 +4624,15 @@ music.addEventListener('canplaythrough', (event) => {
 });
 */
 
+document.addEventListener('visibilitychange', function() {
+    if (document.visibilityState == 'visible') {
+        console_visible = true;
+        debubg("console is now visible again!!");
+    } else {
+        console_visible = false;
+        debubg("console is no longer visible!");
+    }
+});
 
 
 window.onresize = sizeCheck;

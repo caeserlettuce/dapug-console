@@ -8817,6 +8817,10 @@ var known_words = {
     ]
 }
 
+var time_messages = [
+    "\ntime to get a watch",
+    "\nnow"
+]
 
 
 

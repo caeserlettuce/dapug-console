@@ -827,6 +827,9 @@ function parseCommand(command) {
                     music_loading = true;
                     playMusic(songname);
                     displayLyrics(songname);
+                    checkNotificationPromise();
+                    send_notif({"title": `now playing: ${songs[songname]["name"]}`, "text": `${songs[songname]["artist"]} - ${songs[songname]["album"]}`, "icon": `${songs[songname]["art"]}`});
+                    
                     if (song_err == false) {
                         setSongInfo(`${songname}`);
                     }
@@ -2046,6 +2049,18 @@ function parseCommand(command) {
         } else {
             displayAnim("\nplease enter a valid number!", 7);
         }
+    } else if (command == "time") {
+
+        var rand = getRandomInt(0,10);
+
+        if (rand == 0) {    // time to get a watch
+            displayAnim(getRandomFromArr(time_messages), 5);
+        } else {
+
+            var timmy = parse_date();
+            displayAnim(`\n${timmy.day} ${timmy.month} ${timmy.year}, ${timmy.hour}:${timmy.minute} ${timmy.ampm}`, 7);
+        }
+
     }
     else {
         displayAnim(`\ncommand error: ${commandInit} is not an existing command.`, 7);
