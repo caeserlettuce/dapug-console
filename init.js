@@ -275,6 +275,7 @@ var to_pass_pre = new Object();
 var var_debug_check;
 var debugvar_size = 5;
 var debvar_first_time = false;
+var music_volume = 1;
 
 
 debubg("variable init finished...");
@@ -384,6 +385,7 @@ textadventures_saves = JSON.parse(local_storage("text adventures", "{}"));
 custom_queues = JSON.parse(local_storage("queues", "{}"));
 notes = JSON.parse(local_storage("notes", "{}"));
 debugvar_size = local_storage("debug var size", 5);
+//music_volume = local_storage("music volume", 1)
 console.log(textadventures_saves);
 //textadventures_saves = textadventures_saves);
 //console.log(textadventures_saves);
@@ -845,7 +847,8 @@ function debugVarWindow(bool) {
                     "adventure_lock": adventure_lock,
                     "cur_cipher": cur_cipher,
                     "in_queue": in_queue,
-                    "debugvar_size": debugvar_size
+                    "debugvar_size": debugvar_size,
+                    "music_volume": music_volume
                 }
             
                 if (JSON.stringify(to_pass) == to_pass_pre) {   // if its the same
@@ -2184,11 +2187,13 @@ function argComm(incommand) {
 function asciiText(font, text) {
     var fontlow = font.toLowerCase();
     var finalText = []; // the final text variable itll return
-    var in_font = font;
+    var in_font = fontlow;
     if (fontlow == "" || fontlow == "default" || fontlow == "def" || fontlow == "d") {  // any other variations for font names, set up an if statement here for all the variations, then set in_font to be the name in the internal font JSON
         in_font = "default";
     } else if (fontlow == "slant" || fontlow == "s" || fontlow == "sla") {
         in_font = "slant";
+    } else if (fontlow == "block" || fontliw == "b" || fontlow == "blo") {
+        in_font = "block";
     }
 
 
@@ -4178,6 +4183,24 @@ function check_json(in_json, template_json) {   // checks to see if in_json has 
 //
 //
 debubg("extra tool functions init finished...");
+
+
+
+
+
+
+
+debubg("encryption functions init finished...");
+
+//  .M.              +MMMMMMMMI +MM.      M+  .%MMMMMM +MMMMMMM%. MM    MM +MMMMMMM%. %MMMMMMMM% mmmmmmmmmm .%MMMMMMM%. +MM.      M+              .M.  
+// .M'M.             MMMMMMMMMI MMMM.     MM .%MMMMMMM MM+'  '+M% MM.  .MM MM+'  '+M% %MMMMMMMM% MMMMMMMMMM %MM%' '%MM% MMMM.     MM             .M'M. 
+// M' 'M             MM+        MM'MM.    MM %MM%'     MM      MM 'MM  MM' MM      MM     MM         MM     MM'     'MM MM'MM.    MM             M' 'M 
+//                   MM........ MM 'MM.   MM MMM'      MM+.  .+M%  MM..MM  MM+.  .+M%     MM         MM     MM       MM MM 'MM.   MM                   
+//                   MMMMMMMMMM MM  'MM.  MM MMM       MMMMMMMM%'  'MMMM'  MMMMMMMM%'     MM         MM     MM       MM MM  'MM.  MM                   
+//                   MM'''''''' MM   'MM. MM MMM.      MM  'MM.     'MM'   MM             MM         MM     MM       MM MM   'MM. MM                   
+//                   MM+        MM    'MM.MM %MM%.     MM   'MM.     MM    MM             MM         MM     MM.     .MM MM    'MM.MM                   
+//                   MMMMMMMMMI MM     'MMMM '%MMMMMMM MM    'MM.    MM    MM             MM     mmmmMMmmmm %MM%. .%MM% MM     'MMMM                   
+//                   +MMMMMMMMI +M      'MM+  '%MMMMMM +M     'MM    MM    +M             MM     MMMMMMMMMM '%MMMMMMM%' +M      'MM+                   
 
 
 

@@ -3671,7 +3671,7 @@ function updateMan() {
             "SONGLIST MANPAGE",
             "like going to a candy store as a child and seeing they're sold out of almost everything, but with music",
             " ",
-            "CAFFY WROTE THIS. WE HAVE LEMON DEMON. LOTS OF LEMON DEMON.",
+            "JESSE HERE: CAFFY WROTE THIS. WE HAVE LEMON DEMON. LOTS OF LEMON DEMON.",
             " ", //^ in case you can't tell, i've written around 20 manpages in a row so far
             "USAGE",
             "'songlist'",
@@ -4135,6 +4135,7 @@ var listy = [ " ",
     "queue add",
     "queue remove",
     "queue play",
+    "queue join",
     "note",
     "notes",
     "notelist",
@@ -4160,6 +4161,7 @@ var listy = [ " ",
 var fomb = [ " ",
     "default / def / d",
     "slant / sla / s",
+    "block / blo / b"
 ];
 
 var convertlist = [ " ",
