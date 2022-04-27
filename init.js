@@ -22,6 +22,11 @@
 
     im saying that like i even fully understand what they do
 
+    JESSE: google-chrome --disable-site-isolation-trials --disable-web-security --user-data-dir="~/tmp"
+
+        ^ this is to make debug -v work when not on a server
+
+
   */
 
 function debubg(message) {
@@ -265,6 +270,11 @@ var notes = new Object();
 var note_to_add = new Object();
 var note_name = "";
 var to_cut = "";
+var to_pass = new Object();
+var to_pass_pre = new Object();
+var var_debug_check;
+var debugvar_size = 5;
+var debvar_first_time = false;
 
 
 debubg("variable init finished...");
@@ -373,9 +383,11 @@ custom_themes = JSON.parse(local_storage("themes", JSON.stringify(custom_themes)
 textadventures_saves = JSON.parse(local_storage("text adventures", "{}"));
 custom_queues = JSON.parse(local_storage("queues", "{}"));
 notes = JSON.parse(local_storage("notes", "{}"));
+debugvar_size = local_storage("debug var size", 5);
 console.log(textadventures_saves);
 //textadventures_saves = textadventures_saves);
 //console.log(textadventures_saves);
+
 
 
 /*
@@ -647,8 +659,8 @@ function toggleHideP1Ascii() {
 function debugWindow(bool) {
     
     if (bool == true) {     // if it open window
-        debugwin_status = true;
-        debug_win = window.open("", "Title", "directories=0,titlebar=0,toolbar=0,location=0,status=0,menubar=0,scrollbars=no,resizable=no,width=400,height=350,top="+(screen.height-400)+",left="+(screen.width-840));
+        debugwin_status = true;            //      \/ REMEMBER TO CHANGE THIS VALUE JESSE!!
+        debug_win = window.open("", "_blank", "PopUp1,directories=0,titlebar=0,toolbar=0,location=0,status=0,menubar=0,scrollbars=no,resizable=no,width=400,height=350,top="+(screen.height-400)+",left="+(screen.width-840));
         try {
             debug_win.document.write(`
             <style>::-webkit-scrollbar {width: 10px;height: 10px;} .eee { width: 100vw; }</style>
@@ -694,13 +706,14 @@ function debugWindow(bool) {
     }
 }
 
-
 function debugVarWindow(bool) {
     
     if (bool == true) {     // if it open window
-        var_debugwin_status = true;
-        var_debug_win = window.open("", "Title", "directories=0,titlebar=0,toolbar=0,location=0,status=0,menubar=0,scrollbars=no,resizable=no,width=400,height=350,top="+(screen.height-400)+",left="+(screen.width-840));
+        var_debugwin_status = true;            //      \/ REMEMBER TO CHANGE THIS VALUE JESSE!!
+        var_debug_win = window.open("debug.html", "Title", "PopUp2,directories=0,titlebar=0,toolbar=0,location=0,status=0,menubar=0,scrollbars=no,resizable=no,width=400,height=350,top="+(screen.height-400)+",left="+(screen.width-840));
         try {
+
+            /*
             var_debug_win.document.write(`
             <style>::-webkit-scrollbar {width: 10px;height: 10px;} .eee { width: 100vw; }</style>
             <style id="scroll-text-style">::-webkit-scrollbar-thumb { background: ${accycolour}; }</style>
@@ -729,72 +742,193 @@ function debugVarWindow(bool) {
             }, 250);
 
             </script>`);
+            */
+
         } catch (err) {
             console.log("oh crap i think the popup got blocked or smth");
             displayAnim("\nUh oh! it seems that the debug window didn't open! Please make sure that popups are allowed on this site!", 7, "#ff0000");
         }
-        var var_debug_check = setInterval(function() { 
+        ///var_debug_win.document.getElementById("size-pass").innerHTML = debugvar_size;
+        debvar_first_time = false;
+        var_debug_check = setInterval(function() { 
+            var size_old = debugvar_size;
             if(var_debug_win.closed) {
                 clearInterval(var_debug_check);
                 debugvar = false;
                 debubg("debug var window closed!!");
-            }
-        }, 1000);
-    } else {
-        //var_debug_win.close();
-    }
-}
-
-
-function debugStatWindow(bool) {
-    
-    if (bool == true) {     // if it open window
-        stat_debugwin_status = true;
-        stat_debug_win = window.open("", "Title", "directories=0,titlebar=0,toolbar=0,location=0,status=0,menubar=0,scrollbars=no,resizable=no,width=400,height=350,top="+(screen.height-400)+",left="+(screen.width-840));
-        try {
-            stat_debug_win.document.write(`
-            <style>::-webkit-scrollbar {width: 10px;height: 10px;} .eee { width: 100vw; }</style>
-            <style id="scroll-text-style">::-webkit-scrollbar-thumb { background: ${accycolour}; }</style>
-            <style id="scroll-back-style">::-webkit-scrollbar-track { background: ${backcolour}; } ::-webkit-scrollbar-corner { background: #000000 }</style>
-            <style id="back-style">body { background-color: ${backcolour};}</style>
-            <style id="text-style">@font-face { font-family: COURIERPRIME; src: url(CourierPrime-Regular.ttf);} body { color: ${textcolour}; font-family: COURIERPRIME, monospace;} pre { font-family: COURIERPRIME, monospace;}</style>
-            <style id="window-resize"> body {width: 100px;}</style>
-            <title>CONSOLE DEBUG STAT</title>
-            <link rel="icon" href="icon.png">`);
-            stat_debug_win.document.write('<pre id="aaa" class="eee"></pre>'); 
-            stat_debug_win.document.write(`<script>
-            var toot = false;
-            setInterval(function() {                        // loop this every quarter second
-                toot = false;
-                try {
-                    if (window.opener.debugstat != true) {   // if debugvar is false
-                        window.close();                     // close window
-                    } else {
-                        toot = true;                        // else go and set it to true
-                    }
-                } catch (err) {                             // if it returns an error (like if the main console window is closed)
-                    if (toot == false) {
-                        window.close();                     // close this window
-                    }
+            } else {
+                if (size_old != debugvar_size || debvar_first_time == false) {
+                    var_debug_win.document.getElementById("size-pass").innerHTML = debugvar_size;
+                    debvar_first_time = true;
                 }
-            }, 250);
+                
+                to_pass_pre = JSON.stringify(to_pass);  // get full duplicate of to_pass
+                to_pass = {
+                    "user": user,
+                    "inputlock": inputlock,
+                    "debug": debug,
+                    "debugvar": debugvar,
+                    "snakegamestart": snakegamestart,
+                    "snakegame": snakegame,
+                    "enterlock": enterlock,
+                    "snakeinputs": snakeinputs,
+                    "copycomm": copycomm,
+                    "coopy": coopy,
+                    "commandhistorylock": commandhistorylock,
+                    "snakegamespeed": snakegamespeed,
+                    "snakeingame": snakeingame,
+                    "snaketick": snaketick,
+                    "textcolour": textcolour,
+                    "backcolour": backcolour,
+                    "accycolour": accycolour,
+                    "autocommand": autocommand,
+                    "worble_status": worble_status,
+                    "worble_colourblind": worble_colourblind,
+                    "worble_guesscount": worble_guesscount,
+                    "worble_stats_restarts": worble_stats_restarts,
+                    "worble_stats_currentstreak": worble_stats_currentstreak,
+                    "worble_stats_biggeststreak": worble_stats_biggeststreak,
+                    "worble_word": worble_word,
+                    "worble_word_id": worble_word_id,
+                    "worble_randomvalue": worble_randomvalue,
+                    "worble_gray": worble_gray,
+                    "worble_yellow": worble_yellow,
+                    "worble_green": worble_green,
+                    "worble_share_gray": worble_share_gray,
+                    "worble_share_yellow": worble_share_yellow,
+                    "worble_share_green": worble_share_green,
+                    "console_id": console_id,
+                    "music_playing": music_playing,
+                    "paused_lyrics": paused_lyrics,
+                    "portal_playing": portal_playing,
+                    "portal_type": portal_type,
+                    "og_textcolour": og_textcolour,
+                    "og_backcolour": og_backcolour,
+                    "og_backcolour": og_backcolour,
+                    "egg": egg,
+                    "credits_playing": credits_playing,
+                    "commandIndex": commandIndex,
+                    "inHistory": inHistory,
+                    "console_group_id": console_group_id,
+                    "cur_lyr": cur_lyr,
+                    "paused_lyrics": paused_lyrics,
+                    "windowWidth": windowWidth,
+                    "windowHeight": windowHeight,
+                    "aspectratio": aspectratio,
+                    "sizemod": sizemod,
+                    "orientation": orientation,
+                    "textheight": textheight,
+                    "listening_input": listening_input,
+                    "listening_end": listening_end,
+                    "stars_status": stars_status,
+                    "star_speed": star_speed,
+                    "star_fade_speed": star_fade_speed,
+                    "star_runtime": star_runtime,
+                    "star_running": star_running,
+                    "starlock": starlock,
+                    "starTimers": starTimers,
+                    "touchtonetm": touchtonetm,
+                    "autoscrolling": autoscrolling,
+                    "scroll_bottom": scroll_bottom,
+                    "autoscroll_buffer": autoscroll_buffer,
+                    "cursor_pos": cursor_pos,
+                    "doglock": doglock,
+                    "dog": dog,
+                    "dog_pets": dog_pets,
+                    "dog_speed": dog_speed,
+                    "dog_anim_index": dog_anim_index,
+                    "dog_anim_len": dog_anim_len,
+                    "dog_anim_go": dog_anim_go,
+                    "dogtime": dogtime,
+                    "dog_outfit": dog_outfit,
+                    "cur_ta": cur_ta,
+                    "adventure_lock": adventure_lock,
+                    "cur_cipher": cur_cipher,
+                    "in_queue": in_queue,
+                    "debugvar_size": debugvar_size
+                }
+            
+                if (JSON.stringify(to_pass) == to_pass_pre) {   // if its the same
+            
+                } else {    // if it's different
+                    
+                    var_debug_win.document.getElementById("passthrough").innerHTML = JSON.stringify(to_pass);
 
-            </script>`);
-        } catch (err) {
-            console.log("oh crap i think the popup got blocked or smth");
-            displayAnim("\nUh oh! it seems that the debug window didn't open! Please make sure that popups are allowed on this site!", 7, "#ff0000");
-        }
-        var stat_debug_check = setInterval(function() { 
-            if(stat_debug_win.closed) {
-                clearInterval(stat_debug_check);
-                debugvar = false;
-                debubg("debug stat window closed!!");
+                }
+            
             }
-        }, 1000);
+        }, 100);
     } else {
         //var_debug_win.close();
     }
 }
+
+
+/*
+intervalVar = setInterval(bebu, 100);
+function bebu() {
+    if (debugvar == true) {
+        document.getElementById("debubtextvar").innerHTML = `
+                      user: ${user}
+                 inputlock: ${inputlock}
+                   mainsys: ${mainsys}
+                   filesys: ${filesys}
+                     debug: ${debug}
+                  debugvar: ${debugvar}
+                 debugHide: ${debugHide}
+              debugHideVar: ${debugHideVar}
+            snakegamestart: ${snakegamestart}
+                 snakegame: ${snakegame}
+                 enterlock: ${enterlock}
+               snakeinputs: ${snakeinputs}
+                  copycomm: ${copycomm}
+                     coopy: ${coopy}
+                 debubHide: ${debubHide}
+        commandhistorylock: ${commandhistorylock}
+           currentHistCOmm: ${currentHistCOmm}
+                currentCOM: ${currentCOM}
+            snakegamespeed: ${snakegamespeed}
+               snakeingame: ${snakeingame}
+                 snaketick: ${snaketick}
+                textcolour: ${textcolour}
+                backcolour: ${backcolour}
+               autocommand: ${autocommand}
+             worble_status: ${worble_status}
+        worble_colourblind: ${worble_colourblind}
+         worble_guesscount: ${worble_guesscount}
+      worble_stats_guesses: ${worble_stats_guesses}
+     worble_stats_restarts: ${worble_stats_restarts}
+worble_stats_currentstreak: ${worble_stats_currentstreak}
+worble_stats_biggeststreak: ${worble_stats_biggeststreak}
+               worble_word: ${worble_word}
+            worble_word_id: ${worble_word_id}
+        worble_randomvalue: ${worble_randomvalue}
+               worble_gray: ${worble_gray}
+              worble_green: ${worble_green}
+             worble_yellow: ${worble_yellow}
+         worble_share_gray: ${worble_share_gray}
+        worble_share_green: ${worble_share_green}
+       worble_share_yellow: ${worble_share_yellow}
+                console_id: ${console_id}
+             music_playing: ${music_playing}
+             paused_lyrics: ${paused_lyrics}
+            portal_playing: ${portal_playing}
+               portal_type: ${portal_type}
+             og_textcolour: ${og_textcolour}
+             og_backcolour: ${og_backcolour}
+                       egg: ${egg}
+           credits_playing: ${credits_playing}
+`;autocommand
+        console.log("binted.");
+    }
+}
+
+for(var b in window) { 
+  if(window.hasOwnProperty(b)) console.log(b); 
+}
+
+*/
+
 
 
 debubg("debug window init finished...");
@@ -1400,7 +1534,7 @@ var LyricTimer = function(callback, delay) {
 
 
 function lyrFunc(lyrics, i) {
-    debubg(`lyric: "${lyrics[i]["text"].replaceAll("\n", "")}"`);
+    debubg(`lyric: "${`${lyrics[i]["text"]}`.replaceAll("\n", "")}"`);
     var lyr_exec = false;
     if (lyrics[i]["exec"]) {
         lyr_exec = lyrics[i]["exec"];
@@ -1690,66 +1824,6 @@ var end1 = true;
 debubg("more variable init finished...");
 //intervalID1 = setInterval(animyOne, animSPEED);
 
-/*
-intervalVar = setInterval(bebu, 100);
-function bebu() {
-    if (debugvar == true) {
-        document.getElementById("debubtextvar").innerHTML = `
-                      user: ${user}
-                 inputlock: ${inputlock}
-                   mainsys: ${mainsys}
-                   filesys: ${filesys}
-                     debug: ${debug}
-                  debugvar: ${debugvar}
-                 debugHide: ${debugHide}
-              debugHideVar: ${debugHideVar}
-            snakegamestart: ${snakegamestart}
-                 snakegame: ${snakegame}
-                 enterlock: ${enterlock}
-               snakeinputs: ${snakeinputs}
-                  copycomm: ${copycomm}
-                     coopy: ${coopy}
-                 debubHide: ${debubHide}
-        commandhistorylock: ${commandhistorylock}
-           currentHistCOmm: ${currentHistCOmm}
-                currentCOM: ${currentCOM}
-            snakegamespeed: ${snakegamespeed}
-               snakeingame: ${snakeingame}
-                 snaketick: ${snaketick}
-                textcolour: ${textcolour}
-                backcolour: ${backcolour}
-               autocommand: ${autocommand}
-             worble_status: ${worble_status}
-        worble_colourblind: ${worble_colourblind}
-         worble_guesscount: ${worble_guesscount}
-      worble_stats_guesses: ${worble_stats_guesses}
-     worble_stats_restarts: ${worble_stats_restarts}
-worble_stats_currentstreak: ${worble_stats_currentstreak}
-worble_stats_biggeststreak: ${worble_stats_biggeststreak}
-               worble_word: ${worble_word}
-            worble_word_id: ${worble_word_id}
-        worble_randomvalue: ${worble_randomvalue}
-               worble_gray: ${worble_gray}
-              worble_green: ${worble_green}
-             worble_yellow: ${worble_yellow}
-         worble_share_gray: ${worble_share_gray}
-        worble_share_green: ${worble_share_green}
-       worble_share_yellow: ${worble_share_yellow}
-                console_id: ${console_id}
-             music_playing: ${music_playing}
-             paused_lyrics: ${paused_lyrics}
-            portal_playing: ${portal_playing}
-               portal_type: ${portal_type}
-             og_textcolour: ${og_textcolour}
-             og_backcolour: ${og_backcolour}
-                       egg: ${egg}
-           credits_playing: ${credits_playing}
-`;autocommand
-        console.log("binted.");
-    }
-}
-
-*/
 function animyOne() {
     //debubg(end1);
     if (end1 == false) {
@@ -2341,10 +2415,7 @@ function setAccyColour(colour, save) {
         debug_win.document.getElementById("scroll-text-style").innerHTML = `::-webkit-scrollbar-thumb { background: ${colour}; }`;
     }
     if (debugvar == true) {
-        var_debug_win.document.getElementById("scroll-text-style").innerHTML = `::-webkit-scrollbar-thumb { background: ${colour}; }`;
-    }
-    if (debugstat == true) {
-        stat_debug_win.document.getElementById("scroll-text-style").innerHTML = `::-webkit-scrollbar-thumb { background: ${colour}; }`;
+        var_debug_win.document.getElementById("scroll-text-style").innerHTML = `::-webkit-scrollbar-thumb { background: ${colour}; } #variables td:hover {background-color: ${colour}60 /*keep the 60 at the end, that's the opacity of the green*/} #gear-path { fill: ${colour};} #setbox { border: 1px solid ${colour};}`;
     }
 }
 
@@ -2393,11 +2464,7 @@ function setBackColour(colour, save) {
     }
     if (debugvar == true) {
         var_debug_win.document.getElementById("scroll-back-style").innerHTML = `::-webkit-scrollbar-track { background: ${colour}; } ::-webkit-scrollbar-corner { background: ${colour} }`;
-        var_debug_win.document.getElementById("back-style").innerHTML = `body { background-color: ${colour};}`;
-    }
-    if (debugstat == true) {
-        stat_debug_win.document.getElementById("scroll-back-style").innerHTML = `::-webkit-scrollbar-track { background: ${colour}; } ::-webkit-scrollbar-corner { background: ${colour} }`;
-        stat_debug_win.document.getElementById("back-style").innerHTML = `body { background-color: ${colour};}`;
+        var_debug_win.document.getElementById("back-style").innerHTML = `body { background-color: ${colour};} #setbox { background-color: ${colour}; }`;
     }
     if (do_save == true) {
         localStorage.setItem("back-colour", colour);
@@ -2440,11 +2507,7 @@ function setTextColour(colourcode, save) {
     }
     if (debugvar == true) {
         // rip
-        var_debug_win.document.getElementById("text-style").innerHTML = `body { color: ${colourcode};}`;
-    }
-    if (debugstat == true) {
-        // rip
-        stat_debug_win.document.getElementById("text-style").innerHTML = `body { color: ${colourcode};}`;
+        var_debug_win.document.getElementById("text-style").innerHTML = `@font-face { font-family: COURIERPRIME; src: url(CourierPrime-Regular.ttf);} body { color: ${colourcode};} body { color: ${colourcode}; font-family: COURIERPRIME, monospace;} #variables td, #variables th { border: 1px solid ${colourcode}; }`;
     }
 
     if (do_save == true) {
@@ -4504,12 +4567,11 @@ window.onresize = sizeCheck;
 function closeDebuG() {
     if (debug == true) {
         // DEBUG WIN ADDITION POINT
+        clearInterval(var_debug_check);
         debug_win.close();
         var_debug_win.close();
-        stat_debug_win.close();
         debugwin_status = false;
         var_debugwin_status = false;
-        stat_debugwin_status = false;
     }
 }
 
@@ -4534,3 +4596,4 @@ music.addEventListener('timeupdate', (event) => {
 */
 
 debubg("listeners added...");
+

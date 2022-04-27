@@ -2952,6 +2952,13 @@ music play      | type this along with a song name! (as long as it's in the list
 music pause     | pauses any playing music
 music skip      | skips current song
 music volume    | type this along with a value from 0 to 100 to set the music volume!
+queue add       | type this in followed with a song name to add it to your song queue!
+queue remove    | type this in followed with a place in the queue to remove the song from that place!
+queue play      | use this to start playing the current queue!
+queue join      | already playing a song? use this to make the queue start playing after your current song finishes!
+queue clear     | clears your current queue
+queues          | lists all pre-made queues
+queue use       | type this in followed with a name of a pre-made queue, and it will set your current queue to the pre-made queue!
 `,
     "art": `
 ART HELP PAGE
@@ -3001,7 +3008,7 @@ these are developer commands, so if they are confusing, that's fine
 
 debug
 debug -v
-debug -s
+debugvar-size [number]
 cinfo
 `,
     "danger": `
@@ -3853,6 +3860,7 @@ function updateMan() {
             "   add | adds a song to the queue",
             "remove | removes a song from the queue",
             "  play | plays the current queue",
+            "  join | joins the queue while youre playing a song",
             " clear | clears the queue"
         ],
         "queue add":[
@@ -3898,6 +3906,14 @@ function updateMan() {
             " ",
             "USAGE:",
             "'queue clear'"
+        ],
+        "queue join":[
+            "QUEUE JOIN MANPAGE:",
+            " ",
+            "joins the queue, so that it'll start playing the queue after your current song",
+            " ",
+            "USAGE:",
+            "'queue join'"
         ],
         "note":[
             "NOTE MANPAGE",
@@ -3989,7 +4005,18 @@ function updateMan() {
             "USAGE:",
             "'note clear'"
         ],
-        "note purge": "note clear"
+        "note purge": "note clear",
+        "debugvar-size":[
+            "DEBUGVAR-SIZE MANPAGE",
+            " ",
+            "changes how many variables are shown per row in 'debug -v'",
+            " ",
+            "USAGE:",
+            "'debugvar-size [number]'",
+            " ",
+            "EXAMPLE:",
+            "'debugvar-size 10'"
+        ]
     }
 }
 
@@ -4125,7 +4152,7 @@ var listy = [ " ",
     "note export",
     "note import",
     "note view",
-    "debug -s",
+    "debugvar-size",
 
     "* command is currently in-development and may break the site."
 ]; 
@@ -5568,7 +5595,7 @@ songs = {
         "album": "Portal OST",
         "art": "aperture1.png",
         "audio": "still_alive.mp3",
-        "volume": 1,
+        "volume": 0.4,
         "lyrics": [
             // credits
             {"text": false, "dur": [8569, 8569], "exec": "portalCreditAnim(1, 60);"},

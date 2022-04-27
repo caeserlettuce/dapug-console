@@ -438,10 +438,10 @@ function parseCommand(command) {
         debugvar = !debugvar;         // toggle it to be the opposite
 
         debugVarWindow(debugvar);     // do whatever it needs to to the window
-    } else if (command == "debug -s") {
-        debugstat = !debugstat;         // toggle it to be the opposite
 
-        debugStatWindow(debugstat);     // do whatever it needs to to the window
+        if (user == "dev") {
+            displayAnim("\nWARNING: if you aren't using a local server to host this, debug -v doesn't work!! (i tried to fix it, trust me)", 1);
+        }
     } else if (command == "convert -list") {
         displayAnim(convertlist, 1);
         
@@ -1624,6 +1624,22 @@ function parseCommand(command) {
         } else if (operation == "play") {
             parseCommand(`music play ${music_queue[0]}`);
             in_queue = true;
+        } else if (operation == "join" ) {
+            if (music_playing == true) {
+                if (in_queue == false) {
+                    if (music_queue[0]) {   // if there's stuff i nthe queuye
+                        in_queue = true;
+                    } else {
+                        displayAnim("\nthere's nothing in the queue!", 7);
+                    }
+                } else {
+                    displayAnim("\nyou're already in the queue!", 7);
+                }
+            } else {
+                displayAnim("\nyou're not playing any music!", 7);
+            }
+            
+            
         } else if (operation == "remove") {
             // remove music from queue
             var inny = parseInt(input);
@@ -2010,8 +2026,27 @@ function parseCommand(command) {
             displayAnim("\nthat operation doesn't exist!! use 'man note' for help!", 7);
         }
 
-    }
+    } else if (argCommand == "debugvar-size") {
 
+        var mmm = argComm(commandInit);
+        var eee = [...mmm];
+        eee.shift();
+        var input = eee.join(" ");
+
+        var number_test = /^[0-9]+$/i.test(input);      // i still hate regex
+
+        if (number_test == true) {
+
+            debugvar_size = input;
+            var_debug_win.document.getElementById("size-pass").innerHTML = debugvar_size;
+            localStorage.setItem("debug var size", debugvar_size);
+
+            
+
+        } else {
+            displayAnim("\nplease enter a valid number!", 7);
+        }
+    }
     else {
         displayAnim(`\ncommand error: ${commandInit} is not an existing command.`, 7);
     }

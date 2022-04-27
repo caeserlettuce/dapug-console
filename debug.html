@@ -2,66 +2,165 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>DEBUG</title>
+    <style id="scroll-text-style">::-webkit-scrollbar-thumb { background: #238636; } #variables td:hover {background-color: #23863660 /*keep the 60 at the end, that's the opacity of the green*/} #gear-path { fill:#238636;} #setbox { border: 1px solid #238636;}</style>
+    <style id="scroll-back-style">::-webkit-scrollbar-track { background: #0d1117; } ::-webkit-scrollbar-corner { background: #0d1117; }</style>
+    <style id="back-style">body { background-color: #0d1117;} #setbox { background-color: #0d1117; }</style>
+    <style id="text-style">@font-face { font-family: COURIERPRIME; src: url(CourierPrime-Regular.ttf);} body { color: #b1d1d9; font-family: COURIERPRIME, monospace;} #variables td, #variables th { border: 1px solid #b1d1d9; }</style>
+    <style id="window-resize"> body {width: 100px;}</style>
     <style>
-      body {
-        background-color: black;
-        color: #7cfc00;
-      }
+    ::-webkit-scrollbar {
+      width: 10px;
+      height: 10px;
+    }
+    pre {
+      margin: 0px;
+      padding-left: 10px;
+      padding-right: 10px;
+      padding-top: 0px;
+      padding-bottom: 10px;
+      border: 0px;
+      position: absolute;
+      left: 0px;
+      top: 0px;
+      height: fit-content;
+      user-select: none;
+    }
 
-      .box {
-        text-align: center;
-        border: 3px #1e1e1e solid;
-        padding: 5px;
-        width: fit-content;
-      }
-
-
-      .wrapper {
-        display: grid;
-        grid-template-columns: repeat(7, 1px);
-        gap: 1px;
-      }
-      
-      #container {
-        display: grid;
-        grid-template-columns: repeat(100vw, 50px) 100vw;
-        grid-gap: 5px;
-        box-sizing: border-box;
-        height: 200px;
-        width: 100%;
-        background-color: #8cffa0;
-        padding: 10px;
-      }
-
-      #container > div {
-        background-color: #8ca0ff;
-        padding: 5px;
-      }
-
+    pre {
+      font-family: COURIERPRIME, monospace;
+    }
+    
     </style>
+    <style id="table-style">
+    #variables {
+      font-family: COURIERPRIME, monospace;
+      border-collapse: collapse;
+      width: calc(100vw - 30px);
+    }
+    #variables td, #variables th {
+      padding: 8px;
+    }
+
+
+    #passthrough {
+      position: absolute;
+      display: none;
+    }
+    #size-pass {
+      position: absolute;
+      display: none;
+    }
+
+    
+    </style>
+
+    <title>CONSOLE DEBUG VAR</title>
+    <link rel="icon" href="icon.png">
   </head>
   <body>
-  <div id="container">
-    <div class="box">hehe</div>
-    <div class="box">haha</div>
-    <div class="box">hehe</div>
-    <div class="box">haha</div>
-    <div class="box">hehe</div>
-    <div class="box">haha</div>
-    <div class="box">hehe</div>
-    <div class="box">haha</div>
-    <div class="box">hehe</div>
-    <div class="box">haha</div>
-    <div class="box">hehe</div>
-    <div class="box">haha</div>
-    <div class="box">hehe</div>
-    <div class="box">haha</div>
-    <div class="box">hehe</div>
-    <div class="box">haha</div>
-    <div class="box">hehe</div>
-    <div class="box">haha</div>
-  </div>
 
+
+    
+
+    <span id="passthrough">{"user":"dev","inputlock":false,"debug":false,"debugvar":true,"snakegamestart":false,"snakegame":false,"enterlock":false,"snakeinputs":false,"copycomm":"","coopy":false,"commandhistorylock":false,"snakegamespeed":1,"snakeingame":false,"snaketick":0,"textcolour":"#b1d1d9","backcolour":"#0d1117","accycolour":"#238636","autocommand":false,"worble_status":true,"worble_colourblind":false,"worble_guesscount":0,"worble_stats_restarts":0,"worble_stats_currentstreak":0,"worble_stats_biggeststreak":0,"worble_word":"","worble_word_id":0,"worble_randomvalue":0,"worble_gray":"#3a3a3c","worble_yellow":"#b59f3b","worble_green":"#538d4e","worble_share_gray":"⬛","worble_share_yellow":"🟨","worble_share_green":"🟩","console_id":1,"music_playing":false,"paused_lyrics":true,"portal_playing":false,"portal_type":1,"og_textcolour":"#b1d1d9","og_backcolour":"#0d1117","egg":false,"credits_playing":false,"commandIndex":0,"inHistory":false,"console_group_id":0,"cur_lyr":0,"windowWidth":1680,"windowHeight":907,"aspectratio":1.8522601984564497,"sizemod":1,"orientation":"landscape","textheight":20,"listening_input":false,"listening_end":true,"stars_status":false,"star_speed":50,"star_fade_speed":250,"star_runtime":0,"star_running":false,"starlock":false,"starTimers":0,"touchtonetm":true,"autoscrolling":false,"scroll_bottom":true,"autoscroll_buffer":300,"cursor_pos":[1213,355],"doglock":false,"dog":false,"dog_pets":0,"dog_speed":50,"dog_anim_index":0,"dog_anim_len":0,"dog_anim_go":false,"dogtime":0,"dog_outfit":"normal","cur_ta":"","adventure_lock":"","cur_cipher":"","in_queue":false}</span>
+    <span id="size-pass">5</span>
+
+
+
+    <pre>
+
+      <table id="variables">
+        
+      </table>
+
+
+    </pre>
+
+    <!--
+      '{"user":"dev","inputlock":false,"debug":false,"debugvar":true,"snakegamestart":false,"snakegame":false,"enterlock":false,"snakeinputs":false,"copycomm":"","coopy":false,"commandhistorylock":false,"snakegamespeed":1,"snakeingame":false,"snaketick":0,"textcolour":"#b1d1d9","backcolour":"#0d1117","accycolour":"#238636","autocommand":false,"worble_status":true,"worble_colourblind":false,"worble_guesscount":0,"worble_stats_restarts":0,"worble_stats_currentstreak":0,"worble_stats_biggeststreak":0,"worble_word":"","worble_word_id":0,"worble_randomvalue":0,"worble_gray":"#3a3a3c","worble_yellow":"#b59f3b","worble_green":"#538d4e","worble_share_gray":"⬛","worble_share_yellow":"🟨","worble_share_green":"🟩","console_id":1,"music_playing":false,"paused_lyrics":true,"portal_playing":false,"portal_type":1,"og_textcolour":"#b1d1d9","og_backcolour":"#0d1117","egg":false,"credits_playing":false,"commandIndex":0,"inHistory":false,"console_group_id":0,"cur_lyr":0,"windowWidth":1680,"windowHeight":907,"aspectratio":1.8522601984564497,"sizemod":1,"orientation":"landscape","textheight":20,"listening_input":false,"listening_end":true,"stars_status":false,"star_speed":50,"star_fade_speed":250,"star_runtime":0,"star_running":false,"starlock":false,"starTimers":0,"touchtonetm":true,"autoscrolling":false,"scroll_bottom":true,"autoscroll_buffer":300,"cursor_pos":[1213,355],"doglock":false,"dog":false,"dog_pets":0,"dog_speed":50,"dog_anim_index":0,"dog_anim_len":0,"dog_anim_go":false,"dogtime":0,"dog_outfit":"normal","cur_ta":"","adventure_lock":"","cur_cipher":"","in_queue":false}'
+    -->
+
+    <script>
+      var vari_tm = new Object();
+      var vari_old = "";
+      var size = parseInt(document.getElementById("size-pass").innerHTML);
+      var keys_tm = new Array();
+      var final_string = "";
+
+      function makeTable() {
+        var final_string = "";
+        var length = 0;
+        
+
+        for (keys in vari_tm) {
+          length += 1;
+          keys_tm.push(keys);
+        }
+
+        console.log("length: ", length);
+
+        var len_divy = Math.floor( ( length / size ) + 1 );
+
+        console.log("rows: ", len_divy);
+
+        for (let i = 0; i < len_divy; i++) { // for each row
+
+          final_string += "<tr>\n";
+
+            for (let i = 0; i < size; i++) {
+              if (keys_tm[0]) {
+                final_string += `<td>${keys_tm[0]}<br>${vari_tm[keys_tm[0]]}</td>\n`;
+                keys_tm.shift();
+              } else {
+                final_string += `<td>⠀<br>⠀</td>\n`;
+              }
+              
+            }
+          final_string += "</tr>\n";
+        }
+
+        document.getElementById("variables").innerHTML = final_string;
+
+      }
+
+
+
+
+      var toot = false;
+      setInterval(function() {
+          toot = false;
+          try {
+              if (window.opener.debugvar != true) {   // if debugvar is false
+                  window.close();                     // close window
+              } else {
+                  toot = true;                        // else go and set it to true
+              }
+          } catch (err) {                             // if it returns an error (like if the main console window is closed)
+              if (toot == false) {
+                  window.close();                     // close this window
+              }
+          }
+          // the rest of the code
+
+          vari_old = JSON.stringify(vari_tm);
+          vari_tm = JSON.parse(document.getElementById("passthrough").innerHTML);
+          size = parseInt(document.getElementById("size-pass").innerHTML);
+
+          if (JSON.stringify(vari_tm) != vari_old) {
+            console.log(vari_tm);
+            makeTable()
+          }
+          
+
+
+      }, 100);
+
+
+    </script>
+    <!--
+    <script>
+      
+      </script>
+-->
   </body>
 </html>
