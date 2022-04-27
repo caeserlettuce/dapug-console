@@ -277,6 +277,7 @@ var debugvar_size = 5;
 var debvar_first_time = false;
 var music_volume = 1;
 var console_visible = true;
+var encryption_key = new Object();
 
 
 debubg("variable init finished...");
@@ -386,10 +387,11 @@ textadventures_saves = JSON.parse(local_storage("text adventures", "{}"));
 custom_queues = JSON.parse(local_storage("queues", "{}"));
 notes = JSON.parse(local_storage("notes", "{}"));
 debugvar_size = local_storage("debug var size", 5);
+encryption_key = JSON.parse(local_storage("encryptionkey", "{}"));
 //music_volume = local_storage("music volume", 1)
 console.log(textadventures_saves);
 //textadventures_saves = textadventures_saves);
-//console.log(textadventures_saves);
+//console.log(textadventures_saves);                JSON.parse(local_storage("encryption key", "{}"));
 
 
 
@@ -3873,8 +3875,10 @@ function crypt(direction, text, cipher) {
         
         var result = "";
 
+        matched = matched.toLowerCase();
+
         if (maptm[matched]) {
-            result = `${maptm[`${matched}`.toLowerCase()]}`.toUpperCase();
+            result = `${maptm[matched]}`.toUpperCase();
         } else {
             result = matched;
         }
@@ -3885,6 +3889,38 @@ function crypt(direction, text, cipher) {
 
     return str
 
+}
+
+function crypt_tm(direction, text, cipher) {
+    var maptm_og = new Object();
+    var str = `${text}`;
+    var maptm = new Object();
+    if (direction == "de") {
+        maptm_og = cipher;
+        for (i in maptm_og) {
+            var val = maptm_og[i];
+            maptm[val] = i;
+        }
+    } else {
+        maptm = cipher;
+    }
+    console.log(maptm);
+    console.log(`STIRR'${str}'`);
+    var re = new RegExp(Object.keys(maptm).join("|"),"gi");         // dont even ask because i don't know either
+    str = str.replace(re, function(matched){
+        debubg(matched);
+        //debubg(first);
+        var result = "";
+        matched = matched.toLowerCase();
+        if (maptm[matched]) {
+            result = `${maptm[matched]}`.toUpperCase();
+        } else {
+            result = matched;
+        }
+        debubg(result)
+        return result
+    });
+    return str
 }
 
 function accspace(text) {
@@ -4224,6 +4260,27 @@ function send_notif(in_json) {
 //
 //
 debubg("extra tool functions init finished...");
+
+
+
+function generateEncryptionKey() {  // generate a fancy prancy encryption key ™
+    var encryption_key_obj = new Object();
+    var enc_sym = [...encryption_encodedtext]   // make a duplicate object of the symbols object
+    
+
+    for (i in encryption_plaintext) {   // for all possible plaintext characters
+        var letter = encryption_plaintext[i];
+        //debubg(`getting unicode for letter '${letter}'`);
+        var sym_len = enc_sym.length - 1;
+        var sym_id = getRandomInt(0, sym_len);  // get a random integer from value 0 to however long all the symbols are
+
+        debubg(`pt:${letter},id:${sym_id},ct:${enc_sym[sym_id]},le:${sym_len}`);
+        encryption_key_obj[letter] = enc_sym[sym_id];
+        enc_sym.splice(sym_id, 1);
+    }
+
+    return encryption_key_obj
+}
 
 
 

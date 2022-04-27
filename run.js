@@ -2049,7 +2049,7 @@ function parseCommand(command) {
         } else {
             displayAnim("\nplease enter a valid number!", 7);
         }
-    } else if (command == "time") {
+    } else if (command == "time" || command == "date") {
 
         var rand = getRandomInt(0,10);
 
@@ -2061,7 +2061,54 @@ function parseCommand(command) {
             displayAnim(`\n${timmy.day} ${timmy.month} ${timmy.year}, ${timmy.hour}:${timmy.minute} ${timmy.ampm}`, 7);
         }
 
+    } else if (argCommand == "key") {
+        
+        var mmm = argComm(commandInit);
+        var eee = [...mmm];
+        eee.shift();
+        var operation = mmm[1];
+        eee.shift();
+        var input = eee.join(" ");
+
+
+
+        if (operation == "generate") {  // generate key
+
+            var keytm = generateEncryptionKey();
+
+            displayAnim("\nkey has been generated and copied to your clipboard. use 'key use [key]' to use your newly generated key.", 7);
+            
+            copyclip(JSON.stringify(keytm));
+
+        } else if (operation == "use") {
+
+            encryption_key = JSON.parse(input);
+
+            var beat = JSON.stringify(encryption_key);
+
+            debubg(beat);
+
+            localStorage.setItem("encryptionkey", beat);
+
+            displayAnim("\nencryption key set.", 7);
+
+        }
+
+    } else if (argCommand == "encrypt") {
+
+        displayAnim("\nwhat text would you like to encrypt?", 7);
+
+        askInput(() => {
+
+            var crypted = crypt_tm("en", ask_return, encryption_key);
+            displayAnim("\nencrypted text has been copied to your clipboard.", 7);
+            copyclip(crypted);
+
+        });
+
     }
+
+
     else {
         displayAnim(`\ncommand error: ${commandInit} is not an existing command.`, 7);
     }
