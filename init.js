@@ -1,17 +1,33 @@
-//      ____   ___     ____   __  __ ______    __     ____   __        __ ______ ____   _   __ _____  ____   __     ______ 
-//     / __ \ /   |   / __ \ / / / // ____/   / /    / __ \ / /      _/_// ____// __ \ / | / // ___/ / __ \ / /    / ____/
-//    / / / // /| |  / /_/ // / / // / __    / /    / / / // /     _/_/ / /    / / / //  |/ / \__ \ / / / // /    / __/  
-//   / /_/ // ___ | / ____// /_/ // /_/ /_  / /___ / /_/ // /___ _/_/  / /___ / /_/ // /|  / ___/ // /_/ // /___ / /___ 
-//  /_____//_/  |_|/_/     \____/ \____/(_)/_____/ \____//_____//_/    \____/ \____//_/ |_/ /____/ \____//_____//_____/
-//                                                                                                                    
-//
-//  ITS THE DAPUG.LOL CONSOLE!!!!!
-//
-//
-//
-//  yes
-//
-//
+/*
+        ____   ___     ____   __  __ ______    __     ____   __        __ ______ ____   _   __ _____  ____   __     ______ 
+       / __ \ /   |   / __ \ / / / // ____/   / /    / __ \ / /      _/_// ____// __ \ / | / // ___/ / __ \ / /    / ____/
+      / / / // /| |  / /_/ // / / // / __    / /    / / / // /     _/_/ / /    / / / //  |/ / \__ \ / / / // /    / __/  
+     / /_/ // ___ | / ____// /_/ // /_/ /_  / /___ / /_/ // /___ _/_/  / /___ / /_/ // /|  / ___/ // /_/ // /___ / /___ 
+    /_____//_/  |_|/_/     \____/ \____/(_)/_____/ \____//_____//_/    \____/ \____//_/ |_/ /____/ \____//_____//_____/
+                                                                                                                    
+
+    ITS THE DAPUG.LOL CONSOLE!!!!!
+
+
+
+    yes
+
+    NOTE: for addind new external windows, i have put this text here:
+
+    // DEBUG WIN ADDITION POINT
+
+    at every point of which you need to add a new variable/function for the window
+
+    id suggest you let jesse add them (looking at you caffy) cause its a bit confusing for someone who didnt write those functions
+
+    im saying that like i even fully understand what they do
+
+    JESSE: google-chrome --disable-site-isolation-trials --disable-web-security --user-data-dir="~/tmp"
+
+        ^ this is to make debug -v work when not on a server
+
+
+  */
 
 function debubg(message) {
     var dat = new Date();
@@ -50,7 +66,7 @@ function erry(message) {
         //texty = pogchamp.innerHTML;
         //pogchamp.innerHTML = `${texty}<br>${message}`;
         //debug_win.document.write('<pre>HEHE</pre>');
-        debug_win.document.getElementById("aaa").innerHTML += `<p style="color: #ff8080; width: auto; margin: 0px; padding: 0px; border: 1px #ff000020 solid; background-color: #ff000040;">[${tim}]: ${message}</p>`;;
+        debug_win.document.getElementById("aaa").innerHTML += `<p style="color: #ff8080; width: fit-content; margin: 0px; padding: 0px; border: 1px #ff000020 solid; background-color: #ff000040;">[${tim}]: eee${message}</p>`;;
         mom = debug_win.document.getElementById("aaa");
         mom.scrollTop = mom.scrollHeight;
 
@@ -71,9 +87,12 @@ var consoltext = "";
 var inputlock = false;
 var mainsys = true;
 var filesys = false;
-var comments = "";
+var comments = new Object();
+// DEBUG WIN ADDITION POINT
 var debug = false;
 var debugvar = false;
+var debugstat = false;
+
 var debugHide = false;
 var debugHideVar = false;
 var debugHideSonginfo = false;
@@ -159,14 +178,24 @@ var modlist = [                                                                 
     "https://raw.githubusercontent.com/caeserlettuce/dapug-console/83165118e417052d21f49dedab18b381338079db/example_mod.js",
 ]
 var htmlmods = document.getElementById("mods");
+// DEBUG WIN ADDITION POINT
 var debug_win;
-var debugvar_win;
+var var_debug_win;
+var stat_debug_win;
+
+var debugwin_status = false;
+var var_debugwin_status = false;
+var stat_debugwin_status = false;
+
+var autodebugwin = false;
+var var_autodebugwin = false;
+var stat_autodebugwin = false;
+
+// continue with the rest of the code
 var credits_playing = false;
 var lyr_disp;
 var orientation = "what";
 var textheight = 20;
-var debugwin_status = false;
-var autodebugwin = false;
 var listening_input = false;
 var ask_do = function() {console.log("aaaaa!! im broken i think!!")};
 var ask_return = "";
@@ -233,40 +262,24 @@ var adventures = {                  // text adventures info
 var lyric_interval;
 var processed_times = new Array();
 var cur_cipher = "";
-
-
+var img_canvas = document.getElementById("image-canvas");
+var music_queue = new Array();
+var in_queue = false;
+var custom_queues = new Object();
+var notes = new Object();
+var note_to_add = new Object();
+var note_name = "";
+var to_cut = "";
+var to_pass = new Object();
+var to_pass_pre = new Object();
+var var_debug_check;
+var debugvar_size = 5;
+var debvar_first_time = false;
+var music_volume = 1;
 
 
 debubg("variable init finished...");
 // local storage setup
-
-
-function getCommentIter() {             // dont touch this until i redo how comments work
-
-    var commentIter = localStorage.getItem("commiter");
-
-    if (commentIter) {
-        // exists
-        debubg("local storage comment iteration does exist, skipping creation.");
-    } else {
-        // doesnt
-        debubg("local storage comment iteration doesn't exist. creating one.");
-        localStorage.setItem("commiter", 0);
-    }
-
-    var localComments = localStorage.getItem("comments");
-
-    if(localComments) {
-        // exists
-        debubg("local storage comments does exist, skipping creation.");
-    } else {
-        // doesnt
-        debubg("local storage comments doesn't exist. creating one.");
-        localStorage.setItem("comments", '{ "why": "yes" }');
-        comments = '{ "why": "yes" }';
-    }
-    return commentIter
-}
 
 
 function local_storage(name, default_tm, if_exists, if_doesnt) {
@@ -316,7 +329,11 @@ local_storage("account registry update", "true", function gromit(){             
         localStorage.setItem("accounts", JSON.stringify(new_registry));                     // set it as the new registry
     }
 });
-
+if (localStorage.getItem("comments")) {
+    // im sorry but your comments are being reset
+    // my condolences\
+    // NO IM TURNING THEM INTO NOTES NEVERMIND
+}
 
 textcolour = local_storage("text-colour", "#7cfc00");                   // colour localstorage
 backcolour = local_storage("back-colour", "#000000");
@@ -365,9 +382,14 @@ worble_word_id = local_storage("worble_word_id", 0);
 worble_word_id = parseInt(worble_word_id);
 custom_themes = JSON.parse(local_storage("themes", JSON.stringify(custom_themes)));
 textadventures_saves = JSON.parse(local_storage("text adventures", "{}"));
+custom_queues = JSON.parse(local_storage("queues", "{}"));
+notes = JSON.parse(local_storage("notes", "{}"));
+debugvar_size = local_storage("debug var size", 5);
+//music_volume = local_storage("music volume", 1)
 console.log(textadventures_saves);
 //textadventures_saves = textadventures_saves);
 //console.log(textadventures_saves);
+
 
 
 /*
@@ -406,7 +428,6 @@ function fixDevExploit() {
 
 
 fixDevExploit();
-getCommentIter();
 
 debubg("local storage init finished.");
 
@@ -521,6 +542,10 @@ if (pr_accycolour != null) {
 
 //}
 
+
+
+// i need to redo these some day because they're old and bad
+
 debubg("url params init finished...");
 
 //  .M.              MM       MM +MMMMMMM%. +M                     +MMMMMMM%.     :MMMM:     +MMMMMMM%.     :MMMM:     +MM.    .MM+ .%MMMMMMM%.              .M.  
@@ -546,6 +571,7 @@ document.getElementById("p2cred").style.display = "none";
 document.getElementById("p1cred").style.display = "none";
 document.getElementById("p1ascii").style.display = "none";
 
+/*
 function toggleHideDebug() {
     if (debugHide == false) {
         debugHide = true;
@@ -572,6 +598,7 @@ function toggleHideDebugVar() {
         document.getElementById("debubvar").style.height = "295px";
     }
 }
+*/
 function toggleHideSongInfo() {
     if (debugHideSonginfo == false) {
         debugHideSonginfo = true;
@@ -626,13 +653,16 @@ function toggleHideP1Ascii() {
 }
 
 
+
+// DEBUG WIN ADDITION POINT
+
 // new debug stuff
 
 function debugWindow(bool) {
     
     if (bool == true) {     // if it open window
-        debugwin_status = true;
-        debug_win = window.open("", "Title", "directories=0,titlebar=0,toolbar=0,location=0,status=0,menubar=0,scrollbars=no,resizable=no,width=400,height=350,top="+(screen.height-400)+",left="+(screen.width-840));
+        debugwin_status = true;            //      \/ REMEMBER TO CHANGE THIS VALUE JESSE!!
+        debug_win = window.open("", "_blank", "PopUp1,directories=0,titlebar=0,toolbar=0,location=0,status=0,menubar=0,scrollbars=no,resizable=no,width=400,height=350,top="+(screen.height-400)+",left="+(screen.width-840));
         try {
             debug_win.document.write(`
             <style>::-webkit-scrollbar {width: 10px;height: 10px;} .eee { width: 100vw; }</style>
@@ -677,6 +707,232 @@ function debugWindow(bool) {
         //debug_win.close();
     }
 }
+
+function debugVarWindow(bool) {
+    
+    if (bool == true) {     // if it open window
+        var_debugwin_status = true;            //      \/ REMEMBER TO CHANGE THIS VALUE JESSE!!
+        var_debug_win = window.open("debug.html", "Title", "PopUp2,directories=0,titlebar=0,toolbar=0,location=0,status=0,menubar=0,scrollbars=no,resizable=no,width=400,height=350,top="+(screen.height-400)+",left="+(screen.width-840));
+        try {
+
+            /*
+            var_debug_win.document.write(`
+            <style>::-webkit-scrollbar {width: 10px;height: 10px;} .eee { width: 100vw; }</style>
+            <style id="scroll-text-style">::-webkit-scrollbar-thumb { background: ${accycolour}; }</style>
+            <style id="scroll-back-style">::-webkit-scrollbar-track { background: ${backcolour}; } ::-webkit-scrollbar-corner { background: #000000 }</style>
+            <style id="back-style">body { background-color: ${backcolour};}</style>
+            <style id="text-style">@font-face { font-family: COURIERPRIME; src: url(CourierPrime-Regular.ttf);} body { color: ${textcolour}; font-family: COURIERPRIME, monospace;} pre { font-family: COURIERPRIME, monospace;}</style>
+            <style id="window-resize"> body {width: 100px;}</style>
+            <title>CONSOLE DEBUG VAR</title>
+            <link rel="icon" href="icon.png">`);
+            var_debug_win.document.write('<pre id="aaa" class="eee"></pre>'); 
+            var_debug_win.document.write(`<script>
+            var toot = false;
+            setInterval(function() {                        // loop this every quarter second
+                toot = false;
+                try {
+                    if (window.opener.debugvar != true) {   // if debugvar is false
+                        window.close();                     // close window
+                    } else {
+                        toot = true;                        // else go and set it to true
+                    }
+                } catch (err) {                             // if it returns an error (like if the main console window is closed)
+                    if (toot == false) {
+                        window.close();                     // close this window
+                    }
+                }
+            }, 250);
+
+            </script>`);
+            */
+
+        } catch (err) {
+            console.log("oh crap i think the popup got blocked or smth");
+            displayAnim("\nUh oh! it seems that the debug window didn't open! Please make sure that popups are allowed on this site!", 7, "#ff0000");
+        }
+        ///var_debug_win.document.getElementById("size-pass").innerHTML = debugvar_size;
+        debvar_first_time = false;
+        var_debug_check = setInterval(function() { 
+            var size_old = debugvar_size;
+            if(var_debug_win.closed) {
+                clearInterval(var_debug_check);
+                debugvar = false;
+                debubg("debug var window closed!!");
+            } else {
+                if (size_old != debugvar_size || debvar_first_time == false) {
+                    var_debug_win.document.getElementById("size-pass").innerHTML = debugvar_size;
+                    debvar_first_time = true;
+                }
+                
+                to_pass_pre = JSON.stringify(to_pass);  // get full duplicate of to_pass
+                to_pass = {
+                    "user": user,
+                    "inputlock": inputlock,
+                    "debug": debug,
+                    "debugvar": debugvar,
+                    "snakegamestart": snakegamestart,
+                    "snakegame": snakegame,
+                    "enterlock": enterlock,
+                    "snakeinputs": snakeinputs,
+                    "copycomm": copycomm,
+                    "coopy": coopy,
+                    "commandhistorylock": commandhistorylock,
+                    "snakegamespeed": snakegamespeed,
+                    "snakeingame": snakeingame,
+                    "snaketick": snaketick,
+                    "textcolour": textcolour,
+                    "backcolour": backcolour,
+                    "accycolour": accycolour,
+                    "autocommand": autocommand,
+                    "worble_status": worble_status,
+                    "worble_colourblind": worble_colourblind,
+                    "worble_guesscount": worble_guesscount,
+                    "worble_stats_restarts": worble_stats_restarts,
+                    "worble_stats_currentstreak": worble_stats_currentstreak,
+                    "worble_stats_biggeststreak": worble_stats_biggeststreak,
+                    "worble_word": worble_word,
+                    "worble_word_id": worble_word_id,
+                    "worble_randomvalue": worble_randomvalue,
+                    "worble_gray": worble_gray,
+                    "worble_yellow": worble_yellow,
+                    "worble_green": worble_green,
+                    "worble_share_gray": worble_share_gray,
+                    "worble_share_yellow": worble_share_yellow,
+                    "worble_share_green": worble_share_green,
+                    "console_id": console_id,
+                    "music_playing": music_playing,
+                    "paused_lyrics": paused_lyrics,
+                    "portal_playing": portal_playing,
+                    "portal_type": portal_type,
+                    "og_textcolour": og_textcolour,
+                    "og_backcolour": og_backcolour,
+                    "og_backcolour": og_backcolour,
+                    "egg": egg,
+                    "credits_playing": credits_playing,
+                    "commandIndex": commandIndex,
+                    "inHistory": inHistory,
+                    "console_group_id": console_group_id,
+                    "cur_lyr": cur_lyr,
+                    "paused_lyrics": paused_lyrics,
+                    "windowWidth": windowWidth,
+                    "windowHeight": windowHeight,
+                    "aspectratio": aspectratio,
+                    "sizemod": sizemod,
+                    "orientation": orientation,
+                    "textheight": textheight,
+                    "listening_input": listening_input,
+                    "listening_end": listening_end,
+                    "stars_status": stars_status,
+                    "star_speed": star_speed,
+                    "star_fade_speed": star_fade_speed,
+                    "star_runtime": star_runtime,
+                    "star_running": star_running,
+                    "starlock": starlock,
+                    "starTimers": starTimers,
+                    "touchtonetm": touchtonetm,
+                    "autoscrolling": autoscrolling,
+                    "scroll_bottom": scroll_bottom,
+                    "autoscroll_buffer": autoscroll_buffer,
+                    "cursor_pos": cursor_pos,
+                    "doglock": doglock,
+                    "dog": dog,
+                    "dog_pets": dog_pets,
+                    "dog_speed": dog_speed,
+                    "dog_anim_index": dog_anim_index,
+                    "dog_anim_len": dog_anim_len,
+                    "dog_anim_go": dog_anim_go,
+                    "dogtime": dogtime,
+                    "dog_outfit": dog_outfit,
+                    "cur_ta": cur_ta,
+                    "adventure_lock": adventure_lock,
+                    "cur_cipher": cur_cipher,
+                    "in_queue": in_queue,
+                    "debugvar_size": debugvar_size,
+                    "music_volume": music_volume
+                }
+            
+                if (JSON.stringify(to_pass) == to_pass_pre) {   // if its the same
+            
+                } else {    // if it's different
+                    
+                    var_debug_win.document.getElementById("passthrough").innerHTML = JSON.stringify(to_pass);
+
+                }
+            
+            }
+        }, 100);
+    } else {
+        //var_debug_win.close();
+    }
+}
+
+
+/*
+intervalVar = setInterval(bebu, 100);
+function bebu() {
+    if (debugvar == true) {
+        document.getElementById("debubtextvar").innerHTML = `
+                      user: ${user}
+                 inputlock: ${inputlock}
+                   mainsys: ${mainsys}
+                   filesys: ${filesys}
+                     debug: ${debug}
+                  debugvar: ${debugvar}
+                 debugHide: ${debugHide}
+              debugHideVar: ${debugHideVar}
+            snakegamestart: ${snakegamestart}
+                 snakegame: ${snakegame}
+                 enterlock: ${enterlock}
+               snakeinputs: ${snakeinputs}
+                  copycomm: ${copycomm}
+                     coopy: ${coopy}
+                 debubHide: ${debubHide}
+        commandhistorylock: ${commandhistorylock}
+           currentHistCOmm: ${currentHistCOmm}
+                currentCOM: ${currentCOM}
+            snakegamespeed: ${snakegamespeed}
+               snakeingame: ${snakeingame}
+                 snaketick: ${snaketick}
+                textcolour: ${textcolour}
+                backcolour: ${backcolour}
+               autocommand: ${autocommand}
+             worble_status: ${worble_status}
+        worble_colourblind: ${worble_colourblind}
+         worble_guesscount: ${worble_guesscount}
+      worble_stats_guesses: ${worble_stats_guesses}
+     worble_stats_restarts: ${worble_stats_restarts}
+worble_stats_currentstreak: ${worble_stats_currentstreak}
+worble_stats_biggeststreak: ${worble_stats_biggeststreak}
+               worble_word: ${worble_word}
+            worble_word_id: ${worble_word_id}
+        worble_randomvalue: ${worble_randomvalue}
+               worble_gray: ${worble_gray}
+              worble_green: ${worble_green}
+             worble_yellow: ${worble_yellow}
+         worble_share_gray: ${worble_share_gray}
+        worble_share_green: ${worble_share_green}
+       worble_share_yellow: ${worble_share_yellow}
+                console_id: ${console_id}
+             music_playing: ${music_playing}
+             paused_lyrics: ${paused_lyrics}
+            portal_playing: ${portal_playing}
+               portal_type: ${portal_type}
+             og_textcolour: ${og_textcolour}
+             og_backcolour: ${og_backcolour}
+                       egg: ${egg}
+           credits_playing: ${credits_playing}
+`;autocommand
+        console.log("binted.");
+    }
+}
+
+for(var b in window) { 
+  if(window.hasOwnProperty(b)) console.log(b); 
+}
+
+*/
+
+
 
 debubg("debug window init finished...");
 
@@ -1147,14 +1403,41 @@ async function displayAnim(message, speed, colour, link) {      // fancy anim
     //console.log(`[displayanim] ${message}, ${speed}, ${type}`);
     //debubg(`[displayAnim]   message: ${message}  speed: ${speed}   colour: ${colour}   link: ${link}`);
     var egg_white = "";
+    var egg_yolk = colour;
+    var egg_shell = link;
+
 
     console.log(message);
 
+/*
+    // old if statement
     if (typeof message == "object") {
         egg_white = message.join("\n");
     } else {
         egg_white = message;
     }
+*/
+    // new if statement
+
+    if (Array.isArray(message) == true) {
+        egg_white = message.join("\n");
+    } else if (typeof message == 'object') {
+        // if it's an object
+
+        var hehatm = {          // default 
+            "text": "hello!",
+            "speed": 7,
+            "colour": false,
+            "link": false
+        }
+        egg_yolk = message["colour"];
+        egg_shell = message["link"];
+
+
+    } else if (typeof message == 'string') {
+        egg_white = message;
+    }
+
 
     
     await displaySingleLine(egg_white, speed, colour, link);
@@ -1181,6 +1464,27 @@ function displayScreen(array) {
 
 }
 
+async function displayImage(image, speed) {
+    //debubg(`[displaySingleLine]   message: ${message}  speed: ${speed}   colour: ${colour}   link: ${link}`);
+    return new Promise((resolve,reject)=>{
+        //here our function should be implemented 
+        var messageyLength = image.length;
+        var use_id = console_id + 1;        // the current id that's being used
+        console_id += 1;                    // update console id
+        for (let i = 0; i < messageyLength; i++) {
+            TMO_push.push(setTimeout(function timer() {
+                var mess = image[i];
+                scrolly("consy");
+                displayAppend(image[i], use_id, false);
+                if (i == messageyLength - 1) { 
+                    resolve();
+                    scrolly("consy");
+                }
+                
+            }, i * speed));
+        }
+    });
+}
 
 
 
@@ -1233,7 +1537,7 @@ var LyricTimer = function(callback, delay) {
 
 
 function lyrFunc(lyrics, i) {
-    debubg(`lyric: "${lyrics[i]["text"].replaceAll("\n", "")}"`);
+    debubg(`lyric: "${`${lyrics[i]["text"]}`.replaceAll("\n", "")}"`);
     var lyr_exec = false;
     if (lyrics[i]["exec"]) {
         lyr_exec = lyrics[i]["exec"];
@@ -1522,63 +1826,7 @@ var end1 = true;
 //var appendy
 debubg("more variable init finished...");
 //intervalID1 = setInterval(animyOne, animSPEED);
-intervalVar = setInterval(bebu, 100);
-function bebu() {
-    if (debugvar == true) {
-        document.getElementById("debubtextvar").innerHTML = `
-                      user: ${user}
-                 inputlock: ${inputlock}
-                   mainsys: ${mainsys}
-                   filesys: ${filesys}
-                     debug: ${debug}
-                  debugvar: ${debugvar}
-                 debugHide: ${debugHide}
-              debugHideVar: ${debugHideVar}
-            snakegamestart: ${snakegamestart}
-                 snakegame: ${snakegame}
-                 enterlock: ${enterlock}
-               snakeinputs: ${snakeinputs}
-                  copycomm: ${copycomm}
-                     coopy: ${coopy}
-                 debubHide: ${debubHide}
-        commandhistorylock: ${commandhistorylock}
-           currentHistCOmm: ${currentHistCOmm}
-                currentCOM: ${currentCOM}
-            snakegamespeed: ${snakegamespeed}
-               snakeingame: ${snakeingame}
-                 snaketick: ${snaketick}
-                textcolour: ${textcolour}
-                backcolour: ${backcolour}
-               autocommand: ${autocommand}
-             worble_status: ${worble_status}
-        worble_colourblind: ${worble_colourblind}
-         worble_guesscount: ${worble_guesscount}
-      worble_stats_guesses: ${worble_stats_guesses}
-     worble_stats_restarts: ${worble_stats_restarts}
-worble_stats_currentstreak: ${worble_stats_currentstreak}
-worble_stats_biggeststreak: ${worble_stats_biggeststreak}
-               worble_word: ${worble_word}
-            worble_word_id: ${worble_word_id}
-        worble_randomvalue: ${worble_randomvalue}
-               worble_gray: ${worble_gray}
-              worble_green: ${worble_green}
-             worble_yellow: ${worble_yellow}
-         worble_share_gray: ${worble_share_gray}
-        worble_share_green: ${worble_share_green}
-       worble_share_yellow: ${worble_share_yellow}
-                console_id: ${console_id}
-             music_playing: ${music_playing}
-             paused_lyrics: ${paused_lyrics}
-            portal_playing: ${portal_playing}
-               portal_type: ${portal_type}
-             og_textcolour: ${og_textcolour}
-             og_backcolour: ${og_backcolour}
-                       egg: ${egg}
-           credits_playing: ${credits_playing}
-`;autocommand
-        console.log("binted.");
-    }
-}
+
 function animyOne() {
     //debubg(end1);
     if (end1 == false) {
@@ -1939,11 +2187,13 @@ function argComm(incommand) {
 function asciiText(font, text) {
     var fontlow = font.toLowerCase();
     var finalText = []; // the final text variable itll return
-    var in_font = font;
+    var in_font = fontlow;
     if (fontlow == "" || fontlow == "default" || fontlow == "def" || fontlow == "d") {  // any other variations for font names, set up an if statement here for all the variations, then set in_font to be the name in the internal font JSON
         in_font = "default";
     } else if (fontlow == "slant" || fontlow == "s" || fontlow == "sla") {
         in_font = "slant";
+    } else if (fontlow == "block" || fontliw == "b" || fontlow == "blo") {
+        in_font = "block";
     }
 
 
@@ -2088,9 +2338,9 @@ function coopyIf(output) {
         debubg("copy is not enabled. skipping.");
     }
 }
-function debugHidey() {
+/*function debugHidey() {
     var debubtoHide = document.getElementById()
-}
+}*/
 
 function varExists(variable) {
     var existy = false;
@@ -2163,8 +2413,14 @@ function setAccyColour(colour, save) {
         localStorage.setItem("accy-colour", colour);
         accycolour = `${colour}`;
     }
+
+
+    // DEBUG WIN ADDITION POINT
     if (debug == true) {
         debug_win.document.getElementById("scroll-text-style").innerHTML = `::-webkit-scrollbar-thumb { background: ${colour}; }`;
+    }
+    if (debugvar == true) {
+        var_debug_win.document.getElementById("scroll-text-style").innerHTML = `::-webkit-scrollbar-thumb { background: ${colour}; } #variables td:hover {background-color: ${colour}60 /*keep the 60 at the end, that's the opacity of the green*/} #gear-path { fill: ${colour};} #setbox { border: 1px solid ${colour};}`;
     }
 }
 
@@ -2204,9 +2460,16 @@ function setBackColour(colour, save) {
     document.getElementById("debub").style.backgroundColor = colour;
     document.getElementById("debubvar").style.backgroundColor = colour;
     document.getElementById("songinfo").style.backgroundColor = colour;
+
+
+    // DEBUG WIN ADDITION POINT
     if (debug == true) {
         debug_win.document.getElementById("scroll-back-style").innerHTML = `::-webkit-scrollbar-track { background: ${colour}; } ::-webkit-scrollbar-corner { background: ${colour} }`;
         debug_win.document.getElementById("back-style").innerHTML = `body { background-color: ${colour};}`;
+    }
+    if (debugvar == true) {
+        var_debug_win.document.getElementById("scroll-back-style").innerHTML = `::-webkit-scrollbar-track { background: ${colour}; } ::-webkit-scrollbar-corner { background: ${colour} }`;
+        var_debug_win.document.getElementById("back-style").innerHTML = `body { background-color: ${colour};} #setbox { background-color: ${colour}; }`;
     }
     if (do_save == true) {
         localStorage.setItem("back-colour", colour);
@@ -2240,9 +2503,16 @@ function setTextColour(colourcode, save) {
     document.getElementById("debubvarmouse").style.color = colourcode;
     document.getElementById("songinfomouse").style.color = colourcode;
     
+
+
+    // DEBUG WIN ADDITION POINT
     if (debug == true) {
         // rip
         debug_win.document.getElementById("text-style").innerHTML = `body { color: ${colourcode};}`;
+    }
+    if (debugvar == true) {
+        // rip
+        var_debug_win.document.getElementById("text-style").innerHTML = `@font-face { font-family: COURIERPRIME; src: url(CourierPrime-Regular.ttf);} body { color: ${colourcode};} body { color: ${colourcode}; font-family: COURIERPRIME, monospace;} #variables td, #variables th { border: 1px solid ${colourcode}; }`;
     }
 
     if (do_save == true) {
@@ -3060,15 +3330,9 @@ function saveTheme(nametm) {
     localStorage.setItem("themes", JSON.stringify(custom_themes));
 }
 
-function rawSaveTheme(nametm, author, text, back, accy) {
-    var lowname = nametm.toLowerCase();
-    custom_themes[lowname] = {
-        "name": `${nametm}`,
-        "author": `${author}`,
-        "text colour": `${text}`,
-        "back colour": `${back}`,
-        "accy colour": `${accy}`
-    }
+function rawSaveTheme(theme_tm) {
+    var lowname = theme_tm["name"].toLowerCase();
+    custom_themes[lowname] = theme_tm;
     localStorage.setItem("themes", JSON.stringify(custom_themes));
 }
 
@@ -3565,10 +3829,14 @@ function keyval(object, value) {
 }
 
 function check_case(letter) {
-    if (letter == letter.toUpperCase()) {
-        return "upper"
-    } else if (letter == letter.toLowerCase()) {
-        return "lower"
+    if (typeof letter == 'string') {
+        if (letter == letter.toUpperCase()) {
+            return "upper"
+        } else if (letter == letter.toLowerCase()) {
+            return "lower"
+        } else {
+            return undefined
+        }
     } else {
         return undefined
     }
@@ -3594,20 +3862,22 @@ function crypt(direction, text, cipher) {
 
     console.log(maptm);
 
+    console.log(`STIRR'${str}'`);
+
     var re = new RegExp(Object.keys(maptm).join("|"),"gi");         // dont even ask because i don't know either
     str = str.replace(re, function(matched){
         debubg(matched);
-        var first = matched.split("")[0];
-        debubg(first);
-        var case_tm = check_case(first);
-
+        //debubg(first);
+        
         var result = "";
 
-        if (case_tm == 'upper') {                                   // support for any case
-            result = `${maptm[matched.toLowerCase()]}`.toUpperCase();
+        if (maptm[matched]) {
+            result = `${maptm[`${matched}`.toLowerCase()]}`.toUpperCase();
         } else {
-            result = maptm[matched];
+            result = matched;
         }
+
+        debubg(result)
         return result
     });
 
@@ -3626,6 +3896,280 @@ function accspace(text) {
 }
 
 
+
+// generate_image("colour_test.png", "exact", {"width": 50, "height": 50}, [true])
+
+// displayImage(process_raw_image(test_image), 20);
+
+
+// so you generate image, plug the generated image into process raw image, then plug the processed image into displayImage and the boom!!
+
+/*
+function generate_image(url, interpol, scale, shade) {
+    
+    //interpol: either 'exact' or 'fit'
+    //    'exact' means that 1 pixel in the image will be 1 unicode block character
+    //    'fit' means that since each block character is twice as tall as is wide, then each character will count as 2 pixels high
+    //url: the image url
+    //scale: a JSON object for width and height.
+    //    'width'  is... the image width
+    //    'height' is the image height
+    //    
+    //    if it's just one of those, for example, only 'width', then it will automatically calculate the height, using the same aspect ratio as the initial image.
+    //    if both of them are declared, it will do the custom aspect ratio of whatever width and height ™
+    //shade: an array
+    //    shade[0]: if it should use ░
+    //    shade[1]: if it should use ▒
+    //    shade[2]: if it should use ▓
+    
+
+    // variable setup
+
+    var img = document.getElementById("image-load");
+    var ctx = img_canvas.getContext('2d');
+    var img_og_width = 0;
+    var img_og_height = 0;
+    var img_width = 0;
+    var img_height = 0;
+    var img_og_aspectratio = 1;
+    var img_aspectratio = 1;
+    img.setAttribute('crossOrigin', '');
+    
+    img.src = url;
+
+    img.onload = () => {                // when the image finishes loading then run all this stoof
+        img_og_width = img.width;
+        img_og_height = img.height;
+        img_width = img.width;          // set all the heights n stuff
+        img_height = img.height;
+
+        // calculate aspect ratio
+
+        img_og_aspectratio = img_og_width / img_og_height
+        
+
+
+        // set the fancy widths n stuff
+
+        if (scale["width"] && scale["height"]) {            // if they set both the width and height
+            img_width = scale["width"];
+            img_height = scale["height"];
+        } else if (scale["width"] && !scale["height"]) {    // just width
+            img_width = scale["width"];
+            img_height = img_width / img_og_aspectratio;
+        } else if (!scale["width"] && scale["height"]) {    // juts height
+            img_height = scale["height"];
+            img_width = img_height * img_og_aspectratio;
+        } else {                                            // it makey the oopsy
+            img_width = 20;
+            img_height = 20;
+        }
+
+        img_aspectratio = img_width / img_height;           // get new aspect ratio
+
+        debubg(`IMG INFO:\nog width: ${img_og_width}\nog height: ${img_og_height}\nwidth: ${img_width}\nheight: ${img_height}\nog aspect ratio: ${img_og_aspectratio}\naspect ratio: ${img_aspectratio}`);
+
+        img_canvas.width = img_width;
+        img_canvas.height = img_height;
+
+        //new thumbnailer(canvas, img, 188, 3);
+
+        ctx.imageSmoothingEnabled = false;
+        ctx.drawImage(img, 0, 0, img_width, img_height); // Or at whatever offset you like
+
+
+
+        dada = ctx.getImageData(0, 0, img_width, img_height);
+    }
+   
+} */
+
+
+function process_raw_image(raw_image) {
+    var final_html = new Array();
+
+    for (i in raw_image) {
+        for (e in raw_image[i]) {
+            var pixel = raw_image[i][e];
+
+            final_html.push(`<span style="color: ${pixel["c"]};">${pixel["s"]}</span>`);
+        }
+        final_html.push("\n");
+    }
+
+    return final_html
+}
+
+
+function num_2dig(number) {
+    if (`${number}`.length == 1) {
+        return `0${number}`
+    } else {
+        return `${number}`
+    }
+}
+
+function parse_date() {
+    // fancy date stoof
+
+    const months = [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December'
+    ]
+
+    // getting all the values
+
+    var today = new Date();
+    var td_year = today.getFullYear();
+    var td_month = today.getMonth();
+    var td_day = today.getDate();
+    var td_hour = today.getHours();
+    var td_minute = today.getMinutes();
+    var td_second = today.getSeconds();
+    var td_ampm = "UNPARSED";
+
+    debubg(`current date: ${td_day}-${td_month}-${td_year} at ${td_hour}:${td_minute}:${td_second} ${td_ampm}`);
+
+    // parsing of variables
+
+    td_month = months[td_month];
+
+
+    // ====[ i stole this chunk from my vhs website lmao ]====
+
+    if (td_hour < 12) {
+        // AMPM
+        if (td_hour == 0) {
+            td_hour = 12;
+        } else {
+            td_hour = td_hour;
+        }
+        td_ampm = "AM";
+    } else if (td_hour >= 12) {
+        // PM
+        td_hour = td_hour - 12;
+        td_ampm = "PM";
+    }
+    // end of chunk stolen from myself
+    
+    // adding 0's to any number that is not in the double digits
+    td_hour = num_2dig(td_hour);
+    td_minute = num_2dig(td_minute);
+    td_second = num_2dig(td_second);
+
+
+
+    
+
+
+
+    debubg(`parsed date: ${td_day}-${td_month}-${td_year} at ${td_hour}:${td_minute} ${td_ampm}`);
+
+    return {"day": `${td_day}`, "month": `${td_month}`, "year": `${td_year}`, "hour": `${td_hour}`, "minute": `${td_minute}`, "second": `${td_second}`, "ampm": `${td_ampm}`}
+}
+
+function yes_no(input) {            // check if it's a yes or no, using an advanced technology of different known words
+    if (known_words["yes"].indexOf(input) > -1) {   // it's yes
+        return true
+    } else if (known_words["no"].indexOf(input) > -1) {   // it's no
+        return false
+    } else {
+        return undefined
+    }
+}
+
+function object_empty(obj) {
+    if (Object.keys(obj).length == 0) {
+        return true
+    } else {
+        return false
+    }
+}
+
+function cut_string(str, wid) {
+    var in_sting = str.replaceAll(`"`, `\\"`);
+    return eval(`"${in_sting}".match(/.{1,${wid}}/g);`);
+}
+
+
+function make_note_vis(note_name) {
+    var nt = notes[note_name];
+    // view the note!!
+    var cre_date = `${nt["date created"].day} ${nt["date created"].month} ${nt["date created"].year}, ${nt["date created"].hour}:${nt["date created"].minute} ${nt["date created"].ampm}`
+    var mod_date = `${nt["date modified"].day} ${nt["date modified"].month} ${nt["date modified"].year}, ${nt["date modified"].hour}:${nt["date modified"].minute} ${nt["date modified"].ampm}`
+
+    var vw_title = [`${nt.name}`, `${cre_date}`];
+    var vw_title2 = [`${nt.author}`, `${mod_date}`];
+
+    var widd = display_charsize[0] - 10;
+    var hidd = display_charsize[1];
+    //widd = widd - 20;
+    console.log(widd);
+    var t1_ln = `"${nt.name}" created @ ${cre_date}`.length;
+    var t2_ln = `by ${nt.author} modified @ ${mod_date}`.length;
+    var t1_sp = widd - t1_ln;
+    var t2_sp = widd - t2_ln;
+    if (t1_sp < 0) {
+        t1_sp = 0;
+    }
+    if (t2_sp < 0) {
+        t2_sp = 0;
+    }
+    var di_t1 = `"${nt.name}"${" ".repeat(t1_sp)} created @ ${cre_date}`;
+    var di_t2 = `by ${nt.author}${" ".repeat(t2_sp)} modified @ ${mod_date}`;
+    var di_t3 = cut_string(nt.contents, widd).join("\n");
+    var note_full = `\n${"-".repeat(widd)}\n${di_t1}\n${di_t2}\n${"-".repeat(widd)}\n\n${di_t3}`;
+    return note_full
+}
+
+// WIP CODE!!!!
+
+
+function check_json(in_json, template_json) {   // checks to see if in_json has the same structure as template_json
+    var out_obj = {
+        "valid": false,     // if it's valid json
+        "reason": "",       // if it's invalid, it'll say what's wrong with the JSON
+        "extra": false      // if there are any extra JSON keys
+    }
+
+    var crap = false;
+
+    function check_inner(chunk) {
+        for (key in chunk) { // for every key in json
+
+        }
+    }
+
+
+    for (key in in_json) { // for every key in main json
+        var chunk = in_json[key];
+
+        if (typeof chunk == 'object' && Array.isArray(chunk) == false) {    // if it's an object but not an array (if it's json)
+
+
+        }
+
+
+    }
+
+    return out_obj
+}
+
+
+
+
+
+
 //  .M.              %MMMMMMMM% .%MMMMMMM%. .%MMMMMMM%. +M                     +MMMMMMMMI MM       MM +MM.      M+  .%MMMMMM %MMMMMMMM% mmmmmmmmmm .%MMMMMMM%. +MM.      M+ .%MMMMMMM%.              .M.  
 // .M'M.             %MMMMMMMM% %MM%' '%MM% %MM%' '%MM% MM                     MMMMMMMMMI MM       MM MMMM.     MM .%MMMMMMM %MMMMMMMM% MMMMMMMMMM %MM%' '%MM% MMMM.     MM %MM%' '%MM%             .M'M. 
 // M' 'M                 MM     MM'     'MM MM'     'MM MM                     MM+        MM       MM MM'MM.    MM %MM%'         MM         MM     MM'     'MM MM'MM.    MM MM'                     M' 'M 
@@ -3639,6 +4183,24 @@ function accspace(text) {
 //
 //
 debubg("extra tool functions init finished...");
+
+
+
+
+
+
+
+debubg("encryption functions init finished...");
+
+//  .M.              +MMMMMMMMI +MM.      M+  .%MMMMMM +MMMMMMM%. MM    MM +MMMMMMM%. %MMMMMMMM% mmmmmmmmmm .%MMMMMMM%. +MM.      M+              .M.  
+// .M'M.             MMMMMMMMMI MMMM.     MM .%MMMMMMM MM+'  '+M% MM.  .MM MM+'  '+M% %MMMMMMMM% MMMMMMMMMM %MM%' '%MM% MMMM.     MM             .M'M. 
+// M' 'M             MM+        MM'MM.    MM %MM%'     MM      MM 'MM  MM' MM      MM     MM         MM     MM'     'MM MM'MM.    MM             M' 'M 
+//                   MM........ MM 'MM.   MM MMM'      MM+.  .+M%  MM..MM  MM+.  .+M%     MM         MM     MM       MM MM 'MM.   MM                   
+//                   MMMMMMMMMM MM  'MM.  MM MMM       MMMMMMMM%'  'MMMM'  MMMMMMMM%'     MM         MM     MM       MM MM  'MM.  MM                   
+//                   MM'''''''' MM   'MM. MM MMM.      MM  'MM.     'MM'   MM             MM         MM     MM       MM MM   'MM. MM                   
+//                   MM+        MM    'MM.MM %MM%.     MM   'MM.     MM    MM             MM         MM     MM.     .MM MM    'MM.MM                   
+//                   MMMMMMMMMI MM     'MMMM '%MMMMMMM MM    'MM.    MM    MM             MM     mmmmMMmmmm %MM%. .%MM% MM     'MMMM                   
+//                   +MMMMMMMMI +M      'MM+  '%MMMMMM +M     'MM    MM    +M             MM     MMMMMMMMMM '%MMMMMMM%' +M      'MM+                   
 
 
 
@@ -3975,6 +4537,19 @@ music.addEventListener('ended', (event) => {
     music_playing = false;
     clearInterval(lyric_interval);
     lyr_status = new Object();
+    
+    if (in_queue == true) {
+        music_queue.shift();
+        if (music_queue[0]) {
+            in_queue = false;
+            parseCommand(`music play ${music_queue[0]}`);
+            in_queue = true;
+        } else {
+            in_queue = false;
+            displayAnim("\nqueue ended!", 7);
+        }
+    }
+
     if (portal_playing == true) {
         portal_playing = false;
         //setTextColour(og_textcolour);
@@ -4014,8 +4589,12 @@ window.onresize = sizeCheck;
 
 function closeDebuG() {
     if (debug == true) {
+        // DEBUG WIN ADDITION POINT
+        clearInterval(var_debug_check);
         debug_win.close();
+        var_debug_win.close();
         debugwin_status = false;
+        var_debugwin_status = false;
     }
 }
 
@@ -4040,3 +4619,4 @@ music.addEventListener('timeupdate', (event) => {
 */
 
 debubg("listeners added...");
+

@@ -316,237 +316,6 @@ function parseCommand(command) {
         displayAnim(hlepart, 1);
     } else if (command == "help -dev") {
         displayAnim(hlepdev, 1);
-    } else if (argCommand == "comment") {
-        displayNewline();
-        if (command == "comment" || command == "comment ") {
-            displayAnim("please enter a valid argument.", 20);
-        } else {
-
-
-            var mmm = argComm(commandInit);
-
-            if (mmm[1].toLowerCase() == "add") {
-                // add comment
-                var eee = mmm;
-                eee.shift();
-                eee.shift();
-                var yaya = eee.length;
-                var tata = "";
-                for (let i = 0; i < yaya; i++) {
-                    tata = `${tata}${eee[i]} `;
-                }
-                
-
-
-                // fancy date stoof
-
-                const months = [
-                    'January',
-                    'February',
-                    'March',
-                    'April',
-                    'May',
-                    'June',
-                    'July',
-                    'August',
-                    'September',
-                    'October',
-                    'November',
-                    'December'
-                ]
-
-                // getting all the values
-
-                var today = new Date();
-                var td_year = today.getFullYear();
-                var td_month = today.getMonth();
-                var td_day = today.getDate();
-                var td_hour = today.getHours();
-                var td_minute = today.getMinutes();
-                var td_ampm = "UNPARSED";
-
-                debubg(`current date: ${td_day}-${td_month}-${td_year} at ${td_hour}:${td_minute} ${td_ampm}`);
-
-                // parsing of variables
-
-                td_month = months[td_month];
-
-    
-                // ====[ i stole this chunk from my vhs website lmao ]====
-
-                if (td_hour < 12) {
-                    // AMPM
-                    td_hour = td_hour + 1;
-                    td_ampm = "AM";
-                } else if (td_hour >= 12) {
-                    // PM
-                    td_hour = td_hour - 12;
-                    td_ampm = "PM";
-                }
-                // adding 0's to any number that is not in the double digits
-                if ( td_hour.toString().length == 1) {
-                    td_hour = `0${td_hour}`;
-                }
-                if ( td_minute.toString().length == 1) {
-                    td_minute = `0${td_minute}`;
-                }
-                // make sure all of this runs properly
-
-                // end of chunk stolen from myself
-
-
-
-                debubg(`parsed date: ${td_day}-${td_month}-${td_year} at ${td_hour}:${td_minute} ${td_ampm}`);
-
-                // var commentToPush = {
-                //     "comments" : [
-                //         [ "yes", "1", "2" , "3"],
-                //         [ "editors", "4", "5" , "6"],
-                //     ]
-                // }
-
-                // var commentToPush = {
-                //     "comments" : [
-                //         { "username": "johndoe", "comment": "this is cool"},
-                //         { "username": "johndoe2", "comment": "this is cool lol"}
-                //     ]
-                // }
-
-
-
-                // for (i in siteInfo .users) 
-                // {
-                //     for (j in siteInfo.users[i]) 
-                //     {
-                //         x = siteInfo.users[i][j];
-                //         console.log(x);
-                //     }
-                // }
-
-
-
-                var commentToPush = `, { "username": "${user}", "comment": "${tata}", "day": "${td_day}", "month": "${td_month}", "year": "${td_year}", "hour": "${td_hour}", "minute": "${td_minute}", "ampm": "${td_ampm}" }`;
-
-                debubg(commentToPush);
-
-                comments += commentToPush;
-
-                debubg(comments)
-
-                localStorage.setItem("comments", comments);
-
-                // MAKE IT PUSH JSON INSTEAD OF AN ARRAY
-                // THINGS TO MAKE IT PUSH:
-                // NAME
-                // COMMENT
-                // DATE
-                // TIME
-
-                // STRUCTURE:
-
-                // new structure idea from my father (thank you dad)
-
-                // json is dumb and im just gonna make it use a list because that's easier
-
-                // nevermind there's no easy way to parse a list from a string which is what i want
-
-                // thank you codegrepper.com for this
-                // 
-                // storing array in localStorage
-                // var colors = ["red","blue","green"];
-                // localStorage.setItem("my_colors", JSON.stringify(colors)); //store colors
-                // var storedColors = JSON.parse(localStorage.getItem("my_colors")); //get them back
-
-                // what i'll do so i can properly append to the json without needing to remove the ending json bits is:
-
-                // i'll just store the list part of the json in local storage and then when i need to actually display the stuff ill just have it get the list part, and then add the beginning and end parts of the json as needed
-
-
-
-                // DATABASE
-                //   |
-                //   +-COMMENTS
-                //   | |
-                //   | +-0
-                //   | | + name
-                //   | | + comment
-                //   | | + date
-                //   | | + time
-
-                displayAnim(`comment "${tata}" from user ${user} has been added.`, 15);
-            } else if (mmm[1].toLowerCase() == "list") {
-
-
-                debubg("retrieving comments from local storage...");
-                var rawJSON =  localStorage.getItem("comments");
-                debubg("data successfully retrieved");
-
-                debubg(`raw json: ${rawJSON}`);
-
-
-                var commentJSON = JSON.parse(`{ "comments": [ ${rawJSON} ] }`);
-
-                debubg(commentJSON);
-
-                // YES IT WORKS!!!!
-
-                // referebce
-
-                // var commentToPush = {
-                //     "comments" : [
-                //         { "username": "johndoe", "comment": "this is cool"},
-                //         { "username": "johndoe2", "comment": "this is cool lol"}
-                //     ]
-                // }
-
-                var allComments = [];
-
-                for (i in commentJSON["comments"]) {
-                    debubg(commentJSON["comments"][i]);
-                    if (i != 0) {
-                        var cm_user = commentJSON["comments"][i]["username"];
-                        var cm_comment = commentJSON["comments"][i]["comment"];
-                        var cm_day = commentJSON["comments"][i]["day"];
-                        var cm_month = commentJSON["comments"][i]["month"];
-                        var cm_year = commentJSON["comments"][i]["year"];
-                        var cm_hour = commentJSON["comments"][i]["hour"];
-                        var cm_minute = commentJSON["comments"][i]["minute"];
-                        var cm_ampm = commentJSON["comment"][i]["ampm"];
-
-                        
-                        allComments.push(` `);
-                        allComments.push(`${cm_user}@dapug.lol at ${cm_hour}:${cm_minute} ${cm_ampm} on ${cm_day} ${cm_month}, ${cm_year}:`);
-                        allComments.push(`${cm_comment}`);
-                        
-                    }
-                }
-
-                debubg(allComments);
-
-                displayAnim(allComments, 5);
-
-                // list comments
-                //displayAnim(comments, 5);
-            } else if (mmm[1].toLowerCase() == "-clear") {
-
-                if (confirm("WARNING: clearing comments will remove ALL comments. Are you sure?")) {
-                    localStorage.setItem("comments", '{ "why": "yes" }')
-                    debubg("comments cleared");
-                    displayAnim("comments cleared.", 20);
-                } else {
-                    displayNewline();
-                    displayAnim("comments have not been cleared.", 20);
-                    debubg("user thought about their decisions and did not clear the comments"); // i know i just copy pasted this from clear cache shoosh
-                }
-                
-            } else {
-                displayAnim("please enter a valid argument.", 20);
-            }
-        }
-  
-
-
-
     } else if (command == "clear -cache") {
 
         if (confirm("WARNING: clearing the cache will remove ALL DATA saved from your adventures on this site. Are you sure you want to clear the cache?")) {
@@ -666,12 +435,12 @@ function parseCommand(command) {
         
         
     } else if (command == "debug -v") {
-        if (debugvar == false ) {
-            debugvar = true;
-            document.getElementById("debubvar").style.display = "";
-        } else {
-            debugvar = false;
-            document.getElementById("debubvar").style.display = "none";
+        debugvar = !debugvar;         // toggle it to be the opposite
+
+        debugVarWindow(debugvar);     // do whatever it needs to to the window
+
+        if (user == "dev") {
+            displayAnim("\nWARNING: if you aren't using a local server to host this, debug -v doesn't work!! (i tried to fix it, trust me)", 1);
         }
     } else if (command == "convert -list") {
         displayAnim(convertlist, 1);
@@ -793,7 +562,14 @@ function parseCommand(command) {
 
         if (man[incommand]) {   // if it exists
             debubg("command is in man registry.");
-            haha = man[incommand];
+
+            if (typeof man[incommand] == 'string') {
+                var hehe = man[incommand];
+                haha = man[hehe];
+            } else {
+                haha = man[incommand];
+            }
+            
         } else {
             debubg("command is not in man registry.")
             haha = "there is no current man page for this command.";
@@ -1018,10 +794,10 @@ function parseCommand(command) {
         eee.shift();
         eee.shift();
 
-        if (mmm[1] == "play") {                                             // you wanna play a song? hm? you wanna? wanna play a song???? try it??!?? bet you can't!! HM!!!
+        if (mmm[1].toLowerCase() == "play") {                                             // you wanna play a song? hm? you wanna? wanna play a song???? try it??!?? bet you can't!! HM!!!
             var songname = eee.join(' ');
             songname = songname.toLowerCase();
-            var songname = `${songname}`.replaceAll('"', "");
+            var songname = `${songname}`.replaceAll('"', "").replaceAll("-", " ").replaceAll("'", "");
             
             debubg(`[SONG™] queueing song ${songname}.`);
             
@@ -1035,41 +811,46 @@ function parseCommand(command) {
             }
             
             if (existent == true) {     // song is in the system!!! yay!!!!11!1!11!
-                if (music_playing == true) {
-                    clearInterval(lyric_interval);
-                    lyr_status = new Object();
+                
+                if (in_queue == false) {
+
+                    if (music_playing == true) {
+                        clearInterval(lyric_interval);
+                        lyr_status = new Object();
+                    }
+
+
+                    displayAnim("\n");
+                    var song_lyrics = songs[songname]["lyrics"];
+
+                
+                    music_loading = true;
+                    playMusic(songname);
+                    displayLyrics(songname);
+                    if (song_err == false) {
+                        setSongInfo(`${songname}`);
+                    }
+                    
+
+                    document.getElementById("songinfo").style.display = "";
+                    
+                    
+
+
+                    if (song_err == true) {
+                        debubg("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa");
+                    }
+                    
+                    lyr_disp = song_lyrics; // set the current lyrics
+                } else {
+                    displayAnim("\nyou're in a music queue! use 'queue leave' to leave the queue, and try again!", 7);
                 }
-
-
-                displayAnim("\n");
-                var song_lyrics = songs[songname]["lyrics"];
-
-            
-                music_loading = true;
-                playMusic(songname);
-                displayLyrics(songname);
-                if (song_err == false) {
-                    setSongInfo(`${songname}`);
-                }
-                
-
-                document.getElementById("songinfo").style.display = "";
-                
-                
-
-
-                if (song_err == true) {
-                    debubg("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa");
-                }
-                
-                lyr_disp = song_lyrics; // set the current lyrics
-
             } else {                    // hello gordon
                 displayAnim(`\nsong is not in registry. please use 'songlist' to get the list of songs supported.`, 10);
             }
 
 
-        } else if (mmm[1] == "volume") {
+        } else if (mmm[1].toLowerCase() == "volume") {
             var volum = mmm[2];
             volum = parseInt(volum);
             debubg(volum);
@@ -1282,7 +1063,7 @@ function parseCommand(command) {
             }
 
         } else {
-            displayAnim("\nplease enter a valid number or check the man page!", 7);
+            displayAnim(`\nzoom level is at ${sizemod}, please enter a valid number or check the man page!`, 7);
         }
     } else if (command == "credits" || command == "credits ") {
         // display fancy credits
@@ -1367,6 +1148,8 @@ function parseCommand(command) {
     
         var lowname = nametm.toLowerCase();
 
+        operation = operation.toLowerCase();
+
         debubg(`theme command has been called. parsed: operation: ${operation}, name: ${nametm}`);
 
         if (operation == "use") {
@@ -1426,69 +1209,108 @@ function parseCommand(command) {
             }
 
         } else if (operation == "import" || operation == "install") {
+            
+    
+            
+
             if (nametm != "" && nametm != undefined && nametm != null) {
-                
+            
                 console.log(nametm);
-                var teem = actualname.split("-");
 
-                console.log(teem);
-                if (teem.length == 5) {
-                    var nam = teem[0];
-                    var aut = teem[1];
-                    var txt = teem[2];
-                    var bac = teem[3];
-                    var acc = teem[4];
+                var broken = false;
+                // code redo (tm)
 
-                    function check(naaa) {
-                        var lowname = naaa.toLowerCase();
-                        if (themes[lowname]) {
-                            displayAnim("\nthere's already a default theme with that name! what would you like the theme to be named?", 5);
-                            askInput(() => {
-                                check(ask_return);
-                            });
-                        } else if (custom_themes[lowname]) {
-                            displayAnim(`\nthe theme '${lowname}' already exists. would you like to overwrite this theme? (y/n)`, 7);
-                            askInput(() => {
-                                if (ask_return == "y") {
-                                    rawSaveTheme(naaa, aut, txt, bac, acc);
-                                    displayAnim(`\nthe theme '${naaa}' has been saved. use 'theme use ${lowname}' to use the theme!`, 7);
-                                } else if (ask_return == "n") {
-                                    displayAnim(`\nplease replace the text before the first '-' with a new name and try again!`, 7);
-                                }
-                            });
-                        } else {
-                            rawSaveTheme(naaa, aut, txt, bac, acc);
-                            displayAnim(`\nthe theme '${naaa}' has been saved. use 'theme use ${lowname}' to use the theme!`, 7);
-                            listening_input = false;
-                        }
+                try {
+                    // {"name":"Git","author":"18gallons","text colour":"#b1d1d9","back colour":"#0d1117","accy colour":"#238636"}
+                    var in_ = JSON.parse(actualname);   // dont ask me why thats called actualname, because i don't know either, but it works so... ¯\_(ツ)_/¯
+
+                    if (in_["name"] == undefined) {
+                        broken = true;
+                    } else if (in_["author"] == undefined) {
+                        broken = true;
+                    } else if (in_["text colour"] == undefined) {
+                        broken = true;
+                    } else if (in_["back colour"] == undefined) {
+                        broken = true;
+                    } else if (in_["accy colour"] == undefined) {
+                        broken = true;
                     }
 
-                 
-                    check(nam);
+                    if (broken == true) {
+                        throw new Error('aaaaaa!!!!!'); // if one of those values are undefined, throw an error and say it's invalid
+                    } else if (broken == false) {
 
-                } else {
-                    displayAnim("invalid theme!", 7);
+                        var theme_in = JSON.parse(actualname);
+                        var theme_name = theme_in["name"].toLowerCase();
+                        if (themes[theme_name] || custom_themes[theme_name]) {
+                            // if that note already exists with that name
+    
+                            displayAnim(`\nuh oh! a theme with the name '${theme_name}' already exists! what would you like to name this theme?`, 4);
+                            askInput(() => {
+                                // get new name
+                                var nam = ask_return;
+                                var nam_low = nam.toLowerCase();
+    
+                                if (themes[nam_low] || custom_themes[theme_name]) {
+                                    displayAnim("\nthere is a theme with that name also! please use 'themes' to get a list of all themes, and try again with a theme name that is not taken!", 4);
+                                    debubg("bruh this is the second time that you have chosen a theme name that exists lmao try again nerd /lh");
+                                } else {
+                                    // chose a good boy name that isnt taken ™
+    
+                                    theme_in["name"] = nam;  // sets the JSON name to the name you inputted
+                                    
+                                    rawSaveTheme(theme_in);
+                                    
+                                    displayAnim("\ntheme saved.", 7);
+                                }
+                                        // i literally wrote this code like 7 minutes ago and i've already forgotten what half of it does
+                            });
+                        } else {    // if it doesn't exist in the notes already
+
+                            rawSaveTheme(theme_in);
+                            displayAnim("\ntheme saved.", 7);
+                        }
+
+                    }
+
+                } catch (err) {
+                    erry("A!!! the theme JSON is invalid!!!");
+                    displayAnim("\ninvalid theme!", 7);
                 }
+
+
+                /*
+                rawSaveTheme(naaa, aut, txt, bac, acc);
+                displayAnim(`\nthe theme '${naaa}' has been saved. use 'theme use ${lowname}' to use the theme!`, 7);
+                */       
 
 
             } else { // if it is bad
                 displayAnim("\nplease enter a valid theme! use 'theme export [theme name]' to export a theme!", 7);
             }
 
+            
+
+
+
+
+
 
         } else if (operation == "export" || operation == "share") {
             // time to export theme
-            if (nametm == "" || nametm == undefined || nametm == null) {
+            
+          
+            if (nametm != "" && nametm != undefined && nametm != null) {
                 displayAnim("\nplease enter a valid theme name!", 7)
             } else if (themes[lowname]) {   // if it exists in the default themes
                 debubg("theme exists as a default theme!!");
-                var share = `${themes[nametm]["name"]}-${themes[nametm]["author"]}-${themes[nametm]["text colour"]}-${themes[nametm]["back colour"]}-${themes[nametm]["accy colour"]}`;
+                var share = JSON.stringify(themes[lowname]);
                 debubg(`exported theme: ${share}`);
                 copyclip(share);
                 displayAnim("\nexported theme copied to clipboard. import it again by using 'theme import [exported theme]'");
             } else if (custom_themes[lowname]) { // if it exists in the custom themes
                 debubg("theme exists as a custom theme!!"); // airport customs
-                var share = `${custom_themes[nametm]["name"]}-${custom_themes[nametm]["author"]}-${custom_themes[nametm]["text colour"]}-${custom_themes[nametm]["back colour"]}-${custom_themes[nametm]["accy colour"]}`;
+                var share = JSON.stringify(custom_themes[lowname]);
                 debubg(`exported theme: ${share}`);
                 copyclip(share);
                 displayAnim("\nexported theme copied to clipboard. import it again by using 'theme import [exported theme]'");
@@ -1496,6 +1318,7 @@ function parseCommand(command) {
                 debubg("theme does not exist");
                 displayAnim(`\ntheme '${nametm}' does not exist! check 'themelist' for a list of available themes.`, 7);
             }
+            
 
         } else if (operation == "delete" || operation == "remove" || operation == "kill" || operation == "murder") {
             if (nametm == "" || nametm == undefined || nametm == null) {
@@ -1525,7 +1348,7 @@ function parseCommand(command) {
 
     } else if (command == "stars" || command == "stars ") {
         stars();
-    } else if (command == "asciigame") {
+    } else if (command == "asciigame") {            // thank you caffy, for this beautiful command
         displayAnim("\nyou know the rules", 13);
         setTimeout(() => {
 
@@ -1637,7 +1460,7 @@ function parseCommand(command) {
             displayAnim("\nsorry, but that adventure could not be found. use 'adventure list' to get a list of adventures!", 5);
         }
     
-    } else if (argCommand == "encrypt") {
+    } else if (argCommand == "encode") {
         
         var mmm = argComm(commandInit);
 
@@ -1654,11 +1477,11 @@ function parseCommand(command) {
         if (ciphers[hehehaha]) {
             // it egg
             cur_cipher = hehehaha;
-            displayAnim("\nwhat text would you like to encrypt?", 7);
+            displayAnim("\nwhat text would you like to encode?", 7);
             askInput(() => {
-                var res = crypt("en", ask_return, cur_cipher);
+                var res = crypt("en", ask_return.toLowerCase(), cur_cipher);
                 copyclip(res);
-                displayAnim("\nyour encrypted text has been copied to clipboard.", 7);
+                displayAnim("\nyour encodeed text has been copied to clipboard.", 7);
             });
             debubg(result);            
         } else {
@@ -1666,7 +1489,7 @@ function parseCommand(command) {
             displayAnim(`\ni'm sorry, the cipher '${hehehaha}' cannot be found. use 'ciphers' to get a list of ciphers`, 7);
         }
 
-    } else if (argCommand == "decrypt") {
+    } else if (argCommand == "decode") {
         
         var mmm = argComm(commandInit);
 
@@ -1683,11 +1506,11 @@ function parseCommand(command) {
         if (ciphers[hehehaha]) {
             // it egg
             cur_cipher = hehehaha;
-            displayAnim("\nwhat text would you like to decrypt?", 7);
+            displayAnim("\nwhat text would you like to decode?", 7);
             askInput(() => {
                 var res = crypt("de", ask_return, cur_cipher);
                 copyclip(res);
-                displayAnim("\nyour decrypted text has been copied to clipboard.", 7);
+                displayAnim("\nyour decodeed text has been copied to clipboard.", 7);
             });
             debubg(result);            
         } else {
@@ -1711,10 +1534,521 @@ function parseCommand(command) {
             await displayAnim(generateTable(cip_tab), 0.5);
         }
         infotm();
-    }
+    } else if (command == "queue") {
 
+        var que_tab = [
+            { "name": "place", "contents": [] },
+            { "name": "name", "contents": [] },
+            { "name": "artist", "contents": [] },
+            { "name": "album", "contents": [] }
+        ]
+
+        if (music_queue[0]) {
+            for (i in music_queue) {
+                var somg = music_queue[i];
+                que_tab[0]["contents"].push(i);
+                que_tab[1]["contents"].push(songs[somg]["name"]);
+                que_tab[2]["contents"].push(songs[somg]["artist"]);
+                que_tab[3]["contents"].push(songs[somg]["album"]);
+            }
+            async function infotm() {   // async printing of colours tmtmtmtmmtmt mtm mt m
+                await displayAnim("\nQUEUE:\n\n", 4);
+                await displayAnim(generateTable(que_tab), 0.5);
+            }
+            infotm();
+
+
+
+        } else {
+            displayAnim("\nsorry, there's no music in the queue! use 'queue add [song]' to add a song to the queue!", 7);
+        }
+
+        
+
+    } else if (command == "queue add") {
+        displayAnim("\nplease input a song to add to the queue!", 7);
+    } else if (command == "queue remove") {
+        displayAnim("\nplease input a place in the queue to remove!", 7);
+    } else if (command == "queues") {
+        // lis tqueues
+        var que_tab = [
+            { "name": "name", "contents": [] },
+            { "name": "artist", "contents": [] }
+        ]
+        for (i in queues) {
+            var que = queues[i];
+            que_tab[0]["contents"].push(que["name"]);
+            que_tab[1]["contents"].push(que["artist"]);
+        }
+        async function infotm() {   // async printing of colours tmtmtmtmmtmt mtm mt m
+            await displayAnim("\nPRE-MADE QUEUES:\n\n", 4);
+            await displayAnim(generateTable(que_tab), 0.5);
+        }
+        infotm();
+
+    } else if (argCommand == "queue") {
+
+        var mmm = argComm(commandInit);
+        var eee = [...mmm];
+        eee.shift();
+        eee.shift();
+        var input = eee.join(" ");
+
+        var operation = mmm[1].toLowerCase();
+
+
+
+        if (operation == "add") {  // adding song to queue
+            debubg(`adding song '${input}' to queue`);
+
+            if (songs[input]) { // if song exists
+                debubg("song exists!!");
+
+                music_queue.push(input);                
+
+                //in_queue = true;
+                displayAnim(`\nadded '${input}' to queue!`, 7);
+
+            } else {
+                displayAnim("\nsorry, that song does not exist! please use 'songlist' to get a list of songs!", 7)
+            }
+        } else if (operation == "leave") {
+            if (in_queue == true) {
+                in_queue = false;
+                music_queue = new Array();
+                displayAnim("\nleft queue!", 7);
+            } else {
+                displayAnim("\nyou aren't in a queue", 7);
+            }
+            
+        } else if (operation == "play") {
+            parseCommand(`music play ${music_queue[0]}`);
+            in_queue = true;
+        } else if (operation == "join" ) {
+            if (music_playing == true) {
+                if (in_queue == false) {
+                    if (music_queue[0]) {   // if there's stuff i nthe queuye
+                        in_queue = true;
+                    } else {
+                        displayAnim("\nthere's nothing in the queue!", 7);
+                    }
+                } else {
+                    displayAnim("\nyou're already in the queue!", 7);
+                }
+            } else {
+                displayAnim("\nyou're not playing any music!", 7);
+            }
+            
+            
+        } else if (operation == "remove") {
+            // remove music from queue
+            var inny = parseInt(input);
+
+            if (typeof inny == 'number') {  //valid number
+
+                if (music_queue[inny]) {    // valid spot
+                    music_queue.splice(inny, 1);
+                    displayAnim(`track in position ${inny} has been removed.`, 7);
+                } else {
+                    displayAnim(`'${inny}' is not a valid spot in the queue!`, 7);
+                }
+            } else {
+                displayAnim("\nplease enter a valid number!", 7)
+            }
+        } else if (operation == "clear") {
+            in_queue = false;
+            music_queue = new Array();
+        } else if (operation == "use") {
+
+            var intm = input.replaceAll("-", " ");
+            if (queues[input]) {    // if the premade queue exists
+                music_queue = queues[intm]["contents"];
+                displayAnim(`\nqueue set to '${input}'`, 7);
+            } else {
+                displayAnim(`\noops! the queue '${input}' doesn't exist! use 'queues' to get a list of all pre-made queues!`, 7);
+            }
+        }
+
+
+        // this section here is for any empty notes commands, what it should say when it's empty, etc.
+        /*
+
+            stoof
+
+
+
+        */
+
+
+
+    } else if (command == "note") {                                                                                     // fancy notes command start page and list page
+
+        async function fancyPage() {
+            var texty = asciiText("slant", `notes!!`);
+            await displayAnim("\n", 1);
+            await displayAnim(texty, 0.25);
+            await displayAnim(`\n\nwelcome to notes! you can write, save, and share notes within console!\n\nuse 'note create [title]' to create a new note,
+'notes' to list all notes,\n'note view [note]' to view a note, and so much more!\n\nuse 'man note' to see all commands! `, 1);
+        }
+        fancyPage();
+
+    } else if (command == "note list" || command == "notelist" || command == "notes") {                                 // notes list page
+
+        if (object_empty(notes) == true) {
+            displayAnim("\nthere are no notes! use 'note create [name]' to create a note!", 7);
+        } else {
+
+            
+            var note_table = [
+                {"name": "title", "contents": []},
+                {"name": "author", "contents": []},
+                {"name": "date created", "contents": []},
+                {"name": "date modified", "contents": []},
+            ]
+
+            for (i in notes) {
+                var noT = notes[i];
+                note_table[0]["contents"].push(noT["name"]);
+                note_table[1]["contents"].push(noT["author"]);
+                note_table[2]["contents"].push(`${noT["date created"].day} ${noT["date created"].month} ${noT["date created"].year}, ${noT["date created"].hour}:${noT["date created"].minute} ${noT["date created"].ampm}`);
+                note_table[3]["contents"].push(`${noT["date modified"].day} ${noT["date modified"].month} ${noT["date modified"].year}, ${noT["date modified"].hour}:${noT["date modified"].minute} ${noT["date modified"].ampm}`);
+            }
+            async function infotm() {   // async printing of colours tmtmtmtmmtmt mtm mt m
+                await displayAnim("\nNotes:\n\n", 4);
+                await displayAnim(generateTable(note_table), 0.5);
+            }
+            infotm();
+        }
+        
+    } else if (command == "note add" || command == "note create") {                                                                    // add a note
+        displayAnim("\nplease use a valid note title!", 7);
+    } else if (command == "note remove" || command == "note kill" || command == "note murder" || command == "note delete") {         // remove a note
+        displayAnim("\nplease use a valid note title! use 'notes' to get a list of notes!", 7);
+    } else if (command == "note edit") {                                                                   // edit a note
+        displayAnim("\nplease use a valid note title! use 'notes' to get a list of notes!", 7);
+    } else if (command == "note rename") {                                                                   // rename a note
+        displayAnim("\nplease use a valid note title! use 'notes' to get a list of notes!", 7);
+    } else if (command == "note clear" || command == "note purge") {                                                                  // clear all notes
+        displayAnim("\nare you sure you want to clear all notes? this cannot be undone!\n\n(y/n)");
+
+        askInput(() => {
+            if (yes_no(ask_return) == true) {   // yes
+                notes = new Object();
+                localStorage.setItem("notes", `${JSON.stringify(notes)}`);
+                displayAnim("\nall notes deleted.", 7);
+            } else {
+                displayAnim("\noperation cancelled.", 7)
+            }
+        });
+    } else if (command == "note export") {                                                                 // export a note
+        displayAnim("\nplease use a valid note title! use 'notes' to get a list of notes!", 7);
+    } else if (command == "note import") {                                                                 // import a note
+        displayAnim("\nplease use a valid note title! use 'notes' to get a list of notes!", 7);
+    } else if (command == "note view") {
+        displayAnim("\nplease use a valid note title! use 'notes' to get a list of notes!", 7);
+    } else if (argCommand == "note") {                                                                     // actual main notes command
+
+
+        var mmm = argComm(commandInit);
+        var eee = [...mmm];
+        eee.shift();
+        eee.shift();
+        var input = eee.join(" ");
+        eee.shift();
+        var input2 = eee.join(" ");
+
+        var operation = mmm[1].toLowerCase();
+        var operation2 = mmm[2].toLowerCase();
+
+
+        debubg(`command stuff:\noperation: '${operation}'\ninput: '${input}'\noperation2: '${operation2}'\ninput2: '${input2}'`);
+
+        if (operation == "add" || operation == "create") {           // add a note
+
+            // initially input a title with the command, and then it'll ask you for the contents of the note.
+
+            debubg(`title: '${input}'`);
+
+            if (notes[input]) {     // if that note already exists
+                displayAnim(`\nthe note '${input}' already exists! use 'note edit ${input}' to edit your already existing note, or use 'note create' with a different name!`, 7);
+            } else {
+                // if it doesnt exist
+                note_name = input.toLowerCase();
+                var dAT = parse_date();
+                
+                note_to_add = {
+                        "name": `${input}`,
+                        "author": `${user}`,
+                        "date created": dAT,
+                        "date modified": dAT,
+                        "contents": ""
+                    }
+                }
+                console.log(note_to_add);
+                displayAnim("\nwhat would you like to write in your note?", 7);
+                askInput(() => {
+                    // doing the thing
+                    note_to_add["contents"] = ask_return;
+                    notes[note_name] = note_to_add;
+                    localStorage.setItem("notes", `${JSON.stringify(notes)}`);
+                    displayAnim("\nadded note.", 7);
+                });
+
+
+        } else if (operation == "remove" || operation == "kill" || operation == "murder" || operation == "delete") {
+
+            note_name = input.toLowerCase();
+
+            if (notes[note_name]) {     // if that note exists
+                displayAnim(`\nare you sure you want to delete '${input}' forever? (a long time!)\n(y/n)`);
+                askInput(() => {
+                    // ask if theyre sure
+                    if (yes_no(ask_return) == true) {   // yes
+
+                        delete notes[note_name];
+                        localStorage.setItem("notes", `${JSON.stringify(notes)}`);
+                        displayAnim("\nnote deleted.", 7);
+
+                    } else {
+                        displayAnim("\noperation cancelled.", 7)
+                    }
+                });
+
+
+
+            } else {                    // if it doesn't exist
+                displayAnim("\nthat note doesn't exist! use 'notes' to get a list of all notes!", 7);
+            }
+
+        } else if (operation == "edit") {
+
+            // fun idea: when you're editing a note, it will do shell.value = `${current_note_contents}` and then you can literally *edit* it!!! woo!! ideas!!
+            note_name = input.toLowerCase();
+
+            if (notes[note_name]) {     // if that note exists
+                
+                displayAnim(`${make_note_vis(note_name)}\n\nwhat would you like the note to be now?`, 0.5);     // show the whole note in its entirety™
+                setTimeout(() => {shell.value = notes[note_name]["contents"]}, 200);
+
+                askInput(() => {
+                    if (ask_return != notes[note_name]["contents"]) {
+                        notes[note_name]["contents"] = ask_return;
+                        notes[note_name]["date modified"] = parse_date();
+                        localStorage.setItem("notes", `${JSON.stringify(notes)}`);
+                    }
+                    displayAnim("\nnote saved.", 7)
+                });
+            
+                
+
+            
+            } else {
+                displayAnim("\nthat note does not exist! use 'note create [name]' to create a note!", 7);
+            }
+
+            
+        } else if (operation == "rename") {
+
+            note_name = input.toLowerCase();
+
+            if (notes[note_name]) {     // if that note exists
+
+                displayAnim(`${make_note_vis(note_name)}\n\nwhat would you like it to be renamed to?`, 0.5);     // show the whole note in its entirety™
+                setTimeout(() => {shell.value = notes[note_name]["name"]}, 200);
+
+                askInput(() => {
+                    if (ask_return != notes[note_name]["name"]) {
+                        notes[ask_return] = notes[note_name];
+                        notes[ask_return]["name"] = ask_return;
+                        notes[ask_return]["date modified"] = parse_date();
+                        delete notes[note_name];
+                        localStorage.setItem("notes", `${JSON.stringify(notes)}`);
+                    }
+                    displayAnim("\nnote saved.", 7)
+                });
+
+
+            
+            } else {
+                displayAnim("\nthat note does not exist! use 'note create [name]' to create a note!", 7);
+            }
+
+            //{"name":"test","author":"dev","date created":{"day":"26","month":"April","year":"2022","hour":"11","minute":"28","second":"21","ampm":"AM"},"date modified":{"day":"26","month":"April","year":"2022","hour":"11","minute":"28","second":"21","ampm":"AM"},"contents":"hehe!\\nhehe!"}
+        } else if (operation == "import") {
+
+            var in_note = "";
+
+            var broken = false;
+
+            try {
+                var in_ = JSON.parse(input);                            // big ol' chunk of code to check that al the inputted JSON works and is correct. future jesse please make this a function somehow
+                /*
+
+                the function could probably use a JSON input, like this
+
+                check_json(note_input, {
+                    "name": true,
+                    "author": true,
+                    "date created": {
+                        "day": true,
+                        "month": true,
+                        "year": true,
+                        "hour": true,
+                        "minute": true,
+                        "second": true,
+                        "ampm": true
+                    },
+                    "date modified": {
+                        "day": true,
+                        "month": true,
+                        "year": true,
+                        "hour": true,
+                        "minute": true,
+                        "second": true,
+                        "ampm": true
+                    },
+                    "contents": true
+                })
+
+                
+                so it checks the first JSON to see if all keys in the second JSON exist in the first JSON.
+
+                hopefully
+
+                */
+                if (in_["name"] == undefined) {
+                    broken = true;
+                } else if (in_["author"] == undefined) {
+                    broken = true;
+                } else if (in_["date created"] == undefined) {
+                    broken = true;
+                } else if (in_["date created"]["day"] == undefined) {
+                    broken = true;
+                } else if (in_["date created"]["month"] == undefined) {
+                    broken = true;
+                } else if (in_["date created"]["year"] == undefined) {
+                    broken = true;
+                } else if (in_["date created"]["hour"] == undefined) {
+                    broken = true;
+                } else if (in_["date created"]["minute"] == undefined) {
+                    broken = true;
+                } else if (in_["date created"]["second"] == undefined) {
+                    broken = true;
+                } else if (in_["date created"]["ampm"] == undefined) {
+                    broken = true;
+                } else if (in_["date modified"] == undefined) {
+                    broken = true;
+                } else if (in_["date modified"]["day"] == undefined) {
+                    broken = true;
+                } else if (in_["date modified"]["month"] == undefined) {
+                    broken = true;
+                } else if (in_["date modified"]["year"] == undefined) {
+                    broken = true;
+                } else if (in_["date modified"]["hour"] == undefined) {
+                    broken = true;
+                } else if (in_["date modified"]["minute"] == undefined) {
+                    broken = true;
+                } else if (in_["date modified"]["second"] == undefined) {
+                    broken = true;
+                } else if (in_["date modified"]["ampm"] == undefined) {
+                    broken = true;
+                } else if (in_["contents"] == undefined) {
+                    broken = true;
+                }
+
+                if (broken == true) {
+                    throw new Error('aaaaaa!!!!!');
+                } else if (broken == false) {   // the rest of the import code
+                    var note_in = JSON.parse(input);
+                    var note_name = note_in["name"].toLowerCase();
+                    if (notes[note_name]) {
+                        // if that note already exists with that name
+
+                        displayAnim(`\nuh oh! the note with the name '${note_name}' already exists! what would you like to name this note?`, 4);
+                        askInput(() => {
+                            // get new name
+                            var nam = ask_return;
+                            var nam_low = nam.toLowerCase();
+
+                            if (notes[nam_low]) {
+                                displayAnim("\nthere is a note with that name also! please use 'notes' to get a list of all notes, and try again with a note name that is not taken!", 4);
+                                debubg("bruh this is the second time that you have chosen a note name that exists lmao try again nerd /lh");
+                            } else {
+                                // chose a good boy name that isnt taken ™
+
+                                note_in["name"] = nam;  // sets the JSON name to the name you inputted
+                                notes[nam_low] = note_in;   // set the note
+                                localStorage.setItem("notes", `${JSON.stringify(notes)}`);  // save the notes to localStorage
+                                displayAnim("\nnote saved.", 7);
+                            }
+                            
+                        });
+                    } else {    // if it doesn't exist in the notes already
+                        notes[note_name] = note_in;   // set the note
+                        localStorage.setItem("notes", `${JSON.stringify(notes)}`);  // save the notes to localStorage
+                        displayAnim("\nnote saved.", 7);
+                    }
+                }
+                
+
+            } catch (err) {
+                erry("A!!! the note JSON is invalid!!!");
+                displayAnim("\ninvalid note!", 7);
+            }
+            
+        } else if (operation == "export") {
+
+            note_name = input.toLowerCase();
+
+            if (notes[note_name]) {
+
+                var noty = notes[note_name];
+
+                var export_tm = JSON.stringify(noty);
+
+                copyclip(export_tm);
+
+                displayAnim("\nexported note copied to clipboard.");
+
+            } else {
+                displayAnim(`\nthat note doesn't exist! use 'notes' to list all notes`, 7);
+            }
+
+
+        } else if (operation == "view") {
+            note_name = input.toLowerCase();
+            if (notes[note_name]) {     // if that note exists
+                displayAnim(make_note_vis(note_name), 0.5);
+            } else {
+                displayAnim("\nthat note doesn't exist! use 'note create' to create a note, or 'notes' to list all existing notes.", 7);
+            }
+        } else {
+            displayAnim("\nthat operation doesn't exist!! use 'man note' for help!", 7);
+        }
+
+    } else if (argCommand == "debugvar-size") {
+
+        var mmm = argComm(commandInit);
+        var eee = [...mmm];
+        eee.shift();
+        var input = eee.join(" ");
+
+        var number_test = /^[0-9]+$/i.test(input);      // i still hate regex
+
+        if (number_test == true) {
+
+            debugvar_size = input;
+            var_debug_win.document.getElementById("size-pass").innerHTML = debugvar_size;
+            localStorage.setItem("debug var size", debugvar_size);
+
+            
+
+        } else {
+            displayAnim("\nplease enter a valid number!", 7);
+        }
+    }
     else {
-        displayAnim(`\ncommand error: ${commandInit} is not an existing command.`, 10);
+        displayAnim(`\ncommand error: ${commandInit} is not an existing command.`, 7);
     }
     coopy = false;
-} 
+}

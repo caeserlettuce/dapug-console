@@ -733,12 +733,12 @@ var ascii_fonts = {
         "       ",
         ],
         [
-        "  __   ",
-        "  / /_ ",
-        "  / __/",
-        "  / /_ ",
-        "   \\__/",
-        "       ",
+        " __   ",
+        " / /_ ",
+        " / __/",
+        " / /_ ",
+        "  \\__/",
+        "      ",
         ],
         [
         "        ",
@@ -2952,6 +2952,13 @@ music play      | type this along with a song name! (as long as it's in the list
 music pause     | pauses any playing music
 music skip      | skips current song
 music volume    | type this along with a value from 0 to 100 to set the music volume!
+queue add       | type this in followed with a song name to add it to your song queue!
+queue remove    | type this in followed with a place in the queue to remove the song from that place!
+queue play      | use this to start playing the current queue!
+queue join      | already playing a song? use this to make the queue start playing after your current song finishes!
+queue clear     | clears your current queue
+queues          | lists all pre-made queues
+queue use       | type this in followed with a name of a pre-made queue, and it will set your current queue to the pre-made queue!
 `,
     "art": `
 ART HELP PAGE
@@ -2986,9 +2993,13 @@ different useful tools n stuff you can use on here
 
 convert         | type in convert, along with a unit type, a number, from unit, and to unit
 convert -list   | lists all the units and unit types
-encrypt         | encrypts text into any supported cipher
-decrypt         | decrypts an encrypted string of text back into readable text
+encode          | encodes text into any supported cipher
+decode          | decodes an encodeed string of text back into readable text
 ciphers         | lists all supported ciphers
+note            | use this to get information about the note command!
+note create     | type this in followed with a name to create a note!
+note list       | lists all notes
+note view       | type this in followed with a note name to view it!
 `,
     "dev": `
 DEV HELP PAGE
@@ -2997,6 +3008,7 @@ these are developer commands, so if they are confusing, that's fine
 
 debug
 debug -v
+debugvar-size [number]
 cinfo
 `,
     "danger": `
@@ -3147,6 +3159,12 @@ function updateMan() {
             "'color text reset'",
             "'colour reset'",
         ],
+        /*
+
+                rip in pepperonis old comment command
+
+                you will not be missed
+
         "comment": [
             "COMMENT MANPAGE:",
             "adds a comment to a list of comments, and will store them on your local cache",
@@ -3165,6 +3183,7 @@ function updateMan() {
             " ",
             "NOTE: <comment> section is only supported for the 'add' option."
         ],
+        */
         "ascii": [
             "ASCII MANPAGE:",
             "generates an ASCII text art of any sentence",
@@ -3378,8 +3397,50 @@ function updateMan() {
             " ",
             "'theme use git'",
             "'theme export portal2'",
-            "'theme install Cola Soda-caeserlettuce-#fdfdfd-#c70015-#43190e'"
+            "'theme install Git-18gallons-#b1d1d9-#0d1117-#238636'"
         ],
+        "theme use":[
+            "THEME USE MANPAGE",
+            "use a specific theme",
+            " ",
+            "USAGE:",
+            "'theme use [theme]'",
+            " ",
+            "EXAMPLE:",
+            "'theme use git'"
+        ],
+        "theme save":[
+            "THEME SAVE MANPAGE",
+            "saves your current colour theme to your theme list",
+            " ",
+            "USAGE:",
+            "'theme save [name]'",
+            " ",
+            "EXAMPLE:",
+            "'theme save rainbow'"
+        ],
+        "theme export":[
+            "THEME EXPORT MANPAGE",
+            "exports a theme to a string of text you can share with your friends!",
+            " ",
+            "USAGE:",
+            "'theme export [theme]'",
+            " ",
+            "EXAMPLE:",
+            "'theme export git'"
+        ],
+        "theme share": "theme export",
+        "theme install":[
+            "THEME INSTALL MANPAGE",
+            "installs a theme from an exported string of text",
+            " ",
+            "USAGE:",
+            "'theme install [exported theme]'",
+            " ",
+            "EXAMPLE:",
+            "'theme install Git-18gallons-#b1d1d9-#0d1117-#238636'"
+        ],
+        "theme import": "theme install",
         "asciigame": [
             "ASCIIGAME MANPAGE",
             "play a fun little text adventure game",
@@ -3446,7 +3507,7 @@ function updateMan() {
             "███████████████████████████████████████████████████████               ",
             "██████████████████████████████████████████████████████████████████████",
             "██████████████████████████████████████████████████████████████████████",
-            "██████████████████████████████████████████████enitals were obliterated",
+            "████████████████████████████████████████████████itals were obliterated",
             "██████████████████████████████████████████████████████████████████████",
             "██████████████████████████████████████████████████████████████████████",
             "███████████████████████████████████████                               ",
@@ -3520,6 +3581,7 @@ function updateMan() {
             "USAGE:",
             "'debug'",
             "'debug -v'",
+            "'debug -s'"
         ],
         "reboot":[
             "REBOOT MANPAGE",
@@ -3609,7 +3671,7 @@ function updateMan() {
             "SONGLIST MANPAGE",
             "like going to a candy store as a child and seeing they're sold out of almost everything, but with music",
             " ",
-            "CAFFY WROTE THIS. WE HAVE LEMON DEMON. LOTS OF LEMON DEMON.",
+            "JESSE HERE: CAFFY WROTE THIS. WE HAVE LEMON DEMON. LOTS OF LEMON DEMON.",
             " ", //^ in case you can't tell, i've written around 20 manpages in a row so far
             "USAGE",
             "'songlist'",
@@ -3666,22 +3728,15 @@ function updateMan() {
             "USAGE:",
             "'credits'",
         ],
-        "themes":[
-            "THEMES MANPAGE",
-            "a carefullly curated, thoughtfully crafted (almost entirely made by 18gallons) selection of themes for if the default green doesn't please one's eyes",
-            " ",
-            "USAGE:",
-            "'themelist'",
-            "'themes'",
-        ],
         "themelist":[
             "THEMELIST MANPAGE",
-            "a carefullly curated, thoughtfully crafted (almost entirely made by 18gallons) selection of themes for if the default green doesn't please ones eyes",
+            "a carefully curated, thoughtfully crafted (almost entirely made by 18gallons) selection of themes for if the default green doesn't please ones eyes",
             " ",
             "USAGE:",
             "'themelist'",
             "'themes'",
         ],
+        "themes": "themelist",
         "dog":[
             "DOG MANPAGE",
         `
@@ -3756,33 +3811,33 @@ function updateMan() {
             "USAGE:",
             "'adventures'"
         ],
-        "encrypt":[
-            "ENCRYPT MANPAGE",
+        "encode":[
+            "ENCODE MANPAGE",
             " ",
-            "asks you for a string of text and encrypts it to the inputted cipher",
+            "asks you for a string of text and encodes it to the inputted cipher",
             " ",
             "USAGE:",
-            "'encrypt [cipher]'",
+            "'encode [cipher]'",
             " ",
             "OPTIONS:",
             "cipher | any supported cipher (use 'ciphers' to get a list of all supported ciphers)",
             " ",
             "EXAMPLE:",
-            "'encrypt caesar'"
+            "'encode caesar'"
         ],
-        "decrypt":[
-            "DECRYPT MANPAGE",
+        "decode":[
+            "DECODE MANPAGE",
             " ",
-            "asks you for an encrypted string of text and decrypts it to readable text",
+            "asks you for an encodeed string of text and decodes it to readable text",
             " ",
             "USAGE:",
-            "'decrypt [cipher]'",
+            "'decode [cipher]'",
             " ",
             "OPTIONS:",
             "cipher | any supported cipher (use 'ciphers' to get a list of all supported ciphers)",
             " ",
             "EXAMPLE:",
-            "'decrypt caesar'"
+            "'decode caesar'"
         ],
         "ciphers":[
             "CIPHERS MANPAGE",
@@ -3791,12 +3846,191 @@ function updateMan() {
             " ",
             "USAGE:",
             "'ciphers'"
+        ],
+        "queue":[
+            "QUEUE MANPAGE",
+            " ",
+            "lists all the songs in the current queue, or does different operations on the queue",
+            " ",
+            "USAGE:",
+            "'queue (operation)'",
+            " ",
+            "OPTIONS:",
+            "(note: for more information on these operations, check their individual manpages!)",
+            "   add | adds a song to the queue",
+            "remove | removes a song from the queue",
+            "  play | plays the current queue",
+            "  join | joins the queue while youre playing a song",
+            " clear | clears the queue"
+        ],
+        "queue add":[
+            "QUEUE ADD MANPAGE",
+            " ",
+            "adds a song to the queue",
+            " ",
+            "USAGE:",
+            "'queue add [song]'",
+            " ",
+            "OPTIONS:",
+            "song | any available song in 'songlist'",
+            " ",
+            "EXAMPLE:",
+            "'queue add eighth wonder'"
+        ],
+        "queue remove":[
+            "QUEUE REMOVE MANPAGE",
+            " ",
+            "removes a song from the queue",
+            " ",
+            "USAGE:",
+            "'queue remove [place]",
+            " ",
+            "OPTIONS:",
+            "place | whatever number place the song is at in the queue (use 'queue' to check)",
+            " ",
+            "EXAMPLE:",
+            "'queue remove 2'"
+        ],
+        "queue play":[
+            "QUEUE PLAY MANPAGE:",
+            " ",
+            "plays the current queue",
+            " ",
+            "USAGE:",
+            "'queue play'"
+        ],
+        "queue clear":[
+            "QUEUE CLEAR MANPAGE",
+            " ",
+            "clears the whole queue",
+            " ",
+            "USAGE:",
+            "'queue clear'"
+        ],
+        "queue join":[
+            "QUEUE JOIN MANPAGE:",
+            " ",
+            "joins the queue, so that it'll start playing the queue after your current song",
+            " ",
+            "USAGE:",
+            "'queue join'"
+        ],
+        "note":[
+            "NOTE MANPAGE",
+            " ",
+            "you can save & edit personal notes in console",
+            " ",
+            "USAGE:",
+            "'note [option] [title]",
+            " ",
+            "OPTIONS:",
+            "(note: not all options uses [title])",
+            "   list | lists all notes",
+            " create | creates a new note, [title]",
+            "   edit | edits the contents of a note, [title]",
+            "   view | views the contents of a note, [title]",
+            " rename | renames a note, [title]",
+            " remove | deletes a specific note, [title]",
+            " ",
+            "you can check the manpages for the individual options as well! ('man note edit')"
+        ],
+        "note list":[
+            "NOTE LIST MANPAGE",
+            "lists all notes",
+            " ",
+            "USAGE:",
+            "'note list'",
+        ],
+        "notes": "note list",
+        "notelist": "note list",
+        "note create":[
+            "NOTE CREATE MANPAGE",
+            "creates a note",
+            " ",
+            "USAGE:",
+            "'note create [title]'",
+            " ",
+            "EXAMPLE:",
+            "'note create hello'"
+        ],
+        "note add": "note create",
+        "note edit":[
+            "NOTE EDIT MANPAGE",
+            "edits a note",
+            " ",
+            "USAGE:",
+            "'note edit [title]'",
+            " ",
+            "EXAMPLE:",
+            " ",
+            "'note edit hello'"
+        ],
+        "note view":[
+            "NOTE VIEW MANPAGE",
+            "views a note",
+            " ",
+            "USAGE:",
+            "'note view [title]'",
+            " ",
+            "EXAMPLE:",
+            "'note view hello'"
+        ],
+        "note rename":[
+            "NOTE RENAME MANPAGE",
+            "renames a note",
+            " ",
+            "USAGE:",
+            "'note rename [title]'",
+            " ",
+            "EXAMPLE",
+            "'note rename hello'"
+        ],
+        "note remove":[
+            "NOTE REMOVE MANPAGE",
+            "removes a note",
+            " ",
+            "USAGE:",
+            "'note remove [title]'",
+            " ",
+            "EXAMPLE:",
+            "'note remove hello'"
+        ],
+        "note kill": "note remove",
+        "note murder": "note remove",
+        "note delete": "note remove",
+        "note clear":[
+            "NOTE CLEAR MANPAGE",
+            "clears all notes",
+            " ",
+            "USAGE:",
+            "'note clear'"
+        ],
+        "note purge": "note clear",
+        "debugvar-size":[
+            "DEBUGVAR-SIZE MANPAGE",
+            " ",
+            "changes how many variables are shown per row in 'debug -v'",
+            " ",
+            "USAGE:",
+            "'debugvar-size [number]'",
+            " ",
+            "EXAMPLE:",
+            "'debugvar-size 10'"
         ]
     }
 }
 
 updateMan();
 
+/*
+        "note ":[
+            "NOTE  MANPAGE",
+            "",
+            " ",
+            "USAGE:",
+            "'note '"
+        ],
+*/
 
 var listy = [ " ",
     "info",
@@ -3850,7 +4084,6 @@ var listy = [ " ",
     "man *",
     "clear -cache",
     "clear -cache -ignore",
-    "comment -clear",
     "benson",
     "github",
     "git",
@@ -3894,17 +4127,41 @@ var listy = [ " ",
     "colors",
     "adventure *",
     "adventures",
-    "encrypt",
-    "decrypt",
+    "encode",
+    "decode",
     "ciphers",
     "cipher list",
-    
+    "queue",
+    "queue add",
+    "queue remove",
+    "queue play",
+    "queue join",
+    "note",
+    "notes",
+    "notelist",
+    "note list",
+    "note add",
+    "note create",
+    "note remove",
+    "note kill",
+    "note murder",
+    "note delete",
+    "note edit",
+    "note rename",
+    "note clear",
+    "note purge",
+    "note export",
+    "note import",
+    "note view",
+    "debugvar-size",
+
     "* command is currently in-development and may break the site."
 ]; 
 
 var fomb = [ " ",
     "default / def / d",
     "slant / sla / s",
+    "block / blo / b"
 ];
 
 var convertlist = [ " ",
@@ -5340,7 +5597,7 @@ songs = {
         "album": "Portal OST",
         "art": "aperture1.png",
         "audio": "still_alive.mp3",
-        "volume": 1,
+        "volume": 0.4,
         "lyrics": [
             // credits
             {"text": false, "dur": [8569, 8569], "exec": "portalCreditAnim(1, 60);"},
@@ -7570,10 +7827,19 @@ var themes = {      // console colour themes
         "back colour": "#e2d4b7",
         "accy colour": "#83775d"
     },
+    "commodore": {
+        "name": "Commodore",
+        "author": "DrasticAce",
+        "text colour": "#83b533",
+        "back colour": "#4a7801",
+        "accy colour": "#54ab16"
+    },
 }
-/*"": {
+
+/*
+"": {
     "name": "",
-    "author": "18gallons",
+    "author": "",
     "text colour": "",
     "back colour": "",
     "accy colour": ""
@@ -8047,46 +8313,6 @@ var puppy = {
 }
 
 
-/*
-▓▒░
-▗▖▝▘▟▙▜▛▚▞█▀█
-▉▊▋▌▍▎▏
-▇▆▅▄▃▂▁
-
-│┴┬├─┤┼┌┐└┘
-┃┻┳┣━┫╋┏┓┗┛
-║╩╦╠═╣╬╔╗╚╝
- ╨╤╟ ╡╪╓╖╙╜
- ╧╥╞ ╢╫╒╕╘╛
-╿┸┯┞ ┦╀┍┑┖┚
-╽┷┰┟ ┧╁┎┒┕┙
- ┵┭┠╾┥┽╭╮╯╰
- ┶┮┝╼┨┾
- ┹┱┡ ┩╇
- ┺┲┢ ┪╈
-╹   ╸ ╃
-╻   ╺ ╄
-╵   ╴ ╅
-╷   ╶ ╆
-    ╳ ╉
-    ╱ ╊
-    ╲ ┿
-      ╂
-          ↖
-
-⡀⡁⡂⡃⡄⡅⡆⡇⡈⡉⡊⡋⡌⡍⡎⡏
-⡐⡑⡒⡓⡔⡕⡖⡗⡘⡙⡚⡛⡜⡝⡞⡟
-⡠⡡⡢⡣⡤⡥⡦⡧⡨⡩⡪⡫⡬⡭⡮⡯
-⡰⡱⡲⡳⡴⡵⡶⡷⡸⡹⡺⡻⡼⡽⡾⡿
-⢀⢁⢂⢃⢄⢅⢆⢇⢈⢉⢊⢋⢌⢍⢎⢏
-⢐⢑⢒⢓⢔⢕⢖⢗⢘⢙⢚⢛⢜⢝⢞⢟
-⢠⢡⢢⢣⢤⢥⢦⢧⢨⢩⢪⢫⢬⢭⢮⢯
-⢰⢱⢲⢳⢴⢵⢶⢷⢸⢹⢺⢻⢼⢽⢾⢿
-⣀⣁⣂⣃⣄⣅⣆⣇⣈⣉⣊⣋⣌⣍⣎⣏
-⣐⣑⣒⣓⣔⣕⣖⣗⣘⣙⣚⣛⣜⣝⣞⣟
-⣠⣡⣢⣣⣤⣥⣦⣧⣨⣩⣪⣫⣬⣭⣮⣯
-⣰⣱⣲⣳⣴⣵⣶⣷⣸⣹⣺⣻⣼⣽⣾⣿
-*/
 
 
 var caffy = `
@@ -8257,8 +8483,83 @@ var ciphers = {
             "9": "36;"
         }
     },
+    "corrupted": {
+        "name": "Corrupted",
+        "author": "caeserlettuce",
+        "code": {
+            " ": "♻",
+            "a": "█",
+            "b": "┛",
+            "c": "⡇",
+            "d": "┟",
+            "e": "⛾",
+            "f": "✧",
+            "g": "╬",
+            "h": "▁",
+            "i": "░",
+            "j": "╮",
+            "k": "╳",
+            "l": "⣮",
+            "m": "⣏",
+            "n": "╛",
+            "o": "╱",
+            "p": "┱",
+            "q": "▅",
+            "r": "▟",
+            "s": "⛤",
+            "t": "▗",
+            "u": "▓",
+            "v": "╴",
+            "w": "▒",
+            "x": "┿",
+            "y": "╵",
+            "z": "▊",
+            "0": "⣗",
+            "1": "ⵠ",
+            "2": "⛿",
+            "3": "⡿",
+            "4": "◣",
+            "5": "⓾",
+            "6": "⩒",
+            "7": "⬕",
+            "8": "⛇",
+            "9": "⮉",
+            "`": "⻱",
+            "~": "⛕",
+            "!": "⧌",
+            "@": "⛸",
+            "#": "ⓖ",
+            "%": "ⴹ",
+            "^": "∉",
+            "&": "⪣",
+            "\\\*": "➂",
+            "(": "⛴",
+            ")": "⼠",
+            "-": "ⷈ",
+            "_": "⧪",
+            "=": "┙",
+            "[": "⟼",
+            "]": "ⶾ",
+            "{": "⛁",
+            "}": "⍐",
+            "\\\\": "➋",
+            "\\\|": "Ⱓ",
+            ";": "⭓",
+            ":": "⨻",
+            "'": "⚣",
+            '"': "⛍",
+            "“": "⮋",
+            ",": "™",
+            ".": "⛃",
+            "<": "ⲃ",
+            ">": "◿",
+            "\\\/": "⎝",
+            "\\\?": "⋛"
+        }
+    },
 }
 /*
+
     "": {
         "name": "",
         "author": "",
@@ -8333,7 +8634,188 @@ var ciphers = {
             "9": ""
         }
     },
+    "": {
+        "name": "",
+        "author": "",
+        "code": {
+            "a": "",
+            "b": "",
+            "c": "",
+            "d": "",
+            "e": "",
+            "f": "",
+            "g": "",
+            "h": "",
+            "i": "",
+            "j": "",
+            "k": "",
+            "l": "",
+            "m": "",
+            "n": "",
+            "o": "",
+            "p": "",
+            "q": "",
+            "r": "",
+            "s": "",
+            "t": "",
+            "u": "",
+            "v": "",
+            "w": "",
+            "x": "",
+            "y": "",
+            "z": "",
+            "0": "",
+            "1": "",
+            "2": "",
+            "3": "",
+            "4": "",
+            "5": "",
+            "6": "",
+            "7": "",
+            "8": "",
+            "9": "",
+            "`": "",
+            "~": "",
+            "!": "",
+            "@": "",
+            "#": "",
+            "%": "",
+            "^": "",
+            "&": "",
+            "\\\*": "",
+            "(": "",
+            ")": "",
+            "-": "",
+            "_": "",
+            "=": "",
+            "[": "",
+            "]": "",
+            "{": "",
+            "}": "",
+            "\\\\": "",
+            "\\\|": "",
+            ";": "",
+            ":": "",
+            "'": "",
+            '"': "",
+            ",": "",
+            ".": "",
+            "<": "",
+            ">": "",
+            "\\\/": "",
+            "\\\?": ""
+        }
+    },
+    
 */
+
+
+var test_image = [
+    [{"c": "#ff0000", "s": "▓"}, {"c": "#ff0000", "s": "▓"}, {"c": "#ff0000", "s": "▓"}, {"c": "#ff0000", "s": "▓"}, {"c": "#ff0000", "s": "▓"}, {"c": "#ff0000", "s": "▓"}, {"c": "#ff0000", "s": "▓"}, {"c": "#ff0000", "s": "▓"}],
+    [{"c": "#ffa700", "s": "▓"}, {"c": "#ffa700", "s": "▓"}, {"c": "#ffa700", "s": "▓"}, {"c": "#ffa700", "s": "▓"}, {"c": "#ffa700", "s": "▓"}, {"c": "#ffa700", "s": "▓"}, {"c": "#ffa700", "s": "▓"}, {"c": "#ffa700", "s": "▓"}],
+    [{"c": "#fff700", "s": "▓"}, {"c": "#fff700", "s": "▓"}, {"c": "#fff700", "s": "▓"}, {"c": "#fff700", "s": "▓"}, {"c": "#fff700", "s": "▓"}, {"c": "#fff700", "s": "▓"}, {"c": "#fff700", "s": "▓"}, {"c": "#fff700", "s": "▓"}],
+    [{"c": "#00cc00", "s": "▓"}, {"c": "#00cc00", "s": "▓"}, {"c": "#00cc00", "s": "▓"}, {"c": "#00cc00", "s": "▓"}, {"c": "#00cc00", "s": "▓"}, {"c": "#00cc00", "s": "▓"}, {"c": "#00cc00", "s": "▓"}, {"c": "#00cc00", "s": "▓"}],
+    [{"c": "#0000dd", "s": "▓"}, {"c": "#0000dd", "s": "▓"}, {"c": "#0000dd", "s": "▓"}, {"c": "#0000dd", "s": "▓"}, {"c": "#0000dd", "s": "▓"}, {"c": "#0000dd", "s": "▓"}, {"c": "#0000dd", "s": "▓"}, {"c": "#0000dd", "s": "▓"}],
+    [{"c": "#aa00dd", "s": "▓"}, {"c": "#aa00dd", "s": "▓"}, {"c": "#aa00dd", "s": "▓"}, {"c": "#aa00dd", "s": "▓"}, {"c": "#aa00dd", "s": "▓"}, {"c": "#aa00dd", "s": "▓"}, {"c": "#aa00dd", "s": "▓"}, {"c": "#aa00dd", "s": "▓"}]
+]
+
+
+var queues = {
+    "memory hoarder": {
+        "name": "MEMORY HOARDER",
+        "artist": "dough emergency",
+        "contents": [
+            "packet bread",
+            "refrigerator jury",
+            "meal thyme",
+            "possible holiday",
+            "goat miracle",
+            "theory coffee",
+            "broccolli drama",
+            "bed obligation",
+            "sleep button"
+        ]
+    },
+    "spirit phone": {
+        "name": "Spirit Phone",
+        "artist": "Lemon Demon",
+        "contents": [
+            "cabinet man",
+            "eighth wonder",
+            "soft fuzzy man",
+            "sweet bod bonus track",
+        ]
+    },
+    "nature tapes": {
+        "name": "Nature Tapes",
+        "artist": "Lemon Demon",
+        "contents": [
+            "everybody loves raymond",
+        ]
+    },
+    "view monster": {
+        "name": "View-Monster",
+        "artist": "Lemon Demon",
+        "contents": [
+            "knife fight",
+        ]
+    },
+    "dinosaurchestra": {
+        "name": "Dinosaurchestra",
+        "artist": "Lemon Demon",
+        "contents": [
+            "your imaginary friend",
+            "archaeopteryx"
+        ]
+    },
+    "fump": {
+        "name": "FuMP",
+        "artist": "many",
+        "contents": [
+            "ive got some falling to do",
+            "toy food"
+        ]
+    },
+}
+/*
+    "": {
+        "name": "",
+        "artist": "",
+        "contents": [
+            "",
+        ]
+    },
+
+*/
+
+var known_words = {
+    "yes": [
+        "yes",
+        "ye",
+        "y",
+        "ja",
+        "jawohl",
+        "do it",
+        "true",
+        "ya",
+        "yep",
+        "sure",
+        "yea",
+        "yay"
+    ],
+    "no": [
+        "no",
+        "nah",
+        "naw",
+        "nay",
+        "nono",
+        "absolutely not",
+        "false",
+        "stop",
+        "stop it",
+        "generic death threat"
+    ]
+}
 
 
 
@@ -8343,3 +8825,46 @@ if (true) {
     var tim = `${dat.getHours()}:${dat.getMinutes()}:${dat.getSeconds()}:${dat.getMilliseconds()}`;
     console.log(`[${tim}]: ui elements loaded.`);
 }
+
+/*
+▓▒░
+▗▖▝▘▟▙▜▛▚▞█▀█
+▉▊▋▌▍▎▏
+▇▆▅▄▃▂▁
+
+│┴┬├─┤┼┌┐└┘
+┃┻┳┣━┫╋┏┓┗┛
+║╩╦╠═╣╬╔╗╚╝
+ ╨╤╟ ╡╪╓╖╙╜
+ ╧╥╞ ╢╫╒╕╘╛
+╿┸┯┞ ┦╀┍┑┖┚
+╽┷┰┟ ┧╁┎┒┕┙
+ ┵┭┠╾┥┽╭╮╯╰
+ ┶┮┝╼┨┾
+ ┹┱┡ ┩╇
+ ┺┲┢ ┪╈
+╹   ╸ ╃
+╻   ╺ ╄
+╵   ╴ ╅
+╷   ╶ ╆
+    ╳ ╉
+    ╱ ╊
+    ╲ ┿
+      ╂
+          ↖
+
+whitespace: "⠀"
+
+⡀⡁⡂⡃⡄⡅⡆⡇⡈⡉⡊⡋⡌⡍⡎⡏
+⡐⡑⡒⡓⡔⡕⡖⡗⡘⡙⡚⡛⡜⡝⡞⡟
+⡠⡡⡢⡣⡤⡥⡦⡧⡨⡩⡪⡫⡬⡭⡮⡯
+⡰⡱⡲⡳⡴⡵⡶⡷⡸⡹⡺⡻⡼⡽⡾⡿
+⢀⢁⢂⢃⢄⢅⢆⢇⢈⢉⢊⢋⢌⢍⢎⢏
+⢐⢑⢒⢓⢔⢕⢖⢗⢘⢙⢚⢛⢜⢝⢞⢟
+⢠⢡⢢⢣⢤⢥⢦⢧⢨⢩⢪⢫⢬⢭⢮⢯
+⢰⢱⢲⢳⢴⢵⢶⢷⢸⢹⢺⢻⢼⢽⢾⢿
+⣀⣁⣂⣃⣄⣅⣆⣇⣈⣉⣊⣋⣌⣍⣎⣏
+⣐⣑⣒⣓⣔⣕⣖⣗⣘⣙⣚⣛⣜⣝⣞⣟
+⣠⣡⣢⣣⣤⣥⣦⣧⣨⣩⣪⣫⣬⣭⣮⣯
+⣰⣱⣲⣳⣴⣵⣶⣷⣸⣹⣺⣻⣼⣽⣾⣿
+*/
