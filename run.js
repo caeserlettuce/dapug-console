@@ -1678,8 +1678,6 @@ function parseCommand(command) {
 
             stoof
 
-
-
         */
 
 
@@ -2076,36 +2074,59 @@ function parseCommand(command) {
 
             var keytm = generateEncryptionKey();
 
-            displayAnim("\nkey has been generated and copied to your clipboard. use 'key use [key]' to use your newly generated key.", 7);
+            displayAnim("\nkey has been generated and copied to your clipboard. use 'key set [key]' to use your newly generated key.\n\nWARNING: put this key somewhere safe! after this, you cannot get this key again!", 4);
             
             copyclip(JSON.stringify(keytm));
 
-        } else if (operation == "use") {
+        } else if (operation == "set") {
 
-            encryption_key = JSON.parse(input);
+            displayAnim("\nplease paste your encryption key:", 7);
+            askInput(() => {
 
-            var beat = JSON.stringify(encryption_key);
+                try {
+                    encryption_key = JSON.parse(ask_return);
 
-            debubg(beat);
+                    var beat = JSON.stringify(encryption_key);
 
-            localStorage.setItem("encryptionkey", beat);
+                    debubg(beat);
 
-            displayAnim("\nencryption key set.", 7);
+                    localStorage.setItem("encryptionkey", beat);
 
+                    displayAnim("\nencryption key set.", 7);
+
+                } catch (err) {
+                    displayAnim("\ninvalid key! please use 'key generate' to generate a key", 7);
+                }
+            });
+
+            
+
+        } else {
+            displayAnim("\ninvalid operation! use 'man key' for help!", 7)
         }
 
     } else if (argCommand == "encrypt") {
-
-        displayAnim("\nwhat text would you like to encrypt?", 7);
-
-        askInput(() => {
-
-            var crypted = crypt_tm("en", ask_return, encryption_key);
-            displayAnim("\nencrypted text has been copied to your clipboard.", 7);
-            copyclip(crypted);
-
-        });
-
+        if (encryption_key["a"]) {
+            displayAnim("\nwhat text would you like to encrypt?", 7);
+            askInput(() => {
+                var crypted = crypt_tm("en", ask_return, encryption_key);
+                copyclip(crypted);
+                displayAnim("\nencrypted text has been copied to your clipboard.", 7);
+            });   
+        } else {
+            displayAnim("\nplease set an encryption key first! (check 'man key' for help)", 7);
+        }
+    } else if (argCommand == "decrypt") {
+        if (encryption_key["a"]) {
+            displayAnim("\nwhat text would you like to decrypt?", 7);
+            askInput(() => {
+                var crypted = crypt_tm("de", ask_return, encryption_key);
+                copyclip(crypted);
+                displayAnim("\ndecrypted text has been copied to your clipboard.", 7);
+            });   
+        } else {
+            displayAnim("\nplease set an encryption key first! (check 'man key' for help)", 7);
+        }
     }
 
 

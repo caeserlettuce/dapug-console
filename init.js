@@ -3891,37 +3891,7 @@ function crypt(direction, text, cipher) {
 
 }
 
-function crypt_tm(direction, text, cipher) {
-    var maptm_og = new Object();
-    var str = `${text}`;
-    var maptm = new Object();
-    if (direction == "de") {
-        maptm_og = cipher;
-        for (i in maptm_og) {
-            var val = maptm_og[i];
-            maptm[val] = i;
-        }
-    } else {
-        maptm = cipher;
-    }
-    console.log(maptm);
-    console.log(`STIRR'${str}'`);
-    var re = new RegExp(Object.keys(maptm).join("|"),"gi");         // dont even ask because i don't know either
-    str = str.replace(re, function(matched){
-        debubg(matched);
-        //debubg(first);
-        var result = "";
-        matched = matched.toLowerCase();
-        if (maptm[matched]) {
-            result = `${maptm[matched]}`.toUpperCase();
-        } else {
-            result = matched;
-        }
-        debubg(result)
-        return result
-    });
-    return str
-}
+
 
 function accspace(text) {
     var textsplit = text.split("");
@@ -4282,6 +4252,37 @@ function generateEncryptionKey() {  // generate a fancy prancy encryption key â„
     return encryption_key_obj
 }
 
+function crypt_tm(direction, text, cipher) {
+    var maptm_og = new Object();
+    var str = `${text}`;
+    var maptm = new Object();
+    if (direction == "de") {
+        maptm_og = cipher;
+        for (i in maptm_og) {
+            var val = maptm_og[i];
+            maptm[val] = i;
+        }
+    } else {
+        maptm = cipher;
+    }
+    console.log(maptm);
+    console.log(`STIRR'${str}'`);
+    var re = new RegExp(Object.keys(maptm).join("|"),"gi");         // dont even ask because i don't know either
+    str = str.replace(re, function(matched){
+        debubg(matched);
+        //debubg(first);
+        var result = "";
+        matched = matched.toLowerCase();
+        if (maptm[matched]) {
+            result = `${maptm[matched]}`.toUpperCase();
+        } else {
+            result = matched;
+        }
+        debubg(result)
+        return result
+    });
+    return str
+}
 
 
 
