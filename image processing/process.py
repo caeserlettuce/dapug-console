@@ -2,6 +2,7 @@
 import json
 from PIL import Image
 import numpy as np
+import pyperclip as pc
 
 # importing stuff
 
@@ -16,12 +17,12 @@ settings_data = json.load(settings_json)
 # width:            pixel width of the image (set to "auto" if you just want to specify height)
 # height:           pixel height of the image (set to "auto if you just want to specify width")
 # interpolation:    either "exact" or "accurate". "exact" will make 1 pixel be one shading character, whereas "accurate" will average 2 pixels on the y-axis so that it displays the aspect ratio the same as the original image (the shaded characters have an aspect raio of 1:2)
-# shading:          which shaded unicode characters should be used. ▓, ▒, ░ in order from most colour to least colour.
+# shading:          which shaded unicode characters should be used. ░, ▒, ▓ in order from lest colour to most colour.
 
 
 # variables
 
-img_shades = np.array([])
+img_shades = np.array([" "])
 
 st_img_in = settings_data['img-in']
 st_img_out = settings_data['img-out']
@@ -35,11 +36,20 @@ print("img out: '"+str(st_img_out)+"'")
 print("img width: '"+str(st_width)+"'")
 print("img height: '"+str(st_height)+"'")
 print("img interp: '"+str(st_interp)+"'")
+
+#img_shades = np.append(img_shades, " ")
+
 for i in st_shading:
     print("img shade: '"+str(i)+"'")
-    img_shades = np.append(img_shades, str(i))
+    img_shades = np.append(img_shades, i)
+    
 
-img_shades = np.append(img_shades, " ")             # make it so it can check the alpha value with the list of shades and then choose the shade for the alpha value area
+
+
+shade_len = len(img_shades) - 1
+shade_each = 255 / shade_len
+
+print(str(img_shades))
 
 image_json = "["
 
@@ -114,7 +124,8 @@ print("new height: "+str(st_height))
 
 
 if (st_interp == "accurate"):
-    sizey = (int(st_width), int(st_height / 2))
+    st_height = int(st_height / 2)
+    sizey = (int(st_width), int(st_height))
     if (st_height < og_height or st_width < og_width):
         sc_im = og_im.resize(sizey,Image.BILINEAR)
     else:
@@ -151,7 +162,9 @@ for y in range(st_height):  # for every pixel on the y axis
 
         print("px "+str(x)+","+str(y)+"|"+str(px_r)+","+str(px_g)+","+str(px_b)+","+str(px_a)+"|"+str(hexy))
 
-        shade_chr = "o"
+        divy_1 = int(px_a / shade_each)
+
+        shade_chr = img_shades[divy_1]
 
         image_json += '"c":"'+str(hexy)+'", "s":"'+shade_chr+'"}'
 
@@ -162,3 +175,6 @@ image_json += "\n]"
 
 print(str(image_json))
 
+out = open(st_img_out, "w")
+out.write(str(image_json))
+out.close()

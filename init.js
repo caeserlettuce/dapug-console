@@ -1471,21 +1471,31 @@ function displayScreen(array) {
 async function displayImage(image, speed) {
     //debubg(`[displaySingleLine]   message: ${message}  speed: ${speed}   colour: ${colour}   link: ${link}`);
     return new Promise((resolve,reject)=>{
-        //here our function should be implemented 
+        //here our function should be implemented
+        var sting = "";
         var messageyLength = image.length;
         var use_id = console_id + 1;        // the current id that's being used
         console_id += 1;                    // update console id
         for (let i = 0; i < messageyLength; i++) {
-            TMO_push.push(setTimeout(function timer() {
+            if (speed == 0) {
                 var mess = image[i];
-                scrolly("consy");
-                displayAppend(image[i], use_id, false);
-                if (i == messageyLength - 1) { 
-                    resolve();
+                sting += image[i];
+            } else {
+                TMO_push.push(setTimeout(function timer() {
+                    var mess = image[i];
                     scrolly("consy");
-                }
-                
-            }, i * speed));
+                    displayAppend(image[i], use_id, false);
+                    if (i == messageyLength - 1) { 
+                        resolve();
+                        scrolly("consy");
+                    }
+                    
+                }, i * speed));
+            }
+            
+        }
+        if (speed == 0) {
+            displayAppend(sting, use_id, false);
         }
     });
 }
@@ -4213,6 +4223,12 @@ function send_notif(in_json) {
     } else {
         erry("you didnt input any notification json you idiot!!");
     }
+}
+
+functoin moyai() {
+    console_id += 1;
+    displayAppend("\n", console_id);
+    displayImage(process_raw_image(moyai), 0);
 }
 
 
