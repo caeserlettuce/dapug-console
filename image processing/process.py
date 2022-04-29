@@ -39,7 +39,7 @@ for i in st_shading:
     print("img shade: '"+str(i)+"'")
     img_shades = np.append(img_shades, str(i))
 
-img_shades = np.append(img_shades, " ")
+img_shades = np.append(img_shades, " ")             # make it so it can check the alpha value with the list of shades and then choose the shade for the alpha value area
 
 image_json = "["
 
