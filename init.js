@@ -157,6 +157,7 @@ var inHistory = false;
 var console_history = {0: "console started. type 'issue' if you find any issues/errors with this page. type 'help' for help."};
 var console_colour_history = {0: "inherit"};
 var console_link_history = {0: ""};
+var console_style_history = {0: ""};
 var console_id = 0;
 var console_group_id = 0;
 var musicTimeouts = 0; // number of timeouts in the current song
@@ -278,6 +279,13 @@ var debvar_first_time = false;
 var music_volume = 1;
 var console_visible = true;
 var encryption_key = new Object();
+var bluescreen = false;
+var mainlock = true;
+var bluescreen_done = false;
+var current_command = "";
+var cns_session_id = 0;
+var keys_pressed = new Object();
+
 
 
 debubg("variable init finished...");
@@ -388,6 +396,7 @@ custom_queues = JSON.parse(local_storage("queues", "{}"));
 notes = JSON.parse(local_storage("notes", "{}"));
 debugvar_size = local_storage("debug var size", 5);
 encryption_key = JSON.parse(local_storage("encryptionkey", "{}"));
+cns_session_id = parseInt(local_storage("session id", 0));
 //music_volume = local_storage("music volume", 1)
 console.log(textadventures_saves);
 //textadventures_saves = textadventures_saves);
@@ -672,7 +681,7 @@ function debugWindow(bool) {
             <style id="scroll-text-style">::-webkit-scrollbar-thumb { background: ${accycolour}; }</style>
             <style id="scroll-back-style">::-webkit-scrollbar-track { background: ${backcolour}; } ::-webkit-scrollbar-corner { background: #000000 }</style>
             <style id="back-style">body { background-color: ${backcolour};}</style>
-            <style id="text-style">@font-face { font-family: COURIERPRIME; src: url(CourierPrime-Regular.ttf);} body { color: ${textcolour}; font-family: COURIERPRIME, monospace;} pre { font-family: COURIERPRIME, monospace;}</style>
+            <style id="text-style">@font-face {font-family: MSDOS; src: url(DOSVGA_437_WIN.ttf);} body { color: ${textcolour}; font-family: MSDOS, monospace;} pre { font-family: MSDOS, monospace;}</style>
             <style id="window-resize"> body {width: 100px;}</style>
             <title>CONSOLE DEBUG</title>
             <link rel="icon" href="icon.png">`);
@@ -852,7 +861,11 @@ function debugVarWindow(bool) {
                     "in_queue": in_queue,
                     "debugvar_size": debugvar_size,
                     "music_volume": music_volume,
-                    "console_visible": console_visible
+                    "console_visible": console_visible,
+                    "bluescreen": bluescreen,
+                    "mainlock": mainlock,
+                    "bluescreen_done": bluescreen_done,
+                    "current_command": current_command
                 }
             
                 if (JSON.stringify(to_pass) == to_pass_pre) {   // if its the same
@@ -1106,7 +1119,7 @@ debubg("text scaling init finished...");
 
 
 
-function displayAppend(message, in_id, hide, colour, link) {
+function displayAppend(message, in_id, hide, colour, link, style) {
     //debubg(`[displayAppend]   message: ${message}  in_id: ${in_id}   hide: ${hide}   colour: ${colour}   link: ${link}`);
     if (console_history[in_id] != undefined || console_history[in_id] != null) {    // if the value already exists
         console_history[in_id] = `${console_history[in_id]}${message}`;             // append to value
@@ -1120,7 +1133,7 @@ function displayAppend(message, in_id, hide, colour, link) {
         console_colour_history[in_id] = `${colour}`;        // append to value
     } else {                                                // else
         //debubg("NO EXIST");
-        if (typeof colour == 'string') {
+        if (typeof colour == 'string' && colour != "") {
             console_colour_history[in_id] = `${colour}`;        // append to value
         } else {
             console_colour_history[in_id] = `inherit`;                                                  // just set value
@@ -1132,10 +1145,21 @@ function displayAppend(message, in_id, hide, colour, link) {
         console_link_history[in_id] = `${link}`;        // append to value
     } else {                                                // else
         //debubg("NO EXIST");
-        if (colour) {
+        if (link) {
             console_link_history[in_id] = `${link}`;        // append to value
         } else {
             console_link_history[in_id] = ``;                                                  // just set value
+        }
+    }
+    if (console_style_history[in_id]) {      // if the value already exists
+        //debubg("exists!");
+        console_style_history[in_id] = `${style}`;        // append to value
+    } else {                                                // else
+        //debubg("NO EXIST");
+        if (style) {
+            console_style_history[in_id] = `${style}`;        // append to value
+        } else {
+            console_style_history[in_id] = ``;                                                  // just set value
         }
     }
 
@@ -1173,14 +1197,15 @@ function displayUpdate() {
         if (elemCheck) {                                                // if the element exists
             //debubg("it EXISTS"); 
                                                  // it does exist
-            if (elemCheck.innerHTML != console_history[cur_id] || elemCheck.style.color != console_colour_history[cur_id] ) {       // if the element does not match what's in memory
+            if (elemCheck.innerHTML != console_history[cur_id] || elemCheck.style.color != console_colour_history[cur_id] || elemCheck.style.cssText != console_style_history[cur_id] ) {       // if the element does not match what's in memory
                 //debubg("they dont match");
                 elemCheck.innerHTML = `${console_history[cur_id]}`;
                 elemCheck.style.color = `${console_colour_history[cur_id]}`;
-
+                
             } else {
                 //debubg("they do match")
             }
+
             // function() { alert("hallo!") }
             //debubg(`checking id of ${cur_id} of ${console_link_history[cur_id]}`);
             var check_url = `${console_link_history[cur_id]}`;
@@ -1202,18 +1227,19 @@ function displayUpdate() {
                 elemCheck.setAttribute( "onClick", `javascript: window.open("${check_url}");` );
                 elemCheck.style.textDecoration = "underline";
                 elemCheck.style.cursor = "pointer";
+                elemCheck.style.cssText = `text-decoration: underline; cursor: pointer; color: ${console_colour_history[cur_id]}; ${console_style_history[cur_id]}`;
             } else {
                 //debubg("it is not a url!!");
                 //elemCheck.onclick = "";
                 elemCheck.removeAttribute("onClick");
-                elemCheck.style.textDecoration = "none";
-                elemCheck.style.cursor = "auto";
+                elemCheck.style.cssText = `color: ${console_colour_history[cur_id]}; ${console_style_history[cur_id]}`;
             }
 
+            
 
         } else {
             //debubg("you idiot it doesnt exist");                        // it doesnt exist
-            consol.innerHTML = `${consol.innerHTML}<span id="CON_${cur_id}" style="color: ${console_colour_history[cur_id]};">${console_history[cur_id]}</span>`;
+            consol.innerHTML = `${consol.innerHTML}<span id="CON_${cur_id}" style="color: ${console_colour_history[cur_id]}; ${console_style_history[cur_id]}">${console_history[cur_id]}</span>`;
         }
     }
 }
@@ -1253,20 +1279,18 @@ function singleDisplayUpdate(cur_id) {
             //debubg("it is a url!!! woo!!!");
             //debubg(`checking id of ${cur_id} : ${console_link_history[cur_id]}`);
             elemCheck.setAttribute( "onClick", `javascript: window.open("${check_url}");` );
-            elemCheck.style.textDecoration = "underline";
-            elemCheck.style.cursor = "pointer";
+            elemCheck.style.cssText = `text-decoration: underline; cursor: pointer; color: ${console_colour_history[cur_id]}; ${console_style_history[cur_id]}`;
         } else {
             //debubg("it is not a url!!");
             //elemCheck.onclick = "";
             elemCheck.removeAttribute("onClick");
-            elemCheck.style.textDecoration = "none";
-            elemCheck.style.cursor = "auto";
+            elemCheck.style.cssText = `color: ${console_colour_history[cur_id]}; ${console_style_history[cur_id]}`;
         }
 
 
     } else {
         //debubg("you idiot it doesnt exist");                        // it doesnt exist
-        consol.innerHTML = `${consol.innerHTML}<span id="CON_${cur_id}" style="color: ${console_colour_history[cur_id]};">${console_history[cur_id]}</span>`;
+        consol.innerHTML = `${consol.innerHTML}<span id="CON_${cur_id}" style="color: ${console_colour_history[cur_id]}; ${console_style_history[cur_id]}">${console_history[cur_id]}</span>`;
     }
     
 }
@@ -1309,7 +1333,7 @@ async function displayMultilineAnim(message, speed, type) {
     }
 }
 
-async function displaySingleLine(message, speed, colour, link) {
+async function displaySingleLine(message, speed, colour, link, style) {
     //debubg(`[displaySingleLine]   message: ${message}  speed: ${speed}   colour: ${colour}   link: ${link}`);
     return new Promise((resolve,reject)=>{
         //here our function should be implemented 
@@ -1317,20 +1341,26 @@ async function displaySingleLine(message, speed, colour, link) {
         var messageyLength = messagey.length;
         var use_id = console_id + 1;        // the current id that's being used
         console_id += 1;                    // update console id
-        for (let i = 0; i < messageyLength; i++) {
-            TMO_push.push(setTimeout(function timer() {
-                var mess = messagey[i];
-                scrolly("consy");
-                if (messagey[i] == " " || messagey[i] == "\n") {
-                    boom();
-                }
-                displayAppend(messagey[i], use_id, false, colour, link);
-                if (i == messageyLength - 1) { 
-                    resolve();
+        if (speed == 0) {
+            displayAppend(message, use_id, false, colour, link, style);
+            resolve();
+        } else {
+            for (let i = 0; i < messageyLength; i++) {
+                TMO_push.push(setTimeout(function timer() {
+                    var mess = messagey[i];
                     scrolly("consy");
-                }
-                
-            }, i * speed));
+                    if (messagey[i] == " " || messagey[i] == "\n") {
+                        boom();
+                    }
+                    displayAppend(messagey[i], use_id, false, colour, link, style);
+                    if (i == messageyLength - 1) { 
+                        resolve();
+                        scrolly("consy");
+                    }
+                    
+                }, i * speed));
+        
+            }
         }
     });
 }
@@ -1399,9 +1429,9 @@ async function displayUser(message, userin) {
     scrolly("consy");
 }
 
-async function displayAnim(message, speed, colour, link) {      // fancy anim
+async function displayAnim(message, speed, colour, link, style) {      // fancy anim
     boom();
-    if (speed == "" || speed == undefined || speed == null) {
+    if ( `${speed}` == "" ) {
         speed = 7;
     }
     //console.log(`[displayanim] ${message}, ${speed}, ${type}`);
@@ -1412,16 +1442,6 @@ async function displayAnim(message, speed, colour, link) {      // fancy anim
 
 
     console.log(message);
-
-/*
-    // old if statement
-    if (typeof message == "object") {
-        egg_white = message.join("\n");
-    } else {
-        egg_white = message;
-    }
-*/
-    // new if statement
 
     if (Array.isArray(message) == true) {
         egg_white = message.join("\n");
@@ -1441,12 +1461,12 @@ async function displayAnim(message, speed, colour, link) {      // fancy anim
     } else if (typeof message == 'string') {
         egg_white = message;
     }
+    await displaySingleLine(egg_white, speed, colour, link, style);
+}
 
-
-    
-    await displaySingleLine(egg_white, speed, colour, link);
-    
-    
+function dp_ct(message) { // get the spaces for a thing lol
+    var widdy = (display_charsize[0] - message.length) / 2;
+    return " ".repeat(widdy);
 }
 
 function displayTimeAnim(message, durat) {    // duration in ms
@@ -1472,15 +1492,16 @@ async function displayImage(image, speed) {
     //debubg(`[displaySingleLine]   message: ${message}  speed: ${speed}   colour: ${colour}   link: ${link}`);
     return new Promise((resolve,reject)=>{
         //here our function should be implemented
-        var sting = "";
         var messageyLength = image.length;
         var use_id = console_id + 1;        // the current id that's being used
         console_id += 1;                    // update console id
-        for (let i = 0; i < messageyLength; i++) {
-            if (speed == 0) {
-                var mess = image[i];
-                sting += image[i];
-            } else {
+        if (`${speed}` == '0') {
+            debubg("this is good");
+            console.log(image)
+            displayAppend(image.join(""), use_id, false);
+        } else {
+            debubg("this is stupid");
+            for (let i = 0; i < messageyLength; i++) {
                 TMO_push.push(setTimeout(function timer() {
                     var mess = image[i];
                     scrolly("consy");
@@ -1491,12 +1512,12 @@ async function displayImage(image, speed) {
                     }
                     
                 }, i * speed));
+                
+                
             }
-            
         }
-        if (speed == 0) {
-            displayAppend(sting, use_id, false);
-        }
+        
+        
     });
 }
 
@@ -3408,6 +3429,7 @@ function parseStars() {
 function stars() {
     if (star_running == false) {
         starlock = true;
+        mainlock = false;
         document.getElementById("consy").style.overflow = "hidden";
         document.getElementById("consy").style.fontWeight = "bold";
         document.getElementById("consoleinput").value = "press ESC to exit!";
@@ -3519,6 +3541,7 @@ function stars() {
                 clearInterval(starTimer);
                 star_running = false;
                 starlock = false;
+                mainlock = true;
                 document.getElementById("consy").style.overflow = "";
                 document.getElementById("consy").style.fontWeight = "normal";
                 document.getElementById("consoleinput").value = "";
@@ -3743,6 +3766,7 @@ function compileLyrics() {
 
 function dogEscape() {      // used to exit dog (how could you??)
     doglock = false;
+    mainlock = true;
     dog = false;
     shell.value = "";
     dogsong.pause();
@@ -3787,6 +3811,7 @@ function dogInteract() {    // function that is run every time the dog is intera
 function startDog() {
     // DOG!!!!
     doglock = true;
+    mainlock = false;
     dog = true;
     consol.innerHTML = `<span id="dog">hehe</span><br><span id="pets">no pets</span>`;
     dog_elem = document.getElementById("dog");
@@ -4009,7 +4034,6 @@ function process_raw_image(raw_image) {
     for (i in raw_image) {
         for (e in raw_image[i]) {
             var pixel = raw_image[i][e];
-
             final_html.push(`<span style="color: ${pixel["c"]};">${pixel["s"]}</span>`);
         }
         final_html.push("\n");
@@ -4225,10 +4249,10 @@ function send_notif(in_json) {
     }
 }
 
-functoin moyai() {
+function moyai() {
     console_id += 1;
     displayAppend("\n", console_id);
-    displayImage(process_raw_image(moyai), 0);
+    displayImage(process_raw_image(moyai_img), 0);
 }
 
 
@@ -4461,7 +4485,55 @@ async function themelist(table1, table2) {
     await displayAnim(table2, 0.5);
     await displayAnim("\nTo use a theme, type 'theme use [name]', To save a theme, type 'theme save [name]'");
 }
+async function bluescreen_page(inf) {
+    try {
+        bluescreen = true;
+        inputlock = true;
+        bluescreen_done = false;
+        debug = false;
+        debugvar = false;
+        document.getElementById("input-div").style.display = "none";
+        document.getElementById("consy").style.fontFamily = "MSDOS, monospace";     // change font
+        document.getElementById("consy").style.textAlign = "center";
+        document.getElementById("regtext").style.fontFamily = "MSDOS, monospace";   // change for the character size default as well
+        await sizeCheck();                                                                // re-calculate the size of characters
+        var dat = new Date();
+        var tim = `${dat.getHours()}:${dat.getMinutes()}:${dat.getSeconds()}:${dat.getMilliseconds()}`;
+        var le = "DP-LOL_CNSL";
+        var l1 = `
 
+A fatal error '${inf["msg"]}' has occurred at [${tim}] in command '${current_command}' -        
+The current process will be terminated.                    ${" ".repeat(inf["msg"].length)}${" ".repeat(tim.length)}${" ".repeat(current_command.length)}`;
+        var l2 = `
+
+*  Press any key to terminate the current application.     ${" ".repeat(inf["msg"].length)}${" ".repeat(tim.length)}${" ".repeat(current_command.length)}
+*  Press CTRL+ALT+END to restart the console. You will lose${" ".repeat(inf["msg"].length)}${" ".repeat(tim.length)}${" ".repeat(current_command.length)}
+   any unsaved information.                                ${" ".repeat(inf["msg"].length)}${" ".repeat(tim.length)}${" ".repeat(current_command.length)}`;
+        var l3 = `
+
+Press any key to continue.`;
+        for (i in TMO_push) {
+            clearTimeout(TMO_push[i]);  // clear any current stuffs
+        }
+        music.pause();
+        await clearScreen()
+        await setColour("#cccded", false, "#0102ac", false, "#0102ac", false);    // set colour
+        await displayAnim("\n\n\n", 82);
+        await displayAnim(le, 0, "#0102ac", "", "background-color: #b1acaf; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 3px;");
+        await displayAnim(l1, 0, "", "", "text-align: left;");
+        await displayAnim(l2, 0, "", "", "text-align: left;");
+        await displayAnim(l3, 0);
+
+
+        bluescreen_done = true;
+    } catch (err) {
+        alert("console is so broken that the function to show a bluescreen broke. try restarting the page");
+    }
+    
+    
+
+
+}
 
 
 
@@ -4554,96 +4626,130 @@ setColour(textcolour, true, backcolour, true, accycolour, true);
 //
 
 shell.onkeyup = function keyParse(e){
+
     if (inputlock == false) {
-        if (adventure_lock == false) {
-            if (doglock == false) {
-                if (starlock == false) {
-                    if(e.keyCode == 13) {
-                        if (shell.value != "") {
-                            if (enterlock == false) {
-                                // stinky old code is gone!!!!
+        
+        if (mainlock == true) {
+            if(e.keyCode == 13) {
+                if (shell.value != "") {
+                    if (enterlock == false) {
+                        // stinky old code is gone!!!!
 
-                                // *crab rave*
-                                if (listening_input == true) {  // if its listening for a text input
-                                    ask_return = shell.value;
-                                    ask_do();
-                                    listening_input = false;
-                                    shell.value = "";
-                                } else {
-                                    displayUser(`${shell.value}`, `${user}`);
-                                    historyPush();
-                                    parseCommand(shell.value);
-                                    historyReset();
-                                    shell.value = "";
-                                    scrolly("consy");
-                                }
-                                    
-                                //debubg(consoltext);
-                                //debubg(commang);
-                            }
+                        // *crab rave*
+                        if (listening_input == true) {  // if its listening for a text input
+                            ask_return = shell.value;
+                            ask_do();
+                            listening_input = false;
+                            shell.value = "";
+                        } else {
+                            displayUser(`${shell.value}`, `${user}`);
+                            historyPush();
+                            parseCommand(shell.value);
+                            historyReset();
+                            shell.value = "";
+                            scrolly("consy");
                         }
-                        boom();
-                    } else if(e.keyCode == 37) {
-                        if (snakeinputs == true) {
-                            debubg("left arrow detected");
-                        }
-                    } else if(e.keyCode == 38) {
-                        if (snakeinputs == true) {
-                            debubg("up arrow detected");
-
-                        } else if (commandhistorylock == false) {
-                            // get out of here old command history code, you stinky
-                            var indexed = historyIndex(1); // index history up by 1
-                            shell.value = `${indexed}`;
-
-                        }
-                        
-                    } else if(e.keyCode == 39) {
-                        if (snakeinputs == true) {
-                            debubg("right arrow detected");
-                        }
-                    } else if(e.keyCode == 40) {
-                        if (snakeinputs == true) {
-                            debubg("down arrow detected");
-
-                        } else if (commandhistorylock == false) {
-                            // SAME WITH YOU! get outta here you stinky old code!! make room for the new code! just kidding!
-                            // it uses up less space than you! ha!
-                            var indexed = historyIndex(-1); // index history up by 1
-                            shell.value = `${indexed}`;
-
-
-
-
-
-
-                        }
-                    }
-                } else if (starlock == true) {
-                    if(e.keyCode == 27) {
-                        stars_status = false;
+                            
+                        //debubg(consoltext);
+                        //debubg(commang);
                     }
                 }
-            } else if (doglock == true) {
+                boom();
+            } else if(e.keyCode == 37) {
+                if (snakeinputs == true) {
+                    debubg("left arrow detected");
+                }
+            } else if(e.keyCode == 38) {
+                if (snakeinputs == true) {
+                    debubg("up arrow detected");
+
+                } else if (commandhistorylock == false) {
+                    // get out of here old command history code, you stinky
+                    var indexed = historyIndex(1); // index history up by 1
+                    shell.value = `${indexed}`;
+
+                }
                 
-                if (e.keyCode == 32 || e.keyCode == 13) {   // either enter or space
-                    dogInteract();
-                } else if (e.keyCode == 27) {               // escape
-                    dogEscape();
+            } else if(e.keyCode == 39) {
+                if (snakeinputs == true) {
+                    debubg("right arrow detected");
                 }
+            } else if(e.keyCode == 40) {
+                if (snakeinputs == true) {
+                    debubg("down arrow detected");
 
+                } else if (commandhistorylock == false) {
+                    // SAME WITH YOU! get outta here you stinky old code!! make room for the new code! just kidding!
+                    // it uses up less space than you! ha!
+                    var indexed = historyIndex(-1); // index history up by 1
+                    shell.value = `${indexed}`;
 
+                }
             }
+        } else if (starlock == true) {
+            if(e.keyCode == 27) {
+                stars_status = false;
+            }
+        }
+        else if (doglock == true) {
+                       
+           if (e.keyCode == 32 || e.keyCode == 13) {   // either enter or space
+               dogInteract();
+           } else if (e.keyCode == 27) {               // escape
+               dogEscape();
+           }
+       
+       
         } else if (adventure_lock == true) {
-
+        
             ta_input = shell.value;
             ta_key = e.key;             // https://keycode.info/
             adventure_exe();
+        } else if (bluescreen == true) {
+            shell.value = "";
+            if (bluescreen_done == true) {
+                bluescreen = false;
+                mainlock = true;
+                setColour(og_textcolour, true, og_backcolour, true, og_accycolour, true);
+            }
         }
+            
+        
+    }
+}
+
+window.onkeydown = function kee(e) {
+    var keycode = e.keyCode;
+    keys_pressed[keycode] = true;       // object with all the keycodes of keys that are being pressed
+
+    if (keys_pressed[17] == true && keys_pressed[18] == true && keys_pressed[35] == true) { // reload page (but fancy)
+        location.reload();
     }
 
-    
 }
+
+
+window.onkeyup = function kee(e) {
+    var keycode = e.keyCode;
+    keys_pressed[keycode] = false;       // object with all the keycodes of keys that are being pressed
+
+    if (bluescreen_done == true) {
+        location.reload();
+    }
+}
+
+/*
+
+
+
+else if (adventure_lock == true) {
+
+    ta_input = shell.value;
+    ta_key = e.key;             // https://keycode.info/
+    adventure_exe();
+}
+
+*/
 
 
 
@@ -4734,6 +4840,9 @@ consol.addEventListener('mousemove', (event) => {
         //debubg("the letter a");
     }, 2000);
 });
+
+
+
 
 /*
 

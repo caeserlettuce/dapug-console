@@ -10,14 +10,18 @@
   font-family: COURIERPRIMEBOLD;
   src: url(CourierPrime-Bold.ttf);
 }
+@font-face {
+  font-family: MSDOS;
+  src: url(DOSVGA_437_WIN.ttf);
+}
 strong {
-  font-family: COURIERPRIMEBOLD;
+  font-family: msdos;
 }
 
 .body {
   background-color: black;
   color: #7cfc00;
-  font-family: COURIERPRIME, COUSINE, monospace;
+  font-family: MSDOS, monospace;
   font-size: 1vw;
   /*overflow-x: hidden;*/
   overflow-x: hidden;
@@ -34,7 +38,7 @@ strong {
 .consoleinput {
   background-color: rgba(0,0,0,0);
   color: #7cfc00;
-  font-family: COURIERPRIME, COUSINE, monospace;
+  font-family: MSDOS, monospace;
   border: none;
   outline: none;
   position: fixed;
@@ -47,7 +51,7 @@ strong {
 .consoleinputbox {
   background-color: rgba(0,0,0,0);
   color: #7cfc00;
-  font-family: COURIERPRIME, COUSINE, monospace;
+  font-family: MSDOS, monospace;
   border: none;
   outline: none;
   position: fixed;
@@ -76,7 +80,7 @@ pre {
   margin-left: 10px;
   margin-right: 10px;
   margin-bottom: 10px;
-  font-family: COURIERPRIME, COUSINE, monospace;
+  font-family: MSDOS, monospace;
   /*word-break: break-all;
   padding-bottom: 6.5vh;
   height: 90vh;*/
@@ -85,6 +89,7 @@ pre {
   overflow-y: scroll;
   overflow-x: scroll;
   /*padding-top: 60px;*/
+  user-select: none;
  
 }
 
@@ -104,13 +109,13 @@ pre {
   cursor: move;
   color: white;
   position: fixed;
-  font-family: COURIERPRIME, COUSINE, monospace;
+  font-family: MSDOS, monospace;
 }
 
 
 .debugwindow {
   background-color: rgb(0, 0, 0);
-  font-family: COURIERPRIME, COUSINE, monospace;
+  font-family: MSDOS, monospace;
   font-size: 1vw;
   overflow-x: scroll;
   /*overflow-wrap: break-word;*/
@@ -128,7 +133,7 @@ pre {
 
 .debugvarwindow {
     background-color: rgb(0, 0, 0);
-    font-family: COURIERPRIME, COUSINE, monospace;
+    font-family: MSDOS, monospace;
     font-size: 1vw;
     overflow-x: scroll;
     /*overflow-wrap: break-word;*/
@@ -144,7 +149,7 @@ pre {
 
 .songinfowindow {
     background-color: rgb(0, 0, 0);
-    font-family: COURIERPRIME, COUSINE, monospace;
+    font-family: MSDOS, monospace;
     font-size: 1vw;
     overflow-x: scroll;
     /*overflow-wrap: break-word;*/
@@ -163,7 +168,7 @@ pre {
 .p1credwindow {
   background-color: #010302;
   color: #c6922b;
-  font-family: COURIERPRIME, COUSINE, monospace;
+  font-family: MSDOS, monospace;
   font-size: 1vw;
   overflow-x: scroll;
   /*overflow-wrap: break-word;*/
@@ -180,7 +185,7 @@ pre {
 
 .p2credwindow {
   background-color: #a15606;
-  font-family: COURIERPRIME, COUSINE, monospace;
+  font-family: MSDOS, monospace;
   color: #ffb44d/*#1e1e1e*/;
   font-size: 1vw;
   overflow-x: scroll;
@@ -204,7 +209,7 @@ pre {
 
 .p1asciiwindow {
   background-color: rgb(0, 0, 0);
-  font-family: COURIERPRIME, COUSINE, monospace;
+  font-family: MSDOS, monospace;
   font-size: 1vw;
   overflow-x: hidden;
   /*overflow-wrap: break-word;*/
@@ -221,28 +226,28 @@ pre {
 
 .p1ascii {
   padding-left: 17px;
-  font-family: COURIERPRIME, COUSINE, monospace;
+  font-family: MSDOS, monospace;
 }
 
 .p1cred {
   padding-left: 10px;
-  font-family: COURIERPRIME, COUSINE, monospace;
+  font-family: MSDOS, monospace;
 }
 
 .p2cred {
   padding-left: 10px;
-  font-family: COURIERPRIME, COUSINE, monospace;
+  font-family: MSDOS, monospace;
 }
 
 .debubtext {
   padding-left: 5px;
   margin-top: 30px;
-  font-family: COURIERPRIME, COUSINE, monospace;
+  font-family: MSDOS, monospace;
 }
 .debubtextvar {
   padding-left: 5px;
   margin-top: 30px;
-  font-family: COURIERPRIME, COUSINE, monospace;
+  font-family: MSDOS, monospace;
 }
 
 .clickymouse:hover {
@@ -290,5 +295,5 @@ pre {
   top: -200px;
   left: -200px;
   margin: 0px;
-  font-family: COURIERPRIME, COUSINE, monospace;
+  font-family: MSDOS, monospace;
 }
