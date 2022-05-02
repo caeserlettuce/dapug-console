@@ -285,7 +285,9 @@ var bluescreen_done = false;
 var current_command = "";
 var cns_session_id = 0;
 var keys_pressed = new Object();
-
+var sfx = true;
+var display_noise = false;
+var rw_tmt;
 
 
 debubg("variable init finished...");
@@ -397,6 +399,12 @@ notes = JSON.parse(local_storage("notes", "{}"));
 debugvar_size = local_storage("debug var size", 5);
 encryption_key = JSON.parse(local_storage("encryptionkey", "{}"));
 cns_session_id = parseInt(local_storage("session id", 0));
+sfx = local_storage("sfx", "true");
+if (sfx == "false") {
+    sfx = false;
+} else {
+    sfx = true;
+}
 //music_volume = local_storage("music volume", 1)
 console.log(textadventures_saves);
 //textadventures_saves = textadventures_saves);
@@ -624,6 +632,7 @@ function toggleHideSongInfo() {
         document.getElementById("songinfo").style.height = "130px";
     }
 }
+
 function toggleHideP1Cred() {
     if (debugHideP1Cred == false) {
         debugHideP1Cred = true;
@@ -865,7 +874,9 @@ function debugVarWindow(bool) {
                     "bluescreen": bluescreen,
                     "mainlock": mainlock,
                     "bluescreen_done": bluescreen_done,
-                    "current_command": current_command
+                    "current_command": current_command,
+                    "sfx": sfx,
+                    "display_noise": display_noise
                 }
             
                 if (JSON.stringify(to_pass) == to_pass_pre) {   // if its the same
@@ -1263,7 +1274,7 @@ function singleDisplayUpdate(cur_id) {
         // function() { alert("hallo!") }
         //debubg(`checking id of ${cur_id} of ${console_link_history[cur_id]}`);
         var check_url = `${console_link_history[cur_id]}`;
-        if (isUrl(`${check_url}`) == true) {
+        if (check_url != '') {
             //debubg("it is a url!!! woo!!!");
             //debubg(`checking ${console_link_history[cur_id]}`);
             elemCheck.onclick = function() { window.open(`${check_url}`); }
@@ -1337,6 +1348,8 @@ async function displaySingleLine(message, speed, colour, link, style) {
     //debubg(`[displaySingleLine]   message: ${message}  speed: ${speed}   colour: ${colour}   link: ${link}`);
     return new Promise((resolve,reject)=>{
         //here our function should be implemented 
+        display_noise = true;
+        rw_sound.play();
         var messagey = message.split("");
         var messageyLength = messagey.length;
         var use_id = console_id + 1;        // the current id that's being used
@@ -1356,6 +1369,8 @@ async function displaySingleLine(message, speed, colour, link, style) {
                     if (i == messageyLength - 1) { 
                         resolve();
                         scrolly("consy");
+                        display_noise = false;
+                        rw_sound.pause();
                     }
                     
                 }, i * speed));
@@ -2442,7 +2457,7 @@ function setAccyColour(colour, save) {
     document.getElementById("debubvar").style.borderColor = colour;
     document.getElementById("songinfomouse").style.backgroundColor = colour;
     document.getElementById("songinfo").style.borderColor = colour;
-    document.getElementById("scrollbar-colour").innerHTML = `::-webkit-scrollbar-thumb { background: ${colour}; }`;
+    document.getElementById("scrollbar-colour").innerHTML = `::-webkit-scrollbar-thumb { background: ${colour}; } ::selection {background: ${colour};}`;
     //document.getElementById("bottombar").style.backgroundColor = colour;
     if (do_save == true) {
         localStorage.setItem("accy-colour", colour);
@@ -4492,6 +4507,13 @@ async function bluescreen_page(inf) {
         bluescreen_done = false;
         debug = false;
         debugvar = false;
+        sfx = false;
+        rw_sound.loop = false;
+        rw_sound.pause();
+        document.getElementById("songinfo").style.display = "none";
+        document.getElementById("p2cred").style.display = "none";
+        document.getElementById("p1cred").style.display = "none";
+        document.getElementById("p1ascii").style.display = "none";
         document.getElementById("input-div").style.display = "none";
         document.getElementById("consy").style.fontFamily = "MSDOS, monospace";     // change font
         document.getElementById("consy").style.textAlign = "center";
@@ -4512,6 +4534,9 @@ The current process will be terminated.                    ${" ".repeat(inf["msg
         var l3 = `
 
 Press any key to continue.`;
+        var l4 = `
+        
+[warning: pressing any key to restart is disabled for user 'dev' for debug purposes!]`;
         for (i in TMO_push) {
             clearTimeout(TMO_push[i]);  // clear any current stuffs
         }
@@ -4523,11 +4548,15 @@ Press any key to continue.`;
         await displayAnim(l1, 0, "", "", "text-align: left;");
         await displayAnim(l2, 0, "", "", "text-align: left;");
         await displayAnim(l3, 0);
+        if (user == "dev") {
+            await displayAnim(l4, 0);
+        }
 
 
         bluescreen_done = true;
     } catch (err) {
         alert("console is so broken that the function to show a bluescreen broke. try restarting the page");
+        location.reload();
     }
     
     
@@ -4571,6 +4600,10 @@ debubg("async command functions init finished...");
 //setBackColour(backcolour);
 //setAccyColour(accycolour);
 setColour(textcolour, true, backcolour, true, accycolour, true);
+
+if (sfx == true) {
+    ambient_audio();
+}
 
 // EXAMPLE INLINE FNCTIONS WHERE THEY ONLY rUN ONE THING AT A TIME INSTEAD OF EVERYTHING RUNNING AT HE SAME TIME
 //function exampleInline() {
@@ -4655,36 +4688,6 @@ shell.onkeyup = function keyParse(e){
                     }
                 }
                 boom();
-            } else if(e.keyCode == 37) {
-                if (snakeinputs == true) {
-                    debubg("left arrow detected");
-                }
-            } else if(e.keyCode == 38) {
-                if (snakeinputs == true) {
-                    debubg("up arrow detected");
-
-                } else if (commandhistorylock == false) {
-                    // get out of here old command history code, you stinky
-                    var indexed = historyIndex(1); // index history up by 1
-                    shell.value = `${indexed}`;
-
-                }
-                
-            } else if(e.keyCode == 39) {
-                if (snakeinputs == true) {
-                    debubg("right arrow detected");
-                }
-            } else if(e.keyCode == 40) {
-                if (snakeinputs == true) {
-                    debubg("down arrow detected");
-
-                } else if (commandhistorylock == false) {
-                    // SAME WITH YOU! get outta here you stinky old code!! make room for the new code! just kidding!
-                    // it uses up less space than you! ha!
-                    var indexed = historyIndex(-1); // index history up by 1
-                    shell.value = `${indexed}`;
-
-                }
             }
         } else if (starlock == true) {
             if(e.keyCode == 27) {
@@ -4734,7 +4737,9 @@ window.onkeyup = function kee(e) {
     keys_pressed[keycode] = false;       // object with all the keycodes of keys that are being pressed
 
     if (bluescreen_done == true) {
-        location.reload();
+        if (user != "dev") {
+            location.reload();
+        }
     }
 }
 
@@ -4841,7 +4846,21 @@ consol.addEventListener('mousemove', (event) => {
     }, 2000);
 });
 
+music.addEventListener('error', (event) => {
 
+    var message = ""
+
+    if (event.path[0].error.message) {
+        message = `${event.path[0].error.message}`;
+    } else if (event.error) {
+        message = `${event.error}`;
+    } else {
+        message = "[no error message found]";
+    }
+    
+    
+    bluescreen_page({"msg": message});
+})
 
 
 /*

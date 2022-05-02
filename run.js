@@ -2131,9 +2131,9 @@ function parseCommand(command) {
                 displayAnim("\nplease set an encryption key first! (check 'man key' for help)", 7);
             }
         } else if (command == "err") {
-            javascript.ha();    // purposefully throw an error with real information
+            throw new Error("javascript is not defined");
         } else if (command == "delete sys32") {
-            sys32.ha();         // sys32
+            throw new Error("ą̷̨͍̬̞̘͎̮͇̭̈́͂͋̓̈́̽̾̿̂̈́̋͘̚̚a̸̧̢̤͖̪̳̞̙̦͙̰͈̋̏͜a̵̛̞͎̺̲͑́̍̽̌̀̇̐́͘͝ͅa̴̛̦͐̆̍͌̓̂͠ą̴̲͓̃̌ą̶̢̞̞̰̳̜̗̙̯̦̄̉͜͜à̴̢̨͚͎̤̞͔̻̣̰͒͘̕͝a̵̢̨̻͓̬̗̥̓̽͆̀̔̈̉́̓̈̐̕̚̚a̴̯͖͕͓̞̩̪̮̣͎̼͙͐͌̍̃̐̄̃̐̇̀̊͂͘͝â̷̢͍̰̲͐̅͒̄̀̊͑̆̈́̊͝");
         }
 
 
