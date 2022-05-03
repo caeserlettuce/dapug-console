@@ -353,7 +353,7 @@ function parseCommand(command) {
         } else if (command == "cheese") {
             displayAnim(cheese, 1);
         } else if (command == "snake") {
-            snakeGameStart();
+            snake_init();
 
         } else if (command == "ascii" || command == "ascii ") {
             parseCommand("man ascii");
@@ -2148,7 +2148,9 @@ function parseCommand(command) {
 
 
     } catch (err) {
-        console.log("so console broke...")
+        console.log("so console broke...");
+        erry(err);
+        
         bluescreen_page({"msg": err.message});
        
     }

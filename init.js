@@ -288,6 +288,20 @@ var keys_pressed = new Object();
 var sfx = true;
 var display_noise = false;
 var rw_tmt;
+var snk_set = {
+    "speed": 1000,  // how many ms per snake tick
+    "size": 20      // how big the board should be
+}
+var snk_limit = snk_set.size;
+var snk_save = new Array();
+var snk_int;
+var bluescreening = true;
+var snakelock = false;
+var snaketick = 0;
+var snake_highscore = 0;
+var snake_score = 0;
+var snk_dir = [1, 0];
+var snk_extra = new Object();
 
 
 debubg("variable init finished...");
@@ -396,15 +410,12 @@ custom_themes = JSON.parse(local_storage("themes", JSON.stringify(custom_themes)
 textadventures_saves = JSON.parse(local_storage("text adventures", "{}"));
 custom_queues = JSON.parse(local_storage("queues", "{}"));
 notes = JSON.parse(local_storage("notes", "{}"));
-debugvar_size = local_storage("debug var size", 5);
+debugvar_size = parseInt(local_storage("debug var size", 5));
 encryption_key = JSON.parse(local_storage("encryptionkey", "{}"));
 cns_session_id = parseInt(local_storage("session id", 0));
-sfx = local_storage("sfx", "true");
-if (sfx == "false") {
-    sfx = false;
-} else {
-    sfx = true;
-}
+sfx = parseBool(local_storage("sfx", "true"));
+bluescreening = parseBool(local_storage("bluescreening", 'true'))
+snake_highscore = parseInt(local_storage("snake highscore", '0'));
 //music_volume = local_storage("music volume", 1)
 console.log(textadventures_saves);
 //textadventures_saves = textadventures_saves);
@@ -781,7 +792,7 @@ function debugVarWindow(bool) {
                 debubg("debug var window closed!!");
             } else {
                 if (size_old != debugvar_size || debvar_first_time == false) {
-                    var_debug_win.document.getElementById("size-pass").innerHTML = debugvar_size;
+                    var_debug_win.document.getElementById("size-pass").innerHTML = `${debugvar_size}`;
                     debvar_first_time = true;
                 }
                 
@@ -876,7 +887,16 @@ function debugVarWindow(bool) {
                     "bluescreen_done": bluescreen_done,
                     "current_command": current_command,
                     "sfx": sfx,
-                    "display_noise": display_noise
+                    "display_noise": display_noise,
+                    "snk_set.speed": snk_set.speed,
+                    "snk_set.size": snk_set.size,
+                    "snk_limit": snk_limit,
+                    "bluescreening": bluescreening,
+                    "snakelock": snakelock,
+                    "snaketick": snaketick,
+                    "snake_score": snake_score,
+                    "snake_highscore": snake_highscore,
+                    "snk_dir": snk_dir
                 }
             
                 if (JSON.stringify(to_pass) == to_pass_pre) {   // if its the same
@@ -1042,9 +1062,15 @@ function sizeCheck() {
 
     debubg(orientation);
 
-
+/*
     vis_consywidth = inHorizViewport($('#consy'));
     vis_consyheight = inVertiViewport($('#consy'));
+*/
+
+
+
+    vis_consywidth = 20;
+    vis_consyheight = 20;
 
     display_textsize[0] = document.getElementById("regtext").clientWidth;
     display_textsize[1] = document.getElementById("regtext").clientHeight;
@@ -4270,6 +4296,16 @@ function moyai() {
     displayImage(process_raw_image(moyai_img), 0);
 }
 
+function parseBool(boolStr) {   // parse a true or false in dtring form into a bool form for easy™
+    if (boolStr == 'true' || boolStr == true) {
+        return true
+    } else if (boolStr == 'false' || boolStr == false) {
+        return false
+    } else {
+        return undefined
+    }
+}
+
 
 
 //  .M.              %MMMMMMMM% .%MMMMMMM%. .%MMMMMMM%. +M                     +MMMMMMMMI MM       MM +MM.      M+  .%MMMMMM %MMMMMMMM% mmmmmmmmmm .%MMMMMMM%. +MM.      M+ .%MMMMMMM%.              .M.  
@@ -4501,62 +4537,65 @@ async function themelist(table1, table2) {
     await displayAnim("\nTo use a theme, type 'theme use [name]', To save a theme, type 'theme save [name]'");
 }
 async function bluescreen_page(inf) {
-    try {
-        bluescreen = true;
-        inputlock = true;
-        bluescreen_done = false;
-        debug = false;
-        debugvar = false;
-        sfx = false;
-        rw_sound.loop = false;
-        rw_sound.pause();
-        document.getElementById("songinfo").style.display = "none";
-        document.getElementById("p2cred").style.display = "none";
-        document.getElementById("p1cred").style.display = "none";
-        document.getElementById("p1ascii").style.display = "none";
-        document.getElementById("input-div").style.display = "none";
-        document.getElementById("consy").style.fontFamily = "MSDOS, monospace";     // change font
-        document.getElementById("consy").style.textAlign = "center";
-        document.getElementById("regtext").style.fontFamily = "MSDOS, monospace";   // change for the character size default as well
-        await sizeCheck();                                                                // re-calculate the size of characters
-        var dat = new Date();
-        var tim = `${dat.getHours()}:${dat.getMinutes()}:${dat.getSeconds()}:${dat.getMilliseconds()}`;
-        var le = "DP-LOL_CNSL";
-        var l1 = `
+    if (bluescreening == true) {
+        try {
+            bluescreen = true;
+            inputlock = true;
+            bluescreen_done = false;
+            debug = false;
+            debugvar = false;
+            sfx = false;
+            rw_sound.loop = false;
+            rw_sound.pause();
+            document.getElementById("songinfo").style.display = "none";
+            document.getElementById("p2cred").style.display = "none";
+            document.getElementById("p1cred").style.display = "none";
+            document.getElementById("p1ascii").style.display = "none";
+            document.getElementById("input-div").style.display = "none";
+            document.getElementById("consy").style.fontFamily = "MSDOS, monospace";     // change font
+            document.getElementById("consy").style.textAlign = "center";
+            document.getElementById("regtext").style.fontFamily = "MSDOS, monospace";   // change for the character size default as well
+            await sizeCheck();                                                                // re-calculate the size of characters
+            var dat = new Date();
+            var tim = `${dat.getHours()}:${dat.getMinutes()}:${dat.getSeconds()}:${dat.getMilliseconds()}`;
+            var le = "DP-LOL_CNSL";
+            var l1 = `
 
 A fatal error '${inf["msg"]}' has occurred at [${tim}] in command '${current_command}' -        
 The current process will be terminated.                    ${" ".repeat(inf["msg"].length)}${" ".repeat(tim.length)}${" ".repeat(current_command.length)}`;
-        var l2 = `
+            var l2 = `
 
 *  Press any key to terminate the current application.     ${" ".repeat(inf["msg"].length)}${" ".repeat(tim.length)}${" ".repeat(current_command.length)}
 *  Press CTRL+ALT+END to restart the console. You will lose${" ".repeat(inf["msg"].length)}${" ".repeat(tim.length)}${" ".repeat(current_command.length)}
    any unsaved information.                                ${" ".repeat(inf["msg"].length)}${" ".repeat(tim.length)}${" ".repeat(current_command.length)}`;
-        var l3 = `
+            var l3 = `
 
 Press any key to continue.`;
-        var l4 = `
-        
+            var l4 = `
+    
 [warning: pressing any key to restart is disabled for user 'dev' for debug purposes!]`;
-        for (i in TMO_push) {
-            clearTimeout(TMO_push[i]);  // clear any current stuffs
+            for (i in TMO_push) {
+                clearTimeout(TMO_push[i]);  // clear any current stuffs
+            }
+            music.pause();
+            await clearScreen()
+            await setColour("#cccded", false, "#0102ac", false, "#0102ac", false);    // set colour
+            await displayAnim("\n\n\n", 82);
+            await displayAnim(le, 0, "#0102ac", "", "background-color: #b1acaf; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 3px;");
+            await displayAnim(l1, 0, "", "", "text-align: left;");
+            await displayAnim(l2, 0, "", "", "text-align: left;");
+            await displayAnim(l3, 0);
+            if (user == "dev") {
+                await displayAnim(l4, 0);
+            }
+    
+    
+            bluescreen_done = true;
+        } catch (err) {
+            alert("console is so broken that the function to show a bluescreen broke. try restarting the page");
+            location.reload();
         }
-        music.pause();
-        await clearScreen()
-        await setColour("#cccded", false, "#0102ac", false, "#0102ac", false);    // set colour
-        await displayAnim("\n\n\n", 82);
-        await displayAnim(le, 0, "#0102ac", "", "background-color: #b1acaf; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 3px;");
-        await displayAnim(l1, 0, "", "", "text-align: left;");
-        await displayAnim(l2, 0, "", "", "text-align: left;");
-        await displayAnim(l3, 0);
-        if (user == "dev") {
-            await displayAnim(l4, 0);
-        }
-
-
-        bluescreen_done = true;
-    } catch (err) {
-        alert("console is so broken that the function to show a bluescreen broke. try restarting the page");
-        location.reload();
+        
     }
     
     
@@ -4605,60 +4644,72 @@ if (sfx == true) {
     ambient_audio();
 }
 
-// EXAMPLE INLINE FNCTIONS WHERE THEY ONLY rUN ONE THING AT A TIME INSTEAD OF EVERYTHING RUNNING AT HE SAME TIME
-//function exampleInline() {
-//    return new Promise((resolve,reject)=>{
-//        // your code
-//        resolve();
-//    })
-//}
-//async function exampleInline2() {
-//    await exampleInline();
-//    await exampleInline();
-//}
-// EXAMPLE REPEAT FOR X TIMES:
-// for (let i = 0; i < amountVAr; i++) {
-//
-//  console.log(`the current loop is ${i});
-//
-//}
-// https://keycode.info/
-// making it so when you press enter in the input itll run the thing
-//
-//
-//
-// IF YOU WANT SOEMTHING TO RUN IF DOING A SPECIFIC THING RETURNS AN ERROR USE THIS:
-//
-//  let request = doThisThing;
-//
-//  request.onerror = function();
-//
-//  request.onsuccess = function();
-//
-//
-//
-//  IDEAS TO ADD:
-//
-//  be able to set like ?debug=true in the URL and have it turn on debug if so
-//
-//  same for variable debug
-//
-//  and then also have ?command=lovejoy
-//
-//  where itll run a command as the window opens
-//
-//  but also right now i need to finish the comments
-//
-//
-//  OPEN SEPERATE WINDOW:
-//
-//  var win = window.open("", "Title", "toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=780,height=200,top="+(screen.height-400)+",left="+(screen.width-840));
-//  win.document.body.innerHTML = "HTML";
-//
-//
-//
+/*
+ EXAMPLE INLINE FNCTIONS WHERE THEY ONLY rUN ONE THING AT A TIME INSTEAD OF EVERYTHING RUNNING AT HE SAME TIME
+function exampleInline() {
+    return new Promise((resolve,reject)=>{
+        // your code
+        resolve();
+    })
+}
+async function exampleInline2() {
+    await exampleInline();
+    await exampleInline();
+}
+ EXAMPLE REPEAT FOR X TIMES:
+for (let i = 0; i < amountVAr; i++) {
 
-shell.onkeyup = function keyParse(e){
+    console.log(`the current loop is ${i}`);
+
+}
+ https://keycode.info/
+ making it so when you press enter in the input itll run the thing
+
+
+
+ IF YOU WANT SOEMTHING TO RUN IF DOING A SPECIFIC THING RETURNS AN ERROR USE THIS:
+
+  let request = doThisThing;
+
+  request.onerror = function();
+
+  request.onsuccess = function();
+
+
+
+  IDEAS TO ADD:
+
+  be able to set like ?debug=true in the URL and have it turn on debug if so
+
+  same for variable debug
+
+  and then also have ?command=lovejoy
+
+  where itll run a command as the window opens
+
+  but also right now i need to finish the comments
+
+
+  OPEN SEPERATE WINDOW:
+
+  var win = window.open("", "Title", "toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=780,height=200,top="+(screen.height-400)+",left="+(screen.width-840));
+  win.document.body.innerHTML = "HTML";
+
+
+
+
+*/
+
+window.onkeyup = function keyParse(e){
+
+    var keycode = e.keyCode;
+    keys_pressed[keycode] = false;       // object with all the keycodes of keys that are being pressed
+
+    if (bluescreen_done == true) {
+        if (user != "dev") {
+            location.reload();
+        }
+    }
 
     if (inputlock == false) {
         
@@ -4715,6 +4766,38 @@ shell.onkeyup = function keyParse(e){
                 mainlock = true;
                 setColour(og_textcolour, true, og_backcolour, true, og_accycolour, true);
             }
+        } else if (snakelock == true) {
+            // snake stuff
+
+            debubg("snake key pressed!!!");
+
+            console.log(snk_dir);
+
+            if (e.keyCode == 37) {          // left
+                if (snk_dir[0] == 0) {        // if it's not going right
+                    snk_dir = [-1, 0];
+                }
+            } else if (e.keyCode == 38) {   // up
+                if (snk_dir[1] == 0) {        // if it's not going down
+                    snk_dir = [0, -1];
+                }
+            } else if (e.keyCode == 39) {   // right
+                if (snk_dir[0] == 0) {        // if it's not going left
+                    snk_dir = [1, 0];
+                }
+            } else if (e.keyCode == 40) {   // down
+                if (snk_dir[1] == 1) {       // if it's not going up
+                    snk_dir = [0, 1];
+                }
+            } else if (e.keyCode == 27) {   // esc
+
+                snake_end();
+
+            }
+
+
+            console.log(snk_dir);
+
         }
             
         
@@ -4732,16 +4815,6 @@ window.onkeydown = function kee(e) {
 }
 
 
-window.onkeyup = function kee(e) {
-    var keycode = e.keyCode;
-    keys_pressed[keycode] = false;       // object with all the keycodes of keys that are being pressed
-
-    if (bluescreen_done == true) {
-        if (user != "dev") {
-            location.reload();
-        }
-    }
-}
 
 /*
 

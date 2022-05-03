@@ -63,6 +63,7 @@ strong {
 
 
 pre {
+  font-family: MSDOS, monospace;
   margin: 0px;
 }
 
@@ -264,15 +265,19 @@ pre {
 }    
 
 .bold {
-    font-weight: bold;
+  font-family: MSDOS, monospace;
+  font-weight: bold;
 }
 
 .italy {
-    font-style: italic;
+  font-family: MSDOS, monospace;
+  font-style: italic;
+
 }
 
 .under {
-    text-decoration: underline;
+  font-family: MSDOS, monospace;
+  text-decoration: underline;
 }
 
 .window {
