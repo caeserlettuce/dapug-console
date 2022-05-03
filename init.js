@@ -1062,15 +1062,10 @@ function sizeCheck() {
 
     debubg(orientation);
 
-/*
+
     vis_consywidth = inHorizViewport($('#consy'));
     vis_consyheight = inVertiViewport($('#consy'));
-*/
 
-
-
-    vis_consywidth = 20;
-    vis_consyheight = 20;
 
     display_textsize[0] = document.getElementById("regtext").clientWidth;
     display_textsize[1] = document.getElementById("regtext").clientHeight;
@@ -4700,16 +4695,7 @@ for (let i = 0; i < amountVAr; i++) {
 
 */
 
-window.onkeyup = function keyParse(e){
-
-    var keycode = e.keyCode;
-    keys_pressed[keycode] = false;       // object with all the keycodes of keys that are being pressed
-
-    if (bluescreen_done == true) {
-        if (user != "dev") {
-            location.reload();
-        }
-    }
+shell.onkeyup = function keyParse(e){
 
     if (inputlock == false) {
         
@@ -4739,7 +4725,43 @@ window.onkeyup = function keyParse(e){
                     }
                 }
                 boom();
+            }  else if(e.keyCode == 37) {
+                if (snakeinputs == true) {
+                    debubg("left arrow detected");
+                }
+            } else if(e.keyCode == 38) {
+                if (snakeinputs == true) {
+                    debubg("up arrow detected");
+
+                } else if (commandhistorylock == false) {
+                    // get out of here old command history code, you stinky
+                    var indexed = historyIndex(1); // index history up by 1
+                    shell.value = `${indexed}`;
+
+                }
+                
+            } else if(e.keyCode == 39) {
+                if (snakeinputs == true) {
+                    debubg("right arrow detected");
+                }
+            } else if(e.keyCode == 40) {
+                if (snakeinputs == true) {
+                    debubg("down arrow detected");
+
+                } else if (commandhistorylock == false) {
+                    // SAME WITH YOU! get outta here you stinky old code!! make room for the new code! just kidding!
+                    // it uses up less space than you! ha!
+                    var indexed = historyIndex(-1); // index history up by 1
+                    shell.value = `${indexed}`;
+
+
+
+
+
+
+                }
             }
+        
         } else if (starlock == true) {
             if(e.keyCode == 27) {
                 stars_status = false;
@@ -4766,38 +4788,6 @@ window.onkeyup = function keyParse(e){
                 mainlock = true;
                 setColour(og_textcolour, true, og_backcolour, true, og_accycolour, true);
             }
-        } else if (snakelock == true) {
-            // snake stuff
-
-            debubg("snake key pressed!!!");
-
-            console.log(snk_dir);
-
-            if (e.keyCode == 37) {          // left
-                if (snk_dir[0] == 0) {        // if it's not going right
-                    snk_dir = [-1, 0];
-                }
-            } else if (e.keyCode == 38) {   // up
-                if (snk_dir[1] == 0) {        // if it's not going down
-                    snk_dir = [0, -1];
-                }
-            } else if (e.keyCode == 39) {   // right
-                if (snk_dir[0] == 0) {        // if it's not going left
-                    snk_dir = [1, 0];
-                }
-            } else if (e.keyCode == 40) {   // down
-                if (snk_dir[1] == 1) {       // if it's not going up
-                    snk_dir = [0, 1];
-                }
-            } else if (e.keyCode == 27) {   // esc
-
-                snake_end();
-
-            }
-
-
-            console.log(snk_dir);
-
         }
             
         
@@ -4814,6 +4804,52 @@ window.onkeydown = function kee(e) {
 
 }
 
+window.onkeyup = function kee(e) {
+
+    var keycode = e.keyCode;
+    keys_pressed[keycode] = false;       // object with all the keycodes of keys that are being pressed
+
+    if (bluescreen_done == true) {
+        if (user != "dev") {
+            location.reload();
+        }
+    }
+
+    if (snakelock == true) {
+        // snake stuff
+
+        debubg("snake key pressed!!!");
+
+        console.log(snk_dir);
+
+        if (e.keyCode == 37) {          // left
+            if (snk_dir[0] == 0) {        // if it's not going right
+                snk_dir = [-1, 0];
+            }
+        } else if (e.keyCode == 38) {   // up
+            if (snk_dir[1] == 0) {        // if it's not going down
+                snk_dir = [0, -1];
+            }
+        } else if (e.keyCode == 39) {   // right
+            if (snk_dir[0] == 0) {        // if it's not going left
+                snk_dir = [1, 0];
+            }
+        } else if (e.keyCode == 40) {   // down
+            if (snk_dir[1] == 1) {       // if it's not going up
+                snk_dir = [0, 1];
+            }
+        } else if (e.keyCode == 27) {   // esc
+
+            snake_end();
+
+        }
+
+
+        console.log(snk_dir);
+
+    }
+
+}
 
 
 /*

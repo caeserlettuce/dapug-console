@@ -1077,8 +1077,7 @@ function parseCommand(command) {
             inputlock = true;
             credits_playing = true;
             debubg("playing credits!!! thank you for using this silly little website!");
-            parseCommand("music play meal thyme");
-            lyr_disp = site_credits;
+            parseCommand("music play mealthyme_credits");
             credits_playing = true;
         } else if (command == "theme" || command == "theme " || command == "theme import" || command == "theme import " || command == "theme install" || command == "theme install " || command == "theme export" || command == "theme export " || command == "theme share" || command == "theme share ") {                 // show theme manpage
             parseCommand("man theme");

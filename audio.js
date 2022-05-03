@@ -149,6 +149,6 @@ function sfx_aud(audio, playover) {
 
 function ambient_audio(){
     sfx_aud("ambient");
-    setTimeout(ambient_audio, 11485); // 11.485 seconds long, this value shouold be in milliseconds
+    setTimeout(ambient_audio, 10000); // 11.485 seconds long, this value shouold be in milliseconds
 }
 

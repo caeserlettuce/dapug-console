@@ -6735,7 +6735,140 @@ songs = {
             {"text": " that's fun...", "dur": [255019, 255748]},
             {"text": " where's my knife?", "dur": [256524, 257344]},
         ]
+    },
+    "mealthyme_credits": {
+        "name": "meal thyme",
+        "artist": "dough emergency",
+        "album": "MEMORY HOARDER",
+        "art": "https://dapug.lol/music/vis/render-cycles.png",
+        "audio": "https://dapug.lol/music/memory_hoarder/audio/03.mp3",
+        "volume": 1,
+        "lyrics": [
+            {"text": `
+  .%MMMMMM .%MMMMMMM%. +MM.      M+ .%MMMMMMM%. .%MMMMMMM%. +M         +MMMMMMMMI 
+ .%MMMMMMM %MM%' '%MM% MMMM.     MM %MM%' '%MM% %MM%' '%MM% MM         MMMMMMMMMI 
+ %MM%'     MM'     'MM MM'MM.    MM MM'         MM'     'MM MM         MM+        
+ MMM'      MM       MM MM 'MM.   MM MM%.......  MM       MM MM         MM........ 
+ MMM       MM       MM MM  'MM.  MM  %MMMMMMM%. MM       MM MM         MMMMMMMMMM 
+ MMM.      MM       MM MM   'MM. MM   ''''''%MM MM       MM MM         MM'''''''' 
+ %MM%.     MM.     .MM MM    'MM.MM         .MM MM.     .MM MM         MM+        
+ '%MMMMMMM %MM%. .%MM% MM     'MMMM %MM%. .%MM% %MM%. .%MM% MM........ MMMMMMMMMI 
+  '%MMMMMM '%MMMMMMM%' +M      'MM+ '%MMMMMMM%' '%MMMMMMM%' +MMMMMMMM% +MMMMMMMMI 
+`, "dur": [0, 3343]},
+            {"text": `\n\nCONSOLE v${version}, by da pug`, "dur": [3343, 4761]},
+            {"text": `\n\nStarted January 24, 2022`, "dur": [6610, 8251]},
+            {"text": `\n\nCoded with over 5000 lines of javascript`, "dur": [9939, 11490]},
+            {"text": `\n\nAn excuse to spend hours tapping away on my keyboard`, "dur": [13240, 14800]},
+            {"text": `\n\n:]${"\n".repeat(display_charsize[1])}`, "dur": [16123, 16630]},
+            {"text": `
+         ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒░
+        ▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓█▒░
+       ▒█████████████████▒▒░
+      ▒█▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒░
+      ▒█▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒█▓▒▒░
+      ▒█▓░░░░░░░░░░░░░▒█▓▒▒░
+      ▒█▓░            ▒█▓▒▒░
+      ▒█▓░   ▓▓▓▓▓▓░  ▒█▓▒▒░
+      ▒█▓░   ▒█████░  ▒█▓▒▒░
+      ▒█▓░   ▒█████░  ▒█▓▒▒░
+      ▒█▓░   ░░░░░░░  ▒█▓▒▒░
+      ▒█▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒█▓▒▒░
+      ▒█▓███████████████▓▒▒░
+      ▒█▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒░▒▒
+      ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒░▒▒▓░
+      ░░░░░░░░░░░░░░░░░░░░▒▒▓▒░
+    ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓▒▒░
+   ▒███████████████████████▒▒▒░
+   ▒█▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒░
+   ▒█▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒▒▒▒▓▓▒▒▒░
+   ▒█▓▓▓▓▓▓▓▓▓▓          ▓▓▒▒▒░
+   ▒█▓▓▄▄▓▓▓▓▓▓▓▓▓▓▓▓▒▓▓▓▓▓▒▒▒░
+   ▒█▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒░
+   ▒▒▒ █▒ █▒ █▒ █▒ █▒ █▒ █ ▒▒░
+  ▒█▒ █▒ █▒ █▒ █▒ █▒ █▒ █▒▒░░
+ ▒█▒ ▒▒ ▒▒ ▒▒ ▒▒ ▒▒ ▒▒ ▒▒▒▒░
+▒███████████████████████░▒░
+▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒░
+ ░░░░░░░░░░░░░░░░░░░░░░░░
+`, "dur": [16577, 17582]},
+        {"text": "\n caeserlettuce - lead developer - css - javascript - html", "dur": [17582, 18418]},
+        {"text": `⠀${"\n".repeat(display_charsize[1])}`, "dur": [19426, 19877]},
+        {"text": `
+                ░░   ░
+          ░       ░   ░
+           ░   ░░░░
+            ░░░░░   ░
+       ░ ░░▒▒▒░  ░░
+        ░▒▒▒▒░
+         ░▒▒▒▒▒▒░░
+           ░░▒▒▒▒▒▒░
+              ░▒▒▒▒▒▒
+        ░░▒▒▒▒▒▒▒▒▒▒░
+      ░▒▒▒▒▒▒▒▒▒▒░░░
+    ▓▓▒▒▒▒▒▓▓▓▓▓▓▓▓▓
+ ▓▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓▓▓
+▓▒▒▒░░░▒▒▒▒▒░░░░░░░░▒▒▒▓
+▓░░░░░░░░░░░░░░░░░░░░░░▓
+▒▓▓▓░░░░░░░░░░░░░░░░▓▓▓▓
+▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒
+▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒
+▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓   ▓▓▓
+▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓    ▓▓
+▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓    ▓▓
+▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓   ▒▓▓
+▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▓▓▓
+▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+ ▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓
+    ▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓`, "dur": [19877, 20918]},
+            {"text": "\n\n 18gallons - developer / bug testing / visuals / manpages", "dur": [20918, 21717]},
+            {"text": `⠀${"\n".repeat(display_charsize[1])}`, "dur": [22743, 23186]},
+            {"text": "\nSPECIAL THANKS TO:\n\nGitHub\nVisual Studio Code\nStack Overflow\nValve - Portal & Portal 2, which inspired me to make this\n\n\n\n", "dur": [23153, 27931]},
+            {"text": `
+    ▄▀▄▄▀▄
+   █░░░░░░▀▀▀▄      ▄
+  █░░▀░░▀░░░░░▀▄▄  █░█
+  █░▄░█▀░▄░░░░░░░▀▀░░█
+  █░░▀▀▀▀░░░░░░░░░░░░█
+  █░░░░░░░░░░░░░░░░░░█
+  █░░░░░░░░░░░░░░░░░░█
+   █░░▄▄░░▄▄▄▄░░▄▄░░█
+   █░▄▀█░▄▀  █░▄▀█░▄▀
+    ▀   ▀     ▀   ▀`, "dur": [29777, 30832]},
+            {"text": "\n\n 'Annoying Dog' & Music in 'dog' by Toby Fox", "dur": [30832, 31653]},
+            {"text": `⠀${"\n".repeat(display_charsize[1])}`, "dur": [33071, 34152]},
+            {"text": "[insert more credits when i need them]", "dur": [34152, 36152]},
+        
+        
+            {"text": `⠀${"\n".repeat(display_charsize[1])}`, "dur": [51925, 52958]},
+            {"text": "THANK YOU\nFOR PLAYING AROUND\nWITH THIS SILLY LITTLE WEBSITE!!", "dur": [52958, 56145]},
+            // "⠀" // nothing characer
+        
+            // stackoverflow
+            // vscode
+            // github
+            // [im really thinking of every possible thing]
+            // the portal credit sequences for inspiring this in the first place
+            
+        
+            // 43 lines tall
+            // 907 pixels tall
+            // 21.0930232558 pixels per newline (ish)
+        
+        
+            
+        
+        
+        
+        
+            
+        ]
     }
+
+
+    
 }
 
 // spirit phone: https://media.discordapp.net/attachments/960729059829096580/960838302561353738/spiritphone.png?width=655&height=655
@@ -6782,131 +6915,6 @@ var HJABJBGASFJHKBGSDLFBJLF =
 
 `
                                // this is essentially just block comments so i can be able to copy paste this for lyrics (tm)
-
-// CONSOLE CREDITS TM!!!
-
-var site_credits = [
-    {"text": `
-  .%MMMMMM .%MMMMMMM%. +MM.      M+ .%MMMMMMM%. .%MMMMMMM%. +M         +MMMMMMMMI 
- .%MMMMMMM %MM%' '%MM% MMMM.     MM %MM%' '%MM% %MM%' '%MM% MM         MMMMMMMMMI 
- %MM%'     MM'     'MM MM'MM.    MM MM'         MM'     'MM MM         MM+        
- MMM'      MM       MM MM 'MM.   MM MM%.......  MM       MM MM         MM........ 
- MMM       MM       MM MM  'MM.  MM  %MMMMMMM%. MM       MM MM         MMMMMMMMMM 
- MMM.      MM       MM MM   'MM. MM   ''''''%MM MM       MM MM         MM'''''''' 
- %MM%.     MM.     .MM MM    'MM.MM         .MM MM.     .MM MM         MM+        
- '%MMMMMMM %MM%. .%MM% MM     'MMMM %MM%. .%MM% %MM%. .%MM% MM........ MMMMMMMMMI 
-  '%MMMMMM '%MMMMMMM%' +M      'MM+ '%MMMMMMM%' '%MMMMMMM%' +MMMMMMMM% +MMMMMMMMI 
-`, "dur": [0, 3343]},
-    {"text": `\n\nCONSOLE v${version}, by da pug`, "dur": [3343, 4761]},
-    {"text": `\n\nStarted January 24, 2022`, "dur": [6610, 8251]},
-    {"text": `\n\nCoded with over 5000 lines of javascript`, "dur": [9939, 11490]},
-    {"text": `\n\nAn excuse to spend hours tapping away on my keyboard`, "dur": [13240, 14800]},
-    {"text": `\n\n:]${"\n".repeat(display_charsize[1])}`, "dur": [16123, 16630]},
-    {"text": `
-         ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒░
-        ▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓█▒░
-       ▒█████████████████▒▒░
-      ▒█▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒░
-      ▒█▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒█▓▒▒░
-      ▒█▓░░░░░░░░░░░░░▒█▓▒▒░
-      ▒█▓░            ▒█▓▒▒░
-      ▒█▓░   ▓▓▓▓▓▓░  ▒█▓▒▒░
-      ▒█▓░   ▒█████░  ▒█▓▒▒░
-      ▒█▓░   ▒█████░  ▒█▓▒▒░
-      ▒█▓░   ░░░░░░░  ▒█▓▒▒░
-      ▒█▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒█▓▒▒░
-      ▒█▓███████████████▓▒▒░
-      ▒█▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒░▒▒
-      ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒░▒▒▓░
-      ░░░░░░░░░░░░░░░░░░░░▒▒▓▒░
-    ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓▒▒░
-   ▒███████████████████████▒▒▒░
-   ▒█▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒░
-   ▒█▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒▒▒▒▓▓▒▒▒░
-   ▒█▓▓▓▓▓▓▓▓▓▓          ▓▓▒▒▒░
-   ▒█▓▓▄▄▓▓▓▓▓▓▓▓▓▓▓▓▒▓▓▓▓▓▒▒▒░
-   ▒█▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒░
-   ▒▒▒ █▒ █▒ █▒ █▒ █▒ █▒ █ ▒▒░
-  ▒█▒ █▒ █▒ █▒ █▒ █▒ █▒ █▒▒░░
- ▒█▒ ▒▒ ▒▒ ▒▒ ▒▒ ▒▒ ▒▒ ▒▒▒▒░
-▒███████████████████████░▒░
-▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒░
- ░░░░░░░░░░░░░░░░░░░░░░░░
-`, "dur": [16577, 17582]},
-{"text": "\n caeserlettuce - lead developer - css - javascript - html", "dur": [17582, 18418]},
-{"text": `⠀${"\n".repeat(display_charsize[1])}`, "dur": [19426, 19877]},
-{"text": `
-                ░░   ░
-          ░       ░   ░
-           ░   ░░░░
-            ░░░░░   ░
-       ░ ░░▒▒▒░  ░░
-        ░▒▒▒▒░
-         ░▒▒▒▒▒▒░░
-           ░░▒▒▒▒▒▒░
-              ░▒▒▒▒▒▒
-        ░░▒▒▒▒▒▒▒▒▒▒░
-      ░▒▒▒▒▒▒▒▒▒▒░░░
-    ▓▓▒▒▒▒▒▓▓▓▓▓▓▓▓▓
- ▓▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓▓▓
-▓▒▒▒░░░▒▒▒▒▒░░░░░░░░▒▒▒▓
-▓░░░░░░░░░░░░░░░░░░░░░░▓
-▒▓▓▓░░░░░░░░░░░░░░░░▓▓▓▓
-▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
-▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒
-▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒
-▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓   ▓▓▓
-▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓    ▓▓
-▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓    ▓▓
-▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓   ▒▓▓
-▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▓▓▓
-▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
-▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓
-▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓
- ▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓
-    ▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓`, "dur": [19877, 20918]},
-    {"text": "\n\n 18gallons - developer / bug testing / visuals / manpages", "dur": [20918, 21717]},
-    {"text": `⠀${"\n".repeat(display_charsize[1])}`, "dur": [22743, 23186]},
-    {"text": "\nSPECIAL THANKS TO:\n\nGitHub\nVisual Studio Code\nStack Overflow\nValve - Portal & Portal 2, which inspired me to make this\n\n\n\n", "dur": [23153, 27931]},
-    {"text": `
-    ▄▀▄▄▀▄
-   █░░░░░░▀▀▀▄      ▄
-  █░░▀░░▀░░░░░▀▄▄  █░█
-  █░▄░█▀░▄░░░░░░░▀▀░░█
-  █░░▀▀▀▀░░░░░░░░░░░░█
-  █░░░░░░░░░░░░░░░░░░█
-  █░░░░░░░░░░░░░░░░░░█
-   █░░▄▄░░▄▄▄▄░░▄▄░░█
-   █░▄▀█░▄▀  █░▄▀█░▄▀
-    ▀   ▀     ▀   ▀`, "dur": [29777, 30832]},
-    {"text": "\n\n 'Annoying Dog' & Music in 'dog' by Toby Fox", "dur": [30832, 31653]},
-    {"text": `⠀${"\n".repeat(display_charsize[1])}`, "dur": [33071, 34152]},
-    {"text": "[insert more credits when i need them]", "dur": [34152, 36152]},
-
-
-    {"text": `⠀${"\n".repeat(display_charsize[1])}`, "dur": [51925, 52958]},
-    {"text": "THANK YOU\nFOR PLAYING AROUND\nWITH THIS SILLY LITTLE WEBSITE!!", "dur": [52958, 56145]},
-    // "⠀" // nothing characer
-
-    // stackoverflow
-    // vscode
-    // github
-    // [im really thinking of every possible thing]
-    // the portal credit sequences for inspiring this in the first place
-    
-
-    // 43 lines tall
-    // 907 pixels tall
-    // 21.0930232558 pixels per newline (ish)
-
-
-    
-
-
-
-
-    
-]
 
 
 
@@ -8967,10 +8975,24 @@ var encryption_encodedtext = [      // these are all the possible characters tha
 var snake_board = new Array();
 
 
+var stonks = `
+
+
+██████████████
+██████████████
+ █████████████
+ ▀████████████
+  ████████████
+ █ ███████████
+ ██▄▀█████████
+█████▄▀███████
+███████▄▄▄▀▀▀▀
+`;
+
 
 /*
 ▓▒░
-▗▖▝▘▟▙▜▛▚▞█▀█
+▗▖▝▘▟▙▜▛▚▞▀▄█
 ▉▊▋▌▍▎▏
 ▇▆▅▄▃▂▁
 

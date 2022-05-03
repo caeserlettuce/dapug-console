@@ -1,7 +1,7 @@
 var display_textsize = [0, 0];  // the width and height in pixels of a single character in console
 var display_charsize = [0, 0];  // how many characters can be along the x and y axis of the console until its filled up
 
-/*
+
 function inVertiViewport($el) {
     var elH = $el.outerHeight(),
         H   = $(window).height(),
@@ -18,10 +18,6 @@ function inHorizViewport($el) {
 
 var vis_consywidth = inHorizViewport($('#consy'));
 var vis_consyheight = inVertiViewport($('#consy'));
-*/
-
-var vis_consywidth = 20;
-var vis_consyheight = 20;
 
 
 display_textsize[0] = document.getElementById("regtext").clientWidth;
