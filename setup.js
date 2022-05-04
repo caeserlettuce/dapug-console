@@ -19,6 +19,7 @@ function inHorizViewport($el) {
 var vis_consywidth = inHorizViewport($('#consy'));
 var vis_consyheight = inVertiViewport($('#consy'));
 
+
 display_textsize[0] = document.getElementById("regtext").clientWidth;
 display_textsize[1] = document.getElementById("regtext").clientHeight;
 

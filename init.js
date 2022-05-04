@@ -157,6 +157,7 @@ var inHistory = false;
 var console_history = {0: "console started. type 'issue' if you find any issues/errors with this page. type 'help' for help."};
 var console_colour_history = {0: "inherit"};
 var console_link_history = {0: ""};
+var console_style_history = {0: ""};
 var console_id = 0;
 var console_group_id = 0;
 var musicTimeouts = 0; // number of timeouts in the current song
@@ -276,6 +277,33 @@ var var_debug_check;
 var debugvar_size = 5;
 var debvar_first_time = false;
 var music_volume = 1;
+var console_visible = true;
+var encryption_key = new Object();
+var bluescreen = false;
+var mainlock = true;
+var bluescreen_done = false;
+var current_command = "";
+var cns_session_id = 0;
+var keys_pressed = new Object();
+var sfx = true;
+var display_noise = false;
+var rw_tmt;
+var snk_set = {
+    "speed": 500,  // how many ms per snake tick
+    "size": 20      // how big the board should be
+}
+var snk_limit = snk_set.size;
+var snk_save = new Array();
+var snk_int;
+var bluescreening = true;
+var snakelock = false;
+var snaketick = 0;
+var snake_highscore = 0;
+var snake_score = 0;
+var snk_dir = [1, 0];
+var snk_extra = new Object();
+var snk_food = new Array();
+var snk_cur_speed = snk_set.speed;
 
 
 debubg("variable init finished...");
@@ -384,11 +412,16 @@ custom_themes = JSON.parse(local_storage("themes", JSON.stringify(custom_themes)
 textadventures_saves = JSON.parse(local_storage("text adventures", "{}"));
 custom_queues = JSON.parse(local_storage("queues", "{}"));
 notes = JSON.parse(local_storage("notes", "{}"));
-debugvar_size = local_storage("debug var size", 5);
+debugvar_size = parseInt(local_storage("debug var size", 5));
+encryption_key = JSON.parse(local_storage("encryptionkey", "{}"));
+cns_session_id = parseInt(local_storage("session id", 0));
+sfx = parseBool(local_storage("sfx", "true"));
+bluescreening = parseBool(local_storage("bluescreening", 'true'))
+snake_highscore = parseInt(local_storage("snake highscore", '0'));
 //music_volume = local_storage("music volume", 1)
 console.log(textadventures_saves);
 //textadventures_saves = textadventures_saves);
-//console.log(textadventures_saves);
+//console.log(textadventures_saves);                JSON.parse(local_storage("encryption key", "{}"));
 
 
 
@@ -612,6 +645,7 @@ function toggleHideSongInfo() {
         document.getElementById("songinfo").style.height = "130px";
     }
 }
+
 function toggleHideP1Cred() {
     if (debugHideP1Cred == false) {
         debugHideP1Cred = true;
@@ -669,7 +703,7 @@ function debugWindow(bool) {
             <style id="scroll-text-style">::-webkit-scrollbar-thumb { background: ${accycolour}; }</style>
             <style id="scroll-back-style">::-webkit-scrollbar-track { background: ${backcolour}; } ::-webkit-scrollbar-corner { background: #000000 }</style>
             <style id="back-style">body { background-color: ${backcolour};}</style>
-            <style id="text-style">@font-face { font-family: COURIERPRIME; src: url(CourierPrime-Regular.ttf);} body { color: ${textcolour}; font-family: COURIERPRIME, monospace;} pre { font-family: COURIERPRIME, monospace;}</style>
+            <style id="text-style">@font-face {font-family: MSDOS; src: url(DOSVGA_437_WIN.ttf);} body { color: ${textcolour}; font-family: MSDOS, monospace;} pre { font-family: MSDOS, monospace;}</style>
             <style id="window-resize"> body {width: 100px;}</style>
             <title>CONSOLE DEBUG</title>
             <link rel="icon" href="icon.png">`);
@@ -760,7 +794,7 @@ function debugVarWindow(bool) {
                 debubg("debug var window closed!!");
             } else {
                 if (size_old != debugvar_size || debvar_first_time == false) {
-                    var_debug_win.document.getElementById("size-pass").innerHTML = debugvar_size;
+                    var_debug_win.document.getElementById("size-pass").innerHTML = `${debugvar_size}`;
                     debvar_first_time = true;
                 }
                 
@@ -848,7 +882,23 @@ function debugVarWindow(bool) {
                     "cur_cipher": cur_cipher,
                     "in_queue": in_queue,
                     "debugvar_size": debugvar_size,
-                    "music_volume": music_volume
+                    "music_volume": music_volume,
+                    "console_visible": console_visible,
+                    "bluescreen": bluescreen,
+                    "mainlock": mainlock,
+                    "bluescreen_done": bluescreen_done,
+                    "current_command": current_command,
+                    "sfx": sfx,
+                    "display_noise": display_noise,
+                    "snk_set.speed": snk_set.speed,
+                    "snk_set.size": snk_set.size,
+                    "snk_limit": snk_limit,
+                    "bluescreening": bluescreening,
+                    "snakelock": snakelock,
+                    "snaketick": snaketick,
+                    "snake_score": snake_score,
+                    "snake_highscore": snake_highscore,
+                    "snk_dir": snk_dir
                 }
             
                 if (JSON.stringify(to_pass) == to_pass_pre) {   // if its the same
@@ -1018,6 +1068,7 @@ function sizeCheck() {
     vis_consywidth = inHorizViewport($('#consy'));
     vis_consyheight = inVertiViewport($('#consy'));
 
+
     display_textsize[0] = document.getElementById("regtext").clientWidth;
     display_textsize[1] = document.getElementById("regtext").clientHeight;
 
@@ -1102,7 +1153,7 @@ debubg("text scaling init finished...");
 
 
 
-function displayAppend(message, in_id, hide, colour, link) {
+function displayAppend(message, in_id, hide, colour, link, style) {
     //debubg(`[displayAppend]   message: ${message}  in_id: ${in_id}   hide: ${hide}   colour: ${colour}   link: ${link}`);
     if (console_history[in_id] != undefined || console_history[in_id] != null) {    // if the value already exists
         console_history[in_id] = `${console_history[in_id]}${message}`;             // append to value
@@ -1116,7 +1167,7 @@ function displayAppend(message, in_id, hide, colour, link) {
         console_colour_history[in_id] = `${colour}`;        // append to value
     } else {                                                // else
         //debubg("NO EXIST");
-        if (typeof colour == 'string') {
+        if (typeof colour == 'string' && colour != "") {
             console_colour_history[in_id] = `${colour}`;        // append to value
         } else {
             console_colour_history[in_id] = `inherit`;                                                  // just set value
@@ -1128,10 +1179,21 @@ function displayAppend(message, in_id, hide, colour, link) {
         console_link_history[in_id] = `${link}`;        // append to value
     } else {                                                // else
         //debubg("NO EXIST");
-        if (colour) {
+        if (link) {
             console_link_history[in_id] = `${link}`;        // append to value
         } else {
             console_link_history[in_id] = ``;                                                  // just set value
+        }
+    }
+    if (console_style_history[in_id]) {      // if the value already exists
+        //debubg("exists!");
+        console_style_history[in_id] = `${style}`;        // append to value
+    } else {                                                // else
+        //debubg("NO EXIST");
+        if (style) {
+            console_style_history[in_id] = `${style}`;        // append to value
+        } else {
+            console_style_history[in_id] = ``;                                                  // just set value
         }
     }
 
@@ -1169,14 +1231,15 @@ function displayUpdate() {
         if (elemCheck) {                                                // if the element exists
             //debubg("it EXISTS"); 
                                                  // it does exist
-            if (elemCheck.innerHTML != console_history[cur_id] || elemCheck.style.color != console_colour_history[cur_id] ) {       // if the element does not match what's in memory
+            if (elemCheck.innerHTML != console_history[cur_id] || elemCheck.style.color != console_colour_history[cur_id] || elemCheck.style.cssText != console_style_history[cur_id] ) {       // if the element does not match what's in memory
                 //debubg("they dont match");
                 elemCheck.innerHTML = `${console_history[cur_id]}`;
                 elemCheck.style.color = `${console_colour_history[cur_id]}`;
-
+                
             } else {
                 //debubg("they do match")
             }
+
             // function() { alert("hallo!") }
             //debubg(`checking id of ${cur_id} of ${console_link_history[cur_id]}`);
             var check_url = `${console_link_history[cur_id]}`;
@@ -1198,18 +1261,19 @@ function displayUpdate() {
                 elemCheck.setAttribute( "onClick", `javascript: window.open("${check_url}");` );
                 elemCheck.style.textDecoration = "underline";
                 elemCheck.style.cursor = "pointer";
+                elemCheck.style.cssText = `text-decoration: underline; cursor: pointer; color: ${console_colour_history[cur_id]}; ${console_style_history[cur_id]}`;
             } else {
                 //debubg("it is not a url!!");
                 //elemCheck.onclick = "";
                 elemCheck.removeAttribute("onClick");
-                elemCheck.style.textDecoration = "none";
-                elemCheck.style.cursor = "auto";
+                elemCheck.style.cssText = `color: ${console_colour_history[cur_id]}; ${console_style_history[cur_id]}`;
             }
 
+            
 
         } else {
             //debubg("you idiot it doesnt exist");                        // it doesnt exist
-            consol.innerHTML = `${consol.innerHTML}<span id="CON_${cur_id}" style="color: ${console_colour_history[cur_id]};">${console_history[cur_id]}</span>`;
+            consol.innerHTML = `${consol.innerHTML}<span id="CON_${cur_id}" style="color: ${console_colour_history[cur_id]}; ${console_style_history[cur_id]}">${console_history[cur_id]}</span>`;
         }
     }
 }
@@ -1233,7 +1297,7 @@ function singleDisplayUpdate(cur_id) {
         // function() { alert("hallo!") }
         //debubg(`checking id of ${cur_id} of ${console_link_history[cur_id]}`);
         var check_url = `${console_link_history[cur_id]}`;
-        if (isUrl(`${check_url}`) == true) {
+        if (check_url != '') {
             //debubg("it is a url!!! woo!!!");
             //debubg(`checking ${console_link_history[cur_id]}`);
             elemCheck.onclick = function() { window.open(`${check_url}`); }
@@ -1249,20 +1313,18 @@ function singleDisplayUpdate(cur_id) {
             //debubg("it is a url!!! woo!!!");
             //debubg(`checking id of ${cur_id} : ${console_link_history[cur_id]}`);
             elemCheck.setAttribute( "onClick", `javascript: window.open("${check_url}");` );
-            elemCheck.style.textDecoration = "underline";
-            elemCheck.style.cursor = "pointer";
+            elemCheck.style.cssText = `text-decoration: underline; cursor: pointer; color: ${console_colour_history[cur_id]}; ${console_style_history[cur_id]}`;
         } else {
             //debubg("it is not a url!!");
             //elemCheck.onclick = "";
             elemCheck.removeAttribute("onClick");
-            elemCheck.style.textDecoration = "none";
-            elemCheck.style.cursor = "auto";
+            elemCheck.style.cssText = `color: ${console_colour_history[cur_id]}; ${console_style_history[cur_id]}`;
         }
 
 
     } else {
         //debubg("you idiot it doesnt exist");                        // it doesnt exist
-        consol.innerHTML = `${consol.innerHTML}<span id="CON_${cur_id}" style="color: ${console_colour_history[cur_id]};">${console_history[cur_id]}</span>`;
+        consol.innerHTML = `${consol.innerHTML}<span id="CON_${cur_id}" style="color: ${console_colour_history[cur_id]}; ${console_style_history[cur_id]}">${console_history[cur_id]}</span>`;
     }
     
 }
@@ -1305,28 +1367,38 @@ async function displayMultilineAnim(message, speed, type) {
     }
 }
 
-async function displaySingleLine(message, speed, colour, link) {
+async function displaySingleLine(message, speed, colour, link, style) {
     //debubg(`[displaySingleLine]   message: ${message}  speed: ${speed}   colour: ${colour}   link: ${link}`);
     return new Promise((resolve,reject)=>{
         //here our function should be implemented 
+        display_noise = true;
+        rw_sound.play();
         var messagey = message.split("");
         var messageyLength = messagey.length;
         var use_id = console_id + 1;        // the current id that's being used
         console_id += 1;                    // update console id
-        for (let i = 0; i < messageyLength; i++) {
-            TMO_push.push(setTimeout(function timer() {
-                var mess = messagey[i];
-                scrolly("consy");
-                if (messagey[i] == " " || messagey[i] == "\n") {
-                    boom();
-                }
-                displayAppend(messagey[i], use_id, false, colour, link);
-                if (i == messageyLength - 1) { 
-                    resolve();
+        if (speed == 0) {
+            displayAppend(message, use_id, false, colour, link, style);
+            resolve();
+        } else {
+            for (let i = 0; i < messageyLength; i++) {
+                TMO_push.push(setTimeout(function timer() {
+                    var mess = messagey[i];
                     scrolly("consy");
-                }
-                
-            }, i * speed));
+                    if (messagey[i] == " " || messagey[i] == "\n") {
+                        boom();
+                    }
+                    displayAppend(messagey[i], use_id, false, colour, link, style);
+                    if (i == messageyLength - 1) { 
+                        resolve();
+                        scrolly("consy");
+                        display_noise = false;
+                        rw_sound.pause();
+                    }
+                    
+                }, i * speed));
+        
+            }
         }
     });
 }
@@ -1395,9 +1467,9 @@ async function displayUser(message, userin) {
     scrolly("consy");
 }
 
-async function displayAnim(message, speed, colour, link) {      // fancy anim
+async function displayAnim(message, speed, colour, link, style) {      // fancy anim
     boom();
-    if (speed == "" || speed == undefined || speed == null) {
+    if ( `${speed}` == "" ) {
         speed = 7;
     }
     //console.log(`[displayanim] ${message}, ${speed}, ${type}`);
@@ -1408,16 +1480,6 @@ async function displayAnim(message, speed, colour, link) {      // fancy anim
 
 
     console.log(message);
-
-/*
-    // old if statement
-    if (typeof message == "object") {
-        egg_white = message.join("\n");
-    } else {
-        egg_white = message;
-    }
-*/
-    // new if statement
 
     if (Array.isArray(message) == true) {
         egg_white = message.join("\n");
@@ -1437,12 +1499,12 @@ async function displayAnim(message, speed, colour, link) {      // fancy anim
     } else if (typeof message == 'string') {
         egg_white = message;
     }
+    await displaySingleLine(egg_white, speed, colour, link, style);
+}
 
-
-    
-    await displaySingleLine(egg_white, speed, colour, link);
-    
-    
+function dp_ct(message) { // get the spaces for a thing lol
+    var widdy = (display_charsize[0] - message.length) / 2;
+    return " ".repeat(widdy);
 }
 
 function displayTimeAnim(message, durat) {    // duration in ms
@@ -1467,22 +1529,33 @@ function displayScreen(array) {
 async function displayImage(image, speed) {
     //debubg(`[displaySingleLine]   message: ${message}  speed: ${speed}   colour: ${colour}   link: ${link}`);
     return new Promise((resolve,reject)=>{
-        //here our function should be implemented 
+        //here our function should be implemented
         var messageyLength = image.length;
         var use_id = console_id + 1;        // the current id that's being used
         console_id += 1;                    // update console id
-        for (let i = 0; i < messageyLength; i++) {
-            TMO_push.push(setTimeout(function timer() {
-                var mess = image[i];
-                scrolly("consy");
-                displayAppend(image[i], use_id, false);
-                if (i == messageyLength - 1) { 
-                    resolve();
+        if (`${speed}` == '0') {
+            debubg("this is good");
+            console.log(image)
+            displayAppend(image.join(""), use_id, false);
+        } else {
+            debubg("this is stupid");
+            for (let i = 0; i < messageyLength; i++) {
+                TMO_push.push(setTimeout(function timer() {
+                    var mess = image[i];
                     scrolly("consy");
-                }
+                    displayAppend(image[i], use_id, false);
+                    if (i == messageyLength - 1) { 
+                        resolve();
+                        scrolly("consy");
+                    }
+                    
+                }, i * speed));
                 
-            }, i * speed));
+                
+            }
         }
+        
+        
     });
 }
 
@@ -2192,7 +2265,7 @@ function asciiText(font, text) {
         in_font = "default";
     } else if (fontlow == "slant" || fontlow == "s" || fontlow == "sla") {
         in_font = "slant";
-    } else if (fontlow == "block" || fontliw == "b" || fontlow == "blo") {
+    } else if (fontlow == "block" || fontlow == "b" || fontlow == "blo") {
         in_font = "block";
     }
 
@@ -2407,7 +2480,7 @@ function setAccyColour(colour, save) {
     document.getElementById("debubvar").style.borderColor = colour;
     document.getElementById("songinfomouse").style.backgroundColor = colour;
     document.getElementById("songinfo").style.borderColor = colour;
-    document.getElementById("scrollbar-colour").innerHTML = `::-webkit-scrollbar-thumb { background: ${colour}; }`;
+    document.getElementById("scrollbar-colour").innerHTML = `::-webkit-scrollbar-thumb { background: ${colour}; } ::selection {background: ${colour};}`;
     //document.getElementById("bottombar").style.backgroundColor = colour;
     if (do_save == true) {
         localStorage.setItem("accy-colour", colour);
@@ -3394,6 +3467,7 @@ function parseStars() {
 function stars() {
     if (star_running == false) {
         starlock = true;
+        mainlock = false;
         document.getElementById("consy").style.overflow = "hidden";
         document.getElementById("consy").style.fontWeight = "bold";
         document.getElementById("consoleinput").value = "press ESC to exit!";
@@ -3505,6 +3579,7 @@ function stars() {
                 clearInterval(starTimer);
                 star_running = false;
                 starlock = false;
+                mainlock = true;
                 document.getElementById("consy").style.overflow = "";
                 document.getElementById("consy").style.fontWeight = "normal";
                 document.getElementById("consoleinput").value = "";
@@ -3729,6 +3804,7 @@ function compileLyrics() {
 
 function dogEscape() {      // used to exit dog (how could you??)
     doglock = false;
+    mainlock = true;
     dog = false;
     shell.value = "";
     dogsong.pause();
@@ -3773,6 +3849,7 @@ function dogInteract() {    // function that is run every time the dog is intera
 function startDog() {
     // DOG!!!!
     doglock = true;
+    mainlock = false;
     dog = true;
     consol.innerHTML = `<span id="dog">hehe</span><br><span id="pets">no pets</span>`;
     dog_elem = document.getElementById("dog");
@@ -3871,8 +3948,10 @@ function crypt(direction, text, cipher) {
         
         var result = "";
 
+        matched = matched.toLowerCase();
+
         if (maptm[matched]) {
-            result = `${maptm[`${matched}`.toLowerCase()]}`.toUpperCase();
+            result = `${maptm[matched]}`.toUpperCase();
         } else {
             result = matched;
         }
@@ -3884,6 +3963,8 @@ function crypt(direction, text, cipher) {
     return str
 
 }
+
+
 
 function accspace(text) {
     var textsplit = text.split("");
@@ -3991,7 +4072,6 @@ function process_raw_image(raw_image) {
     for (i in raw_image) {
         for (e in raw_image[i]) {
             var pixel = raw_image[i][e];
-
             final_html.push(`<span style="color: ${pixel["c"]};">${pixel["s"]}</span>`);
         }
         final_html.push("\n");
@@ -4133,40 +4213,95 @@ function make_note_vis(note_name) {
 }
 
 // WIP CODE!!!!
-
-
 function check_json(in_json, template_json) {   // checks to see if in_json has the same structure as template_json
     var out_obj = {
         "valid": false,     // if it's valid json
         "reason": "",       // if it's invalid, it'll say what's wrong with the JSON
         "extra": false      // if there are any extra JSON keys
     }
-
     var crap = false;
-
     function check_inner(chunk) {
         for (key in chunk) { // for every key in json
-
         }
     }
-
-
     for (key in in_json) { // for every key in main json
         var chunk = in_json[key];
-
         if (typeof chunk == 'object' && Array.isArray(chunk) == false) {    // if it's an object but not an array (if it's json)
 
-
         }
-
-
     }
-
     return out_obj
 }
 
+function askNotificationPermission() {
+    // function to actually ask the permissions
+    function handlePermission(permission) {
+        // set the button to shown or hidden, depending on what the user answers
+        if(Notification.permission === 'denied' || Notification.permission === 'default') {
+            notificationBtn.style.display = 'block';
+        } else {
+            notificationBtn.style.display = 'none';
+        }
+    }
+  
+    // Let's check if the browser supports notifications
+    if (!('Notification' in window)) {
+        console.log("This browser does not support notifications.");
+    } else {
+        if(checkNotificationPromise()) {
+            Notification.requestPermission()
+            .then((permission) => {
+            handlePermission(permission);
+        })
+        } else {
+            Notification.requestPermission(function(permission) {
+                handlePermission(permission);
+            });
+        }
+    }
+}
+function checkNotificationPromise() {
+    try {
+        Notification.requestPermission().then();
+    } catch(e) {
+        return false;
+    }
 
+    return true;
+}
 
+function send_notif(in_json) {
+    if (in_json) {
+        if (!in_json.title) {
+            in_json.title = "CONSOLE";
+        }
+        if (!in_json.text) {
+            in_json.text = "this is a notification!!!";
+        }
+        if (!in_json.icon) {
+            in_json.icon = "icon.png";
+        }
+        var notification = new Notification(in_json.title, { body: in_json.text, icon: in_json.icon });
+    } else {
+        erry("you didnt input any notification json you idiot!!");
+    }
+}
+
+function moyai() {
+    console_id += 1;
+    displayAppend("\n", console_id);
+    displayImage(process_raw_image(moyai_img), 0);
+}
+
+function parseBool(boolStr) {   // parse a true or false in dtring form into a bool form for easy™
+    if (boolStr == 'true' || boolStr == true) {
+        return true
+    } else if (boolStr == 'false' || boolStr == false) {
+        return false
+    } else {
+        return undefined
+    }
+}
 
 
 
@@ -4184,6 +4319,58 @@ function check_json(in_json, template_json) {   // checks to see if in_json has 
 //
 debubg("extra tool functions init finished...");
 
+
+
+function generateEncryptionKey() {  // generate a fancy prancy encryption key ™
+    var encryption_key_obj = new Object();
+    var enc_sym = [...encryption_encodedtext]   // make a duplicate object of the symbols object
+    
+
+    for (i in encryption_plaintext) {   // for all possible plaintext characters
+        var letter = encryption_plaintext[i];
+        //debubg(`getting unicode for letter '${letter}'`);
+        var sym_len = enc_sym.length - 1;
+        var sym_id = getRandomInt(0, sym_len);  // get a random integer from value 0 to however long all the symbols are
+
+        debubg(`pt:${letter},id:${sym_id},ct:${enc_sym[sym_id]},le:${sym_len}`);
+        encryption_key_obj[letter] = enc_sym[sym_id];
+        enc_sym.splice(sym_id, 1);
+    }
+
+    return encryption_key_obj
+}
+
+function crypt_tm(direction, text, cipher) {
+    var maptm_og = new Object();
+    var str = `${text}`;
+    var maptm = new Object();
+    if (direction == "de") {
+        maptm_og = cipher;
+        for (i in maptm_og) {
+            var val = maptm_og[i];
+            maptm[val] = i;
+        }
+    } else {
+        maptm = cipher;
+    }
+    console.log(maptm);
+    console.log(`STIRR'${str}'`);
+    var re = new RegExp(Object.keys(maptm).join("|"),"gi");         // dont even ask because i don't know either
+    str = str.replace(re, function(matched){
+        debubg(matched);
+        //debubg(first);
+        var result = "";
+        matched = matched.toLowerCase();
+        if (maptm[matched]) {
+            result = `${maptm[matched]}`.toUpperCase();
+        } else {
+            result = matched;
+        }
+        debubg(result)
+        return result
+    });
+    return str
+}
 
 
 
@@ -4346,7 +4533,73 @@ async function themelist(table1, table2) {
     await displayAnim(table2, 0.5);
     await displayAnim("\nTo use a theme, type 'theme use [name]', To save a theme, type 'theme save [name]'");
 }
+async function bluescreen_page(inf) {
+    if (bluescreening == true) {
+        try {
+            bluescreen = true;
+            inputlock = true;
+            bluescreen_done = false;
+            debug = false;
+            debugvar = false;
+            sfx = false;
+            rw_sound.loop = false;
+            rw_sound.pause();
+            document.getElementById("songinfo").style.display = "none";
+            document.getElementById("p2cred").style.display = "none";
+            document.getElementById("p1cred").style.display = "none";
+            document.getElementById("p1ascii").style.display = "none";
+            document.getElementById("input-div").style.display = "none";
+            document.getElementById("consy").style.fontFamily = "MSDOS, monospace";     // change font
+            document.getElementById("consy").style.textAlign = "center";
+            document.getElementById("regtext").style.fontFamily = "MSDOS, monospace";   // change for the character size default as well
+            await sizeCheck();                                                                // re-calculate the size of characters
+            var dat = new Date();
+            var tim = `${dat.getHours()}:${dat.getMinutes()}:${dat.getSeconds()}:${dat.getMilliseconds()}`;
+            var le = "DP-LOL_CNSL";
+            var l1 = `
 
+A fatal error '${inf["msg"]}' has occurred at [${tim}] in command '${current_command}' -        
+The current process will be terminated.                    ${" ".repeat(inf["msg"].length)}${" ".repeat(tim.length)}${" ".repeat(current_command.length)}`;
+            var l2 = `
+
+*  Press any key to terminate the current application.     ${" ".repeat(inf["msg"].length)}${" ".repeat(tim.length)}${" ".repeat(current_command.length)}
+*  Press CTRL+ALT+END to restart the console. You will lose${" ".repeat(inf["msg"].length)}${" ".repeat(tim.length)}${" ".repeat(current_command.length)}
+   any unsaved information.                                ${" ".repeat(inf["msg"].length)}${" ".repeat(tim.length)}${" ".repeat(current_command.length)}`;
+            var l3 = `
+
+Press any key to continue.`;
+            var l4 = `
+    
+[warning: pressing any key to restart is disabled for user 'dev' for debug purposes!]`;
+            for (i in TMO_push) {
+                clearTimeout(TMO_push[i]);  // clear any current stuffs
+            }
+            clearInterval(snk_int);
+            music.pause();
+            await clearScreen()
+            await setColour("#cccded", false, "#0102ac", false, "#0102ac", false);    // set colour
+            await displayAnim("\n\n\n", 82);
+            await displayAnim(le, 0, "#0102ac", "", "background-color: #b1acaf; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 3px;");
+            await displayAnim(l1, 0, "", "", "text-align: left;");
+            await displayAnim(l2, 0, "", "", "text-align: left;");
+            await displayAnim(l3, 0);
+            if (user == "dev") {
+                await displayAnim(l4, 0);
+            }
+    
+    
+            bluescreen_done = true;
+        } catch (err) {
+            alert("console is so broken that the function to show a bluescreen broke. try restarting the page");
+            location.reload();
+        }
+        
+    }
+    
+    
+
+
+}
 
 
 
@@ -4385,150 +4638,239 @@ debubg("async command functions init finished...");
 //setAccyColour(accycolour);
 setColour(textcolour, true, backcolour, true, accycolour, true);
 
-// EXAMPLE INLINE FNCTIONS WHERE THEY ONLY rUN ONE THING AT A TIME INSTEAD OF EVERYTHING RUNNING AT HE SAME TIME
-//function exampleInline() {
-//    return new Promise((resolve,reject)=>{
-//        // your code
-//        resolve();
-//    })
-//}
-//async function exampleInline2() {
-//    await exampleInline();
-//    await exampleInline();
-//}
-// EXAMPLE REPEAT FOR X TIMES:
-// for (let i = 0; i < amountVAr; i++) {
-//
-//  console.log(`the current loop is ${i});
-//
-//}
-// https://keycode.info/
-// making it so when you press enter in the input itll run the thing
-//
-//
-//
-// IF YOU WANT SOEMTHING TO RUN IF DOING A SPECIFIC THING RETURNS AN ERROR USE THIS:
-//
-//  let request = doThisThing;
-//
-//  request.onerror = function();
-//
-//  request.onsuccess = function();
-//
-//
-//
-//  IDEAS TO ADD:
-//
-//  be able to set like ?debug=true in the URL and have it turn on debug if so
-//
-//  same for variable debug
-//
-//  and then also have ?command=lovejoy
-//
-//  where itll run a command as the window opens
-//
-//  but also right now i need to finish the comments
-//
-//
-//  OPEN SEPERATE WINDOW:
-//
-//  var win = window.open("", "Title", "toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=780,height=200,top="+(screen.height-400)+",left="+(screen.width-840));
-//  win.document.body.innerHTML = "HTML";
-//
-//
-//
+if (sfx == true) {
+    ambient_audio();
+}
+
+/*
+ EXAMPLE INLINE FNCTIONS WHERE THEY ONLY rUN ONE THING AT A TIME INSTEAD OF EVERYTHING RUNNING AT HE SAME TIME
+function exampleInline() {
+    return new Promise((resolve,reject)=>{
+        // your code
+        resolve();
+    })
+}
+async function exampleInline2() {
+    await exampleInline();
+    await exampleInline();
+}
+ EXAMPLE REPEAT FOR X TIMES:
+for (let i = 0; i < amountVAr; i++) {
+
+    console.log(`the current loop is ${i}`);
+
+}
+ https://keycode.info/
+ making it so when you press enter in the input itll run the thing
+
+
+
+ IF YOU WANT SOEMTHING TO RUN IF DOING A SPECIFIC THING RETURNS AN ERROR USE THIS:
+
+  let request = doThisThing;
+
+  request.onerror = function();
+
+  request.onsuccess = function();
+
+
+
+  IDEAS TO ADD:
+
+  be able to set like ?debug=true in the URL and have it turn on debug if so
+
+  same for variable debug
+
+  and then also have ?command=lovejoy
+
+  where itll run a command as the window opens
+
+  but also right now i need to finish the comments
+
+
+  OPEN SEPERATE WINDOW:
+
+  var win = window.open("", "Title", "toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=780,height=200,top="+(screen.height-400)+",left="+(screen.width-840));
+  win.document.body.innerHTML = "HTML";
+
+
+
+
+*/
 
 shell.onkeyup = function keyParse(e){
+
     if (inputlock == false) {
-        if (adventure_lock == false) {
-            if (doglock == false) {
-                if (starlock == false) {
-                    if(e.keyCode == 13) {
-                        if (shell.value != "") {
-                            if (enterlock == false) {
-                                // stinky old code is gone!!!!
+        
+        if (mainlock == true) {
+            if(e.keyCode == 13) {
+                if (shell.value != "") {
+                    if (enterlock == false) {
+                        // stinky old code is gone!!!!
 
-                                // *crab rave*
-                                if (listening_input == true) {  // if its listening for a text input
-                                    ask_return = shell.value;
-                                    ask_do();
-                                    listening_input = false;
-                                    shell.value = "";
-                                } else {
-                                    displayUser(`${shell.value}`, `${user}`);
-                                    historyPush();
-                                    parseCommand(shell.value);
-                                    historyReset();
-                                    shell.value = "";
-                                    scrolly("consy");
-                                }
-                                    
-                                //debubg(consoltext);
-                                //debubg(commang);
-                            }
+                        // *crab rave*
+                        if (listening_input == true) {  // if its listening for a text input
+                            ask_return = shell.value;
+                            ask_do();
+                            listening_input = false;
+                            shell.value = "";
+                        } else {
+                            displayUser(`${shell.value}`, `${user}`);
+                            historyPush();
+                            parseCommand(shell.value);
+                            historyReset();
+                            shell.value = "";
+                            scrolly("consy");
                         }
-                        boom();
-                    } else if(e.keyCode == 37) {
-                        if (snakeinputs == true) {
-                            debubg("left arrow detected");
-                        }
-                    } else if(e.keyCode == 38) {
-                        if (snakeinputs == true) {
-                            debubg("up arrow detected");
-
-                        } else if (commandhistorylock == false) {
-                            // get out of here old command history code, you stinky
-                            var indexed = historyIndex(1); // index history up by 1
-                            shell.value = `${indexed}`;
-
-                        }
-                        
-                    } else if(e.keyCode == 39) {
-                        if (snakeinputs == true) {
-                            debubg("right arrow detected");
-                        }
-                    } else if(e.keyCode == 40) {
-                        if (snakeinputs == true) {
-                            debubg("down arrow detected");
-
-                        } else if (commandhistorylock == false) {
-                            // SAME WITH YOU! get outta here you stinky old code!! make room for the new code! just kidding!
-                            // it uses up less space than you! ha!
-                            var indexed = historyIndex(-1); // index history up by 1
-                            shell.value = `${indexed}`;
-
-
-
-
-
-
-                        }
-                    }
-                } else if (starlock == true) {
-                    if(e.keyCode == 27) {
-                        stars_status = false;
+                            
+                        //debubg(consoltext);
+                        //debubg(commang);
                     }
                 }
-            } else if (doglock == true) {
+                boom();
+            }  else if(e.keyCode == 37) {
+                if (snakeinputs == true) {
+                    debubg("left arrow detected");
+                }
+            } else if(e.keyCode == 38) {
+                if (snakeinputs == true) {
+                    debubg("up arrow detected");
+
+                } else if (commandhistorylock == false) {
+                    // get out of here old command history code, you stinky
+                    var indexed = historyIndex(1); // index history up by 1
+                    shell.value = `${indexed}`;
+
+                }
                 
-                if (e.keyCode == 32 || e.keyCode == 13) {   // either enter or space
-                    dogInteract();
-                } else if (e.keyCode == 27) {               // escape
-                    dogEscape();
+            } else if(e.keyCode == 39) {
+                if (snakeinputs == true) {
+                    debubg("right arrow detected");
                 }
+            } else if(e.keyCode == 40) {
+                if (snakeinputs == true) {
+                    debubg("down arrow detected");
+
+                } else if (commandhistorylock == false) {
+                    // SAME WITH YOU! get outta here you stinky old code!! make room for the new code! just kidding!
+                    // it uses up less space than you! ha!
+                    var indexed = historyIndex(-1); // index history up by 1
+                    shell.value = `${indexed}`;
 
 
+
+
+
+
+                }
             }
+        
+        } else if (starlock == true) {
+            if(e.keyCode == 27) {
+                stars_status = false;
+            }
+        }
+        else if (doglock == true) {
+                       
+           if (e.keyCode == 32 || e.keyCode == 13) {   // either enter or space
+               dogInteract();
+           } else if (e.keyCode == 27) {               // escape
+               dogEscape();
+           }
+       
+       
         } else if (adventure_lock == true) {
-
+        
             ta_input = shell.value;
             ta_key = e.key;             // https://keycode.info/
             adventure_exe();
+        } else if (bluescreen == true) {
+            shell.value = "";
+            if (bluescreen_done == true) {
+                bluescreen = false;
+                mainlock = true;
+                setColour(og_textcolour, true, og_backcolour, true, og_accycolour, true);
+            }
+        }
+            
+        
+    }
+}
+
+window.onkeydown = function kee(e) {
+    var keycode = e.keyCode;
+    keys_pressed[keycode] = true;       // object with all the keycodes of keys that are being pressed
+
+    if (keys_pressed[17] == true && keys_pressed[18] == true && keys_pressed[35] == true) { // reload page (but fancy)
+        location.reload();
+    }
+
+}
+
+window.onkeyup = function kee(e) {
+
+    var keycode = e.keyCode;
+    keys_pressed[keycode] = false;       // object with all the keycodes of keys that are being pressed
+
+    if (bluescreen_done == true) {
+        if (user != "dev") {
+            location.reload();
         }
     }
 
-    
+    if (snakelock == true) {
+        // snake stuff
+
+        debubg("snake key pressed!!!");
+
+        console.log(snk_dir);
+
+        if (e.keyCode == 37) {          // left
+            if (snk_extra.dir != 'right') {
+                snk_dir = [0, -1];
+                snk_extra.dir = 'left';
+            }
+        } else if (e.keyCode == 38) {   // up
+            if (snk_extra.dir != 'down') {
+                snk_dir = [-1, 0];
+                snk_extra.dir = 'up';
+            }
+        } else if (e.keyCode == 39) {   // right
+            if (snk_extra.dir != 'left') {
+                snk_dir = [0, 1];
+                snk_extra.dir = 'right';
+            }
+        } else if (e.keyCode == 40) {   // down
+            if (snk_extra.dir != 'up') {
+                snk_dir = [1, 0];
+                snk_extra.dir = 'down';
+            }
+        } else if (e.keyCode == 27) {   // esc
+
+            snake_end();
+
+        }
+
+
+        console.log(snk_dir);
+
+    }
+
 }
+
+
+/*
+
+
+
+else if (adventure_lock == true) {
+
+    ta_input = shell.value;
+    ta_key = e.key;             // https://keycode.info/
+    adventure_exe();
+}
+
+*/
 
 
 
@@ -4583,6 +4925,15 @@ music.addEventListener('canplaythrough', (event) => {
 });
 */
 
+document.addEventListener('visibilitychange', function() {
+    if (document.visibilityState == 'visible') {
+        console_visible = true;
+        debubg("console is now visible again!!");
+    } else {
+        console_visible = false;
+        debubg("console is no longer visible!");
+    }
+});
 
 
 window.onresize = sizeCheck;
@@ -4610,6 +4961,23 @@ consol.addEventListener('mousemove', (event) => {
         //debubg("the letter a");
     }, 2000);
 });
+
+music.addEventListener('error', (event) => {
+
+    var message = ""
+
+    if (event.path[0].error.message) {
+        message = `${event.path[0].error.message}`;
+    } else if (event.error) {
+        message = `${event.error}`;
+    } else {
+        message = "[no error message found]";
+    }
+    
+    
+    bluescreen_page({"msg": message});
+})
+
 
 /*
 
