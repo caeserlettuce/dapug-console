@@ -48,7 +48,7 @@ function snake_display() {
         var le_obama = "";
         var he = new Array();
         var la_obama = new Array();
-        for (let i = 0; i < snk_set.size; i++) {
+        for (let i = 0; i < snk_set.size * 2; i++) {
             he.push(".");
         }
         for (let i = 0; i < snk_set.size; i++) {
@@ -120,6 +120,18 @@ function snake_tick() {
         var end_reason = "";
         var len_snek = true;
 
+        if (snk_extra.dir2 == 'left') {
+            snk_dir = [0, -1];
+            snk_extra.dir = 'left';
+        } else if (snk_extra.dir2 == 'up') {
+            snk_extra.dir = 'up';
+        } else if (snk_extra.dir2 == 'right') {
+            snk_extra.dir = 'right';
+        } else if (snk_extra.dir2 == 'down') {
+            snk_extra.dir = 'down';
+        }
+        
+
         debubg(`\nold cords: ${cur_cord}\nnew cords: ${new_cord}\ndir: ${snk_dir}`);
 
         if (new_cord[0] == snk_food[0] && new_cord[1] == snk_food[1]) {
@@ -129,7 +141,7 @@ function snake_tick() {
             len_snek = false;
 
             if ((snk_len / 4) == parseInt(snk_len / 4)) {   // whole numby
-                snk_speed = snk_speed * 0.25;
+                snk_speed = (snk_speed * 0.25) + 10;
                 clearInterval(snk_int);
                 snk_int = setInterval(snake_tick, snk_speed);
             }
@@ -140,7 +152,7 @@ function snake_tick() {
         if (indexThing(new_cord) == true) {
             end_screen = true;
             end_reason = "hit snake";
-        } else if (new_cord[0] > -1 && new_cord[1] > -1 && new_cord[0] < snk_set.size && new_cord[1] < snk_set.size) {   // within the board
+        } else if (new_cord[0] > -1 && new_cord[1] > -1 && new_cord[0] < snk_set.size && new_cord[1] < snk_set.size * 2) {   // within the board
 
             snk_save.push(new_cord);
 

@@ -35,7 +35,7 @@ function debubg(message) {
     message = `[${tim}]: ${message}`;
 
 
-    console.log(message);
+    console.debug(message);
     if (debug == true) {
         //var pogchamp = debug_win.body;
         //texty = pogchamp.innerHTML;
@@ -52,6 +52,12 @@ function debubg(message) {
         }
         
         //dod.scrollTop = dod.scrollHeight;
+    }
+}
+
+function debubgall(message) {
+    if (debugall == true) {
+        debubg(message);
     }
 }
 
@@ -198,7 +204,7 @@ var lyr_disp;
 var orientation = "what";
 var textheight = 20;
 var listening_input = false;
-var ask_do = function() {console.log("aaaaa!! im broken i think!!")};
+var ask_do = function() {console.debug("aaaaa!! im broken i think!!")};
 var ask_return = "";
 var listening_end = true;
 var stars_save = new Object();
@@ -290,7 +296,7 @@ var display_noise = false;
 var rw_tmt;
 var snk_set = {
     "speed": 500,  // how many ms per snake tick
-    "size": 20      // how big the board should be
+    "size": 50      // how big the board should be
 }
 var snk_limit = snk_set.size;
 var snk_save = new Array();
@@ -304,7 +310,7 @@ var snk_dir = [1, 0];
 var snk_extra = new Object();
 var snk_food = new Array();
 var snk_cur_speed = snk_set.speed;
-
+var debugall = false;                   // debug ALL messages ( a lot!!)
 
 debubg("variable init finished...");
 // local storage setup
@@ -333,7 +339,7 @@ function local_storage(name, default_tm, if_exists, if_doesnt) {
 /*
 EXAMPLE OF THIS FUNCTION:
 
-backcolour = local_storage("back-colour", "#000000", function a(){console.log("yay!!");}, function b(){console.log("crap!!");})
+backcolour = local_storage("back-colour", "#000000", function a(){console.debug("yay!!");}, function b(){console.debug("crap!!");})
 
 */
 
@@ -399,7 +405,7 @@ worble_stats_guesses = local_storage("worble_stats_guesses", '{"guesses": [0]}')
 if (worble_stats_guesses != "") {
     worble_stats_guesses = JSON.parse(worble_stats_guesses)["guesses"];
 }
-console.log(worble_stats_guesses);
+console.debug(worble_stats_guesses);
 worble_stats_currentstreak = local_storage("worble_stats_currentstreak", 0);
 worble_stats_currentstreak = parseInt(worble_stats_currentstreak);
 worble_stats_biggeststreak = local_storage("worble_stats_biggeststreak", 0);
@@ -418,10 +424,12 @@ cns_session_id = parseInt(local_storage("session id", 0));
 sfx = parseBool(local_storage("sfx", "true"));
 bluescreening = parseBool(local_storage("bluescreening", 'true'))
 snake_highscore = parseInt(local_storage("snake highscore", '0'));
+sizemod = Number(local_storage("zoom", '1'));
+custom_ascii_fonts = JSON.parse(local_storage("custom ascii fonts", "{}"));
 //music_volume = local_storage("music volume", 1)
-console.log(textadventures_saves);
+console.debug(textadventures_saves);
 //textadventures_saves = textadventures_saves);
-//console.log(textadventures_saves);                JSON.parse(local_storage("encryption key", "{}"));
+//console.debug(textadventures_saves);                JSON.parse(local_storage("encryption key", "{}"));
 
 
 
@@ -544,37 +552,39 @@ if (pr_backcolour != null) {
 if (pr_accycolour != null) {
     accycolour = `#${pr_accycolour}`;
 }
-//if (pr_command != null) { // if theres something at the url link and not just empty
-//    var text = `${pr_command}`;
 
-//    var elem = document.getElementById("consoleinput");
+/*
+if (pr_command != null) { // if theres something at the url link and not just empty
+    var text = `${pr_command}`;
 
-//    elem.value = text;
+    var elem = document.getElementById("consoleinput");
 
-    //document.getElementById("consoleinput").dispatchEvent(new KeyboardEvent('keyup', {
-    //    key: "enter"
-    //}));
+    elem.value = text;
+
+    document.getElementById("consoleinput").dispatchEvent(new KeyboardEvent('keyup', {
+        key: "enter"
+    }));
     
-//    var sting = elem.value;
-//    commang.push(text);
-//    userAppend(`${text}`);
+    var sting = elem.value;
+    commang.push(text);
+    userAppend(`${text}`);
 
-//    if (mainsys == true) {
-//        parseCommand(text);
-//    } else if (filesys == true) {
-//        filesysParse(text);
-//    }
+    if (mainsys == true) {
+        parseCommand(text);
+    } else if (filesys == true) {
+        filesysParse(text);
+    }
 
     
-//    elem.value = "";
-//    currentHistCOm = 0;
-//    currentCOM = 0;
-//    scrolly("consy");
-    //debubg(consoltext);
-    //debubg(commang);
+    elem.value = "";
+    currentHistCOm = 0;
+    currentCOM = 0;
+    scrolly("consy");
+    debubg(consoltext);
+    debubg(commang);
 
-//}
-
+}
+*/
 
 
 // i need to redo these some day because they're old and bad
@@ -727,7 +737,7 @@ function debugWindow(bool) {
 
             </script>`);
         } catch (err) {
-            console.log("oh crap i think the popup got blocked or smth");
+            console.debug("oh crap i think the popup got blocked or smth");
             displayAnim("\nUh oh! it seems that the debug window didn't open! Please make sure that popups are allowed on this site!", 7, "#ff0000");
         }
         var debug_check = setInterval(function() { 
@@ -781,7 +791,7 @@ function debugVarWindow(bool) {
             */
 
         } catch (err) {
-            console.log("oh crap i think the popup got blocked or smth");
+            console.debug("oh crap i think the popup got blocked or smth");
             displayAnim("\nUh oh! it seems that the debug window didn't open! Please make sure that popups are allowed on this site!", 7, "#ff0000");
         }
         ///var_debug_win.document.getElementById("size-pass").innerHTML = debugvar_size;
@@ -898,7 +908,8 @@ function debugVarWindow(bool) {
                     "snaketick": snaketick,
                     "snake_score": snake_score,
                     "snake_highscore": snake_highscore,
-                    "snk_dir": snk_dir
+                    "snk_dir": snk_dir,
+                    "cns_session_id": cns_session_id
                 }
             
                 if (JSON.stringify(to_pass) == to_pass_pre) {   // if its the same
@@ -972,12 +983,12 @@ worble_stats_biggeststreak: ${worble_stats_biggeststreak}
                        egg: ${egg}
            credits_playing: ${credits_playing}
 `;autocommand
-        console.log("binted.");
+        console.debug("binted.");
     }
 }
 
 for(var b in window) { 
-  if(window.hasOwnProperty(b)) console.log(b); 
+  if(window.hasOwnProperty(b)) console.debug(b); 
 }
 
 */
@@ -1002,6 +1013,7 @@ debubg("debug window init finished...");
 function copyclip(idiot) {
     navigator.clipboard.writeText(idiot);
 }
+
 function copyArr(arr) {
     var fimb = "";
     // make another text variable from the array and have it insert new lines and crap for it and then copy the thing to clipboard
@@ -1019,10 +1031,19 @@ function copyArr(arr) {
     copyclip(fimb);
 }
 
+function copyFancy(wall_socket) {
+    if (typeof wall_socket == 'object' && Array.isArray(wall_socket) != true) {
+        debubg("copy input is a JSON object. stringifying that and copying it to clipboard.");
+        copyclip(JSON.stringify(wall_socket));
+    } else {
+        copyArr(wall_socket);
+    }
+}
+
 debubg("window scale init finished...");
 
 function scrollDifference(parmesan) {
-    //console.log(mom.scrollTop, mom.scrollHeight);
+    //console.debug(mom.scrollTop, mom.scrollHeight);
     var scrolltop = parmesan.scrollTop;
     var scoll = scrolltop + vis_consyheight - 10;
     var diff = parmesan.scrollHeight - scoll;
@@ -1075,10 +1096,10 @@ function sizeCheck() {
     display_charsize[0] = Math.floor( vis_consywidth / display_textsize[0]);
     display_charsize[1] = Math.floor( vis_consyheight / display_textsize[1]);
 
-    //console.log("console width: ", vis_consywidth);
-    //console.log("console height: ", vis_consyheight);
-    //console.log("console text size: ", display_textsize);
-    //console.log("console char size: ", display_charsize);
+    //console.debug("console width: ", vis_consywidth);
+    //console.debug("console height: ", vis_consyheight);
+    //console.debug("console text size: ", display_textsize);
+    //console.debug("console char size: ", display_charsize);
 
 
     // CALCULATING HOW MANY NEWLINES PER ENTIRE PAGE HEIGHT!!
@@ -1093,8 +1114,8 @@ function sizeCheck() {
     
     // now its gonna calculate based on the height of a dummy text element with a single character that it gets the size of
     
-    //console.log("height: ", textheight);
-    //console.log("newlin: ", newline_height);
+    //console.debug("height: ", textheight);
+    //console.debug("newlin: ", newline_height);
 
 
     
@@ -1154,19 +1175,19 @@ debubg("text scaling init finished...");
 
 
 function displayAppend(message, in_id, hide, colour, link, style) {
-    //debubg(`[displayAppend]   message: ${message}  in_id: ${in_id}   hide: ${hide}   colour: ${colour}   link: ${link}`);
+    debubgall(`[displayAppend]   message: ${message}  in_id: ${in_id}   hide: ${hide}   colour: ${colour}   link: ${link}`);
     if (console_history[in_id] != undefined || console_history[in_id] != null) {    // if the value already exists
         console_history[in_id] = `${console_history[in_id]}${message}`;             // append to value
     } else {                                                                        // else
         console_history[in_id] = `${message}`;                                      // just set value
     }
-    //console.log(in_id);
+    //console.debug(in_id);
 
     if (console_colour_history[in_id]) {      // if the value already exists
-        //debubg("exists!");
+        debubgall("exists!");
         console_colour_history[in_id] = `${colour}`;        // append to value
     } else {                                                // else
-        //debubg("NO EXIST");
+        debubgall("NO EXIST");
         if (typeof colour == 'string' && colour != "") {
             console_colour_history[in_id] = `${colour}`;        // append to value
         } else {
@@ -1175,10 +1196,10 @@ function displayAppend(message, in_id, hide, colour, link, style) {
     }
 
     if (console_link_history[in_id]) {      // if the value already exists
-        //debubg("exists!");
+        debubgall("exists!");
         console_link_history[in_id] = `${link}`;        // append to value
     } else {                                                // else
-        //debubg("NO EXIST");
+        debubgall("NO EXIST");
         if (link) {
             console_link_history[in_id] = `${link}`;        // append to value
         } else {
@@ -1186,10 +1207,10 @@ function displayAppend(message, in_id, hide, colour, link, style) {
         }
     }
     if (console_style_history[in_id]) {      // if the value already exists
-        //debubg("exists!");
+        debubgall("exists!");
         console_style_history[in_id] = `${style}`;        // append to value
     } else {                                                // else
-        //debubg("NO EXIST");
+        debubgall("NO EXIST");
         if (style) {
             console_style_history[in_id] = `${style}`;        // append to value
         } else {
@@ -1198,7 +1219,7 @@ function displayAppend(message, in_id, hide, colour, link, style) {
     }
 
     if (hide != undefined && hide != null && hide == true) {    // if hide exists and set to true
-        //debubg("i shall hide display update");
+        debubgall("i shall hide display update");
     } else {
         singleDisplayUpdate(in_id);                    // update display
     }
@@ -1224,46 +1245,46 @@ function displayUpdate() {
     var finalUpdate = "";
     var history = console_history;
     for (cur_id in console_history) {
-        //debubg(`[DISPLAY UPDATE]: id ${cur_id} is being checked.`);
-        //debubg(`[displayUpdate]   history: ${console_history[cur_id]}   colour: ${console_colour_history[cur_id]}   link: ${console_link_history[cur_id]}`)
+        debubgall(`[DISPLAY UPDATE]: id ${cur_id} is being checked.`);
+        debubgall(`[displayUpdate]   history: ${console_history[cur_id]}   colour: ${console_colour_history[cur_id]}   link: ${console_link_history[cur_id]}`)
 
         var elemCheck = document.getElementById(`CON_${cur_id}`);
         if (elemCheck) {                                                // if the element exists
-            //debubg("it EXISTS"); 
+            debubgall("it EXISTS"); 
                                                  // it does exist
             if (elemCheck.innerHTML != console_history[cur_id] || elemCheck.style.color != console_colour_history[cur_id] || elemCheck.style.cssText != console_style_history[cur_id] ) {       // if the element does not match what's in memory
-                //debubg("they dont match");
+                debubgall("they dont match");
                 elemCheck.innerHTML = `${console_history[cur_id]}`;
                 elemCheck.style.color = `${console_colour_history[cur_id]}`;
                 
             } else {
-                //debubg("they do match")
+                debubgall("they do match")
             }
 
             // function() { alert("hallo!") }
-            //debubg(`checking id of ${cur_id} of ${console_link_history[cur_id]}`);
+            debubgall(`checking id of ${cur_id} of ${console_link_history[cur_id]}`);
             var check_url = `${console_link_history[cur_id]}`;
             if (isUrl(`${check_url}`) == true) {
-                //debubg("it is a url!!! woo!!!");
-                //debubg(`checking ${console_link_history[cur_id]}`);
+                debubgall("it is a url!!! woo!!!");
+                debubgall(`checking ${console_link_history[cur_id]}`);
                 elemCheck.onclick = function() { window.open(`${check_url}`); }
             } else {
-                //debubg("it is not a url!!");
+                debubgall("it is not a url!!");
                 //elemCheck.onclick = "";
             }
             // function() { alert("hallo!") }
-            //debubg(`checking id of ${cur_id} : ${console_link_history[cur_id]}`);
+            debubgall(`checking id of ${cur_id} : ${console_link_history[cur_id]}`);
             var check_url = `${console_link_history[cur_id]}`;
             //check_url = "https://dapug.lol"
             if (isUrl(`${check_url}`) == true && check_url != "") {
-                //debubg("it is a url!!! woo!!!");
-                //debubg(`checking id of ${cur_id} : ${console_link_history[cur_id]}`);
+                debubgall("it is a url!!! woo!!!");
+                debubgall(`checking id of ${cur_id} : ${console_link_history[cur_id]}`);
                 elemCheck.setAttribute( "onClick", `javascript: window.open("${check_url}");` );
                 elemCheck.style.textDecoration = "underline";
                 elemCheck.style.cursor = "pointer";
                 elemCheck.style.cssText = `text-decoration: underline; cursor: pointer; color: ${console_colour_history[cur_id]}; ${console_style_history[cur_id]}`;
             } else {
-                //debubg("it is not a url!!");
+                debubgall("it is not a url!!");
                 //elemCheck.onclick = "";
                 elemCheck.removeAttribute("onClick");
                 elemCheck.style.cssText = `color: ${console_colour_history[cur_id]}; ${console_style_history[cur_id]}`;
@@ -1272,7 +1293,7 @@ function displayUpdate() {
             
 
         } else {
-            //debubg("you idiot it doesnt exist");                        // it doesnt exist
+            debubgall("you idiot it doesnt exist");                        // it doesnt exist
             consol.innerHTML = `${consol.innerHTML}<span id="CON_${cur_id}" style="color: ${console_colour_history[cur_id]}; ${console_style_history[cur_id]}">${console_history[cur_id]}</span>`;
         }
     }
@@ -1284,38 +1305,38 @@ function singleDisplayUpdate(cur_id) {
     var history = console_history;
     var elemCheck = document.getElementById(`CON_${cur_id}`);
     if (elemCheck) {                                                // if the element exists
-        //debubg("it EXISTS"); 
+        debubgall("it EXISTS"); 
                                                 // it does exist
         if (elemCheck.innerHTML != console_history[cur_id] || elemCheck.style.color != console_colour_history[cur_id] ) {       // if the element does not match what's in memory
-            //debubg("they dont match");
+            debubgall("they dont match");
             elemCheck.innerHTML = `${console_history[cur_id]}`;
             elemCheck.style.color = `${console_colour_history[cur_id]}`;
 
         } else {
-            //debubg("they do match")
+            debubgall("they do match")
         }
         // function() { alert("hallo!") }
-        //debubg(`checking id of ${cur_id} of ${console_link_history[cur_id]}`);
+        debubgall(`checking id of ${cur_id} of ${console_link_history[cur_id]}`);
         var check_url = `${console_link_history[cur_id]}`;
         if (check_url != '') {
-            //debubg("it is a url!!! woo!!!");
-            //debubg(`checking ${console_link_history[cur_id]}`);
+            debubgall("it is a url!!! woo!!!");
+            debubgall(`checking ${console_link_history[cur_id]}`);
             elemCheck.onclick = function() { window.open(`${check_url}`); }
         } else {
-            //debubg("it is not a url!!");
+            debubgall("it is not a url!!");
             //elemCheck.onclick = "";
         }
         // function() { alert("hallo!") }
-        //debubg(`checking id of ${cur_id} : ${console_link_history[cur_id]}`);
+        debubgall(`checking id of ${cur_id} : ${console_link_history[cur_id]}`);
         var check_url = `${console_link_history[cur_id]}`;
         //check_url = "https://dapug.lol"
         if (isUrl(`${check_url}`) == true && check_url != "") {
-            //debubg("it is a url!!! woo!!!");
-            //debubg(`checking id of ${cur_id} : ${console_link_history[cur_id]}`);
+            debubgall("it is a url!!! woo!!!");
+            debubgall(`checking id of ${cur_id} : ${console_link_history[cur_id]}`);
             elemCheck.setAttribute( "onClick", `javascript: window.open("${check_url}");` );
             elemCheck.style.cssText = `text-decoration: underline; cursor: pointer; color: ${console_colour_history[cur_id]}; ${console_style_history[cur_id]}`;
         } else {
-            //debubg("it is not a url!!");
+            debubgall("it is not a url!!");
             //elemCheck.onclick = "";
             elemCheck.removeAttribute("onClick");
             elemCheck.style.cssText = `color: ${console_colour_history[cur_id]}; ${console_style_history[cur_id]}`;
@@ -1323,7 +1344,7 @@ function singleDisplayUpdate(cur_id) {
 
 
     } else {
-        //debubg("you idiot it doesnt exist");                        // it doesnt exist
+        debubgall("you idiot it doesnt exist");                        // it doesnt exist
         consol.innerHTML = `${consol.innerHTML}<span id="CON_${cur_id}" style="color: ${console_colour_history[cur_id]}; ${console_style_history[cur_id]}">${console_history[cur_id]}</span>`;
     }
     
@@ -1358,7 +1379,7 @@ async function displayMultilineAnim(message, speed, type) {
 
     for (i in message) {
         var line = message[i];
-        //console.log(`${line}`);
+        //console.debug(`${line}`);
         var use_id = cur_id + 1;        // the current id that's being used
         boom();
         await displayMultilineLine(`${line}`, speed, use_id);
@@ -1368,7 +1389,7 @@ async function displayMultilineAnim(message, speed, type) {
 }
 
 async function displaySingleLine(message, speed, colour, link, style) {
-    //debubg(`[displaySingleLine]   message: ${message}  speed: ${speed}   colour: ${colour}   link: ${link}`);
+    debubgall(`[displaySingleLine]   message: ${message}  speed: ${speed}   colour: ${colour}   link: ${link}`);
     return new Promise((resolve,reject)=>{
         //here our function should be implemented 
         display_noise = true;
@@ -1424,7 +1445,7 @@ async function displaySingleGradientLine(message, speed, colours) {
     var B_curr = parseInt(colours[0][2]);
 
 
-    //debubg(`[displaySingleLine]   message: ${message}  speed: ${speed}   colour: ${colour}   link: ${link}`);
+    debubgall(`[displaySingleLine]   message: ${message}  speed: ${speed}   colour: ${colour}   link: ${link}`);
     return new Promise((resolve,reject)=>{
         //here our function should be implemented 
         
@@ -1472,14 +1493,14 @@ async function displayAnim(message, speed, colour, link, style) {      // fancy 
     if ( `${speed}` == "" ) {
         speed = 7;
     }
-    //console.log(`[displayanim] ${message}, ${speed}, ${type}`);
-    //debubg(`[displayAnim]   message: ${message}  speed: ${speed}   colour: ${colour}   link: ${link}`);
+    //console.debug(`[displayanim] ${message}, ${speed}, ${type}`);
+    debubgall(`[displayAnim]   message: ${message}  speed: ${speed}   colour: ${colour}   link: ${link}`);
     var egg_white = "";
     var egg_yolk = colour;
     var egg_shell = link;
 
 
-    console.log(message);
+    console.debug(message);
 
     if (Array.isArray(message) == true) {
         egg_white = message.join("\n");
@@ -1522,12 +1543,12 @@ function displayScreen(array) {
         }
         pushy += "\n";
     }
-    console.log(pushy);
+    console.debug(pushy);
 
 }
 
 async function displayImage(image, speed) {
-    //debubg(`[displaySingleLine]   message: ${message}  speed: ${speed}   colour: ${colour}   link: ${link}`);
+    debubgall(`[displaySingleLine]   message: ${message}  speed: ${speed}   colour: ${colour}   link: ${link}`);
     return new Promise((resolve,reject)=>{
         //here our function should be implemented
         var messageyLength = image.length;
@@ -1535,7 +1556,7 @@ async function displayImage(image, speed) {
         console_id += 1;                    // update console id
         if (`${speed}` == '0') {
             debubg("this is good");
-            console.log(image)
+            console.debug(image)
             displayAppend(image.join(""), use_id, false);
         } else {
             debubg("this is stupid");
@@ -1673,10 +1694,10 @@ if (music_playing == true) {
         
             var tim = music.currentTime;
             
-            console.log("checking time: ", tim_proc);
-            console.log("indexof: ", processed_times.indexOf(tim_proc));
+            console.debug("checking time: ", tim_proc);
+            console.debug("indexof: ", processed_times.indexOf(tim_proc));
             if (processed_times.indexOf(tim_proc) > -1) {
-                console.log("there is supposed to be a lyric here!!! at ", tim_proc);
+                console.debug("there is supposed to be a lyric here!!! at ", tim_proc);
                 displayAnim("A!!!", 1);
             }
         } else if (music_playing == false) {
@@ -1691,9 +1712,9 @@ if (music_playing == true) {
 function tim_parse(tim) {
     var tim_proc = `${tim}`;
     tim_split = tim_proc.split(".");
-    //console.log("split: ", tim_split);
+    //console.debug("split: ", tim_split);
     var tim2 = `${tim_split[1]}`.slice(0, 3);
-    //console.log("tim1: ", tim2);
+    //console.debug("tim1: ", tim2);
     var tim1 = `${tim_split[0]}`;
     if (tim1 == "0") {
         tim1 = "";
@@ -1720,7 +1741,7 @@ function displayLyrics(lyrics) {
 
         if (music_playing == true) {
             var timmy = tim_parse(music.currentTime);
-            //console.log(timmy);
+            //console.debug(timmy);
             for (i in songs[lyrics]["lyrics"]) {
                 var door = songs[lyrics]["lyrics"][i]["dur"];
                 if (!lyr_status[i]) {                           // if the lyric hasnt been done before
@@ -1756,7 +1777,7 @@ function process_lyrics(name) {     // process the lyrics to get the list of tim
     processed_times = new Array(); // reset the object
     for (i in songs[name]["lyrics"]) {  // goes through every lyric
         var door = songs[name]["lyrics"][i]["dur"];
-        console.log(door);
+        console.debug(door);
         processed_times.push([door[0], door[1]]);
     }
 }
@@ -1901,7 +1922,7 @@ debubg("more variable init finished...");
 //intervalID1 = setInterval(animyOne, animSPEED);
 
 function animyOne() {
-    //debubg(end1);
+    debubgall(end1);
     if (end1 == false) {
         if (animchar1 == animSentence1.length) {
             end1 = true;
@@ -1927,13 +1948,13 @@ function newAnim(message, speed) {
         animDone = false;
         var messagey = message.split("");
         var messageyLength = messagey.length;
-        //debubg(`${animDone} anim??`);
+        debubgall(`${animDone} anim??`);
         for (let i = 0; i < messageyLength; i++) {
-            //debubg(i);
+            debubgall(i);
             setTimeout(function timer() {
             appendInline(messagey[i]);
             if (i == messageyLength - 1) {
-                //debubg("dum")
+                debubgall("dum")
                 resolve();
                 animDone = true;
             }
@@ -1991,12 +2012,12 @@ function newLinkAnim(message, speed, link) {
         var yoy = consol.innerHTML;
         var messagey = message.split("");
         var messageyLength = messagey.length;
-        //debubg(`${animDone} anim??`);
+        debubgall(`${animDone} anim??`);
         var beforeText = `${consoltext}<a href="${link}" style="font-family: monospace;" target="_blank" class="link">`;
 
         
         for (let i = 0; i < messageyLength; i++) {
-            //debubg(i);
+            debubgall(i);
             setTimeout(function timer() {
             
             
@@ -2005,12 +2026,12 @@ function newLinkAnim(message, speed, link) {
 
             var frame = `${beforeText}</a>`;
 
-            //debubg(frame);
+            debubgall(frame);
 
             setScreen(frame);
 
             if (i == messageyLength - 1) {
-                //debubg("dum")
+                debubgall("dum")
                 resolve();
                 animDone = true;
             }
@@ -2026,12 +2047,12 @@ function newColourAnim(message, speed, colour) {
         var yoy = consol.innerHTML;
         var messagey = message.split("");
         var messageyLength = messagey.length;
-        //debubg(`${animDone} anim??`);
+        debubgall(`${animDone} anim??`);
         var beforeText = `${consoltext} <span style="color: ${colour}; font-family: monospace;" class="link">`
 
         
         for (let i = 0; i < messageyLength; i++) {
-            //debubg(i);
+            debubgall(i);
             setTimeout(function timer() {
             
             
@@ -2040,12 +2061,12 @@ function newColourAnim(message, speed, colour) {
 
             var frame = `${beforeText}</span>`;
 
-            //debubg(frame);
+            debubgall(frame);
 
             setScreen(frame);
 
             if (i == messageyLength - 1) {
-                //debubg("dum")
+                debubgall("dum")
                 resolve();
                 animDone = true;
             }
@@ -2061,12 +2082,12 @@ function newColourLinkAnim(message, speed, link, colour) {
         var yoy = consol.innerHTML;
         var messagey = message.split("");
         var messageyLength = messagey.length;
-        //debubg(`${animDone} anim??`);
+        debubgall(`${animDone} anim??`);
         var beforeText = `${consoltext} <a href="${link}" style="color: ${colour}; font-family: monospace;" target="_blank" class="link">`
 
         
         for (let i = 0; i < messageyLength; i++) {
-            //debubg(i);
+            debubgall(i);
             setTimeout(function timer() {
             
             
@@ -2075,12 +2096,12 @@ function newColourLinkAnim(message, speed, link, colour) {
 
             var frame = `${beforeText}</a>`;
 
-            //debubg(frame);
+            debubgall(frame);
 
             setScreen(frame);
 
             if (i == messageyLength - 1) {
-                //debubg("dum")
+                debubgall("dum")
                 resolve();
                 animDone = true;
             }
@@ -2132,9 +2153,9 @@ function portalCreditAnim(game, speed) {
     creds = creds.join("\n");
     cred_chunks = creds.split("");
     var credLen = creds.length;
-    //debubg(`${animDone} anim??`);
+    debubgall(`${animDone} anim??`);
     for (let i = 0; i < credLen; i++) {
-        //debubg(i);
+        debubgall(i);
     setTimeout(function timer() {
         if (cred_chunks[i] == "\n") {
             boom();
@@ -2182,7 +2203,7 @@ function removeInline(amounb) {
 debubg("removeInline init finished...");
 function removeAnim(speed) {
     var message = consol.innerHTML;
-    //debubg(message);
+    debubgall(message);
     return new Promise((resolve,reject)=>{
         //here our function should be implemented 
         animDone = false;
@@ -2198,20 +2219,20 @@ function removeAnim(speed) {
                 debubg(`SCHFDKSJBFKSJDFL ${charmount}`);
             }
         }
-        //debubg(`${animDone} anim??`);
+        debubgall(`${animDone} anim??`);
         for (let i = 0; i < messageyLength / charmount; i++) {
-            //debubg(i);
+            debubgall(i);
             setTimeout(function timer() {
             removeInline(charmount);
             debubg(`${i}, ${messageyLength}`);
-            //debubg(consoltext);
+            debubgall(consoltext);
             var newLength = consol.innerHTML;
             newLength = newLength.length;
             //if (i < newLength) {
             //    break;
             //} else 
             if (i == messageyLength) {
-                //debubg("dum")
+                debubgall("dum")
                 resolve();
                 animDone = true;
             }
@@ -2257,7 +2278,60 @@ function argComm(incommand) {
 // you know the text ascii art for the about page??
 // make a function that will go and print those for you without having to make the ui element every time
 // YES.
-function asciiText(font, text) {
+
+
+function asciiText(font, text) {    // font is the font object
+    var finalText = new Array(); // the final text variable itll return
+
+    in_text = text.replace("\\n", "\n");
+
+    in_text = in_text.split("\n");
+
+    for (i in in_text) {
+        var txt_ln = `${in_text[i]}`;
+        var text_height = font["empty"].length;
+        var text_len = txt_ln.length;
+        var currentLine = ""; // the current line it's appending to
+        for (let i = 0; i < text_height; i++) {
+            // repeat for every line of the character
+            currentLine = "";
+            for (let e = 0; e < text_len; e++) {
+                // mmmmmmmm   .charCodeAt(0);
+                var letter = txt_ln[e];
+                var lettID = `${letter}`;
+                var lala = font[lettID][i];
+                var spac = font["empty"][i];
+                var beg = "";
+                if (e == 0) {   // at the beginning of the line of text
+                    if (font["align"]) {        // if the font has a special line alignment (like with the slant font)
+                        beg = font["align"][i];
+                    }
+                }
+                debubg(`${i} ${e}: ${letter} ${lettID}: ${lala}`);
+                currentLine = `${beg}${currentLine}${lala}${spac}`;
+            }
+            debubg(`CURRENT: ${currentLine}`);
+            //displayNewline();
+            finalText.push(currentLine);
+            // its appending the lines twice for some reason
+            //found it
+            // i wasnt clearing currentLine before the next line so itd just append onto the last line
+            // YES
+            // IT WORKS
+        }
+        debubg(currentLine);
+
+    }
+
+
+    debubg(in_text);
+
+    debubg(finalText);
+    return finalText
+}
+
+
+function asciiText_old(font, text) {
     var fontlow = font.toLowerCase();
     var finalText = []; // the final text variable itll return
     var in_font = fontlow;
@@ -2267,6 +2341,8 @@ function asciiText(font, text) {
         in_font = "slant";
     } else if (fontlow == "block" || fontlow == "b" || fontlow == "blo") {
         in_font = "block";
+    } else if (fontlow == "square" || fontlow == "sq" || fontlow == "squ") {
+        in_font = "square";
     }
 
 
@@ -2293,7 +2369,7 @@ function asciiText(font, text) {
 
 
 
-                var lettID = letter.charCodeAt(0);
+                var lettID = `${letter}`;
 
 
                 var lala = ascii_fonts[in_font][lettID][i];
@@ -2349,7 +2425,7 @@ function asciiText(font, text) {
             for (let e = 0; e < textLen - 1; e++) {
                 // mmmmmmmm   .charCodeAt(0);
                 var letter = textArr[e];
-                var lettID = letter.charCodeAt(0);
+                var lettID = `${letter}`;
                 var lala = ascii_fonts[in_font][lettID][i];
                 var spac = ascii_fonts[in_font][0][i];
                 debubg(`${i} ${e}: ${letter} ${lettID}: ${lala}`);
@@ -2462,10 +2538,10 @@ function howMany (in_string, string) {
 function setAccyColour(colour, save) {
     var do_save = false;
     if (save == false || save == true) {
-        //debubg("exists!");
+        debubgall("exists!");
         do_save = save;
     } else {
-        //debubg("exists NOT!");
+        debubgall("exists NOT!");
         do_save = true;
     }
     // background colour
@@ -2515,10 +2591,10 @@ function setColour(text, textsave, background, backsave, accent, accysave) {
 function setBackColour(colour, save) {
     var do_save = false;
     if (save == false || save == true) {
-        //debubg("exists!");
+        debubgall("exists!");
         do_save = save;
     } else {
-        //debubg("exists NOT!");
+        debubgall("exists NOT!");
         do_save = true;
     }
     // background colour
@@ -2553,14 +2629,14 @@ function setBackColour(colour, save) {
 function setTextColour(colourcode, save) {
     var do_save = false;
     if (save == false || save == true) {
-        //debubg("exists!");
+        debubgall("exists!");
         do_save = save;
     } else {
-        //debubg("exists NOT!");
+        debubgall("exists NOT!");
         do_save = true;
     }
 
-    //console.log("do_save: ", do_save);
+    //console.debug("do_save: ", do_save);
     // text colour
     var r = hexToRgb(colourcode).r;
     var g = hexToRgb(colourcode).g;
@@ -2769,8 +2845,8 @@ function parseWorble() { // parse the worble save into colours
         var currentletters = `${worble_word}`.split("");             // same as above but for the actual word
         var finalwordParse = "";
 
-        //debubg(currentguessletters);
-        //debubg(currentletters);
+        debubgall(currentguessletters);
+        debubgall(currentletters);
         
         var jsontm_real = new Object();                         // will hold key/value pairs for the letters and their counters n stuff
         var jsontm_guess = new Object();
@@ -2796,8 +2872,8 @@ function parseWorble() { // parse the worble save into colours
                 jsontm_guess[`${guess_letter}`] = 1;
             }
 
-            //debubg(jsontm_real);
-            //debubg(jsontm_guess);
+            debubgall(jsontm_real);
+            debubgall(jsontm_guess);
             
             debubg(`[WORBLE PARSE]: matching letter ${guess_letter} with ${real_letter}`);
 
@@ -2872,7 +2948,7 @@ function animWorble(worble_parsed) {
             var worble_guess_letter = worble_guess[i];
             var worble_parsed_letter = worble_guess_parsed[i];
             
-            //debubg(`[WORBLE ANIM]: animating letter "${worble_guess_letter}"`);
+            debubgall(`[WORBLE ANIM]: animating letter "${worble_guess_letter}"`);
 
             if (worble_parsed_letter == "G") {              // parse the single colour values into full or smth idk
                 finalAppend = `${finalAppend}<span class="worble worble-green">${worble_guess_letter}</span>`;
@@ -2888,7 +2964,7 @@ function animWorble(worble_parsed) {
         finalAppend = `${finalAppend}<br><br>`;
         
     }
-    //debubg(`[WORble ANIM]: ${finalAppend}`);
+    debubgall(`[WORble ANIM]: ${finalAppend}`);
     appendInline(finalAppend);
     
 }
@@ -3141,7 +3217,7 @@ function replaceFromJson(string, json) {
     // replace every key with value from json in string
     var workingString = `${string}`;
     for (key in json) {
-        console.log(`${key}: ${json[key]}`);
+        console.debug(`${key}: ${json[key]}`);
         workingString = workingString.replaceAll(`${key}`, `${json[key]}`);
     }
     debubg(`translating finished, final message is "${workingString}"`);
@@ -3284,7 +3360,7 @@ function generateTable(table, theme) {
     var table_bottom = "";
     var final_table = "";
     // CALCULATION OF STUFF AND THINGS!!!
-    //console.log(table);
+    //console.debug(table);
     for (i in table) {
         // for every column
         var cur_col = table[i];
@@ -3306,11 +3382,11 @@ function generateTable(table, theme) {
             rows = cur_rows;                // set it to the new value
         }
         col_widths.push(curWid);            // for every column
-        //console.log(curWid);
+        //console.debug(curWid);
     }
-    //console.log("widths: ", col_widths);
-    //console.log("columns: ", columns);
-    //console.log("rows: ", rows);
+    //console.debug("widths: ", col_widths);
+    //console.debug("columns: ", columns);
+    //console.debug("rows: ", rows);
     // MAKING RAW TABLE!!!!
     for (i in table) {
         var coly = table[i];
@@ -3322,7 +3398,7 @@ function generateTable(table, theme) {
         for (o in coly["contents"]) {
             var entry = coly["contents"][o];
             raw_table[i].push(stringWidth(entry, widy, false, false));
-            console.log(entry);
+            console.debug(entry);
         }
     }
     // making top and bottom bit
@@ -3351,15 +3427,15 @@ function generateTable(table, theme) {
     table_middle += `${use["vl"]}`;
     table_bottom += `${use["br"]}`;
 
-    //debubg(table_top);
-    //debubg(table_middle);
-    //debubg(table_bottom);
-    //console.log("raw table: ", raw_table);
-    //console.log(rows);
+    debubgall(table_top);
+    debubgall(table_middle);
+    debubgall(table_bottom);
+    //console.debug("raw table: ", raw_table);
+    //console.debug(rows);
     for (let i = 0; i < rows + 1; i++) {
         if (i == 0) {
             final_table = `${table_top}\n`;
-            //debubg(table_top);
+            debubgall(table_top);
             for (o in table) {
                 var title = raw_table[o][0];
                 final_table += `${use["ve"]}${title}`;
@@ -3381,13 +3457,13 @@ function generateTable(table, theme) {
         }
     }
 
-    console.log(final_table);
+    console.debug(final_table);
     final_table += table_bottom;
-    //debubg("FINAL:");
-    //console.log("widths: ", col_widths);
-    //console.log(final_table);
-    //console.log("columns: ", columns);
-    //console.log("rows: ", rows);
+    debubgall("FINAL:");
+    //console.debug("widths: ", col_widths);
+    //console.debug(final_table);
+    //console.debug("columns: ", columns);
+    //console.debug("rows: ", rows);
     return final_table
 }
 
@@ -3448,7 +3524,7 @@ function parseStars() {
     // parses star save json into a large thingy of text (tm)
     for (var key in stars_save) {
         if (stars_save.hasOwnProperty(key)) {
-            //console.log(key + " -> " + star_save[key]);
+            //console.debug(key + " -> " + star_save[key]);
             // loopy
             var x = stars_save[key]["x"];
             var y = stars_save[key]["y"];
@@ -3489,16 +3565,16 @@ function stars() {
                 stars_parse[i].push(" ");
             }
         }
-        //console.log(getIdTm([0, 1]));
+        //console.debug(getIdTm([0, 1]));
         stars_status = true;
         let starTimer = setInterval(() => {
             document.getElementById("consoleinput").value = "press ESC to exit!";
             // here we have the code for the stars
             if (stars_status == true) {
-                console.log("stars!");
+                console.debug("stars!");
                 var should_star = getRandomInt(0, 1); // if it should add a star
                 //should_star = 1;
-                //console.log(should_star)
+                //console.debug(should_star)
                 if (should_star == 1) {     // if the random integer is 1
                     var rand_x = getRandomInt(0, canvas_width);     // get a random x coord
                     var rand_y = getRandomInt(0, canvas_height);    // get a random y coord
@@ -3523,7 +3599,7 @@ function stars() {
                             }
                             starTimers += 1;
                             var fadeTimer = setInterval(() => {
-                                //console.log(stars_save[idtm]["o"]);
+                                //console.debug(stars_save[idtm]["o"]);
                                 if (stars_status == false) {
                                     clearInterval(fadeTimer);
                                     clearScreen();
@@ -3554,7 +3630,7 @@ function stars() {
                         }
                         starTimers += 1;
                         var fadeTimer = setInterval(() => {
-                            //console.log(stars_save[idtm]["o"]);
+                            //console.debug(stars_save[idtm]["o"]);
                             if (stars_status == false) {
                                 clearInterval(fadeTimer);
                                 clearScreen();
@@ -3769,7 +3845,7 @@ function compileLyrics() {
         final += "[";
         for (i in spit) {
             var lyr_lin = spit[i];
-            console.log("lyric line: ", lyr_lin);
+            console.debug("lyric line: ", lyr_lin);
             var lyr_spit = lyr_lin.split("\t");
             var time1 = lyr_spit[0].split(".");
             var time1_1 = `${time1[1]}`.slice(0, -3)
@@ -3937,14 +4013,14 @@ function crypt(direction, text, cipher) {
         maptm = ciphers[cipher]["code"];
     }
 
-    console.log(maptm);
+    console.debug(maptm);
 
-    console.log(`STIRR'${str}'`);
+    console.debug(`STIRR'${str}'`);
 
     var re = new RegExp(Object.keys(maptm).join("|"),"gi");         // dont even ask because i don't know either
     str = str.replace(re, function(matched){
         debubg(matched);
-        //debubg(first);
+        debubgall(first);
         
         var result = "";
 
@@ -4194,7 +4270,7 @@ function make_note_vis(note_name) {
     var widd = display_charsize[0] - 10;
     var hidd = display_charsize[1];
     //widd = widd - 20;
-    console.log(widd);
+    console.debug(widd);
     var t1_ln = `"${nt.name}" created @ ${cre_date}`.length;
     var t2_ln = `by ${nt.author} modified @ ${mod_date}`.length;
     var t1_sp = widd - t1_ln;
@@ -4246,7 +4322,7 @@ function askNotificationPermission() {
   
     // Let's check if the browser supports notifications
     if (!('Notification' in window)) {
-        console.log("This browser does not support notifications.");
+        console.debug("This browser does not support notifications.");
     } else {
         if(checkNotificationPromise()) {
             Notification.requestPermission()
@@ -4304,6 +4380,41 @@ function parseBool(boolStr) {   // parse a true or false in dtring form into a b
 }
 
 
+function convert_asciifont(font) {
+    var out = "";
+    for (i in font) {
+        var he = String.fromCharCode(i);
+        if (he == "\\") {
+            he = "\\\\";
+        } else if (he == '"') {
+            he = "\\\"";
+        }
+        if (i == 0) {
+            out += `"${he}":[
+`;
+        } else {
+            out += `,
+"${he}":[
+`;
+        }
+        
+        for (e in font[i]) {
+            // for each line in ascii character
+            if (e == 0) {
+                out += `    "${`${font[i][e]}`.replaceAll("\\", "\\\\")}"`;
+            } else {
+                out += `,
+    "${`${font[i][e]}`.replaceAll("\\", "\\\\")}"`;
+            }
+        }
+        out += `
+]`;
+    }
+    return out
+}
+
+
+
 
 //  .M.              %MMMMMMMM% .%MMMMMMM%. .%MMMMMMM%. +M                     +MMMMMMMMI MM       MM +MM.      M+  .%MMMMMM %MMMMMMMM% mmmmmmmmmm .%MMMMMMM%. +MM.      M+ .%MMMMMMM%.              .M.  
 // .M'M.             %MMMMMMMM% %MM%' '%MM% %MM%' '%MM% MM                     MMMMMMMMMI MM       MM MMMM.     MM .%MMMMMMM %MMMMMMMM% MMMMMMMMMM %MM%' '%MM% MMMM.     MM %MM%' '%MM%             .M'M. 
@@ -4328,7 +4439,7 @@ function generateEncryptionKey() {  // generate a fancy prancy encryption key â„
 
     for (i in encryption_plaintext) {   // for all possible plaintext characters
         var letter = encryption_plaintext[i];
-        //debubg(`getting unicode for letter '${letter}'`);
+        debubgall(`getting unicode for letter '${letter}'`);
         var sym_len = enc_sym.length - 1;
         var sym_id = getRandomInt(0, sym_len);  // get a random integer from value 0 to however long all the symbols are
 
@@ -4353,12 +4464,12 @@ function crypt_tm(direction, text, cipher) {
     } else {
         maptm = cipher;
     }
-    console.log(maptm);
-    console.log(`STIRR'${str}'`);
+    console.debug(maptm);
+    console.debug(`STIRR'${str}'`);
     var re = new RegExp(Object.keys(maptm).join("|"),"gi");         // dont even ask because i don't know either
     str = str.replace(re, function(matched){
         debubg(matched);
-        //debubg(first);
+        debubgall(first);
         var result = "";
         matched = matched.toLowerCase();
         if (maptm[matched]) {
@@ -4657,7 +4768,7 @@ async function exampleInline2() {
  EXAMPLE REPEAT FOR X TIMES:
 for (let i = 0; i < amountVAr; i++) {
 
-    console.log(`the current loop is ${i}`);
+    console.debug(`the current loop is ${i}`);
 
 }
  https://keycode.info/
@@ -4723,8 +4834,8 @@ shell.onkeyup = function keyParse(e){
                             scrolly("consy");
                         }
                             
-                        //debubg(consoltext);
-                        //debubg(commang);
+                        debubgall(consoltext);
+                        debubgall(commang);
                     }
                 }
                 boom();
@@ -4823,27 +4934,27 @@ window.onkeyup = function kee(e) {
 
         debubg("snake key pressed!!!");
 
-        console.log(snk_dir);
+        console.debug(snk_dir);
 
         if (e.keyCode == 37) {          // left
             if (snk_extra.dir != 'right') {
                 snk_dir = [0, -1];
-                snk_extra.dir = 'left';
+                snk_extra.dir2 = 'left';
             }
         } else if (e.keyCode == 38) {   // up
             if (snk_extra.dir != 'down') {
                 snk_dir = [-1, 0];
-                snk_extra.dir = 'up';
+                snk_extra.dir2 = 'up';
             }
         } else if (e.keyCode == 39) {   // right
             if (snk_extra.dir != 'left') {
                 snk_dir = [0, 1];
-                snk_extra.dir = 'right';
+                snk_extra.dir2 = 'right';
             }
         } else if (e.keyCode == 40) {   // down
             if (snk_extra.dir != 'up') {
                 snk_dir = [1, 0];
-                snk_extra.dir = 'down';
+                snk_extra.dir2 = 'down';
             }
         } else if (e.keyCode == 27) {   // esc
 
@@ -4852,7 +4963,7 @@ window.onkeyup = function kee(e) {
         }
 
 
-        console.log(snk_dir);
+        console.debug(snk_dir);
 
     }
 
@@ -4958,7 +5069,7 @@ consol.addEventListener('mousemove', (event) => {
     clearTimeout(cursor_hide_timer);
     cursor_hide_timer = setTimeout(function timer() {
         consol.style.cursor = "none";
-        //debubg("the letter a");
+        debubgall("the letter a");
     }, 2000);
 });
 
@@ -4982,9 +5093,11 @@ music.addEventListener('error', (event) => {
 /*
 
 music.addEventListener('timeupdate', (event) => {
-    console.log(music.currentTime);
+    console.debug(music.currentTime);
 });
 */
 
 debubg("listeners added...");
 
+cns_session_id += 1;
+localStorage.setItem("session id", cns_session_id);
