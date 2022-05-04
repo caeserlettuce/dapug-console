@@ -11,7 +11,9 @@ function snake_init() {
     document.getElementById("input-div").style.display = "none";
     clearScreen();
     snk_save = [[0,0]]; // set the beginning tm
-
+    snk_extra.dir = 'right';
+    snk_dir = [0, 1];
+    snk_speed = snk_set.speed;
 
     var he = new Array();
     var ha = new Array();
@@ -24,6 +26,7 @@ function snake_init() {
     
     snk_extra.template_board = ha;
 
+    genFood();
 
     snk_int = setInterval(snake_tick, snk_set.speed);
     debubg(`[SNAKE]: finished generating and started the snake tick thingy`);
@@ -41,45 +44,129 @@ function snake_end() {
 }
 
 function snake_display() {
-    var le_obama = "";
-    var la_obama = [...snk_extra.template_board];
-
-    for (i in snk_save) {
-        var cord = snk_save[i];
-        debubg(`cord: ${cord}`);
-        la_obama[cord[1]][cord[0]] = "#";
-    }
-
-    for (i in la_obama) {
-
-        for (e in la_obama[i]) {
-            le_obama += la_obama[i][e];
+    try {
+        var le_obama = "";
+        var he = new Array();
+        var la_obama = new Array();
+        for (let i = 0; i < snk_set.size; i++) {
+            he.push(".");
         }
-        le_obama += "\n";
+        for (let i = 0; i < snk_set.size; i++) {
+            la_obama.push([...he]);
+        }
+
+        for (i in snk_save) {
+            var cord = snk_save[i];
+            //debubg(`cord: ${cord}`);
+            la_obama[cord[0]][cord[1]] = "#";
+        }
+
+        la_obama[snk_food[0]][snk_food[1]] = "@";
+
+        for (i in la_obama) {
+
+            for (e in la_obama[i]) {
+                le_obama += la_obama[i][e];
+            }
+            le_obama += "\n";
+        }
+        return le_obama;
+    } catch (err) {
+        bluescreen_page({"msg": err.message});
     }
-    return le_obama;
 }
 
+function indexThing(cords) {
+    var he = false;
+    for (i in snk_save) {
+        var sav = snk_save[i];
+        if (sav[0] == cords[0] && sav[1] == cords[1]) {
+            he = true;
+        }
+    }
+    return he
+}
+
+function genFood() {
+    var got = false;
+    
+    while (got == false) {
+
+        var gen_cords = [getRandomInt(0, snk_set.size - 1), getRandomInt(0, snk_set.size - 1)];
+
+        console.log(gen_cords)
+
+        if (indexThing(gen_cords) == false) {
+
+            snk_food = [...gen_cords];  // set da food
+
+            got = true;
+        }
+
+    }
+
+}
 
 
 function snake_tick() {
     // run every snake tick
 
-    
-    // check cord
-    var snk_len = snk_save.length;
-    var cur_cord = snk_save[snk_len - 1];
-    var new_cord = [(cur_cord[0] + snk_dir[0]), (cur_cord[1] + snk_dir[1])];
+    try {
+        // check cord
+        var snk_len = snk_save.length;
+        var cur_cord = snk_save[snk_len - 1];
+        var new_cord = [ cur_cord[0] + snk_dir[0], cur_cord[1] + snk_dir[1] ];
+        var end_screen = false;
+        var end_reason = "";
+        var len_snek = true;
 
-    debubg(`\nold cords: ${cur_cord}\nnew cords: ${new_cord}`);
+        debubg(`\nold cords: ${cur_cord}\nnew cords: ${new_cord}\ndir: ${snk_dir}`);
 
-    if (new_cord[0] > -1 && new_cord[1] > -1 && new_cord[0] < snk_len && new_cord[1] < snk_len) {   // within the board
+        if (new_cord[0] == snk_food[0] && new_cord[1] == snk_food[1]) {
 
-        snk_save.push(new_cord);
+            debubg("food found!");
+            genFood();      // generate new food
+            len_snek = false;
 
+            if ((snk_len / 4) == parseInt(snk_len / 4)) {   // whole numby
+                snk_speed = snk_speed * 0.25;
+                clearInterval(snk_int);
+                snk_int = setInterval(snake_tick, snk_speed);
+            }
+
+        }
+
+        
+        if (indexThing(new_cord) == true) {
+            end_screen = true;
+            end_reason = "hit snake";
+        } else if (new_cord[0] > -1 && new_cord[1] > -1 && new_cord[0] < snk_set.size && new_cord[1] < snk_set.size) {   // within the board
+
+            snk_save.push(new_cord);
+
+        } else {    // you hit the edge
+            end_screen = true;
+            end_reason = "hit edge";
+        }
+
+
+        if (end_screen == true) {
+
+            snake_end();
+
+            var snk_len = snk_save.length;
+            displayAnim(`YOU LOSE! your snake length was ${snk_len}! reason: '${end_reason}'`, 7);
+
+        }
+
+        if (len_snek == true) {
+            snk_save.shift();
+        }
+
+
+        console.log(snk_save);
+        setScreen(snake_display());
+    } catch(err) {
+        bluescreen_page({"msg": err.message});
     }
-
-
-    console.log(snk_save);
-    setScreen(snake_display());
 }

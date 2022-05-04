@@ -289,7 +289,7 @@ var sfx = true;
 var display_noise = false;
 var rw_tmt;
 var snk_set = {
-    "speed": 1000,  // how many ms per snake tick
+    "speed": 500,  // how many ms per snake tick
     "size": 20      // how big the board should be
 }
 var snk_limit = snk_set.size;
@@ -302,6 +302,8 @@ var snake_highscore = 0;
 var snake_score = 0;
 var snk_dir = [1, 0];
 var snk_extra = new Object();
+var snk_food = new Array();
+var snk_cur_speed = snk_set.speed;
 
 
 debubg("variable init finished...");
@@ -2263,7 +2265,7 @@ function asciiText(font, text) {
         in_font = "default";
     } else if (fontlow == "slant" || fontlow == "s" || fontlow == "sla") {
         in_font = "slant";
-    } else if (fontlow == "block" || fontliw == "b" || fontlow == "blo") {
+    } else if (fontlow == "block" || fontlow == "b" || fontlow == "blo") {
         in_font = "block";
     }
 
@@ -4572,6 +4574,7 @@ Press any key to continue.`;
             for (i in TMO_push) {
                 clearTimeout(TMO_push[i]);  // clear any current stuffs
             }
+            clearInterval(snk_int);
             music.pause();
             await clearScreen()
             await setColour("#cccded", false, "#0102ac", false, "#0102ac", false);    // set colour
@@ -4823,20 +4826,24 @@ window.onkeyup = function kee(e) {
         console.log(snk_dir);
 
         if (e.keyCode == 37) {          // left
-            if (snk_dir[0] == 0) {        // if it's not going right
-                snk_dir = [-1, 0];
+            if (snk_extra.dir != 'right') {
+                snk_dir = [0, -1];
+                snk_extra.dir = 'left';
             }
         } else if (e.keyCode == 38) {   // up
-            if (snk_dir[1] == 0) {        // if it's not going down
-                snk_dir = [0, -1];
+            if (snk_extra.dir != 'down') {
+                snk_dir = [-1, 0];
+                snk_extra.dir = 'up';
             }
         } else if (e.keyCode == 39) {   // right
-            if (snk_dir[0] == 0) {        // if it's not going left
-                snk_dir = [1, 0];
+            if (snk_extra.dir != 'left') {
+                snk_dir = [0, 1];
+                snk_extra.dir = 'right';
             }
         } else if (e.keyCode == 40) {   // down
-            if (snk_dir[1] == 1) {       // if it's not going up
-                snk_dir = [0, 1];
+            if (snk_extra.dir != 'up') {
+                snk_dir = [1, 0];
+                snk_extra.dir = 'down';
             }
         } else if (e.keyCode == 27) {   // esc
 

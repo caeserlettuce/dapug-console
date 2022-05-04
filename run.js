@@ -2133,6 +2133,8 @@ function parseCommand(command) {
             throw new Error("javascript is not defined");
         } else if (command == "delete sys32") {
             throw new Error("ą̷̨͍̬̞̘͎̮͇̭̈́͂͋̓̈́̽̾̿̂̈́̋͘̚̚a̸̧̢̤͖̪̳̞̙̦͙̰͈̋̏͜a̵̛̞͎̺̲͑́̍̽̌̀̇̐́͘͝ͅa̴̛̦͐̆̍͌̓̂͠ą̴̲͓̃̌ą̶̢̞̞̰̳̜̗̙̯̦̄̉͜͜à̴̢̨͚͎̤̞͔̻̣̰͒͘̕͝a̵̢̨̻͓̬̗̥̓̽͆̀̔̈̉́̓̈̐̕̚̚a̴̯͖͕͓̞̩̪̮̣͎̼͙͐͌̍̃̐̄̃̐̇̀̊͂͘͝â̷̢͍̰̲͐̅͒̄̀̊͑̆̈́̊͝");
+        } else if (command == "stonks") {
+            displayAnim(stonks, 0.02);
         }
 
 
