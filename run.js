@@ -588,7 +588,7 @@ function parseCommand(command) {
                     });
 
                 } else {
-                    displayAnim(`\nthe font '${end_low}' does not exist!`, 7)
+                    displayAnim(`\nthe font '${end_low}' does not exist!`, 7);
                 }
 
             } else {
