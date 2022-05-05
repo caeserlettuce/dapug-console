@@ -406,24 +406,48 @@ function parseCommand(command) {
 
             
         } else if (command == "font") {
-
-
-
+            parseCommand("man font");
         } else if (command == "font list" || command == "fonts" || command == "fontlist") {
 
+            var fnt_tab = [
+                { "name": "id", "contents": [] },
+                { "name": "name", "contents": [] },
+                { "name": "author", "contents": [] }
+            ]
+            var cst_fnt_tab = [
+                { "name": "id", "contents": [] },
+                { "name": "name", "contents": [] },
+                { "name": "author", "contents": [] }
+            ]
 
+            for (i in ascii_fonts) {
+                fnt_tab[0]["contents"].push(`${i}`);
+                fnt_tab[1]["contents"].push(`${ascii_fonts[i]["name"]}`);
+                fnt_tab[2]["contents"].push(`${ascii_fonts[i]["author"]}`);
+            }
+            for (i in custom_ascii_fonts) {
+                cst_fnt_tab[0]["contents"].push(`${i}`);
+                cst_fnt_tab[1]["contents"].push(`${custom_ascii_fonts[i]["name"]}`);
+                cst_fnt_tab[2]["contents"].push(`${custom_ascii_fonts[i]["author"]}`);
+            }
+
+            async function boris_johnson() {
+                await displayAnim("\nbuilt-in fonts:\n", 1);
+                await displayAnim(generateTable(fnt_tab), 0.25);
+                await displayAnim("\n\ncustom fonts:\n", 1);
+                await displayAnim(generateTable(cst_fnt_tab), 0.25);
+            }
+            boris_johnson();
+
+            
 
         } else if (command == "font import" || command == "font install") {
-
             parseCommand("man font install");
             // font install jazz font
             // then it asks for the JSON
             // that way it can check both databases from the name you inputted
-
         } else if (command == "font export" || command == "font share") {
-
-
-
+            parseCommand("man font export");
         } else if (argCommand == "font") {
             var mmm = argComm(commandInit);
             var operation = mmm[1];
@@ -431,32 +455,140 @@ function parseCommand(command) {
             ending.shift();
             ending.shift();
             ending = ending.join(" ");
-
             operation = operation.toLowerCase();
-
+            var end_low = ending.toLowerCase();
+            end_low = strip_symbols(end_low);
 
             if (operation == "import" || operation == "install") {
-
-                var end_low = ending.toLowerCase();
+                font_install = end_low;
                 if (ascii_fonts[end_low] || custom_ascii_fonts[end_low]) {
                     // it exists already
                     displayAnim(`\nthe font '${end_low}' already exists!`);
                 } else {
                     // ask for the json
-
                     displayAnim("\nplease paste the custom font JSON below:", 7);
                     askInput(() => {
-
                         try {
                             var jsomtm = JSON.parse(ask_return);
-                            debubg(jsomtm["empty"]);        // font's gotta have these
-                            debubg(jsomtm["unknown"]);
+                            var missing_json = new Array();
+                            var ew = false;
+                            if (!jsomtm["empty"]) {
+                                missing_json.push("empty");
+                                ew = true;
+                            }
+                            if (!jsomtm["unknown"]) {
+                                missing_json.push("unknown");
+                                ew = true;
+                            }
+                            if (!jsomtm["name"]) {
+                                missing_json.push("name");
+                                ew = true;
+                            } else if (typeof jsomtm["name"] != 'string') {
+                                throw new Error("key 'name' must be a string!");
+                                ew = true;
+                            }
+                            if (!jsomtm["author"]) {
+                                missing_json.push("author");
+                                ew = true;
+                            } else if (typeof jsomtm["author"] != 'string') {
+                                throw new Error("key 'author' must be a string!");
+                                ew = true;
+                            }
+                            if (ew == false) { // if those are all good
+                                var bad_keys = new Array();
+                                for (i in jsomtm) {
+                                    debubg(`checking '${i}'...`);
+                                    if (i != "name" && i != "author") { // literally everything else
+                                        if (Array.isArray(jsomtm[i]) != true ) {
+                                            // its not an array!!
+                                            bad_keys.push(`${i}`);
+                                        }
+                                    }
+                                }
+                                if (bad_keys.length != 0) {
+                                    var all_keys = "";
+                                    for (i in bad_keys) {
+                                        if (i == 0) {
+                                            all_keys += `'${bad_keys[i]}'`;
+                                        } else {
+                                            all_keys += `, '${bad_keys[i]}'`;
+                                        }
+                                    }
+                                    if (bad_keys.length == 1) {
+                                        throw new Error(`the key ${all_keys} must be an array!`);
+                                        ew = true;
+                                    } else {
+                                        throw new Error(`the keys ${all_keys} must be arrays!`);
+                                        ew = true;
+                                    }
+                                }
+                                if (ew == false) {
+                                    debubg("all good");
+                                    // do the font thing
+                                    custom_ascii_fonts[font_install] = jsomtm;
+                                    localStorage.setItem("custom ascii fonts", JSON.stringify(custom_ascii_fonts));
+                                    displayAnim(`\nfont '${font_install}' has been saved.`, 7);
+                                }
+                            }
+                            // MAKE IT SO IT CHECKS NAME AND AUTHOR AS A STRING, AND THAT ALL OTHER KEYS ARE ONLY ARRAYS!!!
+/*
+                            example unfinished json:    { "empty": "hello", "unknown": "no"}
+                                                        { "empty": ["he", "ha"], "unknown": "no"}
+                                                        { "empty": ["he", "ha"], "unknown": ["hoo", "ha"]}
+                                                        { "empty": "hello", "unknown": ["hoo", "ha"]}
+                                                        { "empty": "hello", "unknown": ["hoo", "ha"], "name": "hello!!", "author": "ur mom"}
+                                                        { "empty": "hello", "unknown": "hoo", "name": "hello!!", "author": "ur mom"}
+*/
+                            if (missing_json.length != 0) {
+                                // theres missing json
+                                var keys_tm_lmao = "";
+                                for (i in missing_json) {
+                                    if (i == 0) {
+                                        keys_tm_lmao += `'${missing_json[i]}'`;
+                                    } else {
+                                        keys_tm_lmao += `, '${missing_json[i]}'`;
+                                    }
+                                }
+                                throw new Error(`missing JSON keys: ${keys_tm_lmao}`);
+                            }
                         } catch (err) {
                             displayAnim(`\ninvalid font JSON! error code: '${err.message}'`, 7);
                         }
+                    });
+                }
 
+            } else if (operation == "export" || operation == "share" ) {
+
+
+                if (ascii_fonts[end_low]) {
+                    copyclip(JSON.stringify(ascii_fonts[end_low]))
+                    displayAnim("\nfont exported and copied to clipboard.", 7);
+                } else if (custom_ascii_fonts[end_low]) {
+                    copyclip(JSON.stringify(custom_ascii_fonts[end_low]))
+                    displayAnim("\nfont exported and copied to clipboard.", 7);
+                } else {
+                    displayAnim(`\nthe font '${end_low}' does not exist!`, 7)
+                }
+                  
+            } else if (operation == "delete" || operation == "remove" || operation == "kill" || operation == "murder") {
+
+                if (ascii_fonts[end_low]) {
+                    displayAnim(`\nsorry, the font '${end_low}' is a built-in font, and cannot be removed.`);
+                } else if (custom_ascii_fonts[end_low]) {
+                    font_install = end_low;
+                    displayAnim(`\nare you sure you want to delete the font '${end_low}'? (y/n)`, 4);
+                    askInput(() => {
+                        if (yes_no(ask_return) == true) {   // yes
+                            delete custom_ascii_fonts[font_install];
+                            localStorage.setItem("custom ascii fonts", JSON.stringify(custom_ascii_fonts));
+                            displayAnim("\nfont deleted.", 7);
+                        } else {
+                            displayAnim("\nfont has not been deleted.", 7);
+                        }
                     });
 
+                } else {
+                    displayAnim(`\nthe font '${end_low}' does not exist!`, 7)
                 }
 
             } else {

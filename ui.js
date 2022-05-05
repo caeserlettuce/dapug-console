@@ -58,6 +58,14 @@ var ascii_fonts = {
             "",
             ""
         ],
+        "unknown":[
+                 "_________ ",
+                "/ _____  /",
+               "/ /    / /",
+              "/ /    / /",
+             "/ /____/ /",
+            "/________/"
+        ],
         "align": [
             "     ",
             "    ",
@@ -845,6 +853,17 @@ var ascii_fonts = {
             " ",
             " ",
             " "
+        ],
+        "unknown":[
+            "MMMMMMMMMMMM",
+            "M          M",
+            "M          M",
+            "M          M",
+            "M          M",
+            "M          M",
+            "M          M",
+            "M          M",
+            "MMMMMMMMMMMM"
         ],
         " ":[
             "           ",
@@ -1905,6 +1924,13 @@ var ascii_fonts = {
             " ",
             " "
         ],
+        "unknown":[
+            "▄▄▄▄▄",
+            "█   █",
+            "█   █",
+            "█▄▄▄█",
+            "     "
+        ],
         " ":[
             "    ",
             "    ",
@@ -2584,15 +2610,19 @@ var ascii_fonts = {
             " ",
             " "
         ],
-        /*"\n":[
-        
-        ],*/
         " ":[
             "    ",
             "    ",
             "    ",
             "    ",
             "    "
+        ],
+        "unknown":[
+            "████████",
+            "██    ██",
+            "██    ██",
+            "██    ██",
+            "████████"
         ],
         "!":[
             "▄▄",
@@ -2819,193 +2849,193 @@ var ascii_fonts = {
             "▀██████▀"
         ],
         "A":[
-            " ▄▄▄ ",
-            "█▄▄▄█",
-            "█   █",
-            "█   █",
-            "     "
+            "██████",
+            "██  ██",
+            "██████",
+            "██  ██",
+            "██  ██"
         ],
         "B":[
-            "▄▄▄▄ ",
-            "█▄▄▄█",
-            "█   █",
-            "█▄▄▄▀",
-            "     "
+            "█████▄",
+            "██  ██",
+            "██████",
+            "██  ██",
+            "█████▀"
         ],
         "C":[
-            " ▄▄▄ ",
-            "█   ▀",
-            "█    ",
-            "▀▄▄▄▀",
-            "     "
+            "▄████▄",
+            "██  ▀▀",
+            "██    ",
+            "██  ▄▄",
+            "▀████▀"
         ],
         "D":[
-            "▄▄▄▄ ",
-            "█   █",
-            "█   █",
-            "█▄▄▄▀",
-            "     "
+            "█████▄",
+            "██  ██",
+            "██  ██",
+            "██  ██",
+            "█████▀"
         ],
         "E":[
-            "▄▄▄▄▄",
-            "█▄▄  ",
-            "█    ",
-            "█▄▄▄▄",
-            "     "
+            "██████",
+            "██    ",
+            "██████",
+            "██    ",
+            "██████"
         ],
         "F":[
-            "▄▄▄▄▄",
-            "█▄▄  ",
-            "█    ",
-            "█    ",
-            "     "
+            "██████",
+            "██    ",
+            "██████",
+            "██    ",
+            "██    "
         ],
         "G":[
-            " ▄▄▄ ",
-            "█   ▀",
-            "█  ▀█",
-            "▀▄▄▄▀",
-            "     "
+            "▄████▄",
+            "██  ▀▀",
+            "██ ▄▄▄",
+            "██ ▀██",
+            "▀████▀"
         ],
         "H":[
-            "▄   ▄",
-            "█▄▄▄█",
-            "█   █",
-            "█   █",
-            "     "
+            "██  ██",
+            "██  ██",
+            "██████",
+            "██  ██",
+            "██  ██"
         ],
         "I":[
-            "▄▄▄",
-            " █ ",
-            " █ ",
-            "▄█▄",
-            "   "
+            "██████",
+            "  ██  ",
+            "  ██  ",
+            "  ██  ",
+            "██████"
         ],
         "J":[
-            "    ▄",
-            "    █",
-            "    █",
-            "▀▄▄▄▀",
-            "     "
+            "  ████",
+            "    ██",
+            "    ██",
+            "██  ██",
+            "▀█████"
         ],
         "K":[
-            "▄   ▄",
-            "█▄▄▀ ",
-            "█  ▀▄",
-            "█   █",
-            "     "
+            "██  ██",
+            "██  ██",
+            "█████ ",
+            "██  ██",
+            "██  ██"
         ],
         "L":[
-            "▄    ",
-            "█    ",
-            "█    ",
-            "█▄▄▄▄",
-            "     "
+            "██    ",
+            "██    ",
+            "██    ",
+            "██    ",
+            "██████"
         ],
         "M":[
-            "▄   ▄",
-            "█▀▄▀█",
-            "█   █",
-            "█   █",
-            "     "
+            "████████████",
+            "██   ██   ██",
+            "██   ██   ██",
+            "██   ██   ██",
+            "██   ██   ██"
         ],
         "N":[
-            "▄   ▄",
-            "█▀▄ █",
-            "█  ▀█",
-            "█   █",
-            "     "
+            "███████",
+            "██   ██",
+            "██   ██",
+            "██   ██",
+            "██   ██"
         ],
         "O":[
-            " ▄▄▄ ",
-            "█   █",
-            "█   █",
-            "▀▄▄▄▀",
-            "     "
+            "██████",
+            "██  ██",
+            "██  ██",
+            "██  ██",
+            "██████"
         ],
         "P":[
-            "▄▄▄▄ ",
-            "█▄▄▄▀",
-            "█    ",
-            "█    ",
-            "     "
+            "██████",
+            "██  ██",
+            "██████",
+            "██    ",
+            "██    "
         ],
         "Q":[
-            " ▄▄▄ ",
-            "█   █",
-            "█   █",
-            "▀▄▄▀▄",
-            "     "
+            "██████ ",
+            "██  ██ ",
+            "██  ██ ",
+            "██ ▄██ ",
+            "██████▄"
         ],
         "R":[
-            "▄▄▄▄ ",
-            "█▄▄▄▀",
-            "█   █",
-            "█   █",
-            "     "
+            "██████",
+            "██  ██",
+            "█████▀",
+            "██ ▀█▄",
+            "██  ██"
         ],
         "S":[
-            " ▄▄▄▄",
-            "▀▄▄▄ ",
-            "    █",
-            "▀▄▄▄▀",
-            "     "
+            "██████",
+            "██    ",
+            "██████",
+            "    ██",
+            "██████"
         ],
         "T":[
-            "▄▄▄▄▄",
-            "  █  ",
-            "  █  ",
-            "  █  ",
-            "     "
+            "██████",
+            "  ██  ",
+            "  ██  ",
+            "  ██  ",
+            "  ██  "
         ],
         "U":[
-            "▄   ▄",
-            "█   █",
-            "█   █",
-            "▀▄▄▄▀",
-            "     "
+            "██  ██",
+            "██  ██",
+            "██  ██",
+            "██  ██",
+            "██████"
         ],
         "V":[
-            "▄   ▄",
-            "█   █",
-            "▀▄ ▄▀",
-            " ▀▄▀ ",
-            "     "
+            "██  ██",
+            "██  ██",
+            "██  ██",
+            "▀█▄▄█▀",
+            " ▀██▀ "
         ],
         "W":[
-            "▄   ▄",
-            "█   █",
-            "█ ▄ █",
-            "█▀ ▀█",
-            "     "
+            "██   ██   ██",
+            "██   ██   ██",
+            "██   ██   ██",
+            "██   ██   ██",
+            "████████████"
         ],
         "X":[
-            "▄   ▄",
-            " ▀▄▀ ",
-            "▄▀ ▀▄",
-            "█   █",
-            "     "
+            "▄▄    ▄▄",
+            "▀██▄▄██▀",
+            "  ████  ",
+            "▄██▀▀██▄",
+            "▀▀    ▀▀"
         ],
         "Y":[
-            "▄   ▄",
-            " ▀▄▀ ",
-            "  █  ",
-            "  █  ",
-            "     "
+            "██  ██",
+            "██▄▄██",
+            " ▀██▀ ",
+            "  ██  ",
+            "  ██  "
         ],
         "Z":[
-            "▄▄▄▄▄",
-            "   ▄▀",
-            " ▄▀  ",
-            "█▄▄▄▄",
-            "     "
+            "████████",
+            "    ▄██▀",
+            "  ▄██▀  ",
+            "▄██▀    ",
+            "████████"
         ],
         "[":[
-            "▄▄▄",
-            "█  ",
-            "█  ",
-            "█▄▄",
-            "   "
+            "████",
+            "██  ",
+            "██  ",
+            "██  ",
+            "████"
         ],
         "\\":[
             "▄    ",
@@ -3015,11 +3045,11 @@ var ascii_fonts = {
             "     "
         ],
         "]":[
-            "▄▄▄",
-            "  █",
-            "  █",
-            "▄▄█",
-            "   "
+            "████",
+            "  ██",
+            "  ██",
+            "  ██",
+            "████"
         ],
         "^":[
             "  ▄  ",
@@ -3255,6 +3285,52 @@ var ascii_fonts = {
     
     }
 }
+/*
+{
+        "name": "Square",
+        "author": "caeserlettuce",
+        "empty":[
+            " ",
+            " ",
+            " ",
+            " ",
+            " "
+        ],
+        " ":[
+            "    ",
+            "    ",
+            "    ",
+            "    ",
+            "    "
+        ],
+        "!":[
+            "▄▄",
+            "██",
+            "██",
+            "▄▄",
+            "▀▀"
+        ],
+        "\"":[
+            "▄▄ ▄▄",
+            "██ ██",
+            "     ",
+            "     ",
+            "     "
+        ],
+        "#":[
+            " ▄▄ ▄▄ ",
+            "███████",
+            "▄██▄██▄",
+            "▀██▀██▀",
+            "     "
+        ]
+    
+    }
+
+
+*/
+
+
 
 var custom_ascii_fonts = new Object();
 
@@ -3854,6 +3930,7 @@ function updateMan() {
             "NOTE: <comment> section is only supported for the 'add' option."
         ],
         */
+       /*
         "ascii": [
             "ASCII MANPAGE:",
             "generates an ASCII text art of any sentence",
@@ -3868,6 +3945,21 @@ function updateMan() {
             " ",
             "EXAMPLE:",
             "'ascii default Hello, World!'",
+        ],
+        */
+        "ascii": [
+            "ASCII MANPAGE",
+            "generates an ASCII text art out of any inputted text",
+            "(note: after typing the ascii command, you will be prompted to enter the text)",
+            " ",
+            "USAGE:",
+            "'ascii [font]'",
+            " ",
+            "OPTIONS:",
+            "font | the ascii font to use, check 'fonts' for a list of fonts",
+            " ",
+            "EXAMPLE:",
+            "'ascii block'"
         ],
         "copy": [
             "COPY MANPAGE:",
@@ -4758,7 +4850,68 @@ function updateMan() {
             " ",
             "USAGE:",
             "'err'"
-        ]
+        ],
+        "font":[
+            "FONT MANPAGE",
+            "font management for the 'ascii' command",
+            " ",
+            "USAGE:",
+            "'font [option] (font name)'",
+            " ",
+            "OPTIONS:",
+            "   list | list all supported fonts",
+            "install | install a custom font from JSON *",
+            " export | exports a font into JSON *",
+            " remove | removes an installed font *",
+            " ",
+            "* option uses (font name)",
+            " ",
+            "EXAMPLE:",
+            "'font export block'"
+        ],
+        "fonts":[
+            "FONTS MANPAGE",
+            "lists all supported ASCII fonts",
+            " ",
+            "USAGE:",
+            "'fonts'"
+        ],
+        "fontlist": "fonts",
+        "font list": "fonts",
+        "font install":[
+            "FONT INSTALL MANPAGE",
+            "installs a custom font from JSON",
+            " ",
+            "USAGE:",
+            "'font install [json]'",
+            "EXAMPLE:",
+            "'font install (the JSON is way too long to put in here)'"
+        ],
+        "font import": "font install",
+        "font export":[
+            "FONT EXPORT MANPAGE",
+            "exports an ASCII font to JSON",
+            " ",
+            "USAGE:",
+            "'font export [font name]'",
+            " ",
+            "EXAMPLE",
+            "'font export block'"
+        ],
+        "font share": "font export",
+        "font delete":[
+            "FONT DELETE MANPAGE",
+            "deletes any custom font in memory",
+            " ",
+            "USAGE:",
+            "'font use [font name]'",
+            " ",
+            "EXAMPLE:",
+            "'font delete old-font'"
+        ],
+        "font remove": "font delete",
+        "font kill": "font delete",
+        "font murder": "font delete"
     }
 }
 
@@ -4823,7 +4976,7 @@ var listy = [ " ",
     "convert -list",
     "pebblebrain",
     "pebble brain",
-    "man *",
+    "man",
     "clear -cache",
     "clear -cache -ignore",
     "benson",
@@ -4912,6 +5065,10 @@ var listy = [ " ",
     "font install",
     "font export",
     "font share",
+    "font remove",
+    "font delete",
+    "font kill",
+    "font murder",
 
     "* command is currently in-development and may break the site."
 ]; 

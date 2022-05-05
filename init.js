@@ -311,6 +311,7 @@ var snk_extra = new Object();
 var snk_food = new Array();
 var snk_cur_speed = snk_set.speed;
 var debugall = false;                   // debug ALL messages ( a lot!!)
+var font_install = "";
 
 debubg("variable init finished...");
 // local storage setup
@@ -2283,6 +2284,21 @@ function argComm(incommand) {
 function asciiText(font, text) {    // font is the font object
     var finalText = new Array(); // the final text variable itll return
 
+
+    if (typeof font == 'string') {
+
+        if (ascii_fonts[font]) {
+            font = ascii_fonts[font];
+        } else if (custom_ascii_fonts[font]) {
+            font = custom_ascii_fonts[font];
+        } else {
+            font = ascii_fonts["default"];
+        }
+
+
+    }
+
+
     in_text = text.replace("\\n", "\n");
 
     in_text = in_text.split("\n");
@@ -2299,6 +2315,9 @@ function asciiText(font, text) {    // font is the font object
                 // mmmmmmmm   .charCodeAt(0);
                 var letter = txt_ln[e];
                 var lettID = `${letter}`;
+                if (!font[lettID]) {
+                    lettID = "unknown";
+                }
                 var lala = font[lettID][i];
                 var spac = font["empty"][i];
                 var beg = "";
@@ -4413,6 +4432,11 @@ function convert_asciifont(font) {
     return out
 }
 
+function strip_symbols(string) {
+    // strip any symbols from a string
+    return string.replace(/[^a-zA-Z0-9 ]/g, '');
+}
+
 
 
 
@@ -4822,7 +4846,12 @@ shell.onkeyup = function keyParse(e){
                         // *crab rave*
                         if (listening_input == true) {  // if its listening for a text input
                             ask_return = shell.value;
-                            ask_do();
+                            try {
+                                ask_do();
+                            } catch (err) {
+                                bluescreen_page({"msg": err.message});
+                            }
+                            
                             listening_input = false;
                             shell.value = "";
                         } else {
