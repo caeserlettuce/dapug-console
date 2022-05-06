@@ -2349,6 +2349,11 @@ function parseCommand(command) {
             throw new Error("ą̷̨͍̬̞̘͎̮͇̭̈́͂͋̓̈́̽̾̿̂̈́̋͘̚̚a̸̧̢̤͖̪̳̞̙̦͙̰͈̋̏͜a̵̛̞͎̺̲͑́̍̽̌̀̇̐́͘͝ͅa̴̛̦͐̆̍͌̓̂͠ą̴̲͓̃̌ą̶̢̞̞̰̳̜̗̙̯̦̄̉͜͜à̴̢̨͚͎̤̞͔̻̣̰͒͘̕͝a̵̢̨̻͓̬̗̥̓̽͆̀̔̈̉́̓̈̐̕̚̚a̴̯͖͕͓̞̩̪̮̣͎̼͙͐͌̍̃̐̄̃̐̇̀̊͂͘͝â̷̢͍̰̲͐̅͒̄̀̊͑̆̈́̊͝");
         } else if (command == "stonks") {
             displayAnim(stonks, 0.02);
+        } else if (command == "rainbow") {
+
+            rainbow_enabled == !rainbow_enabled;    // toggle it
+
+            displayAnim("\nrainbow", 7);
         }
 
 

@@ -291,7 +291,7 @@ var bluescreen_done = false;
 var current_command = "";
 var cns_session_id = 0;
 var keys_pressed = new Object();
-var sfx = true;
+var sfx = false;
 var display_noise = false;
 var rw_tmt;
 var snk_set = {
@@ -312,6 +312,9 @@ var snk_food = new Array();
 var snk_cur_speed = snk_set.speed;
 var debugall = false;                   // debug ALL messages ( a lot!!)
 var font_install = "";
+var rainbow_index = 0;
+var rainbow_enabled = false;
+
 
 debubg("variable init finished...");
 // local storage setup
@@ -1394,7 +1397,7 @@ async function displaySingleLine(message, speed, colour, link, style) {
     return new Promise((resolve,reject)=>{
         //here our function should be implemented 
         display_noise = true;
-        rw_sound.play();
+        //rw_sound.play();
         var messagey = message.split("");
         var messageyLength = messagey.length;
         var use_id = console_id + 1;        // the current id that's being used
@@ -1410,12 +1413,13 @@ async function displaySingleLine(message, speed, colour, link, style) {
                     if (messagey[i] == " " || messagey[i] == "\n") {
                         boom();
                     }
+
                     displayAppend(messagey[i], use_id, false, colour, link, style);
                     if (i == messageyLength - 1) { 
                         resolve();
                         scrolly("consy");
                         display_noise = false;
-                        rw_sound.pause();
+                        //rw_sound.pause();
                     }
                     
                 }, i * speed));
@@ -1478,14 +1482,17 @@ async function displaySingleGradientLine(message, speed, colours) {
 async function displayUser(message, userin) {
     var userfor;
 
+    var colour = "";
+
     if (userin != null) {
         userfor = `${userin}`;
     } else {
         userfor = `${user}`;
     }
-    
+
+
     displayNewline();
-    displayAdd(`${userfor}@dapug.lol> ${message}`);
+    displayAnim(`${userfor}@dapug.lol> ${message}`, 0, colour);
     scrolly("consy");
 }
 
@@ -1499,6 +1506,17 @@ async function displayAnim(message, speed, colour, link, style) {      // fancy 
     var egg_white = "";
     var egg_yolk = colour;
     var egg_shell = link;
+
+    if (rainbow_enabled == true) {
+        // rainbow
+        colour = rainbow[rainbow_index];
+
+        if (rainbow_index == rainbow.length - 1) {   // if its at the end
+            rainbow_index = 0;
+        } else {
+            rainbow_index += 1;
+        }
+    }
 
 
     console.debug(message);

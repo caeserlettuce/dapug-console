@@ -6905,9 +6905,11 @@ var listy = [ " ",
     "font delete",
     "font kill",
     "font murder",
+    "rainbow",
 
     "* command is currently in-development and may break the site."
 ]; 
+// end of ls
 
 
 var convertlist = [ " ",
@@ -11685,6 +11687,18 @@ var stonks = `
 █████▄▀██████████████████████▀██████████████▀    ▀▄▄▀     █         █     ▄▄▄▄▄▀▀▀▀▀
 ███████▄▄▄▀▀▀▀███████████████▄▀████████████▀       ▀       █    ▄▄▄▄█▀▀▀▀▀
 `;
+
+var rainbow = [
+    "#e40303",
+    "#ff8c00",
+    "#ffed00",
+    "#008026",
+    "#004dff",
+    "#750787"
+];
+
+
+
 
 /*
 ▓▒░
