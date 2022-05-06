@@ -6906,6 +6906,11 @@ var listy = [ " ",
     "font kill",
     "font murder",
     "rainbow",
+    "life",
+    "game of life",
+    "conway game of life",
+    "conways game of life",
+    "conway's game of life",
 
     "* command is currently in-development and may break the site."
 ]; 
@@ -11697,7 +11702,11 @@ var rainbow = [
     "#750787"
 ];
 
-
+var debubg_presets = {
+    "def": "",
+    "test": "color: #ff0000;",
+    "init": "color: #31d00e;"
+}
 
 
 /*

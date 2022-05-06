@@ -2354,6 +2354,9 @@ function parseCommand(command) {
             rainbow_enabled == !rainbow_enabled;    // toggle it
 
             displayAnim("\nrainbow", 7);
+        } else if (command == "life" || command == "game of life" || command == "conway game of life" || command == "conways game of life" || command == "conway's game of life") {
+            // conways game of life (idea courtesy of rowen)
+            gol_start();
         }
 
 
