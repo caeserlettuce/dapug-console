@@ -75,7 +75,7 @@ function db(message, preset) {
     message = `[${tim}]: ${message}`;
 
 
-    console.debug(`%c ${message}`, `${css}`);
+    console.debug(`%c${message}`, `${css}`);
 
 
 
@@ -375,13 +375,13 @@ function local_storage(name, default_tm, if_exists, if_doesnt) {
     var item = localStorage.getItem(`${name}`);                                             // sets item to whatever the localtorage for name is
     var return_value = "";                                                                  // initialise this
     if (item) {                                                                             // if that item exists in localstorage
-        db(`[LOCAL STORAGE]: local storage for '${name}' exists. skipping creation.`);  // status update ™
+        db(`[LOCAL STORAGE]: local storage for '${name}' exists. skipping creation.`, "localstorage");  // status update ™
         return_value = localStorage.getItem(`${name}`);                                     // set the return value to the localstorage value
         if (typeof if_exists === 'function') {                                              // if it's a function       (if extra code should be run if it exists)
             if_exists();                                                                    // run said function
         }
     } else {                                                                                // if it doesn't exist
-        db(`[LOCAL STORAGE]: local storage for '${name}' does not exist. creating.`);   // status update ™
+        db(`[LOCAL STORAGE]: local storage for '${name}' does not exist. creating.`, "localstorage");   // status update ™
         localStorage.setItem(`${name}`, `${default_tm}`);                                   // set the localstorage value
         return_value = `${default_tm}`;                                                     // set the return value to the default value
         if (typeof if_doesnt === 'function') {                                              // if it's a function       (if extra code should be run if it exists)
@@ -799,7 +799,7 @@ function debugWindow(bool) {
             if(debug_win.closed) {
                 clearInterval(debug_check);
                 debug = false;
-                db("debug window closed!!");
+                db("debug window closed!!", "orange");
             }
         }, 1000);
     } else {
@@ -856,7 +856,7 @@ function debugVarWindow(bool) {
             if(var_debug_win.closed) {
                 clearInterval(var_debug_check);
                 debugvar = false;
-                db("debug var window closed!!");
+                db("debug var window closed!!", "orange");
             } else {
                 if (size_old != debugvar_size || debvar_first_time == false) {
                     var_debug_win.document.getElementById("size-pass").innerHTML = `${debugvar_size}`;
@@ -1079,13 +1079,13 @@ function copyArr(arr) {
     // make another text variable from the array and have it insert new lines and crap for it and then copy the thing to clipboard
     var is = Array.isArray(arr);
     if (is == true) {
-        db("input is an array, copying using array function.");
+        db("input is an array, copying using array function.", "magenta");
         var leny = arr.length;
         for (let i = 0; i < leny; i++) {
             fimb = `${fimb}${copycomm} ${arr[i]}\n`; 
         }
     } else {
-        db("input is not at array, copying as regular string.");
+        db("input is not at array, copying as regular string.", "magenta");
         fimb = `${copycomm} ${arr}`;
     }
     copyclip(fimb);
@@ -1093,7 +1093,7 @@ function copyArr(arr) {
 
 function copyFancy(wall_socket) {
     if (typeof wall_socket == 'object' && Array.isArray(wall_socket) != true) {
-        db("copy input is a JSON object. stringifying that and copying it to clipboard.");
+        db("copy input is a JSON object. stringifying that and copying it to clipboard.", "purple");
         copyclip(JSON.stringify(wall_socket));
     } else {
         copyArr(wall_socket);
@@ -1143,7 +1143,7 @@ function sizeCheck() {
         document.getElementById("consy-height").innerHTML = `.consy { height: ${ windowHeight - ( document.getElementById("consoleinput").clientHeight + 35)}px; }`;
     }
 
-    db(orientation);
+    db(orientation, "sizey");
 
 
     vis_consywidth = inHorizViewport($('#consy'));
@@ -1486,7 +1486,7 @@ async function displaySingleLine(message, speed, colour, link, style) {
 }
 
 async function displaySingleGradientLine(message, speed, colours) {
-    db(`[sisplaySingleGradientLine]     ${message}   ${speed}   from ${colours[0]}  to ${colours[1]}`);
+    db(`[sisplaySingleGradientLine]     ${message}   ${speed}   from ${colours[0]}  to ${colours[1]}`, "git");
     
     var messagey = message.split("");
     var messageyLength = messagey.length;
@@ -1575,7 +1575,7 @@ async function displayAnim(message, speed, colour, link, style) {      // fancy 
     }
 
 
-    console.debug(message);
+    db(message, "git");
 
     if (Array.isArray(message) == true) {
         egg_white = message.join("\n");
@@ -1706,7 +1706,7 @@ var LyricTimer = function(callback, delay) {
 
 
 function lyrFunc(lyrics, i) {
-    db(`lyric: "${`${lyrics[i]["text"]}`.replaceAll("\n", "")}"`);
+    db(`lyric: "${`${lyrics[i]["text"]}`.replaceAll("\n", "")}"`, "lred");
     var lyr_exec = false;
     if (lyrics[i]["exec"]) {
         lyr_exec = lyrics[i]["exec"];
@@ -2057,7 +2057,7 @@ function smartAnim(message, speed,) {
         displayAnim(message, speed);
     } else {
         var poo = typeof message;
-        db(`variable type "${poo}" not suppored for smart anim. supported var types are "string" and "object".`);
+        db(`variable type "${poo}" not suppored for smart anim. supported var types are "string" and "object".`, "orange");
     }
 }
 
@@ -2201,6 +2201,7 @@ function newColourLinkAnim(message, speed, link, colour) {
 // PORTAL 2 CREDITS ANIMS:
 
 function portalCreditAnim(game, speed) {
+    db("for science, you monster.", "color: #fffc77; background-color: #171c1f; border: 4px solid #0d0f0e; padding: 2px; border-radius: 4px;")
     var creds = "incorrect game chosen. i brokey."
     var elf;
     var cre = "";
@@ -2251,7 +2252,7 @@ function p1Ascii(art) {
         artist.scrollTo(0,document.body.scrollHeight);
         scrolly("p1ascii");
     } else {
-        db(`portal 1 ascii art "${art}" does not exist!!`);
+        db(`portal 1 ascii art "${art}" does not exist!!`, "lred");
     }
 }
 
@@ -2275,7 +2276,7 @@ function removeInline(amounb) {
     consoleWipe(consoltext);
     scrolly("consy");
 };
-db("removeInline init finished...");
+db("removeInline init finished...", "init");
 function removeAnim(speed) {
     var message = consol.innerHTML;
     debubgall(message);
@@ -2400,10 +2401,10 @@ function asciiText(font, text) {    // font is the font object
                         beg = font["align"][i];
                     }
                 }
-                db(`${i} ${e}: ${letter} ${lettID}: ${lala}`);
+                db(`${i} ${e}: ${letter} ${lettID}: ${lala}`, "orange");
                 currentLine = `${beg}${currentLine}${lala}${spac}`;
             }
-            db(`CURRENT: ${currentLine}`);
+            db(`CURRENT: ${currentLine}`, "orange");
             //displayNewline();
             finalText.push(currentLine);
             // its appending the lines twice for some reason
@@ -2417,133 +2418,12 @@ function asciiText(font, text) {    // font is the font object
     }
 
 
-    db(in_text);
+    db(in_text, "magenta");
 
-    db(finalText);
+    db(finalText, "magenta");
     return finalText
 }
 
-
-function asciiText_old(font, text) {
-    var fontlow = font.toLowerCase();
-    var finalText = []; // the final text variable itll return
-    var in_font = fontlow;
-    if (fontlow == "" || fontlow == "default" || fontlow == "def" || fontlow == "d") {  // any other variations for font names, set up an if statement here for all the variations, then set in_font to be the name in the internal font JSON
-        in_font = "default";
-    } else if (fontlow == "slant" || fontlow == "s" || fontlow == "sla") {
-        in_font = "slant";
-    } else if (fontlow == "block" || fontlow == "b" || fontlow == "blo") {
-        in_font = "block";
-    } else if (fontlow == "square" || fontlow == "sq" || fontlow == "squ") {
-        in_font = "square";
-    }
-
-
-    if (in_font == "slant") {                   // if statements for fonts that require extra code
-        var textArr = text.split("");
-        db(textArr);
-        db(text);
-        textLen = textArr.length;
-        textHeight = ascii_fonts[in_font][0].length; // the height of the ascii font 
-        var currentLine = ""; // the current line it's appending to
-
-
-        for (let i = 0; i < textHeight; i++) {
-            // repeat for every line of the character
-            db(`line: ${i}`);
-
-            
-            currentLine = " ".repeat(-1 * i + 5);   // make it so itll add spaces
-            for (let e = 0; e < textLen - 1; e++) {
-                // mmmmmmmm   .charCodeAt(0);
-
-
-                var letter = textArr[e];
-
-
-
-                var lettID = `${letter}`;
-
-
-                var lala = ascii_fonts[in_font][lettID][i];
-                var lalar = `${ascii_fonts[in_font][lettID][i]}`.split("");
-
-
-                db(`${i} ${e}: ${letter} ${lettID}: ${lala}`);
- 
-                var lalabeg = lalar.slice(0,1);
-                var lalaend = lala.substr(1);
-
-
-                if (lalabeg == " ") {
-                    currentLine = `${currentLine}${lalaend}`
-                } else {
-                    currentLine = `${currentLine.slice(0, -1)}${lala}`
-                }
-
-
-                db(`heha: ${lalabeg} : ${lalaend}`);
-                
-                   
-            
-                
-
-
-
-            }
-            db(`CURRENT: ${currentLine}`);
-            //displayNewline();
-            finalText.push(currentLine);
-            // its appending the lines twice for some reason
-            //found it
-            // i wasnt clearing currentLine before the next line so itd just append onto the last line
-            // YES
-            // IT WORKS
-        }
-        db(currentLine);
-
-    } else if (ascii_fonts[in_font]) {              // add any other fonts that require custom code before this if statement
-
-                                        // for any other normal fonts
-        var textArr = text.split("");
-        db(textArr);
-        db(text);
-        textLen = textArr.length;
-        textHeight = ascii_fonts[in_font][0].length; // the height of the ascii font
-
-        var currentLine = ""; // the current line it's appending to
-        for (let i = 0; i < textHeight; i++) {
-            // repeat for every line of the character
-            currentLine = "";
-            for (let e = 0; e < textLen - 1; e++) {
-                // mmmmmmmm   .charCodeAt(0);
-                var letter = textArr[e];
-                var lettID = `${letter}`;
-                var lala = ascii_fonts[in_font][lettID][i];
-                var spac = ascii_fonts[in_font][0][i];
-                db(`${i} ${e}: ${letter} ${lettID}: ${lala}`);
-                currentLine = `${currentLine}${lala}${spac}`;
-            }
-            db(`CURRENT: ${currentLine}`);
-            //displayNewline();
-            finalText.push(currentLine);
-            // its appending the lines twice for some reason
-            //found it
-            // i wasnt clearing currentLine before the next line so itd just append onto the last line
-            // YES
-            // IT WORKS
-        }
-        db(currentLine);
-
-
-
-    } else {
-        finalText = "please select a valid font. to get a full list of fonts, run 'font list'";
-    }
-
-    db(finalText);
-    return finalText
-}
 
 /*
 var fontlow = font.toLowerCase();
@@ -2574,10 +2454,10 @@ function coopyIf(output) {
         } else if (typeof output == "object") { // if it's an object (copyArr only works with arrays though, but typeof's definition says object so if it breaks, it breaks.)
             copyArr(output);
         } else {
-            db("variable type not suppored for copying. supported type are: string, object");
+            db("variable type not suppored for copying. supported type are: string, object", "blue1");
         }
     } else {
-        db("copy is not enabled. skipping.");
+        db("copy is not enabled. skipping.", "blue1");
     }
 }
 /*function debugHidey() {
@@ -2607,7 +2487,7 @@ function jsonReplace(string, json, to) {
     var toot = 0;
     var foom = 1;
     var finale = `${string}`;
-    db(`[url parsing] original: ${finale}`);
+    db(`[url parsing] original: ${finale}`, "blue1");
     if (to == false) {
         toot = 1;
         foom = 0;
@@ -2615,9 +2495,9 @@ function jsonReplace(string, json, to) {
     for (i in json["parse"]) {
         var too = json["parse"][i][toot];
         var foo = json["parse"][i][foom];
-        db(`[url parsing] haha: ${too} | ${foo}`);
+        db(`[url parsing] haha: ${too} | ${foo}`, "blue1");
         finale = finale.replace(`${too}`, `${foo}`);
-        db(`[url parsing] ${i}: ${finale}`);
+        db(`[url parsing] ${i}: ${finale}`, "blue1");
     }
     return finale
 }
@@ -2641,7 +2521,7 @@ function setAccyColour(colour, save) {
     var r = hexToRgb(colour).r;
     var g = hexToRgb(colour).g;
     var b = hexToRgb(colour).b;
-    db(`${r}${g}${b}`);
+    db(`${r}${g}${b}`, "purple");
     // #7cfc00 GREEN
     document.getElementById("debubmouse").style.backgroundColor = colour;
     document.getElementById("debub").style.borderColor = colour;
@@ -2694,7 +2574,7 @@ function setBackColour(colour, save) {
     var r = hexToRgb(colour).r;
     var g = hexToRgb(colour).g;
     var b = hexToRgb(colour).b;
-    db(`${r}${g}${b}`);
+    db(`${r}${g}${b}`, "purple");
     // #7cfc00 GREEN
     document.getElementById("body").style.backgroundColor = colour;
     document.getElementById("body").style.background = colour;
@@ -2734,7 +2614,7 @@ function setTextColour(colourcode, save) {
     var r = hexToRgb(colourcode).r;
     var g = hexToRgb(colourcode).g;
     var b = hexToRgb(colourcode).b;
-    db(`${r}${g}${b}`);
+    db(`${r}${g}${b}`, "purple");
     // #7cfc00 GREEN
     document.getElementById("body").style.color = colourcode;
     document.getElementById("consoleinput").style.color = colourcode;
@@ -2837,14 +2717,14 @@ function getWorbleWord() {
 // ALL BASE WORBLE FUNCTIONS:
 
 function worbleStatus(bool) {
-    db(`setting worble game status to ${bool}`);
+    db(`setting worble game status to ${bool}`, "wb_green");
     worble_status = bool;
     localStorage.setItem("worble_status", `${bool}`);
 }
 
 function worbleColourUpdate() {
     // will uodate colours via each span having a different class for the colours so it'll update automatically
-    db("updating worble display colours...");
+    db("updating worble display colours...", "wb_green");
     if (worble_colourblind == true) {
         worble_green = `${worble_blind_green}`;
         worble_yellow = `${worble_blind_yellow}`;
@@ -2869,14 +2749,14 @@ function worbleColourUpdate() {
 }
 
 function worbleColourblind(bool) {
-    db(`setting worble colourblind mode to ${bool}`);
+    db(`setting worble colourblind mode to ${bool}`, "wb_green");
     worble_colourblind = bool;
     localStorage.setItem("worble_colourblind", `${bool}`);
     worbleColourUpdate();
 }
 
 function worbleWord(word) {
-    db(`[WORBLE WORD SET]: setting worble word to ${word}`);
+    db(`[WORBLE WORD SET]: setting worble word to ${word}`, "wb_green");
     worble_word = `${word}`;
     localStorage.setItem("worble_word", word);
 }
@@ -2890,14 +2770,14 @@ function saveWorble() { // save worble
 
     for (i in worble_save) { // for every entry in the save variable
         var currentword = worble_save[i];   // get current word itll focus on
-        db(`[WORBLE SAVE]: saving "${currentword}"`);
+        db(`[WORBLE SAVE]: saving "${currentword}"`, "wb_green");
         if (i == 0) {                                   // if it's the first entry
             finalSave = `"${currentword}"`;             // don't put a comma since there's nothing in front of it
         } else {                                        // if it's any other entry
             finalSave = `${finalSave},"${currentword}"` // do put a comma because there's actually stuff in front of it
         }
     }
-    db(`[WORBLE SAVE]: final worble save: ${finalSave}`);
+    db(`[WORBLE SAVE]: final worble save: ${finalSave}`, "wb_green");
 
     localStorage.setItem("worble_save", `${finalSave}`);
     localStorage.setItem("worble_guesscount", worble_guesscount);
@@ -2910,29 +2790,29 @@ function saveWorble() { // save worble
 function loadWorble() { //load worble
     var rawSave = localStorage.getItem("worble_save");  // get worble save
     var saveWithJson = `{ "worble": [${rawSave}] }`;    // add the extra characters to make it work as json
-    db(`[WORBLE LOAD]: loaded worble save: ${saveWithJson}`);
+    db(`[WORBLE LOAD]: loaded worble save: ${saveWithJson}`, "wb_green");
     var parsedJson = JSON.parse(saveWithJson);          // parse it into json
 
     var tempSave = [];
 
     for (i in parsedJson["worble"]) {                   // iterate through all the words
         var currentWord = parsedJson["worble"][i];      // set the current word
-        db(`[WORBLE LOAD]: current word: ${currentWord}`);
+        db(`[WORBLE LOAD]: current word: ${currentWord}`, "wb_green");
         tempSave.push(`${currentWord}`);                // add the current word to the temp array
     }
-    db(`[WORBLE LOAD]: loaded worble save: ${tempSave}`);
+    db(`[WORBLE LOAD]: loaded worble save: ${tempSave}`, "wb_green");
     //worble_save = tempSave;                             // put it on js variable
-    db(`[WORBLE LOAD]: loading complete.`);
+    db(`[WORBLE LOAD]: loading complete.`, "wb_green");
     worble_guesscount = parseInt(localStorage.getItem("worble_guesscount"));
     return tempSave
 }
 
 function parseWorble() { // parse the worble save into colours
-    db(`[WORBLE PARSE]: parsing worble...`);
+    db(`[WORBLE PARSE]: parsing worble...`, "wb_green");
     var finalParse = [];
     for (i in worble_save) {                                    // for every word in the worble save
         var currentwordguess = `${worble_save[i]}`;             // choose the word from the save
-        db(`[WORBLE PARSE]: parsing word "${currentwordguess}" from worble save`);
+        db(`[WORBLE PARSE]: parsing word "${currentwordguess}" from worble save`, "wb_green");
         // why did it have to be him [james marriott]
         var currentguessletters = `${currentwordguess}`.split("");   // split the word guess into an array
         var currentletters = `${worble_word}`.split("");             // same as above but for the actual word
@@ -2950,8 +2830,8 @@ function parseWorble() { // parse the worble save into colours
             var real_many = howMany(`${worble_word}`, `${real_letter}`);
             var guess_many = howMany(`${currentwordguess}`, `${guess_letter}`);
 
-            db(`[WORBLE PARSE]: there are ${real_many} of ${real_letter} in the real word.`);
-            db(`[WORBLE PARSE]: there are ${guess_many} of ${guess_letter} in the guessed word.`);
+            db(`[WORBLE PARSE]: there are ${real_many} of ${real_letter} in the real word.`, "wb_green");
+            db(`[WORBLE PARSE]: there are ${guess_many} of ${guess_letter} in the guessed word.`, "wb_green");
 
             if (keyExists(jsontm_real, `${real_letter}`) == true) {
                 jsontm_real[`${real_letter}`] += 1;
@@ -2968,7 +2848,7 @@ function parseWorble() { // parse the worble save into colours
             debubgall(jsontm_real);
             debubgall(jsontm_guess);
             
-            db(`[WORBLE PARSE]: matching letter ${guess_letter} with ${real_letter}`);
+            db(`[WORBLE PARSE]: matching letter ${guess_letter} with ${real_letter}`, "wb_green");
 
             if (guess_letter == real_letter) {                      // letter exists in that exact place
                 finalwordParse = `${finalwordParse}G`;
@@ -2978,7 +2858,7 @@ function parseWorble() { // parse the worble save into colours
             } else if (worble_word.indexOf(guess_letter) >= 0) {    // letter exists somewhere
 
                 if (guess_many <= real_many) {
-                    db(`[WORBLE PARSE]: too many of ${guess_letter}!!!`);
+                    db(`[WORBLE PARSE]: too many of ${guess_letter}!!!`, "wb_green");
                     finalwordParse = `${finalwordParse}Y`;
                 } else {
                     finalwordParse = `${finalwordParse}A`;
@@ -3005,10 +2885,10 @@ function parseWorble() { // parse the worble save into colours
         
 
 
-        db(`[WORBLE PARSE]: pushing "${finalwordParse}" to word parse.`)
+        db(`[WORBLE PARSE]: pushing "${finalwordParse}" to word parse.`, "wb_green");
         finalParse.push(`${finalwordParse}`);
         if (finalwordParse.indexOf("Y") >= 0 || finalwordParse.indexOf("A") >= 0 || finalwordParse.indexOf("S") >= 0) {
-            db(`[WORBLE PARSE]: found incorrect characters in guess! you are not done!!!! haha!!!`); // i love bullying people on the internet /j
+            db(`[WORBLE PARSE]: found incorrect characters in guess! you are not done!!!! haha!!!`, "wb_green"); // i love bullying people on the internet /j
         } else {
             // its just geen
             worbleStatus(false);
@@ -3018,7 +2898,7 @@ function parseWorble() { // parse the worble save into colours
 
 
     }
-    db(`[WORBLE PARSE]: final parsed worble save: ${finalParse}`);
+    db(`[WORBLE PARSE]: final parsed worble save: ${finalParse}`, "wb_green");
     return finalParse
 }
 
@@ -3034,7 +2914,7 @@ function animWorble(worble_parsed) {
     for (i in worble_save) {
         var worble_guess = worble_save[i];
         var worble_guess_parsed = worble_parsed[i];
-        db(`[WORBLE ANIM]: animating word "${worble_guess}"`);
+        db(`[WORBLE ANIM]: animating word "${worble_guess}"`, "wb_green");
         
         for (i in worble_guess_parsed) {
 
@@ -3063,7 +2943,7 @@ function animWorble(worble_parsed) {
 }
 
 function saveWorbleStats(restarted) {
-    db(`[WORBLE STATS]: stats are being saved...`);
+    db(`[WORBLE STATS]: stats are being saved...`, "wb_green");
     if (worble_guesscount != 0) {
         worble_stats_games += 1;
         if (worble_stats_guesses == "" || worble_stats_guesses == undefined || worble_stats_guesses == null) {
@@ -3108,7 +2988,7 @@ function saveWorbleStats(restarted) {
 
 function newWorble(restart, custom_word) {  // sets up worble
     
-    db(`[WORBLE SETUP]: setup has been RUN`);
+    db(`[WORBLE SETUP]: setup has been RUN`, "wb_green");
     worble_guesscount = 0;              // resets guess count (quite important)
     worble_save = new Array();          // resets worble save
     saveWorble();                       // save changes
@@ -3124,15 +3004,15 @@ function newWorble(restart, custom_word) {  // sets up worble
     
     
     
-    db(`[WORBLE SETUP]: worble word that has been chosen is ${worble_word}`);
+    db(`[WORBLE SETUP]: worble word that has been chosen is ${worble_word}`, "wb_green");
     if (restart == true) {
-        db(`[WORBLE SETUP]: restart is set to true`);
+        db(`[WORBLE SETUP]: restart is set to true`, "wb_green");
         worble_startscreen = [
             `Worble game restarted!`,
             `Word length: ${worble_word.length} character(s)`
         ]
     } else {
-        db(`[WORBLE SETUP]: restart is set to not true`);
+        db(`[WORBLE SETUP]: restart is set to not true`, "wb_green");
         worble_startscreen = [
             `Worble game started!`,
             `Word length: ${worble_word.length} character(s)`
@@ -3145,11 +3025,11 @@ function newWorble(restart, custom_word) {  // sets up worble
 
 function guessWorble(guess) {
     worble_guesscount += 1;
-    db(`[WORBLE GUESS]: guessing ${guess}`);
+    db(`[WORBLE GUESS]: guessing ${guess}`, "wb_green");
     db(`${worble_save}`);
-    db(`[WORBLE GUESS]: before push: ${worble_save}`);
+    db(`[WORBLE GUESS]: before push: ${worble_save}`, "wb_green");
     worble_save.push(`${guess}`);
-    db(`[WORBLE GUESS]: after push: ${worble_save}`);
+    db(`[WORBLE GUESS]: after push: ${worble_save}`, "wb_green");
     saveWorble();
 
     animWorble(parseWorble())
@@ -3172,12 +3052,12 @@ function shareWorble(parsed) { // parse the worble save into colours
     for (i in parsed) {     // all the words
         var currentword = parsed[i];
         var currentletters = currentword.split("");
-        db(`[WORBLE SHARE]: parsing: ${currentword}`);
+        db(`[WORBLE SHARE]: parsing: ${currentword}`, "wb_green");
 
         var currentLine = "";
         for(i in currentletters) {
             var lettertm = currentletters[i];
-            db(`[WORBLE SHARE]: parsing: ${lettertm}`);
+            db(`[WORBLE SHARE]: parsing: ${lettertm}`, "wb_green");
 
             if (lettertm == "G") {
                 currentLine = `${currentLine}${worble_share_green}`;
@@ -3195,7 +3075,7 @@ function shareWorble(parsed) { // parse the worble save into colours
     }
 
     worble_share_finale = worble_raw_info.concat(final);
-    db(worble_share_finale);
+    db(worble_share_finale, "wb_green");
     copyArr(worble_share_finale);
 }
 
@@ -3242,33 +3122,33 @@ function historyIndex(moveamount) {
     }
 
     if (histLen == 0) {
-        db(`[HISTORY INDEX]: nothing in command history.`);
+        db(`[HISTORY INDEX]: nothing in command history.`, "weird purple");
         inHistory = false;
         commandIndex = 0;
         empty = true;
         beginning = false;
     } else if (commandIndex + moveamount < 0) {
-        db(`[HISTORY INDEX]: reached the beginning of command history`);
+        db(`[HISTORY INDEX]: reached the beginning of command history`, "weird purple");
         // if you move back to the current command (or into the negatives somehow)
         inHistory = false;
         commandIndex = 0;
         empty = false;
         beginning = true;
     } else if (commandIndex + moveamount >= histLen ) {
-        db(`[HISTORY INDEX]: reached the end of command history`);
+        db(`[HISTORY INDEX]: reached the end of command history`, "weird purple");
         // if you reach the end of the command history
         commandIndex = histLen - 1;
         inHistory = true;
         empty = false;
         beginning = false;
     } else if (commandIndex == 0 && inHistory == false) {
-        db(`[HISTORY INDEX]: starting to go through the list`);
+        db(`[HISTORY INDEX]: starting to go through the list`, "weird purple");
         currentCommand = shell.value;
         inHistory = true;
         empty = false;
         beginning = false;
     } else {
-        db(`[HISTORY INDEX]: moving throughout the list`);
+        db(`[HISTORY INDEX]: moving throughout the list`, "weird purple");
         // moving throughout the list
         empty = false;
         commandIndex += moveamount;
@@ -3285,7 +3165,7 @@ function historyIndex(moveamount) {
     }
 
 
-    db(`[HISTORY INDEX]: selected command: ${selected_command}, from index ${commandIndex}, current command: ${currentCommand}`);    
+    db(`[HISTORY INDEX]: selected command: ${selected_command}, from index ${commandIndex}, current command: ${currentCommand}`, "weird purple");    
 
     return selected_command;
 
@@ -3294,14 +3174,14 @@ function historyIndex(moveamount) {
 
 function historyPush() {
     // add command to the index
-    db(`[COMMAND HISTORY PUSH]: pushing command "${shell.value}" to command history.`);
+    db(`[COMMAND HISTORY PUSH]: pushing command "${shell.value}" to command history.`, "weird purple");
     commandHistory.unshift(`${shell.value}`);   // adds the command to the beginning of the array
 
 }
 
 function historyReset() {
     // reset the index to the last one in the array
-    db(`[COMMAND HISTORY RESET]: resetting command history back to 0.`)
+    db(`[COMMAND HISTORY RESET]: resetting command history back to 0.`, "weird purple")
     commandIndex = 0;
     inHistory = false;
 }
@@ -3313,7 +3193,7 @@ function replaceFromJson(string, json) {
         console.debug(`${key}: ${json[key]}`);
         workingString = workingString.replaceAll(`${key}`, `${json[key]}`);
     }
-    db(`translating finished, final message is "${workingString}"`);
+    db(`translating finished, final message is "${workingString}"`, "magenta");
     return `${workingString}`
 }
 
@@ -3355,6 +3235,7 @@ function setSongInfo(internal_name) {
     songArtist.innerHTML = song_artist;
     songName.innerHTML = song_name;
     songAlbum.innerHTML = song_album;
+    db(`updated song info:\nsong name: ${song_name}\nsong artist: ${song_artist}\nsong album: ${song_album}\nsong art: ${song_art}`, "magenta");
 }
 
 function updateScreenVars() {
@@ -3432,7 +3313,7 @@ function stringWidth(string, width, beginning, dots) {
 
 
 function generateTable(table, theme) {
-    db("GENERATING TABLE!!");
+    db("GENERATING TABLE!!", "orange");
     var use = table_themes["default"];
     var usename = "default";
     if (theme != undefined && theme != null && theme != "") {       // if it is set
@@ -3441,7 +3322,7 @@ function generateTable(table, theme) {
             usename = theme;
         }
     }
-    db(`using theme '${usename}'`);
+    db(`using table theme '${usename}'`, "orange");
     // titles is the list of titles on the top for all the columns, contents is the actual contents of the
     var col_widths = new Array();   // will store all the max width values for all the columns
     var raw_table = new Array();
@@ -3491,7 +3372,7 @@ function generateTable(table, theme) {
         for (o in coly["contents"]) {
             var entry = coly["contents"][o];
             raw_table[i].push(stringWidth(entry, widy, false, false));
-            console.debug(entry);
+            db(entry, "orange");
         }
     }
     // making top and bottom bit
@@ -3550,7 +3431,7 @@ function generateTable(table, theme) {
         }
     }
 
-    console.debug(final_table);
+    db(final_table, "orange");
     final_table += table_bottom;
     debubgall("FINAL:");
     //console.debug("widths: ", col_widths);
@@ -3672,17 +3553,17 @@ function stars() {
                     var rand_x = getRandomInt(0, canvas_width);     // get a random x coord
                     var rand_y = getRandomInt(0, canvas_height);    // get a random y coord
                     var twinkle_dur = getRandomInt(2, 12);           // get a random number from 2 to 6, that will be how many times the star remove twinkle will have to loop before its gone
-                    db(`NEW GENERATED STAR COORDS: ${rand_x}, ${rand_y}`);
+                    db(`NEW GENERATED STAR COORDS: ${rand_x}, ${rand_y}`, "purple");
                     // "500": {"t": ".", "x": 20, "y": 20, "s": 10, "o": 100}
                     var idtm = getIdTm([rand_x, rand_y]);
                     if (stars_save[idtm]) {
                         // is existent
-                        db("star value is existent!!");
+                        db("star value is existent!!", "purple");
                         if (stars_save[idtm]["t"] == ".") {
                             // already is a star
-                            db("star is already existent as a star!")
+                            db("star is already existent as a star!", "purple")
                         } else {
-                            db("replacing old star value!");
+                            db("replacing old star value!", "sizey");
                             stars_save[idtm] = {
                                 "t": ".",                           // the text that should be inside the coordinate
                                 "x": rand_x,                        // the x coordinate of the star
@@ -3704,7 +3585,7 @@ function stars() {
                                     stars_save[idtm]["o"] += change;
                                 } else {
                                     // if it is under zero
-                                    db(`${idtm} is at zero!!`);
+                                    db(`${idtm} is at zero!!`, "sizey");
                                     stars_save[idtm]["o"] = 0;
                                     stars_save[idtm]["t"] = " ";
                                     clearInterval(fadeTimer);
@@ -3713,7 +3594,7 @@ function stars() {
                             }, star_fade_speed);
                         }
                     } else {
-                        db("making new star value");
+                        db("making new star value", "blue1");
                         stars_save[idtm] = {
                             "t": ".",                           // the text that should be inside the coordinate
                             "x": rand_x,                        // the x coordinate of the star
@@ -3735,7 +3616,7 @@ function stars() {
                                 stars_save[idtm]["o"] += change;
                             } else {
                                 // if it is under zero
-                                db(`${idtm} is at zero!!`);
+                                db(`${idtm} is at zero!!`, "blue1");
                                 stars_save[idtm]["o"] = 0;
                                 stars_save[idtm]["t"] = " ";
                                 clearInterval(fadeTimer);
@@ -3942,7 +3823,7 @@ function compileLyrics() {
             var lyr_spit = lyr_lin.split("\t");
             var time1 = lyr_spit[0].split(".");
             var time1_1 = `${time1[1]}`.slice(0, -3)
-            var time1_final = `${time1[0]}${time1_1}`;
+            var time1_final = `${time1[0]}${time1_1}`;      // can i just say i have no idea what's going on here.... and i wrote this
             var time2 = lyr_spit[1].split(".");
             var time2_1 = `${time2[1]}`.slice(0, -3)
             var time2_final = `${time2[0]}${time2_1}`;
@@ -4028,7 +3909,7 @@ function startDog() {
     dog_elem.innerHTML = puppy[dog_outfit]["idle"];
     dog_timer = setInterval(() => {
         // dog animations here
-        db("current time in game: ", dogtime);
+        db(`current time in game: ${dogtime}`, "orange");
         shell.value = "press SPACE or ENTER to pet! press ESC to exit!";
         if (dog_anim_go == true) {
             if (dog_anim_index < dog_anim_len) {
@@ -4106,9 +3987,9 @@ function crypt(direction, text, cipher) {
         maptm = ciphers[cipher]["code"];
     }
 
-    console.debug(maptm);
+    db(maptm, "sizey");
 
-    console.debug(`STIRR'${str}'`);
+    db(`STIRR'${str}'`, "sizey");
 
     var re = new RegExp(Object.keys(maptm).join("|"),"gi");         // dont even ask because i don't know either
     str = str.replace(re, function(matched){
@@ -4287,7 +4168,7 @@ function parse_date() {
     var td_second = today.getSeconds();
     var td_ampm = "UNPARSED";
 
-    db(`current date: ${td_day}-${td_month}-${td_year} at ${td_hour}:${td_minute}:${td_second} ${td_ampm}`);
+    db(`current date: ${td_day}-${td_month}-${td_year} at ${td_hour}:${td_minute}:${td_second} ${td_ampm}`, "sizey");
 
     // parsing of variables
 
@@ -4322,7 +4203,7 @@ function parse_date() {
 
 
 
-    db(`parsed date: ${td_day}-${td_month}-${td_year} at ${td_hour}:${td_minute} ${td_ampm}`);
+    db(`parsed date: ${td_day}-${td_month}-${td_year} at ${td_hour}:${td_minute} ${td_ampm}`, "sizey");
 
     return {"day": `${td_day}`, "month": `${td_month}`, "year": `${td_year}`, "hour": `${td_hour}`, "minute": `${td_minute}`, "second": `${td_second}`, "ampm": `${td_ampm}`}
 }
@@ -4363,7 +4244,7 @@ function make_note_vis(note_name) {
     var widd = display_charsize[0] - 10;
     var hidd = display_charsize[1];
     //widd = widd - 20;
-    console.debug(widd);
+    db(widd, "sizey");
     var t1_ln = `"${nt.name}" created @ ${cre_date}`.length;
     var t2_ln = `by ${nt.author} modified @ ${mod_date}`.length;
     var t1_sp = widd - t1_ln;
@@ -4415,7 +4296,7 @@ function askNotificationPermission() {
   
     // Let's check if the browser supports notifications
     if (!('Notification' in window)) {
-        console.debug("This browser does not support notifications.");
+        db("This browser does not support notifications.", "lred");
     } else {
         if(checkNotificationPromise()) {
             Notification.requestPermission()
@@ -4920,7 +4801,25 @@ have a 50/50 chance of the squares being filled
 that should work hopefully
 */
 
+function getErrorObject(){
+    try { throw Error('') } catch(err) { return err; }
+}
 
+function test_get_line() {
+/*
+    var err = getErrorObject();
+    var caller_line = err.stack.split("\n")[4];
+    var index = caller_line.indexOf("at ");
+    var clean = caller_line.slice(index+2, caller_line.length);
+*/
+
+    var line_raw = (new Error).stack.split("\n")[1]
+
+    var change = line_raw.split("(")[1]
+    change = change.replace(")", "");
+    change = change.split("/")[3];
+    db(change);
+}
 
 //  .M.              %MMMMMMMM% .%MMMMMMM%. .%MMMMMMM%. +M                     +MMMMMMMMI MM       MM +MM.      M+  .%MMMMMM %MMMMMMMM% mmmmmmmmmm .%MMMMMMM%. +MM.      M+ .%MMMMMMM%.              .M.  
 // .M'M.             %MMMMMMMM% %MM%' '%MM% %MM%' '%MM% MM                     MMMMMMMMMI MM       MM MMMM.     MM .%MMMMMMM %MMMMMMMM% MMMMMMMMMM %MM%' '%MM% MMMM.     MM %MM%' '%MM%             .M'M. 
@@ -4934,7 +4833,7 @@ that should work hopefully
 //
 //
 //
-db("extra tool functions init finished...");
+db("extra tool functions init finished...", "init");
 
 
 
@@ -4994,7 +4893,7 @@ function crypt_tm(direction, text, cipher) {
 
 
 
-db("encryption functions init finished...");
+db("encryption functions init finished...", "init");
 
 //  .M.              +MMMMMMMMI +MM.      M+  .%MMMMMM +MMMMMMM%. MM    MM +MMMMMMM%. %MMMMMMMM% mmmmmmmmmm .%MMMMMMM%. +MM.      M+              .M.  
 // .M'M.             MMMMMMMMMI MMMM.     MM .%MMMMMMM MM+'  '+M% MM.  .MM MM+'  '+M% %MMMMMMMM% MMMMMMMMMM %MM%' '%MM% MMMM.     MM             .M'M. 
@@ -5009,7 +4908,7 @@ db("encryption functions init finished...");
 
 
 
-db("jQuery functions init finished...");
+db("jQuery functions init finished...", "init");
 
 //  .M.                     MMMM .%MMMMMMM%. MM       MM +MMMMMMMMI +MMMMMMM%. MM    MM             +MMMMMMMMI MM       MM +MM.      M+  .%MMMMMM %MMMMMMMM% mmmmmmmmmm .%MMMMMMM%. +MM.      M+ .%MMMMMMM%.              .M.  
 // .M'M.                    ''MM %MM%' '%MM% MM       MM MMMMMMMMMI MM+'  '+M% MM.  .MM             MMMMMMMMMI MM       MM MMMM.     MM .%MMMMMMM %MMMMMMMM% MMMMMMMMMM %MM%' '%MM% MMMM.     MM %MM%' '%MM%             .M'M. 
@@ -5222,7 +5121,7 @@ Press any key to continue.`;
 
 
 
-db("async command functions init finished...");
+db("async command functions init finished...", "init");
 
 
 //  .M.                  :MMMM:     .%MMMMMMM%. MM    MM +MM.      M+  .%MMMMMM             +MMMMMMMMI MM       MM +MM.      M+  .%MMMMMM %MMMMMMMM% mmmmmmmmmm .%MMMMMMM%. +MM.      M+ .%MMMMMMM%.              .M.  
@@ -5617,7 +5516,7 @@ music.addEventListener('timeupdate', (event) => {
 });
 */
 
-db("listeners added...");
+db("listeners added...", "init");
 
 cns_session_id += 1;
 localStorage.setItem("session id", cns_session_id);

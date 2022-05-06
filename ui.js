@@ -11705,7 +11705,18 @@ var rainbow = [
 var debubg_presets = {
     "def": "",
     "test": "color: #ff0000;",
-    "init": "color: #31d00e;"
+    "init": "color: #31d00e;",
+    "sizey": "color: #00fff9;",
+    "localstorage": "color: #009cff;",
+    "orange": "color: #ff8000;",
+    "magenta": "color: #eb21ff:",
+    "purple": "color: #8b1bf6;",
+    "git": "color: #238636;",
+    "lred": "color: #f61b30;",
+    "blue1": "color: #2ea9d2;",
+    "wb_green": "color: #b59f3b;",
+    "weird purple": "color: #f3346d;"
+
 }
 
 
