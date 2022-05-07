@@ -4874,7 +4874,7 @@ function crypt_tm(direction, text, cipher) {
     var re = new RegExp(Object.keys(maptm).join("|"),"gi");         // dont even ask because i don't know either
     str = str.replace(re, function(matched){
         db(matched);
-        debubgall(first);
+        //debubgall(first);
         var result = "";
         matched = matched.toLowerCase();
         if (maptm[matched]) {
