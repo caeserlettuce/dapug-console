@@ -11721,6 +11721,36 @@ var debubg_presets = {
 
 
 /*
+i wanna make a fancy nerd page thing
+
+yknow the cool hacker thing where it shows like a fake tmux window with all this text running down the sides
+
+i wanna do that
+
+but im tired
+
+so im just gonna put this on hold, and try to slep for a bit
+
+because sleep is needed
+
+so future jesse do this
+
+
+...please
+
+
+
+
+
+
+*/
+
+
+
+
+
+
+/*
 ▓▒░
 ▗▖▝▘▟▙▜▛▚▞▀▄█▐
 ▉▊▋▌▍▎▏
