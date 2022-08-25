@@ -7501,8 +7501,7 @@ var worble_words = [
 
 var worble_awful_words = [
     "neil cicierega aka lemon demon",
-    "the fitness gram pacer test is a multi stage aerobic capacity test that progressively gets more difficult as it continues.",
-    "hello world i guess"
+    "the fitness gram pacer test is a multi stage aerobic capacity test that progressively gets more difficult as it continues."
 ]
 
 var worble_info_1 = [
@@ -10014,7 +10013,6 @@ var p1_credits = [
     "Doug Wood",
     "Matt T. Wood",
     "Manika Wright",
-    "Xavier Wasmund",
     "Shawn Zabecki",
     "Torsten Zabka\n\n\n\n",
     "'Still Alive' by:",
@@ -10187,7 +10185,6 @@ var p2_credits = [
     "Isabelle Lemay",
     "Tom Leonard",
     "Justin Lesamiz",
-    "Xavier Ligenowski",
     "Jeff Lind",
     "Jon Lippincott",
     "Jane Lo",
