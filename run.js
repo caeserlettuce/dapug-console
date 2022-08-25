@@ -10,7 +10,7 @@ function parseCommand(command) {
         coopy = false;
 
         var copymaybe = command.slice(0, 5);
-        //debubg(copymaybe);
+        debubgall(copymaybe);
         debubg(`> ${command}`);
         if (copymaybe == "copy ") {
             coopy = true;
@@ -33,8 +33,8 @@ function parseCommand(command) {
         
         current_command = argCommand;
 
-        //debubg(command);
-        //debubg(command);
+        debubgall(command);
+        debubgall(command);
         if (command == "eef") { //lyrics should be done to this
             var marky = [ " ",
                 "MARK!                  ",
@@ -171,7 +171,7 @@ function parseCommand(command) {
             var colour = mmm[2];
             colour = `${colour}`.toLowerCase();  // for user easybility ™
             place = `${place}`.toLowerCase();
-            console.log(colour)
+            console.debug(colour)
             if (colour == "reset") {
                 if (place == "text") {
                     colour = "#7cfc00";
@@ -228,7 +228,7 @@ function parseCommand(command) {
                         "g": Math.abs(back_rgb.g - in_rgb.g),
                         "b": Math.abs(back_rgb.b - in_rgb.b)
                     }
-                    console.log(back_diff);
+                    console.debug(back_diff);
                     if (back_diff.r < 52 && back_diff.g < 52 && back_diff.b < 52) {
                         debubg("contrast is not contrasty enough to have the text be legible!!");
                         contrast = false;
@@ -239,7 +239,7 @@ function parseCommand(command) {
                         "g": Math.abs(text_rgb.g - in_rgb.g),
                         "b": Math.abs(text_rgb.b - in_rgb.b)
                     }
-                    console.log(text_diff);
+                    console.debug(text_diff);
                     if (text_diff.r < 52 && text_diff.g < 52 && text_diff.b < 52) {
                         debubg("contrast is not contrasty enough to have the text be legible!!");
                         contrast = false;
@@ -358,35 +358,252 @@ function parseCommand(command) {
         } else if (command == "ascii" || command == "ascii ") {
             parseCommand("man ascii");
         } else if (argCommand == "ascii") {
+            // new ascii code goes in here
+
             var mmm = argComm(commandInit);
-            var fonty = mmm[1];
-            debubg(mmm);
-            mmm.shift();
-            mmm.shift();
-            debubg(mmm);
-            var tata = "";
-            var yaya = mmm.length;
-            for (let i = 0; i < yaya; i++) {
-                tata = `${tata}${mmm[i]} `;
-            }
-            debubg(tata);
-            displayAnim("\n");
-            //displayAnim(`${tata}`, 20);
-            var asciifinal = asciiText(fonty, `${tata}`);
-            displayAnim(asciifinal, 0.1);
-
-            coopyIf(asciifinal);
-
-            coopy = false;
+            var font_name = [...mmm]
+            font_name.shift();
+            font_name = font_name.join(" "),
+            font_name = font_name.toLowerCase();
             
+            debubg(`font name to query: '${font_name}'`);
+
+
+            if (ascii_fonts[font_name]) {
+                // if the font exists in the font TM
+
+                displayAnim("\nwhat text would you like turned to ascii text?", 7);
+                askInput(() => {
+                    var output_text = asciiText(ascii_fonts[font_name], ask_return);
+                    async function he() {
+                        await displayAnim("\n");
+                        await displayAnim(output_text, 0.1);
+                        await displayAnim("\noutput has been copied to clipboard.");
+                    }
+                    he();
+                    copyFancy(output_text);
+                });
+                
+
+            } else if (custom_ascii_fonts[font_name]) {
+                // if it exists as a custom font
+                displayAnim("\nwhat text would you like turned to ascii text?", 7);
+                askInput(() => {
+                    var output_text = asciiText(custom_ascii_fonts[font_name], ask_return);
+                    async function he() {
+                        await displayAnim("\n");
+                        await displayAnim(output_text, 0.1);
+                        await displayAnim("\noutput has been copied to clipboard.");
+                    }
+                    he();
+                    copyFancy(output_text);
+                });
+
+
+            } else {
+                displayAnim("\ninvalid font name! check 'fonts' for a list of supported fonts.", 7);
+            }
+
+            
+        } else if (command == "font") {
+            parseCommand("man font");
+        } else if (command == "font list" || command == "fonts" || command == "fontlist") {
+
+            var fnt_tab = [
+                { "name": "id", "contents": [] },
+                { "name": "name", "contents": [] },
+                { "name": "author", "contents": [] }
+            ]
+            var cst_fnt_tab = [
+                { "name": "id", "contents": [] },
+                { "name": "name", "contents": [] },
+                { "name": "author", "contents": [] }
+            ]
+
+            for (i in ascii_fonts) {
+                fnt_tab[0]["contents"].push(`${i}`);
+                fnt_tab[1]["contents"].push(`${ascii_fonts[i]["name"]}`);
+                fnt_tab[2]["contents"].push(`${ascii_fonts[i]["author"]}`);
+            }
+            for (i in custom_ascii_fonts) {
+                cst_fnt_tab[0]["contents"].push(`${i}`);
+                cst_fnt_tab[1]["contents"].push(`${custom_ascii_fonts[i]["name"]}`);
+                cst_fnt_tab[2]["contents"].push(`${custom_ascii_fonts[i]["author"]}`);
+            }
+
+            async function boris_johnson() {
+                await displayAnim("\nbuilt-in fonts:\n", 1);
+                await displayAnim(generateTable(fnt_tab), 0.25);
+                await displayAnim("\n\ncustom fonts:\n", 1);
+                await displayAnim(generateTable(cst_fnt_tab), 0.25);
+            }
+            boris_johnson();
+
+            
+
+        } else if (command == "font import" || command == "font install") {
+            parseCommand("man font install");
+            // font install jazz font
+            // then it asks for the JSON
+            // that way it can check both databases from the name you inputted
+        } else if (command == "font export" || command == "font share") {
+            parseCommand("man font export");
+        } else if (argCommand == "font") {
+            var mmm = argComm(commandInit);
+            var operation = mmm[1];
+            var ending = [...mmm];
+            ending.shift();
+            ending.shift();
+            ending = ending.join(" ");
+            operation = operation.toLowerCase();
+            var end_low = ending.toLowerCase();
+            end_low = strip_symbols(end_low);
+
+            if (operation == "import" || operation == "install") {
+                font_install = end_low;
+                if (ascii_fonts[end_low] || custom_ascii_fonts[end_low]) {
+                    // it exists already
+                    displayAnim(`\nthe font '${end_low}' already exists!`);
+                } else {
+                    // ask for the json
+                    displayAnim("\nplease paste the custom font JSON below:", 7);
+                    askInput(() => {
+                        try {
+                            var jsomtm = JSON.parse(ask_return);
+                            var missing_json = new Array();
+                            var ew = false;
+                            if (!jsomtm["empty"]) {
+                                missing_json.push("empty");
+                                ew = true;
+                            }
+                            if (!jsomtm["unknown"]) {
+                                missing_json.push("unknown");
+                                ew = true;
+                            }
+                            if (!jsomtm["name"]) {
+                                missing_json.push("name");
+                                ew = true;
+                            } else if (typeof jsomtm["name"] != 'string') {
+                                throw new Error("key 'name' must be a string!");
+                                ew = true;
+                            }
+                            if (!jsomtm["author"]) {
+                                missing_json.push("author");
+                                ew = true;
+                            } else if (typeof jsomtm["author"] != 'string') {
+                                throw new Error("key 'author' must be a string!");
+                                ew = true;
+                            }
+                            if (ew == false) { // if those are all good
+                                var bad_keys = new Array();
+                                for (i in jsomtm) {
+                                    debubg(`checking '${i}'...`);
+                                    if (i != "name" && i != "author") { // literally everything else
+                                        if (Array.isArray(jsomtm[i]) != true ) {
+                                            // its not an array!!
+                                            bad_keys.push(`${i}`);
+                                        }
+                                    }
+                                }
+                                if (bad_keys.length != 0) {
+                                    var all_keys = "";
+                                    for (i in bad_keys) {
+                                        if (i == 0) {
+                                            all_keys += `'${bad_keys[i]}'`;
+                                        } else {
+                                            all_keys += `, '${bad_keys[i]}'`;
+                                        }
+                                    }
+                                    if (bad_keys.length == 1) {
+                                        throw new Error(`the key ${all_keys} must be an array!`);
+                                        ew = true;
+                                    } else {
+                                        throw new Error(`the keys ${all_keys} must be arrays!`);
+                                        ew = true;
+                                    }
+                                }
+                                if (ew == false) {
+                                    debubg("all good");
+                                    // do the font thing
+                                    custom_ascii_fonts[font_install] = jsomtm;
+                                    localStorage.setItem("custom ascii fonts", JSON.stringify(custom_ascii_fonts));
+                                    displayAnim(`\nfont '${font_install}' has been saved.`, 7);
+                                }
+                            }
+                            // MAKE IT SO IT CHECKS NAME AND AUTHOR AS A STRING, AND THAT ALL OTHER KEYS ARE ONLY ARRAYS!!!
+/*
+                            example unfinished json:    { "empty": "hello", "unknown": "no"}
+                                                        { "empty": ["he", "ha"], "unknown": "no"}
+                                                        { "empty": ["he", "ha"], "unknown": ["hoo", "ha"]}
+                                                        { "empty": "hello", "unknown": ["hoo", "ha"]}
+                                                        { "empty": "hello", "unknown": ["hoo", "ha"], "name": "hello!!", "author": "ur mom"}
+                                                        { "empty": "hello", "unknown": "hoo", "name": "hello!!", "author": "ur mom"}
+*/
+                            if (missing_json.length != 0) {
+                                // theres missing json
+                                var keys_tm_lmao = "";
+                                for (i in missing_json) {
+                                    if (i == 0) {
+                                        keys_tm_lmao += `'${missing_json[i]}'`;
+                                    } else {
+                                        keys_tm_lmao += `, '${missing_json[i]}'`;
+                                    }
+                                }
+                                throw new Error(`missing JSON keys: ${keys_tm_lmao}`);
+                            }
+                        } catch (err) {
+                            displayAnim(`\ninvalid font JSON! error code: '${err.message}'`, 7);
+                        }
+                    });
+                }
+
+            } else if (operation == "export" || operation == "share" ) {
+
+
+                if (ascii_fonts[end_low]) {
+                    copyclip(JSON.stringify(ascii_fonts[end_low]))
+                    displayAnim("\nfont exported and copied to clipboard.", 7);
+                } else if (custom_ascii_fonts[end_low]) {
+                    copyclip(JSON.stringify(custom_ascii_fonts[end_low]))
+                    displayAnim("\nfont exported and copied to clipboard.", 7);
+                } else {
+                    displayAnim(`\nthe font '${end_low}' does not exist!`, 7)
+                }
+                  
+            } else if (operation == "delete" || operation == "remove" || operation == "kill" || operation == "murder") {
+
+                if (ascii_fonts[end_low]) {
+                    displayAnim(`\nsorry, the font '${end_low}' is a built-in font, and cannot be removed.`);
+                } else if (custom_ascii_fonts[end_low]) {
+                    font_install = end_low;
+                    displayAnim(`\nare you sure you want to delete the font '${end_low}'? (y/n)`, 4);
+                    askInput(() => {
+                        if (yes_no(ask_return) == true) {   // yes
+                            delete custom_ascii_fonts[font_install];
+                            localStorage.setItem("custom ascii fonts", JSON.stringify(custom_ascii_fonts));
+                            displayAnim("\nfont deleted.", 7);
+                        } else {
+                            displayAnim("\nfont has not been deleted.", 7);
+                        }
+                    });
+
+                } else {
+                    displayAnim(`\nthe font '${end_low}' does not exist!`, 7);
+                }
+
+            } else {
+                displayAnim("\ninvalid operation! use 'man font' for help!", 7);
+            }
+
+
         } else if (command == "history") {
-            //debubg(commang);
+            debubgall(commang);
             displayAnim("\n");
             if (commandHistory.length > 0) {
                 var YAYA = commandHistory.slice(0);
                 YAYA.unshift("COMMAND HISTORY:");
                 displayAnim(YAYA, 5);
-                //debubg(commang);
+                debubgall(commang);
             } else {
                 displayAnim(`Command history is empty. type a command to make it not empty!`);
             }
@@ -417,10 +634,6 @@ function parseCommand(command) {
             
             displayAnim("\n");
             displayAnim(`${code}`, 20);
-        } else if (command == "font list") {
-            displayAnim(fomb, 5);
-        } else if (command == "copylist") {
-            displayAnim(cpoylist, 1);
         } else if(command == "copycomm") {
             displayAnim("\nplease include a command to copy!", 7) // this way it doesn't copy `undefined`
         } else if (argCommand == "copycomm") {
@@ -893,7 +1106,7 @@ function parseCommand(command) {
             for (i in keystm) {
                 var key = keystm[i];
                 var info = songs[key];
-                //console.log(info);
+                //console.debug(info);
                 var song = `${key}`;
                 var name = `${info["name"]}`;
                 var artist = `${info["artist"]}`;
@@ -926,16 +1139,16 @@ function parseCommand(command) {
             for (i in keystm) {                 // for all the keys in song (for all the songs in registry);
                 var key = keystm[i];
                 var info = songs[key];
-                //console.log(info);
+                //console.debug(info);
                 var song = `${key}`;
                 var name = `${info["name"]}`;
                 var artist = `${info["artist"]}`;
                 var album = `${info["album"]}`;
-                //console.log("before:");
-                //console.log(`'${song}'`);
-                //console.log(`'${name}'`);
-                //console.log(`'${artist}'`);
-                //console.log(`'${album}'`);
+                //console.debug("before:");
+                //console.debug(`'${song}'`);
+                //console.debug(`'${name}'`);
+                //console.debug(`'${artist}'`);
+                //console.debug(`'${album}'`);
                 if (song.length < songlen) {
                     var diff = songlen - song.length;
                     song = `${song}${" ".repeat(diff)}`;
@@ -968,11 +1181,11 @@ function parseCommand(command) {
                     var diff = albumlen - albumlabel.length;
                     albumlabel = `${albumlabel}${" ".repeat(diff)}`;
                 }
-                //console.log("after:");
-                //console.log(`'${song}'`);
-                //console.log(`'${name}'`);
-                //console.log(`'${artist}'`);
-                //console.log(`'${album}'`);
+                //console.debug("after:");
+                //console.debug(`'${song}'`);
+                //console.debug(`'${name}'`);
+                //console.debug(`'${artist}'`);
+                //console.debug(`'${album}'`);
                 songlist.push(song);       // add the song to the list
                 namelist.push(name);       // add the name to the list
                 artistlist.push(artist);       // add the artist to the list
@@ -1020,7 +1233,7 @@ function parseCommand(command) {
             fulllist.push("use 'music play [song id]' to play a song!");
             fulllist.push("and 'music volume [volume level]' to change the volume!");
             fulllist.push("(check 'music' for more options)");
-            //console.log(songlist);
+            //console.debug(songlist);
             displayAnim("\n");
             displayAnim(fulllist, 0.01);
 
@@ -1061,6 +1274,7 @@ function parseCommand(command) {
             if (isNaN(mmm[1]) == false) {
                 if (mmm[1] >= 0.1 && mmm[1] <= 20) {
                     sizemod = mmm[1];
+                    localStorage.setItem("zoom", sizemod);
                     sizeCheck();
                     displayAnim(`\nset font size to ${sizemod}`);
                 } else {
@@ -1121,11 +1335,11 @@ function parseCommand(command) {
             var table1 = generateTable(def_table, "default");
             var table2 = generateTable(cus_table, "default");
 
-            //console.log(def_table);
-            //console.log(cus_table);
+            //console.debug(def_table);
+            //console.debug(cus_table);
 
-            console.log(table1);
-            console.log(table2);
+            console.debug(table1);
+            console.debug(table2);
 
             themelist(table1, table2);
 
@@ -1219,7 +1433,7 @@ function parseCommand(command) {
 
                 if (nametm != "" && nametm != undefined && nametm != null) {
                 
-                    console.log(nametm);
+                    console.debug(nametm);
 
                     var broken = false;
                     // code redo (tm)
@@ -1437,7 +1651,7 @@ function parseCommand(command) {
                 adv_tab[2]["contents"].push(`${adventures[keys]["author"]}`);
                 adv_tab[3]["contents"].push(`${adventures[keys]["description"]}`);
             }
-            //console.log(adv_tab);
+            //console.debug(adv_tab);
 
             
             displayAnim(`\n${generateTable(adv_tab)}`, 0.25);
@@ -1475,7 +1689,7 @@ function parseCommand(command) {
 
             hehehaha = accspace(hehehaha.join(" "));
 
-            console.log(hehehaha);
+            console.debug(hehehaha);
 
             var result = "";
 
@@ -1504,7 +1718,7 @@ function parseCommand(command) {
 
             hehehaha = hehehaha.join(" ");
 
-            console.log(hehehaha);
+            console.debug(hehehaha);
 
             var result = "";
 
@@ -1787,7 +2001,7 @@ function parseCommand(command) {
                             "contents": ""
                         }
                     }
-                    console.log(note_to_add);
+                    console.debug(note_to_add);
                     displayAnim("\nwhat would you like to write in your note?", 7);
                     askInput(() => {
                         // doing the thing
@@ -2135,6 +2349,14 @@ function parseCommand(command) {
             throw new Error("ą̷̨͍̬̞̘͎̮͇̭̈́͂͋̓̈́̽̾̿̂̈́̋͘̚̚a̸̧̢̤͖̪̳̞̙̦͙̰͈̋̏͜a̵̛̞͎̺̲͑́̍̽̌̀̇̐́͘͝ͅa̴̛̦͐̆̍͌̓̂͠ą̴̲͓̃̌ą̶̢̞̞̰̳̜̗̙̯̦̄̉͜͜à̴̢̨͚͎̤̞͔̻̣̰͒͘̕͝a̵̢̨̻͓̬̗̥̓̽͆̀̔̈̉́̓̈̐̕̚̚a̴̯͖͕͓̞̩̪̮̣͎̼͙͐͌̍̃̐̄̃̐̇̀̊͂͘͝â̷̢͍̰̲͐̅͒̄̀̊͑̆̈́̊͝");
         } else if (command == "stonks") {
             displayAnim(stonks, 0.02);
+        } else if (command == "rainbow") {
+
+            rainbow_enabled == !rainbow_enabled;    // toggle it
+
+            displayAnim("\nrainbow", 7);
+        } else if (command == "life" || command == "game of life" || command == "conway game of life" || command == "conways game of life" || command == "conway's game of life") {
+            // conways game of life (idea courtesy of rowen)
+            gol_start();
         }
 
 
@@ -2149,8 +2371,13 @@ function parseCommand(command) {
 
 
     } catch (err) {
-        console.log("so console broke...");
+        console.debug("so console broke...");
         erry(err);
+        console.log(err);
+        for (i in err) {
+            console.log(err[i]);
+            console.log("a");
+        }
         
         bluescreen_page({"msg": err.message});
        
