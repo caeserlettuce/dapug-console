@@ -26,6 +26,15 @@ though this project had not *started* on github, the `info` command on the site 
 and it is currently march 29th, 2022
 
 
+
+# IMPORTANT!!!
+
+to get `debug -v` to work, the page needs to be running on a server!!
+
+a nice vscode extension i found for this is [this here](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer)
+
+
+
 ## TODO:
 
 - [ ] more framework overhauls

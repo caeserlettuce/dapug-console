@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="main.css">
   <link rel="icon" href="icon.png">
  
-  <body class="body" id="body">
+  <body class="body textsize" id="body">
 
     <style id="worble-colours">
       .worble-green {
@@ -53,20 +53,27 @@
         font-family: COURIERPRIME;
       }
     </style>
-
-    <style id="consy-height">
+    <style id="console-scale">
       .consy {
-        height: 90vh;
-      }      
+        height: 100vh;
+      }
+    </style>
+    
+    <style id="text-scale">
+
     </style>
 
+<!-- 
+    <pre id="consy-pre"><p id="consy" class="consy"><span id="CON_0" style="color: inherit;">console started. type 'issue' if you find any issues/errors with this page. type 'help' for help.</span></p></pre> -->
 
 
-    <pre id="consy-pre"><p id="consy" class="consy"><span id="CON_0" style="color: inherit;">console started. type 'issue' if you find any issues/errors with this page. type 'help' for help.</span></p></pre>
+    <pre class="consy" id="consy"><span id="CON_0" style="color: inherit;">console started. type 'issue' if you find any issues/errors with this page. type 'help' for help.</span></pre>
 
 
-    <div class="input">
-      <p class="consoleinput" id="consoleinputstyle">>  <input type="text" class="consoleinputbox" id="consoleinput" spellcheck="false" onblur="this.focus()" autofocus ></p>
+
+
+    <div class="input textsize" id="input-div">
+      <p class="consoleinput textsize" id="consoleinputstyle">>  <input type="text" class="consoleinputbox textsize" id="consoleinput" spellcheck="false" onblur="this.focus()" autofocus ></p>
     </div>
     <div class="debugwindow window" id="debub" style="display: none;">
       <div class="topbar" id="debubmouse"><strong style="margin-left: 10px; font-size: 15px;">debug<span style="margin-right: 375px;"></span><span onclick="toggleHideDebug()" style="padding: 5px;" class="clickymouse">_</span></strong></div>
@@ -107,17 +114,22 @@
       <p id="regtext" class="text-size-guide">h</p> <!-- DONT MAKE THIS DISPLAY:NONE!!! it has to exist or else console wont be able to get the text size-->
     </pre>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> <!-- oh god im using jquery now -->
+    <script src="jquery.min.js"></script> <!-- oh god im using jquery now -->
     <script>console.log("\\/ ignore this \\/");</script>
     <script src="setup.js"></script>
-    <script src="ver.js"></script>
     <script src="audio.js"></script>
     <script src="urlParams.js"></script> <!--library i made hahadashdhha-->
     <script src="debugwindow.js"></script>
     <script src="ui.js"></script>
+    <script src="DONT_PUSH/secrety.js"></script>
     <script src="init.js"></script>
-    <script src="snakegame.js"></script>
-    <script src="filesys.js"></script>
+
+    <!-- put all text adventure js files below here!!!! -->
+    <script src="adventure_test.js"></script>
+    
+    
+    
+    <!-- text adventure files shall not go below this line, but above it is okay-->
     <script src="run.js"></script>
     <script src="startup.js"></script>
     <script src="secret.js"></script>
