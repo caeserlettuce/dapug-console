@@ -356,7 +356,7 @@ var rainbow_enabled = false;
 var gol_set = {
     "speed": 500,
     "size": 20
-}
+};
 var gls = "."       // character to use to fill up empty space
 var gol_active = false;
 var gol_lock = false;
@@ -364,7 +364,8 @@ var gol_save = new Array();
 var gol_extra = new Object();
 var gol_gen = 0;
 var gol_int;
-var gol_chance = [0, 1]
+var gol_chance = [0, 1];
+var default_rem = 1.10;
 
 
 db("variable init finished...", "init");
@@ -1123,32 +1124,40 @@ function scrolly(elf, force) {
 db("scrolly init finished...", "init");
 
 function sizeCheck() {
+    
     updateScreenVars();
     if (windowWidth > windowHeight) {
         // if on landscape
         orientation = "landscape";
         aspectratio = windowWidth / windowHeight;
-        document.getElementById("body").style.fontSize = `${aspectratio * sizemod}vh`;
+        /*document.getElementById("body").style.fontSize = `${aspectratio * sizemod}vh`;
         document.getElementById("regtext").style.fontSize = `${aspectratio * sizemod}vh`;
         document.getElementById("consoleinputstyle").style.fontSize = `${1.25 * aspectratio * sizemod}vh`;
         document.getElementById("consoleinput").style.fontSize = `${1.25 * aspectratio * sizemod}vh`;
-        document.getElementById("consy-height").innerHTML = `.consy { height: ${ windowHeight - ( document.getElementById("consoleinput").clientHeight + 35)}px; }`;
+        document.getElementById("consy-height").innerHTML = `.consy { height: ${ windowHeight - ( document.getElementById("consoleinput").clientHeight + 35)}px; }`;*/
     } else if (windowWidth < windowHeight) {
         // if on portrait
         orientation = "portrait";
         aspectratio = windowHeight / windowWidth;
-        document.getElementById("body").style.fontSize = `${2 * aspectratio * sizemod}vw`;
+        /*document.getElementById("body").style.fontSize = `${2 * aspectratio * sizemod}vw`;
         document.getElementById("regtext").style.fontSize = `${2 * aspectratio * sizemod}vw`;
         document.getElementById("consoleinputstyle").style.fontSize = `${2.25 * aspectratio * sizemod}vw`;
         document.getElementById("consoleinput").style.fontSize = `${2.25 * aspectratio * sizemod}vw`;
-        document.getElementById("consy-height").innerHTML = `.consy { height: ${ windowHeight - ( document.getElementById("consoleinput").clientHeight + 35)}px; }`;
+        document.getElementById("consy-height").innerHTML = `.consy { height: ${ windowHeight - ( document.getElementById("consoleinput").clientHeight + 35)}px; }`;*/
     }
 
     db(orientation, "sizey");
 
+    vis_inputheight = document.getElementById("consoleinput").clientHeight;
+
+    document.getElementById("consy").style.height = `calc(100vh - ${vis_inputheight + 30 }px )`
+
+    console.log(vis_inputheight)
 
     vis_consywidth = inHorizViewport($('#consy'));
     vis_consyheight = inVertiViewport($('#consy'));
+
+    document.getElementById("text-scale").innerHTML = `.textsize {font-size: ${default_rem * sizemod}rem;}`;
 
 
     display_textsize[0] = document.getElementById("regtext").clientWidth;
@@ -1549,7 +1558,7 @@ async function displayUser(message, userin) {
 
 
     displayNewline();
-    displayAnim(`${userfor}@dapug.lol> ${message}`, 0, colour);
+    displayAnim(`[${userfor}@dapug.lol]: ${message}`, 0, colour);
     scrolly("consy");
 }
 
@@ -5275,6 +5284,8 @@ setColour(textcolour, true, backcolour, true, accycolour, true);
 if (sfx == true) {
     ambient_audio();
 }
+
+setTimeout(sizeCheck(), 200);
 
 /*
  EXAMPLE INLINE FNCTIONS WHERE THEY ONLY rUN ONE THING AT A TIME INSTEAD OF EVERYTHING RUNNING AT HE SAME TIME

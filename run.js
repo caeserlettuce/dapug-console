@@ -1275,7 +1275,11 @@ function parseCommand(command) {
                 if (mmm[1] >= 0.1 && mmm[1] <= 20) {
                     sizemod = mmm[1];
                     localStorage.setItem("zoom", sizemod);
+
                     sizeCheck();
+
+                    setTimeout(sizeCheck(), 200);
+
                     displayAnim(`\nset font size to ${sizemod}`);
                 } else {
                     displayAnim("\nplease enter a value between 0.1 and 20!");
@@ -2357,6 +2361,8 @@ function parseCommand(command) {
         } else if (command == "life" || command == "game of life" || command == "conway game of life" || command == "conways game of life" || command == "conway's game of life") {
             // conways game of life (idea courtesy of rowen)
             gol_start();
+        } else if (command == "loss") {
+            displayAnim(loss, 10);
         }
 
 

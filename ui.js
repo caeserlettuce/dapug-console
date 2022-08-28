@@ -10700,13 +10700,6 @@ var themes = {      // console colour themes
         "back colour": "#0d1117",
         "accy colour": "#238636"
     },
-    "scarlet": {
-        "name": "Scarlet",
-        "author": "18gallons",
-        "text colour": "#FF2400",
-        "back colour": "#240000",
-        "accy colour": "#7e1200"
-    },
     "amethyst": {
         "name": "Amethyst",
         "author": "18gallons",
@@ -10847,6 +10840,13 @@ var themes = {      // console colour themes
         "back colour": "#4a7801",
         "accy colour": "#54ab16"
     },
+    "tweezer": {
+        "name": "Tweezer",
+        "author": "18gallons",
+        "text colour": "#002834",
+        "back colour": "#018dca",
+        "accy colour": "#d4adb2"
+    }
 }
 
 /*
@@ -11944,6 +11944,11 @@ var stonks = `
 █████▄▀██████████████████████▀██████████████▀    ▀▄▄▀     █         █     ▄▄▄▄▄▀▀▀▀▀
 ███████▄▄▄▀▀▀▀███████████████▄▀████████████▀       ▀       █    ▄▄▄▄█▀▀▀▀▀
 `;
+
+var loss = `
+█    █ ▄
+
+█ █  █▄▄`
 
 var rainbow = [
     "#e40303",
