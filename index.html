@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="main.css">
   <link rel="icon" href="icon.png">
  
-  <body class="body" id="body">
+  <body class="body textsize" id="body">
 
     <style id="worble-colours">
       .worble-green {
@@ -53,19 +53,27 @@
         font-family: COURIERPRIME;
       }
     </style>
-
-    <style id="consy-height">
+    <style id="console-scale">
       .consy {
-        height: 90vh;
-      }      
+        height: 100vh;
+      }
+    </style>
+    
+    <style id="text-scale">
+
     </style>
 
+<!-- 
+    <pre id="consy-pre"><p id="consy" class="consy"><span id="CON_0" style="color: inherit;">console started. type 'issue' if you find any issues/errors with this page. type 'help' for help.</span></p></pre> -->
 
-    <pre id="consy-pre"><p id="consy" class="consy"><span id="CON_0" style="color: inherit;">console started. type 'issue' if you find any issues/errors with this page. type 'help' for help.</span></p></pre>
+
+    <pre class="consy" id="consy"><span id="CON_0" style="color: inherit;">console started. type 'issue' if you find any issues/errors with this page. type 'help' for help.</span></pre>
 
 
-    <div class="input" id="input-div">
-      <p class="consoleinput" id="consoleinputstyle">>  <input type="text" class="consoleinputbox" id="consoleinput" spellcheck="false" onblur="this.focus()" autofocus ></p>
+
+
+    <div class="input textsize" id="input-div">
+      <p class="consoleinput textsize" id="consoleinputstyle">>  <input type="text" class="consoleinputbox textsize" id="consoleinput" spellcheck="false" onblur="this.focus()" autofocus ></p>
     </div>
     <div class="debugwindow window" id="debub" style="display: none;">
       <div class="topbar" id="debubmouse"><strong style="margin-left: 10px; font-size: 15px;">debug<span style="margin-right: 375px;"></span><span onclick="toggleHideDebug()" style="padding: 5px;" class="clickymouse">_</span></strong></div>
@@ -105,9 +113,6 @@
     <pre>
       <p id="regtext" class="text-size-guide">h</p> <!-- DONT MAKE THIS DISPLAY:NONE!!! it has to exist or else console wont be able to get the text size-->
     </pre>
-
-    <canvas id="image-canvas" width="100" height="100" style="position: absolute; top: 0px; left: 0px; image-rendering: pixelated;"></canvas>
-    <img id="image-load">
 
     <script src="jquery.min.js"></script> <!-- oh god im using jquery now -->
     <script>console.log("\\/ ignore this \\/");</script>

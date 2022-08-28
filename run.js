@@ -1275,7 +1275,11 @@ function parseCommand(command) {
                 if (mmm[1] >= 0.1 && mmm[1] <= 20) {
                     sizemod = mmm[1];
                     localStorage.setItem("zoom", sizemod);
+
                     sizeCheck();
+
+                    setTimeout(sizeCheck(), 200);
+
                     displayAnim(`\nset font size to ${sizemod}`);
                 } else {
                     displayAnim("\nplease enter a value between 0.1 and 20!");

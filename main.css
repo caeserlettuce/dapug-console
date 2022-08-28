@@ -22,7 +22,7 @@ strong {
   background-color: black;
   color: #7cfc00;
   font-family: MSDOS, monospace;
-  font-size: 1vw;
+  font-size: 1.10rem;
   /*overflow-x: hidden;*/
   overflow-x: hidden;
   overflow-y: hidden;
@@ -45,6 +45,7 @@ strong {
   bottom: 20px;
   margin-bottom: 0px;
   width: 100vw;
+  font-size: 1.10rem;
   z-index: 15;
   
 }
@@ -58,6 +59,7 @@ strong {
   margin-left: 10px;
   width: 96vw;
   z-index: 15;
+  font-size: 1.10rem;
   /*caret-color: transparent;*/
 }
 
