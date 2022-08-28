@@ -2363,6 +2363,12 @@ function parseCommand(command) {
             gol_start();
         } else if (command == "loss") {
             displayAnim(loss, 10);
+        } else if (command == "askew") {
+            // google askew funny hahahhah a hhha h h hha a hA
+
+            document.body.style.transform = `rotate(3deg) translateX(${windowHeight / 19.10732}px)`;
+
+
         }
 
 

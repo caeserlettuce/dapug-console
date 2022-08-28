@@ -28,6 +28,7 @@ strong {
   overflow-y: hidden;
   /*overflow-wrap: break-word;*/
   white-space: normal;
+  transform-origin: top left;
 }
 
 ::-webkit-scrollbar {

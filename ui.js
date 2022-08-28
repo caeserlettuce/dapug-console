@@ -6911,6 +6911,8 @@ var listy = [ " ",
     "conway game of life",
     "conways game of life",
     "conway's game of life",
+    "loss",
+    "askew",
 
     "* command is currently in-development and may break the site."
 ]; 
@@ -9414,7 +9416,7 @@ songs = {
         "artist": "dough emergency",
         "album": "MEMORY HOARDER",
         "art": "https://dapug.lol/music/vis/render-cycles.png",
-        "audio": "https://dapug.lol/music/memory_hoarder/audio/03.mp3",
+        "audio": "mealthyme.mp3",
         "volume": 1,
         "lyrics": [
             {"text": `
