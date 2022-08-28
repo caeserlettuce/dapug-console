@@ -477,7 +477,7 @@ notes = JSON.parse(local_storage("notes", "{}"));
 debugvar_size = parseInt(local_storage("debug var size", 5));
 encryption_key = JSON.parse(local_storage("encryptionkey", "{}"));
 cns_session_id = parseInt(local_storage("session id", 0));
-sfx = parseBool(local_storage("sfx", "true"));
+sfx = parseBool(local_storage("sfx", "false"));
 bluescreening = parseBool(local_storage("bluescreening", 'true'))
 snake_highscore = parseInt(local_storage("snake highscore", '0'));
 sizemod = Number(local_storage("zoom", '1'));
@@ -1073,6 +1073,7 @@ db("debug window init finished...", "init");
 
 function copyclip(idiot) {
     navigator.clipboard.writeText(idiot);
+    
 }
 
 function copyArr(arr) {
