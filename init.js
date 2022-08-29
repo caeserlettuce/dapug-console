@@ -366,6 +366,10 @@ var gol_gen = 0;
 var gol_int;
 var gol_chance = [0, 1];
 var default_rem = 1.10;
+var si_sv_sc = 0;
+var p1c_sv_sc = 0;
+var p2c_sv_sc = 0;
+var p1a_sv_sc = 0;
 
 
 db("variable init finished...", "init");
@@ -482,6 +486,7 @@ bluescreening = parseBool(local_storage("bluescreening", 'true'))
 snake_highscore = parseInt(local_storage("snake highscore", '0'));
 sizemod = Number(local_storage("zoom", '1'));
 custom_ascii_fonts = JSON.parse(local_storage("custom ascii fonts", "{}"));
+music_volume = local_storage("music volume", 1)
 //music_volume = local_storage("music volume", 1)
 console.debug(textadventures_saves);
 //textadventures_saves = textadventures_saves);
@@ -698,10 +703,20 @@ function toggleHideDebugVar() {
     }
 }
 */
+
+
 function toggleHideSongInfo() {
     if (debugHideSonginfo == false) {
         debugHideSonginfo = true;
         db("debugHideSonginfo is soooo true now");
+
+        var diff = scrollDifference(document.getElementById("songinfo"));
+        if (diff <= autoscroll_buffer) {
+            si_sv_sc = "auto"
+        } else {
+            si_sv_sc = document.getElementById("songinfo").scrollTop
+        }
+
         document.getElementById("songpeepvar").style.display = "none";
         document.getElementById("songinfo").style.height = "30px";
     } else {
@@ -709,6 +724,13 @@ function toggleHideSongInfo() {
         db("debugHideSonginfo is false now");
         document.getElementById("songpeepvar").style.display = "";
         document.getElementById("songinfo").style.height = "130px";
+
+        if (si_sv_sc != "auto") {
+            document.getElementById("songinfo").scrollTo(0, si_sv_sc);
+        } else {
+            document.getElementById("songinfo").scrollTo(0, document.getElementById("songinfo").scrollHeight);
+        }
+        
     }
 }
 
@@ -716,6 +738,14 @@ function toggleHideP1Cred() {
     if (debugHideP1Cred == false) {
         debugHideP1Cred = true;
         db("debugp1 is soooo true now");
+
+        var diff = scrollDifference(document.getElementById("p1cred"));
+        if (diff <= autoscroll_buffer) {
+            p1c_sv_sc = "auto"
+        } else {
+            p1c_sv_sc = document.getElementById("p1cred").scrollTop
+        }
+
         document.getElementById("p1creed").style.display = "none";
         document.getElementById("p1cred").style.height = "30px";
     } else {
@@ -723,25 +753,54 @@ function toggleHideP1Cred() {
         db("debugp1 is false now");
         document.getElementById("p1creed").style.display = "";
         document.getElementById("p1cred").style.height = "420px";
+
+        if (p1c_sv_sc != "auto") {
+            document.getElementById("p1cred").scrollTo(0, p1c_sv_sc);
+        } else {
+            document.getElementById("p1cred").scrollTo(0, document.getElementById("p1cred").scrollHeight);
+        }
+        
     }
 }
 function toggleHideP2Cred() {
     if (debugHideP2Cred == false) {
         debugHideP2Cred = true;
         db("debugHideSonginfo is soooo true now");
+
+        var diff = scrollDifference(document.getElementById("p2cred"));
+        if (diff <= autoscroll_buffer) {
+            p2c_sv_sc = "auto"
+        } else {
+            p2c_sv_sc = document.getElementById("p2cred").scrollTop
+        }
+
         document.getElementById("p2creed").style.display = "none";
         document.getElementById("p2cred").style.height = "30px";
     } else {
         debugHideP2Cred = false;
         db("debugHideSonginfo is false now");
         document.getElementById("p2creed").style.display = "";
-        document.getElementById("p2cred").style.height = "420px";
+        document.getElementById("p2cred").style.height = "80vh";
+        
+        if (p2c_sv_sc != "auto") {
+            document.getElementById("p2cred").scrollTo(0, p2c_sv_sc);
+        } else {
+            document.getElementById("p2cred").scrollTo(0, document.getElementById("p2cred").scrollHeight);
+        }
     }
 }
 function toggleHideP1Ascii() {
     if (debugHideP1Ascii == false) {
         debugHideP1Ascii = true;
         db("debugHideSonginfo is soooo true now");
+
+        var diff = scrollDifference(document.getElementById("p1ascii"));
+        if (diff <= autoscroll_buffer) {
+            p1a_sv_sc = "auto"
+        } else {
+            p1a_sv_sc = document.getElementById("p1ascii").scrollTop
+        }
+
         document.getElementById("p1aascii").style.display = "none";
         document.getElementById("p1ascii").style.height = "30px";
     } else {
@@ -749,6 +808,12 @@ function toggleHideP1Ascii() {
         db("debugHideSonginfo is false now");
         document.getElementById("p1aascii").style.display = "";
         document.getElementById("p1ascii").style.height = "420px";
+        
+        if (p1a_sv_sc != "auto") {
+            document.getElementById("p1ascii").scrollTo(0, p1a_sv_sc);
+        } else {
+            document.getElementById("p1ascii").scrollTo(0, document.getElementById("p1ascii").scrollHeight);
+        }
     }
 }
 
@@ -1151,7 +1216,7 @@ function sizeCheck() {
 
     document.getElementById("consy").style.height = `calc(100vh - ${vis_inputheight + 30 }px )`
 
-    console.log(vis_inputheight)
+    //console.log(vis_inputheight)
 
     vis_consywidth = inHorizViewport($('#consy'));
     vis_consyheight = inVertiViewport($('#consy'));
@@ -4442,20 +4507,25 @@ function checkNotificationPromise() {
 }
 
 function send_notif(in_json) {
-    if (in_json) {
-        if (!in_json.title) {
-            in_json.title = "CONSOLE";
+    try {
+        if (in_json) {
+            if (!in_json.title) {
+                in_json.title = "CONSOLE";
+            }
+            if (!in_json.text) {
+                in_json.text = "this is a notification!!!";
+            }
+            if (!in_json.icon) {
+                in_json.icon = "icon.png";
+            }
+            var notification = new Notification(in_json.title, { body: in_json.text, icon: in_json.icon });
+        } else {
+            erry("you didnt input any notification json you idiot!!");
         }
-        if (!in_json.text) {
-            in_json.text = "this is a notification!!!";
-        }
-        if (!in_json.icon) {
-            in_json.icon = "icon.png";
-        }
-        var notification = new Notification(in_json.title, { body: in_json.text, icon: in_json.icon });
-    } else {
-        erry("you didnt input any notification json you idiot!!");
+    } catch (err) {
+        console.err("no")
     }
+    
 }
 
 function moyai() {
@@ -5285,6 +5355,8 @@ if (sfx == true) {
 }
 
 setTimeout(sizeCheck(), 200);
+
+window.scrollTo(0, 0);  // askew breaks scrolling for some reason
 
 /*
  EXAMPLE INLINE FNCTIONS WHERE THEY ONLY rUN ONE THING AT A TIME INSTEAD OF EVERYTHING RUNNING AT HE SAME TIME

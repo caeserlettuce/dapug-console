@@ -10,6 +10,10 @@ dogsong.loop = true;
 
 function playMusic(internal_name) {
     if (songs[internal_name]) {
+
+        var volFactor = 1 - music_volume
+        
+        
         var url = songs[internal_name]["audio"];
         var vol = songs[internal_name]["volume"];
 

@@ -5167,8 +5167,21 @@ var ascii_fonts = {
 */
 
 
-
 var custom_ascii_fonts = new Object();
+
+// ascii fonts
+//  .M.                                                                                              
+// .M'M.                                                                                             
+// M' 'M                                                                                             
+//                                           MM MM             .MMMMM                   MM           
+//                   .MMMMM. .MMMMM. .MMMMM.                   MM'            mm....  MMMMMM .MMMMM. 
+//                   '   'MM MM'   ' MM' 'MM MM MM             MMMMM  .MMMMM. MMMMMM.   MM   MM'   ' 
+//                   .MMMMMM 'MMMMM. MM      MM MM             MM'''  MM' 'MM MM''%MM   MM   'MMMMM. 
+//                   MM. .MM .   .MM MM. .MM MM MM             MM     MM. .MM MM  'MM   MM   .   .MM 
+//                   'MMMMM' 'MMMMM' 'MMMMM' MM MM             MM     'MMMMM' MM   MM   MM   'MMMMM' 
+
+
+
 
 
 var aboot = [
@@ -5408,6 +5421,23 @@ var githubText = [
 "%MM%. .%MM% MM   MM   MM      MM MM. .MM MM. .MM",
 "'%MMMMMMM%' MM   MM   MM      MM 'MMMMM' 'MMMMM'",
 ]
+
+//   .M.                                                                                                                    
+//  .M'M.                                                                                                                   
+//  M' 'M                                                                                       MM                          
+//                                            MM MM                                     .MMMMM. MM       MM                 
+//                    .MMMMM. .MMMMM. .MMMMM.                   .MMMMM. mm.MMM. .MMMMM. MM' 'MM MM.....     .MMMMM. .MMMMM. 
+//                    '   'MM MM'   ' MM' 'MM MM MM             MM: :MM MMMM'MM '   'MM MM. .MM MMMMMM%. MM MM' 'MM MM'   ' 
+//                    .MMMMMM 'MMMMM. MM      MM MM             'MMMMMM MM'     .MMMMMM MMMMMM' MM'''%MM MM MM      'MMMMM. 
+//                    MM. .MM .   .MM MM. .MM MM MM             .    .M MM      MM. .MM MM      MM   'MM MM MM. .MM .   .MM 
+//                    'MMMMM' 'MMMMM' 'MMMMM' MM MM             'MMMMM' MM      'MMMMM' MM      MM    MM MM 'MMMMM' 'MMMMM' 
+
+
+
+
+
+
+
 var aboot2 = [
     "        ",
     "USE 'help' TO GET COMMAND HELP",
@@ -7909,6 +7939,20 @@ var uwu_translate = {
 
 var infotm = new Array();
 
+// texts
+//  .M.                                                    
+// .M'M.                                                   
+// M' 'M                                                   
+//                     MM                     MM           
+//                   MMMMMM .MMMMM. MM. .MM MMMMMM .MMMMM. 
+//                     MM   MM: :MM 'MM.MM'   MM   MM'   ' 
+//                     MM   MMMMMM'  'MMM'    MM   'MMMMM. 
+//                     MM   MM.   . .MM'MM.   MM   .   .MM 
+//                     MM   'MMMMM' MM' 'MM   MM   'MMMMM' 
+
+
+
+
 var songs = new Object();
 
 
@@ -9816,19 +9860,13 @@ https://cdn.discordapp.com/attachments/960729059829096580/965363134170800219/Lem
 https://cdn.discordapp.com/attachments/960729059829096580/965363134749626368/Lemon_Demon_-_When_He_Died.mp3
 
 
-*/
 // if you just want javascript to run at a specific time without any lyrics, just set "text" to false, without quotes, but still have the times and then ofcourse set "exec" to the javascript you want run
 
-
-/*
 ,
 {"text": "\n", "dur": [, ]}
 
 ", "dur": [, ]},
 {"text": "\n
-
-
-
 ,
     "": {
         "name": "",
@@ -9845,6 +9883,20 @@ https://cdn.discordapp.com/attachments/960729059829096580/965363134749626368/Lem
 
     
 */
+
+// lyrics
+//  .M.                                                    
+// .M'M.                                                   
+// M' 'M             MM                                    
+//                   MM                 MM                 
+//                   MM MM   MM mm.MMM.    .MMMMM. .MMMMM. 
+//                   MM MM. .MM MMMM'MM MM MM' 'MM MM'   ' 
+//                   MM 'MMMMMM MM'     MM MM      'MMMMM. 
+//                   MM .    .M MM      MM MM. .MM .   .MM 
+//                   MM 'MMMMM' MM      MM 'MMMMM' 'MMMMM' 
+
+
+
 
 
 
@@ -11834,6 +11886,19 @@ var queues = {
     },
 
 */
+
+// queues playlists
+//  .M.                                                              
+// .M'M.                                                             
+// M' 'M                                                             
+//                   .MMMMM.                                         
+//                   MM' 'MM         .MMMMM.         .MMMMM. .MMMMM. 
+//                   MM. .MM MM   MM MM: :MM MM   MM MM: :MM MM'   ' 
+//                   'MMMMMM MM   MM MMMMMM' MM   MM MMMMMM' 'MMMMM. 
+//                        MM MM. .MM MM.   . MM. .MM MM.   . .   .MM 
+//                        MM 'MMMMM' 'MMMMM' 'MMMMM' 'MMMMM' 'MMMMM' 
+
+
 
 var known_words = {
     "yes": [
