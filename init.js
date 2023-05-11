@@ -170,10 +170,12 @@ var startup = false; // REMEMBER TO SET TO TRUE LATER (haha now its automatic);
 var autocommand_wait = false;
 var worble_status = false;
 var worble_colourblind = false;
+var worble_awful = false;
 var worble_word = "";
 var worble_word_id = 0;
 var worble_randomvalue = 0;
 var worble_save = [];
+var worble_displaysave = [];
 var worble_guesscount = 0;
 var worble_wordslength = 0;
 var worble_gray = "#3a3a3c";
@@ -2701,24 +2703,18 @@ function getRandomInt(min, max) {
 function getWorbleWord() {
     // gets random element from array
 
-    worble_randomvalue = getRandomInt(0,5);
     var hehe = "";
-    if (worble_randomvalue == 1) {
-        // local words
-        var id = Math.floor(Math.random()* worble_awful_words.length);
-        worble_word_id = `${id}`;
-        var hehe = worble_awful_words[id];
-        worble_wordslength = worble_awful_words.length;
-    } else {
-        // local words
-        var id = Math.floor(Math.random()* worble_words.length);
-        worble_word_id = `${id}`;
-        var hehe = worble_words[id];
-        worble_wordslength = worble_words.length;
 
+    var word_list = [...worble_words]
 
+    if (worble_awful == true) { // if awful words are enabled, add the awful words to the list
+        db(`worble awful words are enabled.`)
+        word_list = [...worble_words, ...worble_awful_words]    // combine the two
     }
-
+    var id = Math.floor(Math.random()* word_list.length);
+    worble_word_id = `${id}`;
+    var hehe = word_list[id];
+    worble_wordslength = word_list.length;
 
     return hehe
 
@@ -2817,140 +2813,120 @@ function loadWorble() { //load worble
     return tempSave
 }
 
-function parseWorble() { // parse the worble save into colours
+var worb_save_test = [
+    [
+        {"letter": "s", "status": 0},
+        {"letter": "u", "status": 1},
+        {"letter": "s", "status": 2}
+    ],
+    [
+        {"letter": "a", "status": 2},
+        {"letter": "n", "status": 1},
+        {"letter": "t", "status": 0},
+    ]
+]
+
+
+function parseWorble() {
+    var displaysave_append = new Array();
     db(`[WORBLE PARSE]: parsing worble...`, "wb_green");
-    var finalParse = [];
-    for (i in worble_save) {                                    // for every word in the worble save
-        var currentwordguess = `${worble_save[i]}`;             // choose the word from the save
-        db(`[WORBLE PARSE]: parsing word "${currentwordguess}" from worble save`, "wb_green");
-        // why did it have to be him [james marriott]
-        var currentguessletters = `${currentwordguess}`.split("");   // split the word guess into an array
-        var currentletters = `${worble_word}`.split("");             // same as above but for the actual word
-        var finalwordParse = "";
+    var guessed_word = worble_save[worble_save.length - 1];
+    db(`parsing guessed word "${guessed_word}"!`);
+    var current_guess_letters = `${guessed_word}`.split("");
+    var current_letters = `${worble_word}`.split("");
 
-        debubgall(currentguessletters);
-        debubgall(currentletters);
+    var jsontm_real = new Object();                         // will hold key/value pairs for the letters and their counters n stuff
+    var jsontm_guess = new Object();
+
+    var incorrect_amount = 0; // amount of incorrect letters
+
+    for (i in current_letters) {
+        var real_letter = current_letters[i];
+        var guess_letter = current_guess_letters[i];
+        var real_many = howMany(`${worble_word}`, `${real_letter}`);
+        var guess_many = howMany(`${guessed_word}`, `${guess_letter}`);
+        db(`[WORBLE PARSE]: there are ${real_many} of ${real_letter} in the real word.`, "wb_green");
+        db(`[WORBLE PARSE]: there are ${guess_many} of ${guess_letter} in the guessed word.`, "wb_green");
         
-        var jsontm_real = new Object();                         // will hold key/value pairs for the letters and their counters n stuff
-        var jsontm_guess = new Object();
-
-        for (i in currentletters) {                             // for each actual letter in the word
-            var real_letter = currentletters[i];                // get the real letter from the word
-            var guess_letter = currentguessletters[i];          // get the letter from your guess
-            var real_many = howMany(`${worble_word}`, `${real_letter}`);
-            var guess_many = howMany(`${currentwordguess}`, `${guess_letter}`);
-
-            db(`[WORBLE PARSE]: there are ${real_many} of ${real_letter} in the real word.`, "wb_green");
-            db(`[WORBLE PARSE]: there are ${guess_many} of ${guess_letter} in the guessed word.`, "wb_green");
-
-            if (keyExists(jsontm_real, `${real_letter}`) == true) {
-                jsontm_real[`${real_letter}`] += 1;
-            } else {
-                jsontm_real[`${real_letter}`] = 1;
-            }
-
-            if (keyExists(jsontm_guess, `${guess_letter}`) == true) {
-                jsontm_guess[`${guess_letter}`] += 1;
-            } else {
-                jsontm_guess[`${guess_letter}`] = 1;
-            }
-
-            debubgall(jsontm_real);
-            debubgall(jsontm_guess);
-            
-            db(`[WORBLE PARSE]: matching letter ${guess_letter} with ${real_letter}`, "wb_green");
-
-            if (guess_letter == real_letter) {                      // letter exists in that exact place
-                finalwordParse = `${finalwordParse}G`;
-
-            } else if (guess_letter == undefined) {
-                finalwordParse = `${finalwordParse}S`;
-            } else if (worble_word.indexOf(guess_letter) >= 0) {    // letter exists somewhere
-
-                if (guess_many <= real_many) {
-                    db(`[WORBLE PARSE]: too many of ${guess_letter}!!!`, "wb_green");
-                    finalwordParse = `${finalwordParse}Y`;
-                } else {
-                    finalwordParse = `${finalwordParse}A`;
-                }
-            } else if (worble_word.indexOf(guess_letter) == -1) {    // gray
-                finalwordParse = `${finalwordParse}A`;
-            }
-
-
-
-
-            //if (guess_letter == real_letter) {                      // green letter
-            //    finalwordParse = `${finalwordParse}G`;
-            //} else if (worble_word.indexOf(guess_letter) >= 0) {    // red leather yellow leather red leather yellow leather
-            //    finalwordParse = `${finalwordParse}Y`;
-            //} else if (worble_word.indexOf(guess_letter) == -1) {    // gray
-            //    finalwordParse = `${finalwordParse}A`;
-            //}
-
-
-
-        }
-
-        
-
-
-        db(`[WORBLE PARSE]: pushing "${finalwordParse}" to word parse.`, "wb_green");
-        finalParse.push(`${finalwordParse}`);
-        if (finalwordParse.indexOf("Y") >= 0 || finalwordParse.indexOf("A") >= 0 || finalwordParse.indexOf("S") >= 0) {
-            db(`[WORBLE PARSE]: found incorrect characters in guess! you are not done!!!! haha!!!`, "wb_green"); // i love bullying people on the internet /j
+        if (keyExists(jsontm_real, `${real_letter}`) == true) {
+            jsontm_real[`${real_letter}`] += 1;
         } else {
-            // its just geen
-            worbleStatus(false);
+            jsontm_real[`${real_letter}`] = 1;
         }
-        
-        // i should update the vhs script lmao
 
+        if (keyExists(jsontm_guess, `${guess_letter}`) == true) {
+            jsontm_guess[`${guess_letter}`] += 1;
+        } else {
+            jsontm_guess[`${guess_letter}`] = 1;
+        }
 
+        debubgall(jsontm_real);
+        debubgall(jsontm_guess);
+
+        db(`[WORBLE PARSE]: matching letter ${guess_letter} with ${real_letter}`, "wb_green");
+
+        if (guess_letter == real_letter) {                      // letter exists in that exact place
+            displaysave_append.push({"letter": `${guess_letter}`, "status": 3})
+
+        } else if (guess_letter == undefined) {
+            displaysave_append.push({"letter": `${guess_letter}`, "status": 0})
+            incorrect_amount += 1;
+        } else if (worble_word.indexOf(guess_letter) >= 0) {    // letter exists somewhere
+
+            if (guess_many <= real_many) {
+                db(`[WORBLE PARSE]: too many of ${guess_letter}!!!`, "wb_green");
+                displaysave_append.push({"letter": `${guess_letter}`, "status": 2})
+                incorrect_amount += 1;
+            } else {
+                displaysave_append.push({"letter": `${guess_letter}`, "status": 1})
+                incorrect_amount += 1;
+            }
+        } else if (worble_word.indexOf(guess_letter) == -1) {    // gray
+            displaysave_append.push({"letter": `${guess_letter}`, "status": 1})
+            incorrect_amount += 1;
+        }
     }
-    db(`[WORBLE PARSE]: final parsed worble save: ${finalParse}`, "wb_green");
-    return finalParse
+
+    console.log(displaysave_append)
+
+    db(`[WORBLE PARSE]: pushing to word parse.`, "wb_green");
+    worble_displaysave.push(displaysave_append);
+
+    if (incorrect_amount != 0) {
+        db(`[WORBLE PARSE]: found incorrect characters in guess! you are not done!!!! haha!!!`, "wb_green"); // i love bullying people on the internet /j
+    } else {
+        // its just geen
+        worbleStatus(false);
+    }
+
+    return worble_displaysave
 }
 
 
-
-
-
-function animWorble(worble_parsed) {
+function animWorble(worble_parsed) {    // new parse for new worble save system
+    console.log(worble_parsed)
     displayNewline();
     displayNewline();
     var finalAppend = "";
-
-    for (i in worble_save) {
-        var worble_guess = worble_save[i];
-        var worble_guess_parsed = worble_parsed[i];
-        db(`[WORBLE ANIM]: animating word "${worble_guess}"`, "wb_green");
-        
-        for (i in worble_guess_parsed) {
-
-            var worble_guess_letter = worble_guess[i];
-            var worble_parsed_letter = worble_guess_parsed[i];
-            
-            debubgall(`[WORBLE ANIM]: animating letter "${worble_guess_letter}"`);
-
-            if (worble_parsed_letter == "G") {              // parse the single colour values into full or smth idk
-                finalAppend = `${finalAppend}<span class="worble worble-green">${worble_guess_letter}</span>`;
-            } else if (worble_parsed_letter == "Y") {
-                finalAppend = `${finalAppend}<span class="worble worble-yellow">${worble_guess_letter}</span>`;
-            } else if (worble_parsed_letter == "A") {
-                finalAppend = `${finalAppend}<span class="worble worble-gray">${worble_guess_letter}</span>`;
-            } else if (worble_parsed_letter == "S") {
+    for (i in worble_parsed) {
+        for (e in worble_parsed[i]) {
+            var letter = worble_parsed[i][e]["letter"];
+            var status = worble_parsed[i][e]["status"];
+            if (status == 0) { // blank
                 finalAppend = `${finalAppend}<span class="worble worble-gray"> </span>`;
+            } else if (status == 1) { // gray
+                finalAppend = `${finalAppend}<span class="worble worble-gray">${letter}</span>`;
+            } else if (status == 2) { // yellow
+                finalAppend = `${finalAppend}<span class="worble worble-yellow">${letter}</span>`;
+            } else if (status == 3) { // green
+                finalAppend = `${finalAppend}<span class="worble worble-green">${letter}</span>`;
             }
-
         }
         finalAppend = `${finalAppend}<br><br>`;
-        
     }
-    debubgall(`[WORble ANIM]: ${finalAppend}`);
     appendInline(finalAppend);
-    
 }
+
 
 function saveWorbleStats(restarted) {
     db(`[WORBLE STATS]: stats are being saved...`, "wb_green");
@@ -3001,6 +2977,7 @@ function newWorble(restart, custom_word) {  // sets up worble
     db(`[WORBLE SETUP]: setup has been RUN`, "wb_green");
     worble_guesscount = 0;              // resets guess count (quite important)
     worble_save = new Array();          // resets worble save
+    worble_displaysave = new Array();   // resets display save
     saveWorble();                       // save changes
     worbleStatus(true);                 // make it so that worble knows its not finished because the game literally just started
     worbleColourUpdate();               // updates colours just to make sure they're all good (doesnt hurt to check)

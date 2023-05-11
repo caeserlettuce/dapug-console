@@ -5592,6 +5592,7 @@ debug
 debug -v
 debugvar-size [number]
 cinfo
+worble compare [wordlist]
 `,
     "danger": `
 DANGER HELP PAGE
@@ -5886,6 +5887,7 @@ function updateMan() {
             "      start | start a new worble game",
             "    restart | restart the worble game",
             "colourblind | toggles colourblind mode",
+            "      awful | enables/disables awful mode (awful mode includes phrases with spaces)",
             "       info | shows infor about your current game",
             "      guess | guess the mystery word",
             "      share | share your game progress",
@@ -7490,6 +7492,11 @@ var worble_words = [
     "weight",
     "language",
     "among",
+]
+
+var worble_awful_words = [
+    "neil cicierega aka lemon demon",
+    "the fitness gram pacer test is a multi stage aerobic capacity test that progressively gets more difficult as it continues.",
     "among us",
     "lemon demon",
     "spirit phone",
@@ -7497,11 +7504,6 @@ var worble_words = [
     "view monster",
     "dinosaurchestra",
     "neil cicierega",
-]
-
-var worble_awful_words = [
-    "neil cicierega aka lemon demon",
-    "the fitness gram pacer test is a multi stage aerobic capacity test that progressively gets more difficult as it continues."
 ]
 
 var worble_info_1 = [
@@ -7522,6 +7524,7 @@ var worble_info_2 = [
     "'worble info' to get info on your game,",
     "'worble restart' to start a new game,",
     "'worble colourblind' to toggle colourblind mode,",
+    "'worble awful' to enable/disable difficult mode, (difficult mode includes phrases with spaces)",
     "and 'man worble' for any other commands."
 ]
 

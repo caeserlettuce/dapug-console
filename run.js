@@ -945,6 +945,45 @@ function parseCommand(command) {
                     newWorble(false, guessword);
                 }
                 
+            } else if (mmm[1] == "awful" ) {
+                worble_awful = !worble_awful
+                var hee = "disabled"
+                if (worble_awful == true) {
+                    hee = "enabled"
+                }
+                displayAnim(`\nworble awful mode ${hee}.`, 10);
+            } else if (mmm[1] == "compare") {
+                // dev command
+                var add_list = [...mmm]
+                add_list.splice(0,2);
+                add_list = add_list.join(" ")
+
+                var new_list_add = []
+                var list_string = ""
+
+                try {
+                    add_list = JSON.parse(add_list)
+
+                    db(add_list)
+                    for (i in add_list) {
+                        // check worb
+                        if (!worble_words.includes(add_list[i])) {
+                            //if its not in there
+                            new_list_add.push(add_list[i])
+                        }
+                    }
+                    db(new_list_add)
+                    for (i in new_list_add) {
+                        list_string += `\n"${new_list_add[i]}",`;
+                    }
+                    db(list_string)
+                    copyclip(list_string)
+                    
+                } catch (err) {
+                    displayAnim("\noops! invalid wordlist.", 10)
+                }
+                db(add_list)
+                
             } else {
                 displayAnim("\ninvalid sub command! use 'worble' or 'man worble' to see all the options!", 10);
             }
