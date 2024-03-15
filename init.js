@@ -5695,16 +5695,22 @@ music.addEventListener('error', (event) => {
 
     var message = ""
 
-    if (event.path[0].error.message) {
-        message = `${event.path[0].error.message}`;
-    } else if (event.error) {
-        message = `${event.error}`;
-    } else {
-        message = "[no error message found]";
-    }
+    
+    // console.log("WAHHHHHHHHHHHHHHHHHHh")
+    // console.log(music)
+    // console.log(event)
+    // console.log(event.path)
+
+    // if (event.path[0].error.message) {
+    //     message = `${event.path[0].error.message}`;
+    // } else if (event.error) {
+    //     message = `${event.error}`;
+    // } else {
+    //     message = "[no error message found]";
+    // }
     
     
-    bluescreen_page({"msg": message});
+    bluescreen_page({"msg": "something with the audio is broken"});
 })
 
 
