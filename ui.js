@@ -5167,8 +5167,21 @@ var ascii_fonts = {
 */
 
 
-
 var custom_ascii_fonts = new Object();
+
+// ascii fonts
+//  .M.                                                                                              
+// .M'M.                                                                                             
+// M' 'M                                                                                             
+//                                           MM MM             .MMMMM                   MM           
+//                   .MMMMM. .MMMMM. .MMMMM.                   MM'            mm....  MMMMMM .MMMMM. 
+//                   '   'MM MM'   ' MM' 'MM MM MM             MMMMM  .MMMMM. MMMMMM.   MM   MM'   ' 
+//                   .MMMMMM 'MMMMM. MM      MM MM             MM'''  MM' 'MM MM''%MM   MM   'MMMMM. 
+//                   MM. .MM .   .MM MM. .MM MM MM             MM     MM. .MM MM  'MM   MM   .   .MM 
+//                   'MMMMM' 'MMMMM' 'MMMMM' MM MM             MM     'MMMMM' MM   MM   MM   'MMMMM' 
+
+
+
 
 
 var aboot = [
@@ -5408,6 +5421,23 @@ var githubText = [
 "%MM%. .%MM% MM   MM   MM      MM MM. .MM MM. .MM",
 "'%MMMMMMM%' MM   MM   MM      MM 'MMMMM' 'MMMMM'",
 ]
+
+//   .M.                                                                                                                    
+//  .M'M.                                                                                                                   
+//  M' 'M                                                                                       MM                          
+//                                            MM MM                                     .MMMMM. MM       MM                 
+//                    .MMMMM. .MMMMM. .MMMMM.                   .MMMMM. mm.MMM. .MMMMM. MM' 'MM MM.....     .MMMMM. .MMMMM. 
+//                    '   'MM MM'   ' MM' 'MM MM MM             MM: :MM MMMM'MM '   'MM MM. .MM MMMMMM%. MM MM' 'MM MM'   ' 
+//                    .MMMMMM 'MMMMM. MM      MM MM             'MMMMMM MM'     .MMMMMM MMMMMM' MM'''%MM MM MM      'MMMMM. 
+//                    MM. .MM .   .MM MM. .MM MM MM             .    .M MM      MM. .MM MM      MM   'MM MM MM. .MM .   .MM 
+//                    'MMMMM' 'MMMMM' 'MMMMM' MM MM             'MMMMM' MM      'MMMMM' MM      MM    MM MM 'MMMMM' 'MMMMM' 
+
+
+
+
+
+
+
 var aboot2 = [
     "        ",
     "USE 'help' TO GET COMMAND HELP",
@@ -6913,6 +6943,8 @@ var listy = [ " ",
     "conway game of life",
     "conways game of life",
     "conway's game of life",
+    "loss",
+    "askew",
 
     "* command is currently in-development and may break the site."
 ]; 
@@ -7909,6 +7941,20 @@ var uwu_translate = {
 
 var infotm = new Array();
 
+// texts
+//  .M.                                                    
+// .M'M.                                                   
+// M' 'M                                                   
+//                     MM                     MM           
+//                   MMMMMM .MMMMM. MM. .MM MMMMMM .MMMMM. 
+//                     MM   MM: :MM 'MM.MM'   MM   MM'   ' 
+//                     MM   MMMMMM'  'MMM'    MM   'MMMMM. 
+//                     MM   MM.   . .MM'MM.   MM   .   .MM 
+//                     MM   'MMMMM' MM' 'MM   MM   'MMMMM' 
+
+
+
+
 var songs = new Object();
 
 
@@ -7930,8 +7976,8 @@ songs = {
         "name": "MILK",
         "artist": "Jack Stauber",
         "album": "Shop: A Pop Opera",
-        "art": "https://cdn.discordapp.com/attachments/960729059829096580/960813263434682368/shop_pop.png",
-        "audio": "https://cdn.discordapp.com/attachments/960729059829096580/960812517880373248/Jack_Stauber_-_MILK.mp3",
+        "art": "music/shop_pop.png",
+        "audio": "music/Jack_Stauber_-_MILK.mp3",
         "volume": 1,
         "lyrics": [
             {"text": "\nWhat kind of milk were you?", "dur": [579, 3939]},
@@ -7956,8 +8002,8 @@ songs = {
         "name": "We See You, Opal (Reprise)",
         "artist": "Jack Stauber",
         "album": "Jack Stauber's OPAL (Original Soundtrack)",
-        "art": "https://media.discordapp.net/attachments/960729059829096580/960822574911225877/unknown.png?width=655&height=655",
-        "audio": "https://cdn.discordapp.com/attachments/960729059829096580/960822608532746240/Jack_Stauber_-_We_See_You_Opal_Reprise.mp3",
+        "art": "music/opal.png",
+        "audio": "music/Jack_Stauber_-_We_See_You_Opal_Reprise.mp3",
         "volume": 1,
         "lyrics": [
             {"text": "\nWe see you, ", "dur": [660, 2508]},
@@ -7975,8 +8021,8 @@ songs = {
         "name": "Eighth Wonder",
         "artist": "Lemon Demon",
         "album": "Spirit Phone",
-        "art": "https://media.discordapp.net/attachments/960729059829096580/960838302561353738/spiritphone.png?width=655&height=655",
-        "audio": "https://cdn.discordapp.com/attachments/960729059829096580/960838362569252944/Lemon_Demon_-_Eighth_Wonder.mp3",
+        "art": "music/spiritphone.png",
+        "audio": "music/Lemon_Demon_-_Eighth_Wonder.mp3",
         "volume": 1,
         "lyrics": [
             {"text": "\nExtra clever", "dur": [24582, 26152]},
@@ -8057,8 +8103,8 @@ songs = {
         "name": "god i hate jazz",
         "artist": "anne",
         "album": "[singles]",
-        "art": "https://media.discordapp.net/attachments/960729059829096580/961005178297938071/Screenshot_20220405_135125.png",
-        "audio": "https://cdn.discordapp.com/attachments/960729059829096580/961004688570994738/anne_-_god_i_hate_jazz.wav",
+        "art": "music/god_i_hate_jazz.png",
+        "audio": "music/anne_-_god_i_hate_jazz.wav",
         "volume": 1,
         "lyrics": [
             {"text": " ", "dur": [10, 20]} 
@@ -8068,8 +8114,8 @@ songs = {
         "name": "Old Trash",
         "artist": "HSM",
         "album": "[singles]",
-        "art": "https://media.discordapp.net/attachments/960729059829096580/961051037337272360/unknown.png",
-        "audio": "https://cdn.discordapp.com/attachments/960729059829096580/961050791756582932/Hot_Step_Mom_-_Old_Trash.mp3",
+        "art": "music/old_trash.png",
+        "audio": "music/Hot_Step_Mom_-_Old_Trash.mp3",
         "volume": 1,
         "lyrics": [
             {"text": "\nI lost the old necklace you gave me", "dur": [33355, 36212]},
@@ -8256,8 +8302,8 @@ songs = {
         "name": "Oatmeal",
         "artist": "Jack Stauber",
         "album": "Shop: A Pop Opera",
-        "art": "https://cdn.discordapp.com/attachments/960729059829096580/960813263434682368/shop_pop.png",
-        "audio": "https://cdn.discordapp.com/attachments/960729059829096580/961360773878267904/Jack_Stauber_-_Oatmeal.mp3",
+        "art": "music/shop_pop.png",
+        "audio": "music/Jack_Stauber_-_Oatmeal.mp3",
         "volume": 1,
         "lyrics": [
             {"text": "\nI could have", "dur": [1965, 2644]},
@@ -8301,8 +8347,8 @@ songs = {
         "name": "Coffee",
         "artist": "Jack Stauber",
         "album": "Shop: A Pop Opera",
-        "art": "https://cdn.discordapp.com/attachments/960729059829096580/960813263434682368/shop_pop.png",
-        "audio": "https://cdn.discordapp.com/attachments/960729059829096580/961401740098437140/Jack_Stauber_-_Coffee.mp3",
+        "art": "music/shop_pop.png",
+        "audio": "music/Jack_Stauber_-_Coffee.mp3",
         "volume": 1,
         "lyrics": [
             {"text": "\nDo I need it?", "dur": [3331, 4591]},
@@ -8351,7 +8397,7 @@ songs = {
         "artist": "Jonathan Coulton",
         "album": "Portal OST",
         "art": "aperture1.png",
-        "audio": "still_alive.mp3",
+        "audio": "music/still_alive.mp3",
         "volume": 0.4,
         "lyrics": [
             // credits
@@ -8460,7 +8506,7 @@ songs = {
         "artist": "Jonathan Coulton",
         "album": "Portal 2 OST",
         "art": "aperture2.png",
-        "audio": "want_you_gone.mp3",
+        "audio": "music/want_you_gone.mp3",
         "volume": 1,
         "lyrics": [
             {"text": false, "dur": [5167, 5167], "exec": "portalCreditAnim(2, 30);"},
@@ -8519,8 +8565,8 @@ songs = {
         "name": "Soft Fuzzy Man",
         "artist": "Lemon Demon",
         "album": "Spirit Phone",
-        "art": "https://media.discordapp.net/attachments/960729059829096580/960838302561353738/spiritphone.png?width=655&height=655",
-        "audio": "https://cdn.discordapp.com/attachments/960729059829096580/961658854276497458/Lemon_Demon_-_Soft_Fuzzy_Man.mp3",
+        "art": "music/spiritphone.png",
+        "audio": "music/Lemon_Demon_-_Soft_Fuzzy_Man.mp3",
         "volume": 1,
         "lyrics": [
             {"text": "\nCold and windy", "dur": [8123, 10847]},
@@ -8572,8 +8618,8 @@ songs = {
         "name": "Toy Food",
         "artist": "Lemon Demon",
         "album": "The FuMP Volume 18",
-        "art": "https://media.discordapp.net/attachments/960729059829096580/961675105753260092/unknown.png",
-        "audio": "https://cdn.discordapp.com/attachments/960729059829096580/961676233979076739/Lemon_Demon_-_Toy_Food.mp3",
+        "art": "music/fump_18.png",
+        "audio": "music/Lemon_Demon_-_Toy_Food.mp3",
         "volume": 1,
         "lyrics": [
             {"text": "\nDrumsticks,", "dur": [12889, 13708]},
@@ -8678,8 +8724,8 @@ songs = {
         "name": "I've Got Some Falling To Do",
         "artist": "Lemon Demon",
         "album": "The FuMP Volume 27",
-        "art": "https://media.discordapp.net/attachments/960729059829096580/961675267284299816/unknown.png?width=639&height=639",
-        "audio": "https://cdn.discordapp.com/attachments/960729059829096580/961676217407401984/Lemon_Demon_-_Ive_Got_Some_Falling_to_Do.mp3",
+        "art": "music/fump_27.png",
+        "audio": "music/Lemon_Demon_-_Ive_Got_Some_Falling_to_Do.mp3",
         "volume": 1,
         "lyrics": [
             {"text": "\nIn an airplane,", "dur": [23445, 24865]},
@@ -8750,8 +8796,8 @@ songs = {
         "name": "Your Imaginary Friend",
         "artist": "Lemon Demon",
         "album": "Dinosaurchestra",
-        "art": "https://media.discordapp.net/attachments/960729059829096580/964394351188922408/dinosaurchestra.jpg?width=655&height=655",
-        "audio": "https://cdn.discordapp.com/attachments/960729059829096580/964403332208791572/Lemon_Demon_-_Your_Imaginary_Friend.mp3",
+        "art": "music/dinosaurchestra.png",
+        "audio": "music/Lemon_Demon_-_Your_Imaginary_Friend.mp3",
         "volume": 1,
         "lyrics": [
             {"text": "\nSimple and small", "dur": [19690, 22095]},
@@ -8807,8 +8853,8 @@ songs = {
         "name": "Archaeopteryx", // ADD THE DISCORD LINK INTO IT INSTEAD OF THE DONT PUSH LINK!!!
         "artist": "Lemon Demon",
         "album": "Dinosaurchestra",
-        "art": "https://media.discordapp.net/attachments/960729059829096580/964394351188922408/dinosaurchestra.jpg?width=655&height=655",
-        "audio": "https://cdn.discordapp.com/attachments/960729059829096580/964403166441533460/Lemon_Demon_-_Archaeopteryx.mp3",
+        "art": "music/dinosaurchestra.png",
+        "audio": "music/Lemon_Demon_-_Archaeopteryx.mp3",
         "volume": 1,
         "lyrics": [
             {"text": "\nSaw him in a book of fossils", "dur": [30017, 34807]},
@@ -8857,8 +8903,8 @@ songs = {
         "name": "Sweet Bod (Bonus Track)",
         "artist": "Lemon Demon",
         "album": "Spirit Phone",
-        "art": "https://media.discordapp.net/attachments/960729059829096580/960838302561353738/spiritphone.png?width=655&height=655",
-        "audio": "DONT_PUSH/Lemon Demon - Sweet Bod (Bonus Track).mp3",
+        "art": "music/spiritphone.png",
+        "audio": "music/Lemon_Demon_-_Sweet_Bod_Bonus_Track.mp3",
         "volume": 1,
         "lyrics": [
             {"text": "\nYour body is so sweet now,", "dur": [27388, 29900]},
@@ -9032,8 +9078,8 @@ songs = {
         "name": "You're At The Party (Bonus Track)",
         "artist": "Lemon Demon",
         "album": "Spirit Phone",
-        "art": "https://media.discordapp.net/attachments/960729059829096580/960838302561353738/spiritphone.png?width=655&height=655",
-        "audio": "https://cdn.discordapp.com/attachments/960729059829096580/964627869861040238/Lemon_Demon_-_Youre_At_The_Party.mp3",
+        "art": "music/spiritphone.png",
+        "audio": "music/Lemon_Demon_-_Youre_At_The_Party.mp3",
         "volume": 1,
         "lyrics": [
             {"text": "\nHour hand's gone from two to three, now four", "dur": [24606, 29421]},
@@ -9165,8 +9211,8 @@ songs = {
         "name": "Cabinet Man",
         "artist": "Lemon Demon",
         "album": "Spirit Phone",
-        "art": "https://media.discordapp.net/attachments/960729059829096580/960838302561353738/spiritphone.png?width=655&height=655",
-        "audio": "https://cdn.discordapp.com/attachments/960729059829096580/965363132409192539/Lemon_Demon_-_Cabinet_Man.mp3",
+        "art": "music/spiritphone.png",
+        "audio": "music/Lemon_Demon_-_Cabinet_Man.mp3",
         "volume": 1,
         "lyrics": [
             {"text": "\nThe day they found me,", "dur": [22999, 24537]},
@@ -9271,8 +9317,8 @@ songs = {
         "name": "Knife Fight",
         "artist": "Lemon Demon",
         "album": "View-Monster",
-        "art": "https://media.discordapp.net/attachments/960729059829096580/965876237866250260/view_monster.jpg?width=655&height=655",
-        "audio": "https://cdn.discordapp.com/attachments/960729059829096580/965876191468859462/Lemon_Demon_-_Knife_Fight.mp3",
+        "art": "music/view_monster.png",
+        "audio": "music/Lemon_Demon_-_Knife_Fight.mp3",
         "volume": 1,
         "lyrics": [
             {"text": "\nI tire", "dur": [35558, 36519]},
@@ -9416,7 +9462,7 @@ songs = {
         "artist": "dough emergency",
         "album": "MEMORY HOARDER",
         "art": "https://dapug.lol/music/vis/render-cycles.png",
-        "audio": "https://dapug.lol/music/memory_hoarder/audio/03.mp3",
+        "audio": "mealthyme.mp3",
         "volume": 1,
         "lyrics": [
             {"text": `
@@ -9544,8 +9590,8 @@ songs = {
         "name": "bedroom community",
         "artist": "glass beach",
         "album": "the first glass beach album",
-        "art": "https://media.discordapp.net/attachments/960729059829096580/1011908601419399220/the_first_glass_beach_album.jpg",
-        "audio": "https://cdn.discordapp.com/attachments/960729059829096580/1011908352974012446/glass_beach_-_bedroom_community.mp3",
+        "art": "music/tfgba.png",
+        "audio": "music/glass_beach_-_bedroom_community.mp3",
         "volume": 1,
         "lyrics": [
             {"text": "\nhere it is again,", "dur": [1549, 3353]},
@@ -9816,19 +9862,13 @@ https://cdn.discordapp.com/attachments/960729059829096580/965363134170800219/Lem
 https://cdn.discordapp.com/attachments/960729059829096580/965363134749626368/Lemon_Demon_-_When_He_Died.mp3
 
 
-*/
 // if you just want javascript to run at a specific time without any lyrics, just set "text" to false, without quotes, but still have the times and then ofcourse set "exec" to the javascript you want run
 
-
-/*
 ,
 {"text": "\n", "dur": [, ]}
 
 ", "dur": [, ]},
 {"text": "\n
-
-
-
 ,
     "": {
         "name": "",
@@ -9845,6 +9885,20 @@ https://cdn.discordapp.com/attachments/960729059829096580/965363134749626368/Lem
 
     
 */
+
+// lyrics
+//  .M.                                                    
+// .M'M.                                                   
+// M' 'M             MM                                    
+//                   MM                 MM                 
+//                   MM MM   MM mm.MMM.    .MMMMM. .MMMMM. 
+//                   MM MM. .MM MMMM'MM MM MM' 'MM MM'   ' 
+//                   MM 'MMMMMM MM'     MM MM      'MMMMM. 
+//                   MM .    .M MM      MM MM. .MM .   .MM 
+//                   MM 'MMMMM' MM      MM 'MMMMM' 'MMMMM' 
+
+
+
 
 
 
@@ -11832,6 +11886,19 @@ var queues = {
     },
 
 */
+
+// queues playlists
+//  .M.                                                              
+// .M'M.                                                             
+// M' 'M                                                             
+//                   .MMMMM.                                         
+//                   MM' 'MM         .MMMMM.         .MMMMM. .MMMMM. 
+//                   MM. .MM MM   MM MM: :MM MM   MM MM: :MM MM'   ' 
+//                   'MMMMMM MM   MM MMMMMM' MM   MM MMMMMM' 'MMMMM. 
+//                        MM MM. .MM MM.   . MM. .MM MM.   . .   .MM 
+//                        MM 'MMMMM' 'MMMMM' 'MMMMM' 'MMMMM' 'MMMMM' 
+
+
 
 var known_words = {
     "yes": [

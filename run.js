@@ -1115,7 +1115,9 @@ function parseCommand(command) {
                     // set volume
                     var newVOL = volum / 100;
                     if (newVOL < 5 && newVOL >= 0) { // inside of range
-                        music.volume = newVOL;
+                        music_volume = newVOL;
+                        music.volume = music_volume;
+                        localStorage.setItem("music volume", music_volume);
                         displayAnim(`\nvolume set to ${volum}`, 7);
                     } else {
                         displayAnim("\nplease enter a valid volume between 0 and 100.", 7);
@@ -2402,6 +2404,12 @@ function parseCommand(command) {
             gol_start();
         } else if (command == "loss") {
             displayAnim(loss, 10);
+        } else if (command == "askew") {
+            // google askew funny hahahhah a hhha h h hha a hA
+
+            document.body.style.transform = `rotate(3deg) translateX(${windowHeight / 19.10732}px)`;
+
+
         }
 
 

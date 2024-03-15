@@ -28,6 +28,7 @@ strong {
   overflow-y: hidden;
   /*overflow-wrap: break-word;*/
   white-space: normal;
+  transform-origin: top left;
 }
 
 ::-webkit-scrollbar {
@@ -159,7 +160,7 @@ pre {
     overflow-wrap: scroll;
     white-space: normal;
     width: 450px;
-    height: 130px;
+    height: 135px;
     position: fixed;
     right: 2px;
     bottom: 2px;
@@ -303,4 +304,12 @@ pre {
   left: -200px;
   margin: 0px;
   font-family: MSDOS, monospace;
+}
+
+.sip {
+  margin-left: 5px;
+}
+.songinfotextvar {
+  padding-top: 5px;
+  padding-left: 2px;
 }
