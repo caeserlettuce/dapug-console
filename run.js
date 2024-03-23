@@ -2410,6 +2410,59 @@ function parseCommand(command) {
             document.body.style.transform = `rotate(3deg) translateX(${windowHeight / 19.10732}px)`;
 
 
+        } else if (argCommand == "gpt") {
+
+            var mmm = argComm(commandInit);
+            var eee = [...mmm];
+            eee.shift();
+            var question = eee.join(" ");
+            var question_length = eee.length;
+            var answer = `\n`;
+            var answer_length = (question_length * 1.75) - 1;
+            var sentence_lengths = [6, 7, 8, 9, 10];
+            var comma_lengths = [6, 7, 8]
+            var punctuation = [". ", "! "]
+            
+            var sentence_finished = false;
+            var cur_sentence_final_len = 0;
+            var cur_sentence_len = 0;
+
+            for (let j = 0; j < answer_length + 1; j++) {
+                if (cur_sentence_final_len == 0 || sentence_finished == true) {
+                    cur_sentence_final_len = getRandomFromArr(sentence_lengths);
+                }   // get sentence length
+                cur_sentence_len += 1;
+                if (cur_sentence_len >= cur_sentence_final_len || j == answer_length) {
+                    sentence_finished = true;
+                }
+                if (sentence_finished == true) {
+                    // punctuation
+                    answer += `${getRandomFromArr(punctuation)}`;
+                    sentence_finished = false;
+                    cur_sentence_final_len = 0;
+                    cur_sentence_len = 0;
+                } else {
+                    // generate the sentence !!!
+                    if (cur_sentence_len > 1) {
+                        answer += ` `;
+                    }
+                    answer += `${getRandomFromArr(dictionary_words)}`;
+                }
+            }
+
+            displayAnim(answer, 7);
+/*
+    trying to figure out sentence lengths
+        how old are you?        4
+        big million thousand dollar prize from ohio.   7
+
+        find me the millionth reason for finding the bowl       9
+        for once in a lifetime there will be a finding that includes the rare animal.   15
+
+        so basically the answer will be double the length of the question - 1
+*/
+
+
         }
 
 
