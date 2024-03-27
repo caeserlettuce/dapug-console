@@ -5532,10 +5532,6 @@ VISUALS HELP PAGE
 
 control how console looks for you!
 
-colour text         | type this in, along with a HEX colour code to set the text colour!
-colour background   | type this in, along with a HEX colour code to set the background colour!
-colour accent       | type this in, along with a HEX colour code to set the accent colour!
-colour reset        | this resets all the colours to their defaults
 zoom                | type zoom and any number to change the text size
 themes              | list all of the pre-made colour themes
 theme use           | type this in along with a name of a theme to use it!
@@ -5543,6 +5539,10 @@ theme save          | type this in along with a theme name to save your current 
 theme export        | type this in along with a theme name to copy a shareable version of the theme to your clipboard!
 theme install       | type this in along with the previously mentioned shareable theme text to add that theme to your list of themes!
 theme delete        | type this in along with a custom theme name to delete it!
+colour text         | type this in, along with a HEX colour code to set the text colour!
+colour background   | type this in, along with a HEX colour code to set the background colour!
+colour accent       | type this in, along with a HEX colour code to set the accent colour!
+colour reset        | this resets all the colours to their defaults
 `,
     "games": `
 GAMES HELP PAGE
@@ -6779,7 +6779,18 @@ function updateMan() {
         ],
         "font remove": "font delete",
         "font kill": "font delete",
-        "font murder": "font delete"
+        "font murder": "font delete",
+        "gpt":[
+            "GPT MANPAGE",
+            "answers any question you ask using",
+            "state-of-the-art* technology!",
+            " ",
+            "USAGE:",
+            "'gpt [question]'",
+            " ",
+            "EXAMPLE:",
+            "'gpt what is the meaning of life?'"
+        ]
     }
 }
 
@@ -6945,6 +6956,7 @@ var listy = [ " ",
     "conway's game of life",
     "loss",
     "askew",
+    "gpt",
 
     "* command is currently in-development and may break the site."
 ]; 
@@ -7938,6 +7950,34 @@ var uwu_translate = {
     
     // "":"",
 }   // this is simon's fault
+
+
+// console welcome page
+
+var welcome_page = [
+    "welcome to the dapug.lol console!",
+    "   ",
+    "this project started as me attempting to recreate the way that text is",
+    "printed in the Portal 1 credits. after that the project spiraled and now",
+    "it's singlehandedly the largest coding project i've ever done.",
+    "   ",
+    "i started it on january 24, 2022, and so far i've written over 10,000",
+    "lines of code. (yes, javascript, help me)",
+    "but i haven't done it alone, my friend 18gallons has also written stuff too.",
+    "   ",
+    "long story short, this is a big project. but it works! (at least at the time",
+    "i'm writing this)",
+    "   ",
+    "this website is basically like a terminal on a computer, except the commands are written by me.",
+    "to view commands, type 'help' and to see a list of every command, type 'ls'",
+    "and if you want to know more about a command, type 'man' and then the name of the command",
+    "(example: 'man help') and it will tell you more about the command.",
+    "   ",
+    "have fun!"
+]
+
+
+
 
 var infotm = new Array();
 
@@ -12278,6 +12318,17 @@ var debubg_presets = {
 
 }
 
+
+var gpt_info_1 = [
+    "   ",
+    "Using the newest revolutionary technology, DAPUG CONSOLE",
+    "now presents to you: GPT!",
+    "   ",
+    "   ",
+    "just type \"gpt [question]\" and then it will answer your question!"
+
+
+]
 
 /*
 i wanna make a fancy nerd page thing

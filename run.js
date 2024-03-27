@@ -2416,41 +2416,52 @@ function parseCommand(command) {
             var eee = [...mmm];
             eee.shift();
             var question = eee.join(" ");
-            var question_length = eee.length;
-            var answer = `\n`;
-            var answer_length = (question_length * 1.75) - 1;
-            var sentence_lengths = [6, 7, 8, 9, 10];
-            var comma_lengths = [6, 7, 8]
-            var punctuation = [". ", "! "]
-            
-            var sentence_finished = false;
-            var cur_sentence_final_len = 0;
-            var cur_sentence_len = 0;
 
-            for (let j = 0; j < answer_length + 1; j++) {
-                if (cur_sentence_final_len == 0 || sentence_finished == true) {
-                    cur_sentence_final_len = getRandomFromArr(sentence_lengths);
-                }   // get sentence length
-                cur_sentence_len += 1;
-                if (cur_sentence_len >= cur_sentence_final_len || j == answer_length) {
-                    sentence_finished = true;
-                }
-                if (sentence_finished == true) {
-                    // punctuation
-                    answer += `${getRandomFromArr(punctuation)}`;
-                    sentence_finished = false;
-                    cur_sentence_final_len = 0;
-                    cur_sentence_len = 0;
+            if (question.replaceAll(" ", "") == "") {
+                // if theres no question
+                gptPage();
+            } else {
+                // if theres yes question
+                var question_length = eee.length;
+                var answer = `\n`;
+                var answer_length = (question_length * 1.75) - 1;
+                var sentence_lengths = [6, 7, 8, 9, 10];
+                var comma_lengths = [6, 7, 8]
+                var punctuation = [". ", "! "]
+                
+                var sentence_finished = false;
+                var cur_sentence_final_len = 0;
+                var cur_sentence_len = 0;
+
+                if ( (question.includes("what") && question.includes("is") && question.includes("life")) || (question.includes("meaning") && question.includes("of") && question.includes("life")) || (question.includes("what") && question.includes("life") && question.includes("mean"))) {
+                    answer = "\n42";
                 } else {
-                    // generate the sentence !!!
-                    if (cur_sentence_len > 1) {
-                        answer += ` `;
+                    for (let j = 0; j < answer_length + 1; j++) {
+                        if (cur_sentence_final_len == 0 || sentence_finished == true) {
+                            cur_sentence_final_len = getRandomFromArr(sentence_lengths);
+                        }   // get sentence length
+                        cur_sentence_len += 1;
+                        if (cur_sentence_len >= cur_sentence_final_len || j == answer_length) {
+                            sentence_finished = true;
+                        }
+                        if (sentence_finished == true) {
+                            // punctuation
+                            answer += `${getRandomFromArr(punctuation)}`;
+                            sentence_finished = false;
+                            cur_sentence_final_len = 0;
+                            cur_sentence_len = 0;
+                        } else {
+                            // generate the sentence !!!
+                            if (cur_sentence_len > 1) {
+                                answer += ` `;
+                            }
+                            answer += `${getRandomFromArr(dictionary_words)}`;
+                        }
                     }
-                    answer += `${getRandomFromArr(dictionary_words)}`;
                 }
+                displayAnim(answer, 7);
             }
-
-            displayAnim(answer, 7);
+            
 /*
     trying to figure out sentence lengths
         how old are you?        4
@@ -2463,6 +2474,12 @@ function parseCommand(command) {
 */
 
 
+        } else if (command == "welcome" || command == "welcome page" || command == "console") {
+            welcomePage();
+        } else if (command == "localstorage") {
+            // list localstorage because why not
+            var final_text_out = "";
+            displayAnim(`${make_list_thingymabob(localStorage)}`, 7);
         }
 
 

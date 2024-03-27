@@ -4969,7 +4969,38 @@ function test_get_line() {
     db(change);
 }
 
+function make_list_thingymabob(jsonobj) {
+    jsonobj = JSON.parse(JSON.stringify(jsonobj));
+    // var longest_key = 0;
+    // var final_out = "";
+    // var first = true;
+    // for (i in jsonobj) {
+    //     if (i.length > longest_key) {
+    //         longest_key = i.length;
+    //     }
+    // }
 
+    // for (i in jsonobj) {
+    //     if (first == true) {
+    //         first = false;
+    //     } else {
+    //         final_out += "\n";
+    //     }
+    //     final_out += `${stringWidth(i, longest_key, false, ".")} | ${jsonobj[i]}`;
+    // }
+
+    for (i in jsonobj) {
+        try {
+            jsonobj[i] = JSON.parse(jsonobj[i].replaceAll('\\"', '"'))
+        } catch (err) {
+
+        }
+    }
+
+    final_out = JSON.stringify(jsonobj, null, 2);
+
+    return(final_out)
+}
 
 
 
@@ -5270,7 +5301,21 @@ Press any key to continue.`;
 
 }
 
+async function gptPage() {
+    displayNewline();
+    await displayAnim(asciiText("slant", `gpt`), 2);
+    displayNewline();
+    await displayAnim(gpt_info_1, 2);
+    displayNewline();
+}
 
+async function welcomePage() {
+    displayNewline();
+    await displayAnim(asciiText("slant", "console!"), 2);
+    displayNewline();
+    await displayAnim(welcome_page, 2);
+    displayNewline();
+}
 
 
 db("async command functions init finished...", "init");

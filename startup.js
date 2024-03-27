@@ -13,6 +13,7 @@ async function startBoot() {
     await displayAnim(booty3, 1);
     await clearScreen();
     await newAnim("Loading Complete.                  ", 20);
+    await welcomePage();
     inputlock = false;
     debubg("input lock false.");
     localStorage.setItem("startup", true);
