@@ -35,6 +35,18 @@ function parseCommand(command) {
 
         debubgall(command);
         debubgall(command);
+
+        if (whoamama) {
+            if(command.search(/whoa mama/) == 0) {
+                command = command.replace(/^whoa mama/, "");
+                command = command.replace(/^ /, "");
+                displayAnim(johnnyBravo);
+            } else {
+                displayAnim("\nwhoa mama you need whoa mama");
+                return;
+            }
+        }
+
         if (command == "eef") { //lyrics should be done to this
             var marky = [ " ",
                 "MARK!                  ",
@@ -2482,12 +2494,21 @@ function parseCommand(command) {
             // list localstorage because why not
             var final_text_out = "";
             displayAnim(`${make_list_thingymabob(localStorage)}`, 7);
+        } else if (command == "whoa mama") {
+            //the funny
+            whoamama = true
+            displayAnim(johnnyBravo);
+            displayAnim("\nwhoa mama");
         }
 
 
 
         else {      // new commands up here ^
-            displayAnim(`\ncommand error: ${commandInit} is not an existing command.`, 7);
+            if (whoamama) {
+                displayAnim(`\nwhoa mama: ${command} is not an existing command.`, 7);
+            } else {
+                displayAnim(`\ncommand error: ${commandInit} is not an existing command.`, 7);
+            }
         }
         coopy = false;
 
