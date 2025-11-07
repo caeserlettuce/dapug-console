@@ -945,6 +945,45 @@ function parseCommand(command) {
                     newWorble(false, guessword);
                 }
                 
+            } else if (mmm[1] == "awful" ) {
+                worble_awful = !worble_awful
+                var hee = "disabled"
+                if (worble_awful == true) {
+                    hee = "enabled"
+                }
+                displayAnim(`\nworble awful mode ${hee}.`, 10);
+            } else if (mmm[1] == "compare") {
+                // dev command
+                var add_list = [...mmm]
+                add_list.splice(0,2);
+                add_list = add_list.join(" ")
+
+                var new_list_add = []
+                var list_string = ""
+
+                try {
+                    add_list = JSON.parse(add_list)
+
+                    db(add_list)
+                    for (i in add_list) {
+                        // check worb
+                        if (!worble_words.includes(add_list[i])) {
+                            //if its not in there
+                            new_list_add.push(add_list[i])
+                        }
+                    }
+                    db(new_list_add)
+                    for (i in new_list_add) {
+                        list_string += `\n"${new_list_add[i]}",`;
+                    }
+                    db(list_string)
+                    copyclip(list_string)
+                    
+                } catch (err) {
+                    displayAnim("\noops! invalid wordlist.", 10)
+                }
+                db(add_list)
+                
             } else {
                 displayAnim("\ninvalid sub command! use 'worble' or 'man worble' to see all the options!", 10);
             }
@@ -1076,7 +1115,9 @@ function parseCommand(command) {
                     // set volume
                     var newVOL = volum / 100;
                     if (newVOL < 5 && newVOL >= 0) { // inside of range
-                        music.volume = newVOL;
+                        music_volume = newVOL;
+                        music.volume = music_volume;
+                        localStorage.setItem("music volume", music_volume);
                         displayAnim(`\nvolume set to ${volum}`, 7);
                     } else {
                         displayAnim("\nplease enter a valid volume between 0 and 100.", 7);
@@ -2365,6 +2406,82 @@ function parseCommand(command) {
             displayAnim(loss, 10);
         } else if (command == "早上好中国 现在我有冰淇淋 我很喜欢冰淇淋 但是 速度与激情9 比冰淇淋 速度与激情 速度与激情9 我最喜欢 所以…现在是音乐时间 准备 1 2 3 两个礼拜以后 速度与激情9 ×3 不要忘记 不要错过 记得去电影院看速度与激情9 因为非常好电影 动作非常好 差不多一样冰淇淋 再见") {
             displayAnim("\nbing chilling");
+        } else if (command == "askew") {
+            // google askew funny hahahhah a hhha h h hha a hA
+
+            document.body.style.transform = `rotate(3deg) translateX(${windowHeight / 19.10732}px)`;
+
+
+        } else if (argCommand == "gpt") {
+
+            var mmm = argComm(commandInit);
+            var eee = [...mmm];
+            eee.shift();
+            var question = eee.join(" ");
+
+            if (question.replaceAll(" ", "") == "") {
+                // if theres no question
+                gptPage();
+            } else {
+                // if theres yes question
+                var question_length = eee.length;
+                var answer = `\n`;
+                var answer_length = (question_length * 1.75) - 1;
+                var sentence_lengths = [6, 7, 8, 9, 10];
+                var comma_lengths = [6, 7, 8]
+                var punctuation = [". ", "! "]
+                
+                var sentence_finished = false;
+                var cur_sentence_final_len = 0;
+                var cur_sentence_len = 0;
+
+                if ( (question.includes("what") && question.includes("is") && question.includes("life")) || (question.includes("meaning") && question.includes("of") && question.includes("life")) || (question.includes("what") && question.includes("life") && question.includes("mean"))) {
+                    answer = "\n42";
+                } else {
+                    for (let j = 0; j < answer_length + 1; j++) {
+                        if (cur_sentence_final_len == 0 || sentence_finished == true) {
+                            cur_sentence_final_len = getRandomFromArr(sentence_lengths);
+                        }   // get sentence length
+                        cur_sentence_len += 1;
+                        if (cur_sentence_len >= cur_sentence_final_len || j == answer_length) {
+                            sentence_finished = true;
+                        }
+                        if (sentence_finished == true) {
+                            // punctuation
+                            answer += `${getRandomFromArr(punctuation)}`;
+                            sentence_finished = false;
+                            cur_sentence_final_len = 0;
+                            cur_sentence_len = 0;
+                        } else {
+                            // generate the sentence !!!
+                            if (cur_sentence_len > 1) {
+                                answer += ` `;
+                            }
+                            answer += `${getRandomFromArr(dictionary_words)}`;
+                        }
+                    }
+                }
+                displayAnim(answer, 7);
+            }
+            
+/*
+    trying to figure out sentence lengths
+        how old are you?        4
+        big million thousand dollar prize from ohio.   7
+
+        find me the millionth reason for finding the bowl       9
+        for once in a lifetime there will be a finding that includes the rare animal.   15
+
+        so basically the answer will be double the length of the question - 1
+*/
+
+
+        } else if (command == "welcome" || command == "welcome page" || command == "console") {
+            welcomePage();
+        } else if (command == "localstorage") {
+            // list localstorage because why not
+            var final_text_out = "";
+            displayAnim(`${make_list_thingymabob(localStorage)}`, 7);
         }
 
 

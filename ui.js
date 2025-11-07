@@ -5167,8 +5167,21 @@ var ascii_fonts = {
 */
 
 
-
 var custom_ascii_fonts = new Object();
+
+// ascii fonts
+//  .M.                                                                                              
+// .M'M.                                                                                             
+// M' 'M                                                                                             
+//                                           MM MM             .MMMMM                   MM           
+//                   .MMMMM. .MMMMM. .MMMMM.                   MM'            mm....  MMMMMM .MMMMM. 
+//                   '   'MM MM'   ' MM' 'MM MM MM             MMMMM  .MMMMM. MMMMMM.   MM   MM'   ' 
+//                   .MMMMMM 'MMMMM. MM      MM MM             MM'''  MM' 'MM MM''%MM   MM   'MMMMM. 
+//                   MM. .MM .   .MM MM. .MM MM MM             MM     MM. .MM MM  'MM   MM   .   .MM 
+//                   'MMMMM' 'MMMMM' 'MMMMM' MM MM             MM     'MMMMM' MM   MM   MM   'MMMMM' 
+
+
+
 
 
 var aboot = [
@@ -5408,6 +5421,23 @@ var githubText = [
 "%MM%. .%MM% MM   MM   MM      MM MM. .MM MM. .MM",
 "'%MMMMMMM%' MM   MM   MM      MM 'MMMMM' 'MMMMM'",
 ]
+
+//   .M.                                                                                                                    
+//  .M'M.                                                                                                                   
+//  M' 'M                                                                                       MM                          
+//                                            MM MM                                     .MMMMM. MM       MM                 
+//                    .MMMMM. .MMMMM. .MMMMM.                   .MMMMM. mm.MMM. .MMMMM. MM' 'MM MM.....     .MMMMM. .MMMMM. 
+//                    '   'MM MM'   ' MM' 'MM MM MM             MM: :MM MMMM'MM '   'MM MM. .MM MMMMMM%. MM MM' 'MM MM'   ' 
+//                    .MMMMMM 'MMMMM. MM      MM MM             'MMMMMM MM'     .MMMMMM MMMMMM' MM'''%MM MM MM      'MMMMM. 
+//                    MM. .MM .   .MM MM. .MM MM MM             .    .M MM      MM. .MM MM      MM   'MM MM MM. .MM .   .MM 
+//                    'MMMMM' 'MMMMM' 'MMMMM' MM MM             'MMMMM' MM      'MMMMM' MM      MM    MM MM 'MMMMM' 'MMMMM' 
+
+
+
+
+
+
+
 var aboot2 = [
     "        ",
     "USE 'help' TO GET COMMAND HELP",
@@ -5502,10 +5532,6 @@ VISUALS HELP PAGE
 
 control how console looks for you!
 
-colour text         | type this in, along with a HEX colour code to set the text colour!
-colour background   | type this in, along with a HEX colour code to set the background colour!
-colour accent       | type this in, along with a HEX colour code to set the accent colour!
-colour reset        | this resets all the colours to their defaults
 zoom                | type zoom and any number to change the text size
 themes              | list all of the pre-made colour themes
 theme use           | type this in along with a name of a theme to use it!
@@ -5513,6 +5539,10 @@ theme save          | type this in along with a theme name to save your current 
 theme export        | type this in along with a theme name to copy a shareable version of the theme to your clipboard!
 theme install       | type this in along with the previously mentioned shareable theme text to add that theme to your list of themes!
 theme delete        | type this in along with a custom theme name to delete it!
+colour text         | type this in, along with a HEX colour code to set the text colour!
+colour background   | type this in, along with a HEX colour code to set the background colour!
+colour accent       | type this in, along with a HEX colour code to set the accent colour!
+colour reset        | this resets all the colours to their defaults
 `,
     "games": `
 GAMES HELP PAGE
@@ -5592,6 +5622,7 @@ debug
 debug -v
 debugvar-size [number]
 cinfo
+worble compare [wordlist]
 `,
     "danger": `
 DANGER HELP PAGE
@@ -5886,6 +5917,7 @@ function updateMan() {
             "      start | start a new worble game",
             "    restart | restart the worble game",
             "colourblind | toggles colourblind mode",
+            "      awful | enables/disables awful mode (awful mode includes phrases with spaces)",
             "       info | shows infor about your current game",
             "      guess | guess the mystery word",
             "      share | share your game progress",
@@ -6747,7 +6779,18 @@ function updateMan() {
         ],
         "font remove": "font delete",
         "font kill": "font delete",
-        "font murder": "font delete"
+        "font murder": "font delete",
+        "gpt":[
+            "GPT MANPAGE",
+            "answers any question you ask using",
+            "state-of-the-art* technology!",
+            " ",
+            "USAGE:",
+            "'gpt [question]'",
+            " ",
+            "EXAMPLE:",
+            "'gpt what is the meaning of life?'"
+        ]
     }
 }
 
@@ -6911,6 +6954,9 @@ var listy = [ " ",
     "conway game of life",
     "conways game of life",
     "conway's game of life",
+    "loss",
+    "askew",
+    "gpt",
 
     "* command is currently in-development and may break the site."
 ]; 
@@ -7490,6 +7536,11 @@ var worble_words = [
     "weight",
     "language",
     "among",
+]
+
+var worble_awful_words = [
+    "neil cicierega aka lemon demon",
+    "the fitness gram pacer test is a multi stage aerobic capacity test that progressively gets more difficult as it continues.",
     "among us",
     "lemon demon",
     "spirit phone",
@@ -7497,11 +7548,6 @@ var worble_words = [
     "view monster",
     "dinosaurchestra",
     "neil cicierega",
-]
-
-var worble_awful_words = [
-    "neil cicierega aka lemon demon",
-    "the fitness gram pacer test is a multi stage aerobic capacity test that progressively gets more difficult as it continues."
 ]
 
 var worble_info_1 = [
@@ -7522,6 +7568,7 @@ var worble_info_2 = [
     "'worble info' to get info on your game,",
     "'worble restart' to start a new game,",
     "'worble colourblind' to toggle colourblind mode,",
+    "'worble awful' to enable/disable difficult mode, (difficult mode includes phrases with spaces)",
     "and 'man worble' for any other commands."
 ]
 
@@ -7904,7 +7951,49 @@ var uwu_translate = {
     // "":"",
 }   // this is simon's fault
 
+
+// console welcome page
+
+var welcome_page = [
+    "welcome to the dapug.lol console!",
+    "   ",
+    "this project started as me attempting to recreate the way that text is",
+    "printed in the Portal 1 credits. after that the project spiraled and now",
+    "it's singlehandedly the largest coding project i've ever done.",
+    "   ",
+    "i started it on january 24, 2022, and so far i've written over 10,000",
+    "lines of code. (yes, javascript, help me)",
+    "but i haven't done it alone, my friend 18gallons has also written stuff too.",
+    "   ",
+    "long story short, this is a big project. but it works! (at least at the time",
+    "i'm writing this)",
+    "   ",
+    "this website is basically like a terminal on a computer, except the commands are written by me.",
+    "to view commands, type 'help' and to see a list of every command, type 'ls'",
+    "and if you want to know more about a command, type 'man' and then the name of the command",
+    "(example: 'man help') and it will tell you more about the command.",
+    "   ",
+    "have fun!"
+]
+
+
+
+
 var infotm = new Array();
+
+// texts
+//  .M.                                                    
+// .M'M.                                                   
+// M' 'M                                                   
+//                     MM                     MM           
+//                   MMMMMM .MMMMM. MM. .MM MMMMMM .MMMMM. 
+//                     MM   MM: :MM 'MM.MM'   MM   MM'   ' 
+//                     MM   MMMMMM'  'MMM'    MM   'MMMMM. 
+//                     MM   MM.   . .MM'MM.   MM   .   .MM 
+//                     MM   'MMMMM' MM' 'MM   MM   'MMMMM' 
+
+
+
 
 var songs = new Object();
 
@@ -7927,8 +8016,8 @@ songs = {
         "name": "MILK",
         "artist": "Jack Stauber",
         "album": "Shop: A Pop Opera",
-        "art": "https://cdn.discordapp.com/attachments/960729059829096580/960813263434682368/shop_pop.png",
-        "audio": "https://cdn.discordapp.com/attachments/960729059829096580/960812517880373248/Jack_Stauber_-_MILK.mp3",
+        "art": "music/shop_pop.png",
+        "audio": "music/Jack_Stauber_-_MILK.mp3",
         "volume": 1,
         "lyrics": [
             {"text": "\nWhat kind of milk were you?", "dur": [579, 3939]},
@@ -7953,8 +8042,8 @@ songs = {
         "name": "We See You, Opal (Reprise)",
         "artist": "Jack Stauber",
         "album": "Jack Stauber's OPAL (Original Soundtrack)",
-        "art": "https://media.discordapp.net/attachments/960729059829096580/960822574911225877/unknown.png?width=655&height=655",
-        "audio": "https://cdn.discordapp.com/attachments/960729059829096580/960822608532746240/Jack_Stauber_-_We_See_You_Opal_Reprise.mp3",
+        "art": "music/opal.png",
+        "audio": "music/Jack_Stauber_-_We_See_You_Opal_Reprise.mp3",
         "volume": 1,
         "lyrics": [
             {"text": "\nWe see you, ", "dur": [660, 2508]},
@@ -7972,8 +8061,8 @@ songs = {
         "name": "Eighth Wonder",
         "artist": "Lemon Demon",
         "album": "Spirit Phone",
-        "art": "https://media.discordapp.net/attachments/960729059829096580/960838302561353738/spiritphone.png?width=655&height=655",
-        "audio": "https://cdn.discordapp.com/attachments/960729059829096580/960838362569252944/Lemon_Demon_-_Eighth_Wonder.mp3",
+        "art": "music/spiritphone.png",
+        "audio": "music/Lemon_Demon_-_Eighth_Wonder.mp3",
         "volume": 1,
         "lyrics": [
             {"text": "\nExtra clever", "dur": [24582, 26152]},
@@ -8054,8 +8143,8 @@ songs = {
         "name": "god i hate jazz",
         "artist": "anne",
         "album": "[singles]",
-        "art": "https://media.discordapp.net/attachments/960729059829096580/961005178297938071/Screenshot_20220405_135125.png",
-        "audio": "https://cdn.discordapp.com/attachments/960729059829096580/961004688570994738/anne_-_god_i_hate_jazz.wav",
+        "art": "music/god_i_hate_jazz.png",
+        "audio": "music/anne_-_god_i_hate_jazz.wav",
         "volume": 1,
         "lyrics": [
             {"text": " ", "dur": [10, 20]} 
@@ -8065,8 +8154,8 @@ songs = {
         "name": "Old Trash",
         "artist": "HSM",
         "album": "[singles]",
-        "art": "https://media.discordapp.net/attachments/960729059829096580/961051037337272360/unknown.png",
-        "audio": "https://cdn.discordapp.com/attachments/960729059829096580/961050791756582932/Hot_Step_Mom_-_Old_Trash.mp3",
+        "art": "music/old_trash.png",
+        "audio": "music/Hot_Step_Mom_-_Old_Trash.mp3",
         "volume": 1,
         "lyrics": [
             {"text": "\nI lost the old necklace you gave me", "dur": [33355, 36212]},
@@ -8253,8 +8342,8 @@ songs = {
         "name": "Oatmeal",
         "artist": "Jack Stauber",
         "album": "Shop: A Pop Opera",
-        "art": "https://cdn.discordapp.com/attachments/960729059829096580/960813263434682368/shop_pop.png",
-        "audio": "https://cdn.discordapp.com/attachments/960729059829096580/961360773878267904/Jack_Stauber_-_Oatmeal.mp3",
+        "art": "music/shop_pop.png",
+        "audio": "music/Jack_Stauber_-_Oatmeal.mp3",
         "volume": 1,
         "lyrics": [
             {"text": "\nI could have", "dur": [1965, 2644]},
@@ -8298,8 +8387,8 @@ songs = {
         "name": "Coffee",
         "artist": "Jack Stauber",
         "album": "Shop: A Pop Opera",
-        "art": "https://cdn.discordapp.com/attachments/960729059829096580/960813263434682368/shop_pop.png",
-        "audio": "https://cdn.discordapp.com/attachments/960729059829096580/961401740098437140/Jack_Stauber_-_Coffee.mp3",
+        "art": "music/shop_pop.png",
+        "audio": "music/Jack_Stauber_-_Coffee.mp3",
         "volume": 1,
         "lyrics": [
             {"text": "\nDo I need it?", "dur": [3331, 4591]},
@@ -8348,7 +8437,7 @@ songs = {
         "artist": "Jonathan Coulton",
         "album": "Portal OST",
         "art": "aperture1.png",
-        "audio": "still_alive.mp3",
+        "audio": "music/still_alive.mp3",
         "volume": 0.4,
         "lyrics": [
             // credits
@@ -8457,7 +8546,7 @@ songs = {
         "artist": "Jonathan Coulton",
         "album": "Portal 2 OST",
         "art": "aperture2.png",
-        "audio": "want_you_gone.mp3",
+        "audio": "music/want_you_gone.mp3",
         "volume": 1,
         "lyrics": [
             {"text": false, "dur": [5167, 5167], "exec": "portalCreditAnim(2, 30);"},
@@ -8516,8 +8605,8 @@ songs = {
         "name": "Soft Fuzzy Man",
         "artist": "Lemon Demon",
         "album": "Spirit Phone",
-        "art": "https://media.discordapp.net/attachments/960729059829096580/960838302561353738/spiritphone.png?width=655&height=655",
-        "audio": "https://cdn.discordapp.com/attachments/960729059829096580/961658854276497458/Lemon_Demon_-_Soft_Fuzzy_Man.mp3",
+        "art": "music/spiritphone.png",
+        "audio": "music/Lemon_Demon_-_Soft_Fuzzy_Man.mp3",
         "volume": 1,
         "lyrics": [
             {"text": "\nCold and windy", "dur": [8123, 10847]},
@@ -8569,8 +8658,8 @@ songs = {
         "name": "Toy Food",
         "artist": "Lemon Demon",
         "album": "The FuMP Volume 18",
-        "art": "https://media.discordapp.net/attachments/960729059829096580/961675105753260092/unknown.png",
-        "audio": "https://cdn.discordapp.com/attachments/960729059829096580/961676233979076739/Lemon_Demon_-_Toy_Food.mp3",
+        "art": "music/fump_18.png",
+        "audio": "music/Lemon_Demon_-_Toy_Food.mp3",
         "volume": 1,
         "lyrics": [
             {"text": "\nDrumsticks,", "dur": [12889, 13708]},
@@ -8675,8 +8764,8 @@ songs = {
         "name": "I've Got Some Falling To Do",
         "artist": "Lemon Demon",
         "album": "The FuMP Volume 27",
-        "art": "https://media.discordapp.net/attachments/960729059829096580/961675267284299816/unknown.png?width=639&height=639",
-        "audio": "https://cdn.discordapp.com/attachments/960729059829096580/961676217407401984/Lemon_Demon_-_Ive_Got_Some_Falling_to_Do.mp3",
+        "art": "music/fump_27.png",
+        "audio": "music/Lemon_Demon_-_Ive_Got_Some_Falling_to_Do.mp3",
         "volume": 1,
         "lyrics": [
             {"text": "\nIn an airplane,", "dur": [23445, 24865]},
@@ -8747,8 +8836,8 @@ songs = {
         "name": "Your Imaginary Friend",
         "artist": "Lemon Demon",
         "album": "Dinosaurchestra",
-        "art": "https://media.discordapp.net/attachments/960729059829096580/964394351188922408/dinosaurchestra.jpg?width=655&height=655",
-        "audio": "https://cdn.discordapp.com/attachments/960729059829096580/964403332208791572/Lemon_Demon_-_Your_Imaginary_Friend.mp3",
+        "art": "music/dinosaurchestra.png",
+        "audio": "music/Lemon_Demon_-_Your_Imaginary_Friend.mp3",
         "volume": 1,
         "lyrics": [
             {"text": "\nSimple and small", "dur": [19690, 22095]},
@@ -8804,8 +8893,8 @@ songs = {
         "name": "Archaeopteryx", // ADD THE DISCORD LINK INTO IT INSTEAD OF THE DONT PUSH LINK!!!
         "artist": "Lemon Demon",
         "album": "Dinosaurchestra",
-        "art": "https://media.discordapp.net/attachments/960729059829096580/964394351188922408/dinosaurchestra.jpg?width=655&height=655",
-        "audio": "https://cdn.discordapp.com/attachments/960729059829096580/964403166441533460/Lemon_Demon_-_Archaeopteryx.mp3",
+        "art": "music/dinosaurchestra.png",
+        "audio": "music/Lemon_Demon_-_Archaeopteryx.mp3",
         "volume": 1,
         "lyrics": [
             {"text": "\nSaw him in a book of fossils", "dur": [30017, 34807]},
@@ -8854,8 +8943,8 @@ songs = {
         "name": "Sweet Bod (Bonus Track)",
         "artist": "Lemon Demon",
         "album": "Spirit Phone",
-        "art": "https://media.discordapp.net/attachments/960729059829096580/960838302561353738/spiritphone.png?width=655&height=655",
-        "audio": "DONT_PUSH/Lemon Demon - Sweet Bod (Bonus Track).mp3",
+        "art": "music/spiritphone.png",
+        "audio": "music/Lemon_Demon_-_Sweet_Bod_Bonus_Track.mp3",
         "volume": 1,
         "lyrics": [
             {"text": "\nYour body is so sweet now,", "dur": [27388, 29900]},
@@ -9029,8 +9118,8 @@ songs = {
         "name": "You're At The Party (Bonus Track)",
         "artist": "Lemon Demon",
         "album": "Spirit Phone",
-        "art": "https://media.discordapp.net/attachments/960729059829096580/960838302561353738/spiritphone.png?width=655&height=655",
-        "audio": "https://cdn.discordapp.com/attachments/960729059829096580/964627869861040238/Lemon_Demon_-_Youre_At_The_Party.mp3",
+        "art": "music/spiritphone.png",
+        "audio": "music/Lemon_Demon_-_Youre_At_The_Party.mp3",
         "volume": 1,
         "lyrics": [
             {"text": "\nHour hand's gone from two to three, now four", "dur": [24606, 29421]},
@@ -9162,8 +9251,8 @@ songs = {
         "name": "Cabinet Man",
         "artist": "Lemon Demon",
         "album": "Spirit Phone",
-        "art": "https://media.discordapp.net/attachments/960729059829096580/960838302561353738/spiritphone.png?width=655&height=655",
-        "audio": "https://cdn.discordapp.com/attachments/960729059829096580/965363132409192539/Lemon_Demon_-_Cabinet_Man.mp3",
+        "art": "music/spiritphone.png",
+        "audio": "music/Lemon_Demon_-_Cabinet_Man.mp3",
         "volume": 1,
         "lyrics": [
             {"text": "\nThe day they found me,", "dur": [22999, 24537]},
@@ -9268,8 +9357,8 @@ songs = {
         "name": "Knife Fight",
         "artist": "Lemon Demon",
         "album": "View-Monster",
-        "art": "https://media.discordapp.net/attachments/960729059829096580/965876237866250260/view_monster.jpg?width=655&height=655",
-        "audio": "https://cdn.discordapp.com/attachments/960729059829096580/965876191468859462/Lemon_Demon_-_Knife_Fight.mp3",
+        "art": "music/view_monster.png",
+        "audio": "music/Lemon_Demon_-_Knife_Fight.mp3",
         "volume": 1,
         "lyrics": [
             {"text": "\nI tire", "dur": [35558, 36519]},
@@ -9413,7 +9502,7 @@ songs = {
         "artist": "dough emergency",
         "album": "MEMORY HOARDER",
         "art": "https://dapug.lol/music/vis/render-cycles.png",
-        "audio": "https://dapug.lol/music/memory_hoarder/audio/03.mp3",
+        "audio": "mealthyme.mp3",
         "volume": 1,
         "lyrics": [
             {"text": `
@@ -9541,8 +9630,8 @@ songs = {
         "name": "bedroom community",
         "artist": "glass beach",
         "album": "the first glass beach album",
-        "art": "https://media.discordapp.net/attachments/960729059829096580/1011908601419399220/the_first_glass_beach_album.jpg",
-        "audio": "https://cdn.discordapp.com/attachments/960729059829096580/1011908352974012446/glass_beach_-_bedroom_community.mp3",
+        "art": "music/tfgba.png",
+        "audio": "music/glass_beach_-_bedroom_community.mp3",
         "volume": 1,
         "lyrics": [
             {"text": "\nhere it is again,", "dur": [1549, 3353]},
@@ -9791,16 +9880,248 @@ songs = {
             {"text": "ng", "dur": [320690, 320852]},
             {"text": " time", "dur": [320874, 324027]},
         ]
+    },
+    "blackboxwarrior": {
+        "name": "BlackBoxWarrior - OKULTRA",
+        "artist": "Will Wood",
+        "album": "The Normal Album",
+        "art": "music/the_normal_album.jpg",
+        "audio": "music/07 blackboxwarrior okultra.mp3",
+        "volume": 1,
+        "lyrics": [
+            {"text": "\nWell he collapsed with Stevens-Johnson Syndrome ", "dur": [20799, 22793]},
+            {"text": "on the E.R. floor", "dur": [22793, 23763]},
+            {"text": "\nPanic Attacked, ", "dur": [23763, 24566]},
+            {"text": "anaphylactic, ", "dur": [24566, 25333]},
+            {"text": "and ataxic", "dur": [25333, 26135]},
+            {"text": "\nWell the way he spun his butterfly ", "dur": [27027, 28435]},
+            {"text": "risked all his six phalanges", "dur": [28435, 29863]},
+            {"text": "\nRoman candles at both ends of his synapses", "dur": [29887, 32208]},
+            {"text": "\nAnd ", "dur": [32738, 33178]},
+            {"text": "the method with which ", "dur": [33178, 33822]},
+            {"text": "he recycled his humours", "dur": [33822, 35088]},
+            {"text": "\nTrojan Horse'd his blood-brain barrier ", "dur": [35088, 36664]},
+            {"text": "and raised the LD-50, ", "dur": [36664, 38095]},
+            {"text": "yes, ", "dur": [38119, 38403]},
+            {"text": "yes", "dur": [38460, 38787]},
+            {"text": "\nAnd through flight-or-fight ", "dur": [39002, 39966]},
+            {"text": "revelation ", "dur": [39966, 40438]},
+            {"text": "shame, the BlackBoxWarrior", "dur": [40438, 41850]},
+            {"text": "\nHe skipped this town and headed straight down history", "dur": [41850, 44087]},
+            {"text": "\nㅤ\n", "dur": [44128, 44228]},
+            {"text": "Shields himself from reason ", "dur": [45146, 46325]},
+            {"text": "in a Kevlar ", "dur": [46325, 47042]},
+            {"text": "baby-blue Tuxedo", "dur": [47042, 48135]},
+            {"text": "\nQuilted from the finest fibers, ", "dur": [48135, 49564]},
+            {"text": "flesh, and fiberglass, and flowers", "dur": [49564, 51004]},
+            {"text": "\nHis ego a mosquito, ", "dur": [51007, 52142]},
+            {"text": "evil incarnate/", "dur": [52417, 53163]},
+            {"text": "good incognito", "dur": [53163, 54025]},
+            {"text": "\nPops placebos ", "dur": [54025, 54840]},
+            {"text": "for libido, ", "dur": [54840, 55397]},
+            {"text": "screaming ", "dur": [55397, 55963]},
+            {"text": "\"bless the torpedoes\"", "dur": [55963, 56900]},
+            {"text": "\nㅤ\n", "dur": [56910, 56961]},
+            {"text": "For what? ", "dur": [56972, 57454]},
+            {"text": "For what? ", "dur": [57628, 58071]},
+            {"text": "For what it's worth", "dur": [58358, 59568]},
+            {"text": "\nIf it was gonna kill you, boy, ", "dur": [59829, 61284]},
+            {"text": "it would have by now", "dur": [61284, 62446]},
+            {"text": "\nFor what? ", "dur": [62860, 63299]},
+            {"text": "For what? ", "dur": [63575, 64117]},
+            {"text": "For what it's worth", "dur": [64314, 65464]},
+            {"text": "\nThere's no more looking back, ", "dur": [65563, 66952]},
+            {"text": "it's looking up or looking down", "dur": [66952, 68438]},
+            {"text": "\nㅤ\n", "dur": [80128, 80266]},
+            {"text": "Well, he was wearing ", "dur": [80396, 81284]},
+            {"text": "stolen rubber shoes ", "dur": [81284, 82116]},
+            {"text": "and wrapped a poison ivy noose", "dur": [82116, 83862]},
+            {"text": "\nAround his Lotus jugular when they came", "dur": [83901, 85737]},
+            {"text": "\nWell they found him with a map ", "dur": [86614, 87695]},
+            {"text": "to every victim ", "dur": [87830, 88794]},
+            {"text": "of his love", "dur": [88794, 89504]},
+            {"text": "\nAnd a tattoo ", "dur": [89504, 90231]},
+            {"text": "of a blue jay on his face", "dur": [90231, 92208]},
+            {"text": "\nAnd he waited for his vital signs to lie ", "dur": [92597, 94588]},
+            {"text": "and let a flatline cry", "dur": [94588, 95705]},
+            {"text": "\nA hymn out in Hungarian Harmonic", "dur": [95705, 97546]},
+            {"text": "\nㅤ\n", "dur": [98283, 98452]},
+            {"text": "But he cocked his noggin, ", "dur": [98558, 99571]},
+            {"text": "through his stoma, sang ", "dur": [99571, 100514]},
+            {"text": "\"For auld Lang Syne", "dur": [100514, 101472]},
+            {"text": "\nHappy birthday to the succulents, ", "dur": [101472, 103098]},
+            {"text": "I'll die your hydroponics\"", "dur": [103098, 104374]},
+            {"text": "\nㅤ\n", "dur": [104464, 104688]},
+            {"text": "His rib cage was a hornet's nest, ", "dur": [104697, 106135]},
+            {"text": "palpatations ", "dur": [106314, 107024]},
+            {"text": "set the beat", "dur": [107024, 107656]},
+            {"text": "\nHis vagus nerve ", "dur": [107656, 108345]},
+            {"text": "a Turk's ", "dur": [108345, 108701]},
+            {"text": "head knot, ", "dur": [108701, 109027]},
+            {"text": "an axle hitch, ", "dur": [109027, 109737]},
+            {"text": "a Carrack bend", "dur": [109737, 110572]},
+            {"text": "\nHe wondered if Christ-Consciousness ", "dur": [110698, 112037]},
+            {"text": "would charge a cancellation fee", "dur": [112037, 113510]},
+            {"text": "\nAuf wiedersehen, ", "dur": [113510, 114292]},
+            {"text": "au revoir, ", "dur": [114477, 115004]},
+            {"text": "he gripped his wits right by their ends", "dur": [115025, 116504]},
+            {"text": "\nㅤ\n", "dur": [116504, 116551]},
+            {"text": "For what? ", "dur": [116551, 117030]},
+            {"text": "For what? ", "dur": [117269, 117841]},
+            {"text": "For what it's worth", "dur": [118008, 119232]},
+            {"text": "\nIf it was gonna kill you, boy, ", "dur": [119496, 120900]},
+            {"text": "it would have by now", "dur": [120900, 122191]},
+            {"text": "\nFor what? ", "dur": [122484, 122946]},
+            {"text": "For what? ", "dur": [123260, 123703]},
+            {"text": "For what it's worth", "dur": [123919, 125239]},
+            {"text": "\nThere's no more looking back, ", "dur": [125239, 126653]},
+            {"text": "it's looking up or looking down", "dur": [126653, 128129]},
+            {"text": "\nㅤ\n", "dur": [165790, 166239]},
+            {"text": "Hello, ", "dur": [166557, 166988]},
+            {"text": "welcome. ", "dur": [167009, 167431]},
+            {"text": "Why don't you take a seat? ", "dur": [167647, 168446]},
+            {"text": "Get comfortable, ", "dur": [168491, 169069]},
+            {"text": "relax, ", "dur": [169069, 169512]},
+            {"text": "take a\nsecond if you need to. ", "dur": [169620, 170590]},
+            {"text": "Now what's bothering you? ", "dur": [171869, 172587]},
+            {"text": "Well, why don't we start\nat the beginning?", "dur": [173546, 174720]},
+            {"text": "\nㅤ\n", "dur": [175085, 175300]},
+            {"text": "Growing up, ", "dur": [175393, 175980]},
+            {"text": "how was your relationship ", "dur": [175980, 176753]},
+            {"text": "with the fundamentals ", "dur": [176753, 177361]},
+            {"text": "of conscious\nexistence? ", "dur": [177361, 178334]},
+            {"text": "DId you have xenon ", "dur": [178582, 179277]},
+            {"text": "orchid sinews ", "dur": [179277, 179750]},
+            {"text": "spilling down ", "dur": [179750, 180355]},
+            {"text": "the outer center\n", "dur": [180355, 180960]},
+            {"text": "of your blooming ", "dur": [180960, 181463]},
+            {"text": "Escher/", "dur": [181463, 181710]},
+            {"text": "Mandelbrot head? ", "dur": [181712, 182304]},
+            {"text": "And ", "dur": [182858, 183110]},
+            {"text": "how about claustrophillic\n", "dur": [183110, 183859]},
+            {"text": "tendrils clapping caskets ", "dur": [183859, 184769]},
+            {"text": "closed on ", "dur": [184769, 185143]},
+            {"text": "seven-knuckled thumbs, ", "dur": [185143, 185817]},
+            {"text": "did you get\nalong well ", "dur": [185817, 186473]},
+            {"text": "with the Gideon Bugler ", "dur": [186473, 187236]},
+            {"text": "pineal glands, ", "dur": [187236, 187775]},
+            {"text": "your projector eyes ", "dur": [187775, 188431]},
+            {"text": "casting\nsci-fi's ", "dur": [188431, 189240]},
+            {"text": "on your STR'd strands? ", "dur": [189240, 190377]},
+            {"text": "Tell me about your nerve ", "dur": [190907, 191587]},
+            {"text": "to steal nerves ", "dur": [191587, 192261]},
+            {"text": "of\nsteel from under Bacchus' bloody nose. ", "dur": [192261, 193620]},
+            {"text": "Did Nimbian Himbas tie-die you, \n", "dur": [193638, 195196]},
+            {"text": "Your ears pierced with a Phineas Gage flagpole, ", "dur": [195196, 196902]},
+            {"text": "did you die before your day?\n", "dur": [196905, 197947]},
+            {"text": "Thursday traction, ", "dur": [198421, 199118]},
+            {"text": "tuesday titration. ", "dur": [199118, 200005]},
+            {"text": "My hope is to ", "dur": [200005, 200565]},
+            {"text": "assess ", "dur": [200565, 201020]},
+            {"text": "through my\n", "dur": [201020, 201544]},
+            {"text": "objective report of your ", "dur": [201544, 202481]},
+            {"text": "subjective conjecture ", "dur": [202481, 203397]},
+            {"text": "whether this proprietary blend\n", "dur": [203397, 204451]},
+            {"text": "of expertise and seasoning ", "dur": [204451, 205544]},
+            {"text": "works as well as this ", "dur": [205544, 206359]},
+            {"text": "transorbital ", "dur": [206359, 206925]},
+            {"text": "ice pick\n", "dur": [206925, 207512]},
+            {"text": "Holistic Ballistics, ", "dur": [207859, 208727]},
+            {"text": "got a better idea? ", "dur": [208727, 209608]},
+            {"text": "It's about the best we could come\nup with, ", "dur": [209608, 211021]},
+            {"text": "you think ideas spread ", "dur": [211021, 211860]},
+            {"text": "because they're good? ", "dur": [211860, 212488]},
+            {"text": "No, ", "dur": [212674, 212911]},
+            {"text": "they\nspread because people ", "dur": [212911, 213761]},
+            {"text": "like them. ", "dur": [213761, 214264]},
+            {"text": "So here we are once again. ", "dur": [214381, 215471]},
+            {"text": "Holding, ", "dur": [215663, 216220]},
+            {"text": "as ", "dur": [216309, 216642]},
+            {"text": "it\nwere, ", "dur": [216642, 217073]},
+            {"text": "a mirror ", "dur": [217232, 217735]},
+            {"text": "up ", "dur": [217875, 218124]},
+            {"text": "to your ", "dur": [218124, 218522]},
+            {"text": "mirror", "dur": [218816, 219193]},
+            {"text": "\ni guess it's just ", "dur": [219936, 220502]},
+            {"text": "something people do", "dur": [220502, 221298]},
+            {"text": "\nㅤ\n", "dur": [221604, 221801]},
+            {"text": "A bloody knife to split your infrastructure, ", "dur": [221975, 223888]},
+            {"text": "wine to rev your motor function", "dur": [223996, 225442]},
+            {"text": "\nCoital machinations of the dead", "dur": [225532, 227200]},
+            {"text": "\nWell you mainline your animus, ", "dur": [228260, 229757]},
+            {"text": "karate chop ", "dur": [229757, 230440]},
+            {"text": "your ", "dur": [230440, 230740]},
+            {"text": "abacus\nAnd learn to be an animal instead ", "dur": [230740, 233432]},
+            {"text": "\nBut I never did think you better than this, ", "dur": [234108, 235752]},
+            {"text": "your modus operandi", "dur": [235752, 237016]},
+            {"text": "\nCauses Nazi/", "dur": [237016, 237824]},
+            {"text": "Skoptzyism and suicide", "dur": [237824, 239202]},
+            {"text": "\nWhy to thine own self be true when it is you who are the problem", "dur": [240028, 243059]},
+            {"text": "\nNot the things you do but something sick inside", "dur": [243059, 245376]},
+            {"text": "\nLithium ", "dur": [246341, 247011]},
+            {"text": "and Dialectics, ", "dur": [247011, 247902]},
+            {"text": "boy you really is defective", "dur": [247902, 249323]},
+            {"text": "\nCBT don't seem effective ", "dur": [249323, 250862]},
+            {"text": "for that Cluster B, accept it", "dur": [250862, 252318]},
+            {"text": "\nOffer up your innocence, ", "dur": [252318, 253683]},
+            {"text": "please ignore the side effects", "dur": [253857, 255108]},
+            {"text": "\nYou've lost your mind ", "dur": [255108, 255923]},
+            {"text": "and almost ", "dur": [255923, 256420]},
+            {"text": "lost your life before, ", "dur": [256420, 257354]},
+            {"text": "so you'll be fine", "dur": [257354, 258112]},
+            {"text": "\nㅤ\n", "dur": [258112, 258139]},
+            {"text": "For what? ", "dur": [258139, 258573]},
+            {"text": "\n(For what?)", "dur": [258483, 258920]},
+            {"text": "\nFor what? ", "dur": [258866, 259313]},
+            {"text": "\n(For what?)", "dur": [259232, 259711]},
+            {"text": "\nFor what it's worth", "dur": [259582, 260867]},
+            {"text": "\nIf it was gonna kill you, boy, ", "dur": [261145, 262595]},
+            {"text": "it would have by now", "dur": [262595, 263774]},
+            {"text": "\nFor what?", "dur": [264074, 264556]},
+            {"text": "\n(For what?)", "dur": [264475, 264942]},
+            {"text": "\nFor what?", "dur": [264801, 265278]},
+            {"text": "\n(For what?)", "dur": [265203, 265652]},
+            {"text": "\nFor what it's worth", "dur": [265556, 266760]},
+            {"text": "\nThere's no more ", "dur": [266760, 267619]},
+            {"text": "looking back", "dur": [267619, 268053]},
+            {"text": "\nAnd why would you ", "dur": [268221, 268931]},
+            {"text": "want to look back?", "dur": [268931, 269584]},
+            {"text": "\nI mean,", "dur": [269748, 270084]},
+            {"text": "it's no ", "dur": [270156, 270497]},
+            {"text": "good looking back", "dur": [270497, 271072]},
+            {"text": "\nSo try ", "dur": [271072, 271527]},
+            {"text": "to look ", "dur": [271527, 271841]},
+            {"text": "forward ", "dur": [271841, 272386]},
+            {"text": "now", "dur": [272386, 272815]},
+            {"text": "\n\nFor what?", "dur": [273042, 273518]},
+            {"text": "\n(For what?)", "dur": [273387, 273905]},
+            {"text": "\nFor what?", "dur": [273791, 274243]},
+            {"text": "\n(For what?)", "dur": [274087, 274599]},
+            {"text": "\nFor what ", "dur": [274494, 274977]},
+            {"text": "it's ", "dur": [275075, 275366]},
+            {"text": "worth", "dur": [275468, 275830]},
+            {"text": "\nIf they were gonna get you, boy, ", "dur": [276016, 277471]},
+            {"text": "they would have ", "dur": [277471, 278220]},
+            {"text": "by now", "dur": [278220, 278793]},
+            {"text": "\nFor what?", "dur": [278983, 279402]},
+            {"text": "\n(For what?)", "dur": [279371, 279874]},
+            {"text": "\nFor what?", "dur": [279651, 280121]},
+            {"text": "\n(For what?)", "dur": [280102, 280540]},
+            {"text": "\nFor what it's worth", "dur": [280507, 281624]},
+            {"text": "\nThere's no more looking back,", "dur": [281699, 283011]},
+            {"text": "it's looking up ", "dur": [283098, 283672]},
+            {"text": "or looking ", "dur": [283861, 284352]},
+            {"text": "down", "dur": [284415, 285526]},
+            ]
     }
 
 
     
 }
 
+// THESE LINKS NO LONGER WORK BECAUSE DISCORD MADE IT SO THEY CANT BE USED AS AN API!!! (LAAAAAAME!!)
 // spirit phone: https://media.discordapp.net/attachments/960729059829096580/960838302561353738/spiritphone.png?width=655&height=655
 /*
-
-
 https://cdn.discordapp.com/attachments/960729059829096580/964627869861040238/Lemon_Demon_-_Youre_At_The_Party.mp3
 https://cdn.discordapp.com/attachments/960729059829096580/964627868757917797/Lemon_Demon_-_Redesign_Your_Logo.mp3
 https://cdn.discordapp.com/attachments/960729059829096580/964627868384645140/Lemon_Demon_-_Pizza_Heroes.mp3
@@ -9813,19 +10134,13 @@ https://cdn.discordapp.com/attachments/960729059829096580/965363134170800219/Lem
 https://cdn.discordapp.com/attachments/960729059829096580/965363134749626368/Lemon_Demon_-_When_He_Died.mp3
 
 
-*/
 // if you just want javascript to run at a specific time without any lyrics, just set "text" to false, without quotes, but still have the times and then ofcourse set "exec" to the javascript you want run
 
-
-/*
 ,
 {"text": "\n", "dur": [, ]}
 
 ", "dur": [, ]},
 {"text": "\n
-
-
-
 ,
     "": {
         "name": "",
@@ -9842,6 +10157,20 @@ https://cdn.discordapp.com/attachments/960729059829096580/965363134749626368/Lem
 
     
 */
+
+// lyrics
+//  .M.                                                    
+// .M'M.                                                   
+// M' 'M             MM                                    
+//                   MM                 MM                 
+//                   MM MM   MM mm.MMM.    .MMMMM. .MMMMM. 
+//                   MM MM. .MM MMMM'MM MM MM' 'MM MM'   ' 
+//                   MM 'MMMMMM MM'     MM MM      'MMMMM. 
+//                   MM .    .M MM      MM MM. .MM .   .MM 
+//                   MM 'MMMMM' MM      MM 'MMMMM' 'MMMMM' 
+
+
+
 
 
 
@@ -11830,6 +12159,19 @@ var queues = {
 
 */
 
+// queues playlists
+//  .M.                                                              
+// .M'M.                                                             
+// M' 'M                                                             
+//                   .MMMMM.                                         
+//                   MM' 'MM         .MMMMM.         .MMMMM. .MMMMM. 
+//                   MM. .MM MM   MM MM: :MM MM   MM MM: :MM MM'   ' 
+//                   'MMMMMM MM   MM MMMMMM' MM   MM MMMMMM' 'MMMMM. 
+//                        MM MM. .MM MM.   . MM. .MM MM.   . .   .MM 
+//                        MM 'MMMMM' 'MMMMM' 'MMMMM' 'MMMMM' 'MMMMM' 
+
+
+
 var known_words = {
     "yes": [
         "yes",
@@ -11976,6 +12318,17 @@ var debubg_presets = {
 
 }
 
+
+var gpt_info_1 = [
+    "   ",
+    "Using the newest revolutionary technology, DAPUG CONSOLE",
+    "now presents to you: GPT!",
+    "   ",
+    "   ",
+    "just type \"gpt [question]\" and then it will answer your question!"
+
+
+]
 
 /*
 i wanna make a fancy nerd page thing

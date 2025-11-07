@@ -170,10 +170,12 @@ var startup = false; // REMEMBER TO SET TO TRUE LATER (haha now its automatic);
 var autocommand_wait = false;
 var worble_status = false;
 var worble_colourblind = false;
+var worble_awful = false;
 var worble_word = "";
 var worble_word_id = 0;
 var worble_randomvalue = 0;
 var worble_save = [];
+var worble_displaysave = [];
 var worble_guesscount = 0;
 var worble_wordslength = 0;
 var worble_gray = "#3a3a3c";
@@ -366,6 +368,10 @@ var gol_gen = 0;
 var gol_int;
 var gol_chance = [0, 1];
 var default_rem = 1.10;
+var si_sv_sc = 0;
+var p1c_sv_sc = 0;
+var p2c_sv_sc = 0;
+var p1a_sv_sc = 0;
 
 
 db("variable init finished...", "init");
@@ -482,6 +488,7 @@ bluescreening = parseBool(local_storage("bluescreening", 'true'))
 snake_highscore = parseInt(local_storage("snake highscore", '0'));
 sizemod = Number(local_storage("zoom", '1'));
 custom_ascii_fonts = JSON.parse(local_storage("custom ascii fonts", "{}"));
+music_volume = local_storage("music volume", 1)
 //music_volume = local_storage("music volume", 1)
 console.debug(textadventures_saves);
 //textadventures_saves = textadventures_saves);
@@ -698,10 +705,20 @@ function toggleHideDebugVar() {
     }
 }
 */
+
+
 function toggleHideSongInfo() {
     if (debugHideSonginfo == false) {
         debugHideSonginfo = true;
         db("debugHideSonginfo is soooo true now");
+
+        var diff = scrollDifference(document.getElementById("songinfo"));
+        if (diff <= autoscroll_buffer) {
+            si_sv_sc = "auto"
+        } else {
+            si_sv_sc = document.getElementById("songinfo").scrollTop
+        }
+
         document.getElementById("songpeepvar").style.display = "none";
         document.getElementById("songinfo").style.height = "30px";
     } else {
@@ -709,6 +726,13 @@ function toggleHideSongInfo() {
         db("debugHideSonginfo is false now");
         document.getElementById("songpeepvar").style.display = "";
         document.getElementById("songinfo").style.height = "130px";
+
+        if (si_sv_sc != "auto") {
+            document.getElementById("songinfo").scrollTo(0, si_sv_sc);
+        } else {
+            document.getElementById("songinfo").scrollTo(0, document.getElementById("songinfo").scrollHeight);
+        }
+        
     }
 }
 
@@ -716,6 +740,14 @@ function toggleHideP1Cred() {
     if (debugHideP1Cred == false) {
         debugHideP1Cred = true;
         db("debugp1 is soooo true now");
+
+        var diff = scrollDifference(document.getElementById("p1cred"));
+        if (diff <= autoscroll_buffer) {
+            p1c_sv_sc = "auto"
+        } else {
+            p1c_sv_sc = document.getElementById("p1cred").scrollTop
+        }
+
         document.getElementById("p1creed").style.display = "none";
         document.getElementById("p1cred").style.height = "30px";
     } else {
@@ -723,25 +755,54 @@ function toggleHideP1Cred() {
         db("debugp1 is false now");
         document.getElementById("p1creed").style.display = "";
         document.getElementById("p1cred").style.height = "420px";
+
+        if (p1c_sv_sc != "auto") {
+            document.getElementById("p1cred").scrollTo(0, p1c_sv_sc);
+        } else {
+            document.getElementById("p1cred").scrollTo(0, document.getElementById("p1cred").scrollHeight);
+        }
+        
     }
 }
 function toggleHideP2Cred() {
     if (debugHideP2Cred == false) {
         debugHideP2Cred = true;
         db("debugHideSonginfo is soooo true now");
+
+        var diff = scrollDifference(document.getElementById("p2cred"));
+        if (diff <= autoscroll_buffer) {
+            p2c_sv_sc = "auto"
+        } else {
+            p2c_sv_sc = document.getElementById("p2cred").scrollTop
+        }
+
         document.getElementById("p2creed").style.display = "none";
         document.getElementById("p2cred").style.height = "30px";
     } else {
         debugHideP2Cred = false;
         db("debugHideSonginfo is false now");
         document.getElementById("p2creed").style.display = "";
-        document.getElementById("p2cred").style.height = "420px";
+        document.getElementById("p2cred").style.height = "80vh";
+        
+        if (p2c_sv_sc != "auto") {
+            document.getElementById("p2cred").scrollTo(0, p2c_sv_sc);
+        } else {
+            document.getElementById("p2cred").scrollTo(0, document.getElementById("p2cred").scrollHeight);
+        }
     }
 }
 function toggleHideP1Ascii() {
     if (debugHideP1Ascii == false) {
         debugHideP1Ascii = true;
         db("debugHideSonginfo is soooo true now");
+
+        var diff = scrollDifference(document.getElementById("p1ascii"));
+        if (diff <= autoscroll_buffer) {
+            p1a_sv_sc = "auto"
+        } else {
+            p1a_sv_sc = document.getElementById("p1ascii").scrollTop
+        }
+
         document.getElementById("p1aascii").style.display = "none";
         document.getElementById("p1ascii").style.height = "30px";
     } else {
@@ -749,6 +810,12 @@ function toggleHideP1Ascii() {
         db("debugHideSonginfo is false now");
         document.getElementById("p1aascii").style.display = "";
         document.getElementById("p1ascii").style.height = "420px";
+        
+        if (p1a_sv_sc != "auto") {
+            document.getElementById("p1ascii").scrollTo(0, p1a_sv_sc);
+        } else {
+            document.getElementById("p1ascii").scrollTo(0, document.getElementById("p1ascii").scrollHeight);
+        }
     }
 }
 
@@ -1152,7 +1219,7 @@ function sizeCheck() {
 
     document.getElementById("consy").style.height = `calc(100vh - ${vis_inputheight + 30 }px )`
 
-    console.log(vis_inputheight)
+    //console.log(vis_inputheight)
 
     vis_consywidth = inHorizViewport($('#consy'));
     vis_consyheight = inVertiViewport($('#consy'));
@@ -2701,24 +2768,18 @@ function getRandomInt(min, max) {
 function getWorbleWord() {
     // gets random element from array
 
-    worble_randomvalue = getRandomInt(0,5);
     var hehe = "";
-    if (worble_randomvalue == 1) {
-        // local words
-        var id = Math.floor(Math.random()* worble_awful_words.length);
-        worble_word_id = `${id}`;
-        var hehe = worble_awful_words[id];
-        worble_wordslength = worble_awful_words.length;
-    } else {
-        // local words
-        var id = Math.floor(Math.random()* worble_words.length);
-        worble_word_id = `${id}`;
-        var hehe = worble_words[id];
-        worble_wordslength = worble_words.length;
 
+    var word_list = [...worble_words]
 
+    if (worble_awful == true) { // if awful words are enabled, add the awful words to the list
+        db(`worble awful words are enabled.`)
+        word_list = [...worble_words, ...worble_awful_words]    // combine the two
     }
-
+    var id = Math.floor(Math.random()* word_list.length);
+    worble_word_id = `${id}`;
+    var hehe = word_list[id];
+    worble_wordslength = word_list.length;
 
     return hehe
 
@@ -2817,140 +2878,120 @@ function loadWorble() { //load worble
     return tempSave
 }
 
-function parseWorble() { // parse the worble save into colours
+var worb_save_test = [
+    [
+        {"letter": "s", "status": 0},
+        {"letter": "u", "status": 1},
+        {"letter": "s", "status": 2}
+    ],
+    [
+        {"letter": "a", "status": 2},
+        {"letter": "n", "status": 1},
+        {"letter": "t", "status": 0},
+    ]
+]
+
+
+function parseWorble() {
+    var displaysave_append = new Array();
     db(`[WORBLE PARSE]: parsing worble...`, "wb_green");
-    var finalParse = [];
-    for (i in worble_save) {                                    // for every word in the worble save
-        var currentwordguess = `${worble_save[i]}`;             // choose the word from the save
-        db(`[WORBLE PARSE]: parsing word "${currentwordguess}" from worble save`, "wb_green");
-        // why did it have to be him [james marriott]
-        var currentguessletters = `${currentwordguess}`.split("");   // split the word guess into an array
-        var currentletters = `${worble_word}`.split("");             // same as above but for the actual word
-        var finalwordParse = "";
+    var guessed_word = worble_save[worble_save.length - 1];
+    db(`parsing guessed word "${guessed_word}"!`);
+    var current_guess_letters = `${guessed_word}`.split("");
+    var current_letters = `${worble_word}`.split("");
 
-        debubgall(currentguessletters);
-        debubgall(currentletters);
+    var jsontm_real = new Object();                         // will hold key/value pairs for the letters and their counters n stuff
+    var jsontm_guess = new Object();
+
+    var incorrect_amount = 0; // amount of incorrect letters
+
+    for (i in current_letters) {
+        var real_letter = current_letters[i];
+        var guess_letter = current_guess_letters[i];
+        var real_many = howMany(`${worble_word}`, `${real_letter}`);
+        var guess_many = howMany(`${guessed_word}`, `${guess_letter}`);
+        db(`[WORBLE PARSE]: there are ${real_many} of ${real_letter} in the real word.`, "wb_green");
+        db(`[WORBLE PARSE]: there are ${guess_many} of ${guess_letter} in the guessed word.`, "wb_green");
         
-        var jsontm_real = new Object();                         // will hold key/value pairs for the letters and their counters n stuff
-        var jsontm_guess = new Object();
-
-        for (i in currentletters) {                             // for each actual letter in the word
-            var real_letter = currentletters[i];                // get the real letter from the word
-            var guess_letter = currentguessletters[i];          // get the letter from your guess
-            var real_many = howMany(`${worble_word}`, `${real_letter}`);
-            var guess_many = howMany(`${currentwordguess}`, `${guess_letter}`);
-
-            db(`[WORBLE PARSE]: there are ${real_many} of ${real_letter} in the real word.`, "wb_green");
-            db(`[WORBLE PARSE]: there are ${guess_many} of ${guess_letter} in the guessed word.`, "wb_green");
-
-            if (keyExists(jsontm_real, `${real_letter}`) == true) {
-                jsontm_real[`${real_letter}`] += 1;
-            } else {
-                jsontm_real[`${real_letter}`] = 1;
-            }
-
-            if (keyExists(jsontm_guess, `${guess_letter}`) == true) {
-                jsontm_guess[`${guess_letter}`] += 1;
-            } else {
-                jsontm_guess[`${guess_letter}`] = 1;
-            }
-
-            debubgall(jsontm_real);
-            debubgall(jsontm_guess);
-            
-            db(`[WORBLE PARSE]: matching letter ${guess_letter} with ${real_letter}`, "wb_green");
-
-            if (guess_letter == real_letter) {                      // letter exists in that exact place
-                finalwordParse = `${finalwordParse}G`;
-
-            } else if (guess_letter == undefined) {
-                finalwordParse = `${finalwordParse}S`;
-            } else if (worble_word.indexOf(guess_letter) >= 0) {    // letter exists somewhere
-
-                if (guess_many <= real_many) {
-                    db(`[WORBLE PARSE]: too many of ${guess_letter}!!!`, "wb_green");
-                    finalwordParse = `${finalwordParse}Y`;
-                } else {
-                    finalwordParse = `${finalwordParse}A`;
-                }
-            } else if (worble_word.indexOf(guess_letter) == -1) {    // gray
-                finalwordParse = `${finalwordParse}A`;
-            }
-
-
-
-
-            //if (guess_letter == real_letter) {                      // green letter
-            //    finalwordParse = `${finalwordParse}G`;
-            //} else if (worble_word.indexOf(guess_letter) >= 0) {    // red leather yellow leather red leather yellow leather
-            //    finalwordParse = `${finalwordParse}Y`;
-            //} else if (worble_word.indexOf(guess_letter) == -1) {    // gray
-            //    finalwordParse = `${finalwordParse}A`;
-            //}
-
-
-
-        }
-
-        
-
-
-        db(`[WORBLE PARSE]: pushing "${finalwordParse}" to word parse.`, "wb_green");
-        finalParse.push(`${finalwordParse}`);
-        if (finalwordParse.indexOf("Y") >= 0 || finalwordParse.indexOf("A") >= 0 || finalwordParse.indexOf("S") >= 0) {
-            db(`[WORBLE PARSE]: found incorrect characters in guess! you are not done!!!! haha!!!`, "wb_green"); // i love bullying people on the internet /j
+        if (keyExists(jsontm_real, `${real_letter}`) == true) {
+            jsontm_real[`${real_letter}`] += 1;
         } else {
-            // its just geen
-            worbleStatus(false);
+            jsontm_real[`${real_letter}`] = 1;
         }
-        
-        // i should update the vhs script lmao
 
+        if (keyExists(jsontm_guess, `${guess_letter}`) == true) {
+            jsontm_guess[`${guess_letter}`] += 1;
+        } else {
+            jsontm_guess[`${guess_letter}`] = 1;
+        }
 
+        debubgall(jsontm_real);
+        debubgall(jsontm_guess);
+
+        db(`[WORBLE PARSE]: matching letter ${guess_letter} with ${real_letter}`, "wb_green");
+
+        if (guess_letter == real_letter) {                      // letter exists in that exact place
+            displaysave_append.push({"letter": `${guess_letter}`, "status": 3})
+
+        } else if (guess_letter == undefined) {
+            displaysave_append.push({"letter": `${guess_letter}`, "status": 0})
+            incorrect_amount += 1;
+        } else if (worble_word.indexOf(guess_letter) >= 0) {    // letter exists somewhere
+
+            if (guess_many <= real_many) {
+                db(`[WORBLE PARSE]: too many of ${guess_letter}!!!`, "wb_green");
+                displaysave_append.push({"letter": `${guess_letter}`, "status": 2})
+                incorrect_amount += 1;
+            } else {
+                displaysave_append.push({"letter": `${guess_letter}`, "status": 1})
+                incorrect_amount += 1;
+            }
+        } else if (worble_word.indexOf(guess_letter) == -1) {    // gray
+            displaysave_append.push({"letter": `${guess_letter}`, "status": 1})
+            incorrect_amount += 1;
+        }
     }
-    db(`[WORBLE PARSE]: final parsed worble save: ${finalParse}`, "wb_green");
-    return finalParse
+
+    console.log(displaysave_append)
+
+    db(`[WORBLE PARSE]: pushing to word parse.`, "wb_green");
+    worble_displaysave.push(displaysave_append);
+
+    if (incorrect_amount != 0) {
+        db(`[WORBLE PARSE]: found incorrect characters in guess! you are not done!!!! haha!!!`, "wb_green"); // i love bullying people on the internet /j
+    } else {
+        // its just geen
+        worbleStatus(false);
+    }
+
+    return worble_displaysave
 }
 
 
-
-
-
-function animWorble(worble_parsed) {
+function animWorble(worble_parsed) {    // new parse for new worble save system
+    console.log(worble_parsed)
     displayNewline();
     displayNewline();
     var finalAppend = "";
-
-    for (i in worble_save) {
-        var worble_guess = worble_save[i];
-        var worble_guess_parsed = worble_parsed[i];
-        db(`[WORBLE ANIM]: animating word "${worble_guess}"`, "wb_green");
-        
-        for (i in worble_guess_parsed) {
-
-            var worble_guess_letter = worble_guess[i];
-            var worble_parsed_letter = worble_guess_parsed[i];
-            
-            debubgall(`[WORBLE ANIM]: animating letter "${worble_guess_letter}"`);
-
-            if (worble_parsed_letter == "G") {              // parse the single colour values into full or smth idk
-                finalAppend = `${finalAppend}<span class="worble worble-green">${worble_guess_letter}</span>`;
-            } else if (worble_parsed_letter == "Y") {
-                finalAppend = `${finalAppend}<span class="worble worble-yellow">${worble_guess_letter}</span>`;
-            } else if (worble_parsed_letter == "A") {
-                finalAppend = `${finalAppend}<span class="worble worble-gray">${worble_guess_letter}</span>`;
-            } else if (worble_parsed_letter == "S") {
+    for (i in worble_parsed) {
+        for (e in worble_parsed[i]) {
+            var letter = worble_parsed[i][e]["letter"];
+            var status = worble_parsed[i][e]["status"];
+            if (status == 0) { // blank
                 finalAppend = `${finalAppend}<span class="worble worble-gray"> </span>`;
+            } else if (status == 1) { // gray
+                finalAppend = `${finalAppend}<span class="worble worble-gray">${letter}</span>`;
+            } else if (status == 2) { // yellow
+                finalAppend = `${finalAppend}<span class="worble worble-yellow">${letter}</span>`;
+            } else if (status == 3) { // green
+                finalAppend = `${finalAppend}<span class="worble worble-green">${letter}</span>`;
             }
-
         }
         finalAppend = `${finalAppend}<br><br>`;
-        
     }
-    debubgall(`[WORble ANIM]: ${finalAppend}`);
     appendInline(finalAppend);
-    
 }
+
 
 function saveWorbleStats(restarted) {
     db(`[WORBLE STATS]: stats are being saved...`, "wb_green");
@@ -3001,6 +3042,7 @@ function newWorble(restart, custom_word) {  // sets up worble
     db(`[WORBLE SETUP]: setup has been RUN`, "wb_green");
     worble_guesscount = 0;              // resets guess count (quite important)
     worble_save = new Array();          // resets worble save
+    worble_displaysave = new Array();   // resets display save
     saveWorble();                       // save changes
     worbleStatus(true);                 // make it so that worble knows its not finished because the game literally just started
     worbleColourUpdate();               // updates colours just to make sure they're all good (doesnt hurt to check)
@@ -3687,251 +3729,230 @@ press enter, and swap back to the page within 2 seconds so it'll actually copy i
 
 */
 
-var test_lyr = `1.549335	3.353705	\\nhere it is again,
-3.564108	5.413109	 a heart of excitement
-5.416297	6.337609	\\nin the form of
-6.404556	8.747686	 a girl who hates her life
-8.923022	10.877224	\\nas she sits alone
-10.877224	11.910114	 on the floor
-11.945182	13.159784	 of her bedroom
-13.159784	15.062979	\\nwaiting for answers,
-15.062979	16.350904	 wasting time
-28.793403	29.577634	\\n\\n
-30.603110	32.350096	here it is again,
-32.590230	34.589064	 the son of a soldier,
-34.589064	36.336050	\\nremington shotgun,
-36.380681	37.627163	 rolled up sleeves
-37.710049	39.482539	\\nto keep satan out
-39.482539	40.642947	 of the walls
-40.642947	41.522816	 of the suburbs
-41.522816	42.935070	\\nhis last bastion of
-42.989265	43.489770	 mo
-43.489770	43.936081	der
-43.936081	44.372827	ni
-44.372827	44.595983	ty
-44.595983	44.627862	\\n\\n
-44.627862	45.684505	but satan waits
-45.702821	46.592254	 upstairs,
-46.812221	47.714406	 watching over
-47.714406	48.600651	 his daughter
-48.616591	50.140422	\\nshe writes emo songs,
-50.140422	51.705697	 she's so depressed
-51.705697	53.720470	\\nher lyrics are naive
-53.720470	54.756548	 but she still
-54.756548	55.779874	 sings her heart out
-55.795188	56.534788	\\nthe only way
-56.560292	57.692008	 she knows how
-57.704759	58.154258	 to
-58.154258	58.575065	 con
-58.575065	58.903422	fess
-58.928925	58.999060	\\n\\n
-59.046879	60.169031	and as she gets up
-60.169031	61.641856	 to shut the bedroom door
-61.660983	62.888337	 behind her
-62.888337	64.542874	\\nhe stands right beside her,
-64.548943	64.874419	 she's
-64.874419	65.335479	 trying to get
-65.494876	66.961325	 her head on straight
-66.961325	67.771060	\\nwith box dye hair
-67.771060	68.711500	 to match her black
-68.795575	69.688196	 thigh highs
-69.736015	70.593569	\\nand scratched
-70.606321	71.651963	 nail polish,
-71.648775	72.343744	 she performs
-72.573275	73.873951	 feminity
-73.921770	74.881338	\\nshe laughs so hard
-74.881338	75.837717	 i watch her lose
-75.837717	77.023628	 her balance,
-77.023628	78.212727	 fall over
-78.212727	78.818434	 backwards
-78.818434	79.660048	\\nto the arms of
-79.688739	81.206195	 mephistopheles
-81.250826	82.634389	\\nbut she'll never leave her
-82.634389	83.386741	 bedroom
-83.488755	84.406879	 in this
-84.406879	85.650172	 bedroom
-85.694804	88.162263	 community
-91.018650	91.267309	\\n
-91.493652	91.793318	\\n
-91.936775	92.096171	\\n
-115.029825	115.361370	he
-115.447445	115.763050	 said
-115.791741	116.709866	 you'll never be
-116.780000	117.242250	 o
-117.258190	117.596111	k
-117.596111	117.675809	, 
-117.675809	117.937220	 k,
-117.937220	119.037056	 if you don't come to your
-119.037056	119.480179	 sen
-119.480179	119.716086	ses
-119.716086	120.207027	\\nwith you
-120.360048	121.303676	 everythings
-121.303676	121.699309	 the
-121.699309	122.199814	 end
-122.199814	122.528171	 of the
-122.528171	122.894784	 world
-122.945790	123.012737	\\n
-123.038240	123.494115	melan
-123.494115	123.940425	cho
-123.940425	124.673650	lia
-124.797979	125.700164	 can spread
-125.913755	126.793625	 like a virus
-126.825504	127.893461	\\ni'm sure you got it
-127.909401	128.805210	 from that
-128.817961	129.206889	 stu
-129.270648	129.630884	pid
-129.691455	129.943301	 girl
-129.954278	129.974999	\\n\\n
-129.987933	130.890117	you'll never be
-131.004883	131.400186	 o
-131.400186	131.929383	k,
-132.149351	132.694487	 if you don't
-132.716802	133.845330	 come to your senses
-133.858082	134.431910	\\nbut i feel
-134.486105	135.876043	 so defenseless,
-135.901547	136.373361	 so
-136.389300	136.822859	 a
-136.845175	137.189471	lone
-137.250042	138.069340	\\ni thought he
-138.069340	139.038472	 was right
-139.038472	139.937469	 when he said
-140.167000	141.018178	 that he loved me
-141.037305	141.525059	\\nhe's still
-141.627073	142.895870	 thinking of me
-143.017011	143.393187	 from
-143.469698	143.865001	 up
-143.912820	144.324063	 there
-144.336815	144.368296	\\n\\n
-144.368296	144.780837	and
-144.812717	146.390743	 as they stopped to look at her
-146.390743	148.179173	 they won't look further,
-148.179173	148.411892	\\nlike it's
-148.411892	149.253506	 not a
-149.253506	150.111060	 murderer, it's
-150.139751	150.276832	 an
-150.276832	151.048312	 inevitable
-151.048312	151.363917	 tra
-151.363917	152.180028	gedy
-152.180028	153.289428	\\nthe bloody hands of
-153.289428	154.127854	 all the heart
-154.127854	155.345645	less fuckers
-155.345645	156.368971	\\nwho emotionally
-156.368971	157.277531	 fucked her to
-157.570821	159.454889	 monetize her suffering
-159.473117	160.419933	\\nflipping through a
-160.419933	161.353997	 spiral notebook
-161.424131	162.128664	 for some
-162.154168	163.464408	\\nsad hopeless
-163.483535	164.280518	 words to
-164.427163	164.962736	 turn into
-164.994615	166.502507	 a liturgy
-166.534386	168.772315	\\nso she'll never leave her bedroom
-168.804194	169.693627	 in this
-169.693627	170.975176	 bedroom
-170.991116	172.052697	 commu
-172.336423	172.919815	ni
-173.311930	173.917637	ty
-205.825631	206.211371	\\n\\n\\n
-206.577983	208.701146	da na na na naaa
-208.828664	209.450310	\\nna na
-209.504505	210.126152	 na na
-210.161219	210.540583	 na
-210.636221	211.267432	\\nna na
-211.350318	211.946461	 na na
-211.962401	212.405523	 na
-212.434215	212.453342	\\n
-212.469282	212.819955	na
-212.832706	213.167439	 na
-213.237574	213.492608	 na
-213.703012	214.439424	\\nna na na
-214.611572	214.869795	 na
-214.984560	215.478690	 NA
-215.507381	215.819799	 na
-215.899497	216.600842	\\nNAA
-216.600842	216.862252	 nana
-216.906884	217.353194	 na
-217.404201	217.665611	 na
-217.767625	218.382896	 na na
-218.430715	219.010919	 na na
-219.045986	219.469981	 na
-219.536928	220.655892	\\nna na na
-248.616199	249.021956	\\n\\n\\n
-249.316243	250.717121	no no no no no no no
-250.717121	251.916360	 no no no\\nno
-251.970461	252.412286	 no
-252.412286	252.818043	 NO
-252.844078	253.162871	 no,
-253.226629	254.122438	 no no
-254.173445	255.050127	 no no
-255.094758	255.569760	\\nnonono
-255.659022	256.242413	 no no
-256.414562	256.730167	 NO
-256.797113	257.055336	 no
-257.240619	258.155556	\\nno no no no no
-258.235254	258.895156	 no no no
-259.022673	260.243651	 no no no
-260.361605	260.629391	\\nno
-260.830231	261.091641	 nooo
-261.228722	261.588959	 NO
-261.652717	261.946007	 no
-262.140471	262.752554	 no no no,
-262.816313	263.339133	\\nno no
-263.453899	263.887458	 NO
-263.944841	264.732260	 no no no no
-264.754575	265.892667	 no no no no no
-266.160453	266.568509	\\nnoo
-266.616328	267.005255	 NO
-267.040323	267.508949	 no
-267.528076	267.897876	 no
-267.952071	268.321871	 no
-268.401570	269.048720	 NO no,
-269.326070	269.730937	\\nnonono
-269.954093	270.406779	 no no
-270.556612	271.273897	 NO no
-271.484300	272.351418	\\nno we'll never
-272.367357	273.537328	 leaver our bedrooms,
-273.696725	274.557467	\\nwe're a
-274.624413	275.937841	 bedroom
-275.979284	276.403279	 com
-276.419219	276.878281	mu
-277.283149	277.637009	ni
-278.185333	278.539194	ty
-290.267596	290.500315	\\n\\n\\n
-290.586389	291.208036	he
-292.457706	293.066601	re
-293.079352	293.372642	 it
-293.388582	294.121806	 is
-294.319458	294.599996	 a
-295.087750	295.817786	gain,
-296.493628	296.802857	 a
-296.825173	297.548833	 heart
-297.548833	298.046151	 of
-298.046151	299.844144	 excitement
-299.844144	299.866460	\\n
-299.891963	300.226696	in the
-300.411596	301.304217	 form of
-301.619822	302.840800	 a girl
-302.958754	303.459259	 who
-303.612280	304.466646	 hates
-304.485773	305.273193	 her
-305.314636	305.888464	 life
-306.051048	306.140310	\\n
-306.200881	307.998875	as she sits
-308.030754	308.470689	 a
-308.754415	309.726734	lone
-309.800056	310.300562	 on the
-310.501401	311.706440	 floor
-311.751071	312.104931	 of her
-312.194193	312.962485	 bed
-312.978425	313.606447	room
-313.896549	315.292863	\\nwaiting
-315.331119	315.605281	 for
-315.627596	316.478774	 an
-316.478774	317.345892	swers,
-317.384147	317.903780	 wa
-319.239523	319.765532	sti
-320.690032	320.852617	ng
-320.874933	324.027797	 time`;
+var test_lyr = `20.799430	22.793732	\\nWell he collapsed with Stevens-Johnson Syndrome 
+22.793732	23.763933	on the E.R. floor
+23.763933	24.566445	\\nPanic Attacked, 
+24.566445	25.333023	anaphylactic, 
+25.333023	26.135535	and ataxic
+27.027880	28.435270	\\nWell the way he spun his butterfly 
+28.435270	29.863622	risked all his six phalanges
+29.887577	32.208274	\\nRoman candles at both ends of his synapses
+32.738291	33.178475	\\nAnd 
+33.178475	33.822281	the method with which 
+33.822281	35.088932	he recycled his humours
+35.088932	36.664011	\\nTrojan Horse'd his blood-brain barrier 
+36.664011	38.095357	and raised the LD-50, 
+38.119313	38.403785	yes, 
+38.460679	38.787074	yes
+39.002674	39.966886	\\nAnd through flight-or-fight 
+39.966886	40.438512	revelation 
+40.438512	41.850394	shame, the BlackBoxWarrior
+41.850394	44.087246	\\nHe skipped this town and headed straight down history
+44.128419	44.228733	\\n\\n
+45.146531	46.325595	Shields himself from reason 
+46.325595	47.042765	in a Kevlar 
+47.042765	48.135738	baby-blue Tuxedo
+48.135738	49.564090	\\nQuilted from the finest fibers, 
+49.564090	51.004419	flesh, and fiberglass, and flowers
+51.007413	52.142309	\\nHis ego a mosquito, 
+52.417798	53.163415	evil incarnate/
+53.163415	54.025816	good incognito
+54.025816	54.840306	\\nPops placebos 
+54.840306	55.397273	for libido, 
+55.397273	55.963223	screaming 
+55.963223	56.900485	\"bless the torpedoes\  "
+56.910217	56.961123	\\n\\n
+56.972352	57.454458	For what? 
+57.628136	58.071314	For what? 
+58.358781	59.568538	For what it's worth
+59.829055	61.284356	\\nIf it was gonna kill you, boy, 
+61.284356	62.446201	it would have by now
+62.860932	63.299619	\\nFor what? 
+63.575108	64.117103	For what? 
+64.314736	65.464604	For what it's worth
+65.563421	66.952844	\\nThere's no more looking back, 
+66.952844	68.438090	it's looking up or looking down
+80.128412	80.266156	\\n\\n
+80.396415	81.284269	Well, he was wearing 
+81.284269	82.116725	stolen rubber shoes 
+82.116725	83.862488	and wrapped a poison ivy noose
+83.901415	85.737011	\\nAround his Lotus jugular when they came
+86.614384	87.695380	\\nWell they found him with a map 
+87.830130	88.794342	to every victim 
+88.794342	89.504026	of his love
+89.504026	90.231677	\\nAnd a tattoo 
+90.231677	92.208012	of a blue jay on his face
+92.597290	94.588597	\\nAnd he waited for his vital signs to lie 
+94.588597	95.705526	and let a flatline cry
+95.705526	97.546362	\\nA hymn out in Hungarian Harmonic
+98.283745	98.452931	\\n\\n
+98.558486	99.571357	But he cocked his noggin, 
+99.571357	100.514608	through his stoma, sang 
+100.514608	101.472831	\"For auld Lang Syne
+101.472831	103.098816	\\nHappy birthday to the succulents, 
+103.098816	104.374451	I'll die your hydroponics\"
+104.464284	104.688868	\\n\\n
+104.697851	106.135186	His rib cage was a hornet's nest, 
+106.314852	107.024536	palpatations 
+107.024536	107.656365	set the beat
+107.656365	108.345088	\\nHis vagus nerve 
+108.345088	108.701427	a Turk's 
+108.701427	109.027822	head knot, 
+109.027822	109.737506	an axle hitch, 
+109.737506	110.572956	a Carrack bend
+110.698723	112.037241	\\nHe wondered if Christ-Consciousness 
+112.037241	113.510509	would charge a cancellation fee
+113.510509	114.292060	\\nAuf wiedersehen, 
+114.477715	115.004738	au revoir, 
+115.025699	116.504956	he gripped his wits right by their ends
+116.504956	116.551370	\\n\\n
+116.551370	117.030482	For what? 
+117.269289	117.841228	For what? 
+118.008169	119.232898	For what it's worth
+119.496409	120.900805	\\nIf it was gonna kill you, boy, 
+120.900805	122.191411	it would have by now
+122.484867	122.946012	\\nFor what? 
+123.260429	123.703607	For what? 
+123.919207	125.239759	For what it's worth
+125.239759	126.653138	\\nThere's no more looking back, 
+126.653138	128.129400	it's looking up or looking down
+165.790562	166.239729	\\n\\n
+166.557141	166.988341	Hello, 
+167.009302	167.431519	welcome. 
+167.647119	168.446637	Why don't you take a seat? 
+168.491554	169.069482	Get comfortable, 
+169.069482	169.512660	relax, 
+169.620460	170.590661	take a\\nsecond if you need to. 
+171.869290	172.587957	Now what's bothering you? 
+173.546180	174.720004	Well, why don't we start\\nat the beginning?
+175.085326	175.300926	\\n\\n
+175.393754	175.980666	Growing up, 
+175.980666	176.753233	how was your relationship 
+176.753233	177.361106	with the fundamentals 
+177.361106	178.334301	of conscious\\nexistence? 
+178.582841	179.277552	DId you have xenon 
+179.277552	179.750675	orchid sinews 
+179.750675	180.355553	spilling down 
+180.355553	180.960432	the outer center\\n
+180.960432	181.463499	of your blooming 
+181.463499	181.710541	Escher/
+181.712038	182.304938	Mandelbrot head? 
+182.858911	183.110445	And 
+183.110445	183.859056	how about claustrophillic\\n
+183.859056	184.769368	tendrils clapping caskets 
+184.769368	185.143674	closed on 
+185.143674	185.817425	seven-knuckled thumbs, 
+185.817425	186.473209	did you get along well 
+186.473209	187.236793	with the Gideon Bugler 
+187.236793	187.775793	pineal glands, 
+187.775793	188.431577	your projector eyes 
+188.431577	189.240078	casting\\nsci-fi's 
+189.240078	190.377968	on your STR'd strands? 
+190.907985	191.587725	Tell me about your nerve 
+191.587725	192.261475	to steal nerves 
+192.261475	193.620954	of\\nsteel from under Bacchus' bloody nose. 
+193.638921	195.196033	Did Nimbian Himbas tie-die you, \\n
+195.196033	196.902868	Your ears pierced with a Phineas Gage flagpole, 
+196.905863	197.947930	did you die before your day?\\n
+198.421053	199.118759	Thursday traction, 
+199.118759	200.005116	tuesday titration. 
+200.005116	200.565077	My hope is to 
+200.565077	201.020233	assess 
+201.020233	201.544261	through my\\n
+201.544261	202.481523	objective report of your 
+202.481523	203.397824	subjective conjecture 
+203.397824	204.451870	whether this proprietary blend\\n
+204.451870	205.544843	of expertise and seasoning 
+205.544843	206.359332	works as well as this 
+206.359332	206.925283	transorbital 
+206.925283	207.512195	ice pick\\n
+207.859551	208.727940	Holistic Ballistics, 
+208.727940	209.608308	got a better idea? 
+209.608308	211.021687	It's about the best we could come\\nup with, 
+211.021687	211.860132	you think ideas spread 
+211.860132	212.488966	because they're good?
+212.674622	212.911183	No, 
+212.911183	213.761606	they\\nspread because people 
+213.761606	214.264673	like them. 
+214.381456	215.471435	So here we are once again. 
+215.663080	216.220047	Holding, 
+216.309880	216.642264	as 
+216.642264	217.073464	it\\nwere,
+217.232170	217.735237	a mirror 
+217.875976	218.124515	up 
+218.124515	218.522777	to your 
+218.816233	219.193533	mirror
+219.501961	219.822367	\\n
+219.936156	220.502106	i guess it's just 
+220.502106	221.298629	something people do
+221.604063	221.801697	\\n\\n
+221.975374	223.888826	A bloody knife to split your infrastructure, 
+223.996626	225.442944	wine to rev your motor function
+225.532778	227.200685	\\nCoital machinations of the dead
+228.260719	229.757943	\\nWell you mainline your animus, 
+229.757943	230.440677	karate chop 
+230.440677	230.740121	your 
+230.740121	233.432129	abacus\\nAnd learn to be an animal instead
+234.108874	235.752826	But I never did think you better than this, 
+235.752826	237.016483	your modus operandi
+237.016483	237.824983	\\nCauses Nazi/
+237.824983	239.202429	Skoptzyism and suicide
+240.028897	243.059277	\\nWhy to thine own self be true when it is you who are the problem
+243.059277	245.376979	\\nNot the things you do but something sick inside
+246.341191	247.011947	\\nLithium 
+247.011947	247.902795	and Dialectics, 
+247.902795	249.323661	boy you really is defective
+249.323661	250.862806	\\nCBT don't seem effective 
+250.862806	252.318108	for that Cluster B, accept it
+252.318108	253.683576	\\nOffer up your innocence, 
+253.857254	255.108932	please ignore the side effects
+255.108932	255.923422	\\nYou've lost your mind 
+255.923422	256.420500	and almost 
+256.420500	257.354768	lost your life before, 
+257.354768	258.112363	so you'll be fine
+258.112363	258.139313	\\n\\n
+258.139313	258.573508	For what? 
+258.483674	258.920864	\\n(For what?)
+258.866964	259.313136	\\nFor what? 
+259.232286	259.711398	\\n(For what?)
+259.582637	260.867254	\\nFor what it's worth
+261.145738	262.595050	If it was gonna kill you, boy, 
+262.595050	263.774863	it would have by now
+264.074307	264.556413	\\nFor what?
+264.475563	264.942697	\\n(For what?)
+264.801958	265.278075	\\nFor what?
+265.203214	265.652381	\\n(For what?)
+265.556559	266.760326	\\nFor what it's worth
+266.760326	267.619733	\\nThere's no more 
+267.619733	268.053928	looking back
+268.221617	268.931301	\\nAnd why would you 
+268.931301	269.584090	want to look back?
+269.748785	270.084163	\\nI mean,
+270.156030	270.497396	it's no 
+270.497396	271.072330	good looking back
+271.072330	271.527486	\\nSo try 
+271.527486	271.841903	to look 
+271.841903	272.386893	forward 
+272.386893	272.815099	now
+273.042677	273.518794	\\nFor what?
+273.387038	273.905077	\\n(For what?)
+273.791288	274.243450	\\nFor what?
+274.087739	274.599789	\\n(For what?)
+274.494983	274.977089	\\nFor what 
+275.075906	275.366368	it's 
+275.468179	275.830507	worth
+276.016163	277.471464	\\nIf they were gonna get you, boy, 
+277.471464	278.220076	they would have 
+278.220076	278.793512	by now
+278.983660	279.402882	\\nFor what?
+279.371441	279.874508	\\n(For what?)
+279.651421	280.121550	\\nFor what?
+280.102086	280.540772	\\n(For what?)
+280.507833	281.624762	For what it's worth
+281.699623	283.011191	\\nThere's no more looking back,
+283.098030	283.672964	it's looking up 
+283.861614	284.352704	or looking
+284.415587	285.526527	down`;
 
 function compileLyrics() {
     setTimeout(() => {
@@ -4443,20 +4464,25 @@ function checkNotificationPromise() {
 }
 
 function send_notif(in_json) {
-    if (in_json) {
-        if (!in_json.title) {
-            in_json.title = "CONSOLE";
+    try {
+        if (in_json) {
+            if (!in_json.title) {
+                in_json.title = "CONSOLE";
+            }
+            if (!in_json.text) {
+                in_json.text = "this is a notification!!!";
+            }
+            if (!in_json.icon) {
+                in_json.icon = "icon.png";
+            }
+            var notification = new Notification(in_json.title, { body: in_json.text, icon: in_json.icon });
+        } else {
+            erry("you didnt input any notification json you idiot!!");
         }
-        if (!in_json.text) {
-            in_json.text = "this is a notification!!!";
-        }
-        if (!in_json.icon) {
-            in_json.icon = "icon.png";
-        }
-        var notification = new Notification(in_json.title, { body: in_json.text, icon: in_json.icon });
-    } else {
-        erry("you didnt input any notification json you idiot!!");
+    } catch (err) {
+        console.err("no")
     }
+    
 }
 
 function moyai() {
@@ -4943,7 +4969,38 @@ function test_get_line() {
     db(change);
 }
 
+function make_list_thingymabob(jsonobj) {
+    jsonobj = JSON.parse(JSON.stringify(jsonobj));
+    // var longest_key = 0;
+    // var final_out = "";
+    // var first = true;
+    // for (i in jsonobj) {
+    //     if (i.length > longest_key) {
+    //         longest_key = i.length;
+    //     }
+    // }
 
+    // for (i in jsonobj) {
+    //     if (first == true) {
+    //         first = false;
+    //     } else {
+    //         final_out += "\n";
+    //     }
+    //     final_out += `${stringWidth(i, longest_key, false, ".")} | ${jsonobj[i]}`;
+    // }
+
+    for (i in jsonobj) {
+        try {
+            jsonobj[i] = JSON.parse(jsonobj[i].replaceAll('\\"', '"'))
+        } catch (err) {
+
+        }
+    }
+
+    final_out = JSON.stringify(jsonobj, null, 2);
+
+    return(final_out)
+}
 
 
 
@@ -5244,7 +5301,21 @@ Press any key to continue.`;
 
 }
 
+async function gptPage() {
+    displayNewline();
+    await displayAnim(asciiText("slant", `gpt`), 2);
+    displayNewline();
+    await displayAnim(gpt_info_1, 2);
+    displayNewline();
+}
 
+async function welcomePage() {
+    displayNewline();
+    await displayAnim(asciiText("slant", "console!"), 2);
+    displayNewline();
+    await displayAnim(welcome_page, 2);
+    displayNewline();
+}
 
 
 db("async command functions init finished...", "init");
@@ -5286,6 +5357,8 @@ if (sfx == true) {
 }
 
 setTimeout(sizeCheck(), 200);
+
+window.scrollTo(0, 0);  // askew breaks scrolling for some reason
 
 /*
  EXAMPLE INLINE FNCTIONS WHERE THEY ONLY rUN ONE THING AT A TIME INSTEAD OF EVERYTHING RUNNING AT HE SAME TIME
@@ -5624,16 +5697,22 @@ music.addEventListener('error', (event) => {
 
     var message = ""
 
-    if (event.path[0].error.message) {
-        message = `${event.path[0].error.message}`;
-    } else if (event.error) {
-        message = `${event.error}`;
-    } else {
-        message = "[no error message found]";
-    }
+    
+    // console.log("WAHHHHHHHHHHHHHHHHHHh")
+    // console.log(music)
+    // console.log(event)
+    // console.log(event.path)
+
+    // if (event.path[0].error.message) {
+    //     message = `${event.path[0].error.message}`;
+    // } else if (event.error) {
+    //     message = `${event.error}`;
+    // } else {
+    //     message = "[no error message found]";
+    // }
     
     
-    bluescreen_page({"msg": message});
+    bluescreen_page({"msg": "something with the audio is broken"});
 })
 
 
