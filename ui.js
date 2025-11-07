@@ -5422,6 +5422,29 @@ var githubText = [
 "'%MMMMMMM%' MM   MM   MM      MM 'MMMMM' 'MMMMM'",
 ]
 
+var johnnyBravo = [" ",
+" `$   `$      $           `$m",
+"  $m   #$     %$           #%m",
+"   $    $      $          /^ ^#",
+"   ^$   ^$     *m       ;%^  ;$",
+"    Y;   $m     $;     $^   j%",
+"     $:  ;%mn    ^         xXM?x",
+"   <$^%^NY^~~^             %$vG",
+"    $v%n^vmmmmn:  ;NM%$$$$$$$$",
+"     ^N#%$$$$$$$%%$$$$$$$$$$$Mv",
+"     MNH$$$$$$$D O^V$$$$#^%$$^",
+"     V;$^V%$$Y^  Y  \"\"\"\"\"\"  UM3",
+"      ^J         Kv        K3",
+"      z$l        \"         J\"",
+"      [%i   jl            ;P",
+"     /%$l   K b;          KB",
+"    <T ^L   ^I\"\"         Y\"",
+"   <P   Te                jP",
+"  cP    $bmcvxxxxxxxxxxxmjK",
+"m$Y     \"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"",
+" ",
+]
+
 //   .M.                                                                                                                    
 //  .M'M.                                                                                                                   
 //  M' 'M                                                                                       MM                          
@@ -6790,6 +6813,9 @@ function updateMan() {
             " ",
             "EXAMPLE:",
             "'gpt what is the meaning of life?'"
+        ],
+        "早上好中国 现在我有冰淇淋 我很喜欢冰淇淋 但是 速度与激情9 比冰淇淋 速度与激情 速度与激情9 我最喜欢 所以…现在是音乐时间 准备 1 2 3 两个礼拜以后 速度与激情9 ×3 不要忘记 不要错过 记得去电影院看速度与激情9 因为非常好电影 动作非常好 差不多一样冰淇淋 再见":[
+            "bing chilling",
         ]
     }
 }
@@ -6957,6 +6983,7 @@ var listy = [ " ",
     "loss",
     "askew",
     "gpt",
+    "早上好中国 现在我有冰淇淋 我很喜欢冰淇淋 但是 速度与激情9 比冰淇淋 速度与激情 速度与激情9 我最喜欢 所以…现在是音乐时间 准备 1 2 3 两个礼拜以后 速度与激情9 ×3 不要忘记 不要错过 记得去电影院看速度与激情9 因为非常好电影 动作非常好 差不多一样冰淇淋 再见",
 
     "* command is currently in-development and may break the site."
 ]; 
@@ -12329,6 +12356,8 @@ var gpt_info_1 = [
 
 
 ]
+
+var whoamama = false;
 
 /*
 i wanna make a fancy nerd page thing
